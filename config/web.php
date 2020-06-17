@@ -72,7 +72,9 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                'main'=>'app/passport'
+                'main'=>'app/passport',
+                'api/user/current'=>'api/user/get-current',
+                'api/organization/by-id/<id:\d+>'=>'api/organizations/get-org'
             ],
         ],
 
