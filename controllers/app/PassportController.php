@@ -9,4 +9,7 @@ class PassportController extends Controller
     public function actionIndex(){
         return $this->render('index');
     }
+    public function actionOrgInfo(){
+        return $this->render('orgInfo');
+    }
 }

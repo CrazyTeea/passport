@@ -7,6 +7,10 @@ const routes = [
     {
         path:'/main',
         component: require('./components/pages/passport/userIndex.vue').default
+    },
+    {
+        path:'/org-info',
+        component: require('./components/pages/passport/orgInfo.vue').default
     }
 
 ];

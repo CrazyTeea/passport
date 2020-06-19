@@ -22,6 +22,8 @@ use Yii;
  */
 class Organizations extends \yii\db\ActiveRecord
 {
+    public $reg;
+    public $foun;
     /**
      * {@inheritdoc}
      */

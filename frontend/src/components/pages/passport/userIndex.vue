@@ -16,9 +16,11 @@
         <div class="page" v-else>
             <div class="row">
                 <div class="col-8"><h4>{{organization.name}}</h4></div>
+                <div class="col-4"><b-button block variant="outline-secondary">Перейти к заполнению</b-button></div>
             </div>
             <div style="margin-top: 10px;" class="row">
-                <div class="col-8"><h5>Регион: {{organization.region}}</h5></div>
+                <div class="col-8"><h5>Регион: {{organization.region.region}}</h5></div>
+                <div class="col-4"><b-button block variant="outline-secondary">Инструкция</b-button></div>
             </div>
             <div style="margin-top: 10px;" class="row">
                 <div class="col-3">
@@ -43,7 +45,7 @@
                 </b-card-header>
                 <b-collapse id="news" visible accordion="news"  role="tabpanel">
                     <b-card-body>
-                        <b-card-text>I start opened because <code>visible</code> is <code>true</code></b-card-text>
+                        <b-card-text>Здесь будут новости</b-card-text>
                     </b-card-body>
                 </b-collapse>
             </b-card>
@@ -55,24 +57,29 @@
                 <b-collapse id="contact_info" visible accordion="contact_info"  role="tabpanel">
                     <b-card-body >
                         <div class="row">
-                            <div class="col-6" v-for="(user_info,index) in users_info" :key="index">
-                                <b-card >
-                                    <label :for="`user_info_${index}_name`">Фамилия Имя Отчество</label>
-                                    <b-form-input :id="`user_info_${index}_name`" v-model="user_info.name"/>
-                                    <label :for="`user_info_${index}_position`">Должность</label>
-                                    <b-form-input :id="`user_info_${index}_position`" v-model="user_info.position"/>
-                                    <label :for="`user_info_${index}_phone`">Мобильный телефон</label>
-                                    <b-form-input :id="`user_info_${index}_phone`" v-model="user_info.phone"/>
-                                    <label :for="`user_info_${index}_email`">email</label>
-                                    <b-form-input :id="`user_info_${index}_email`" v-model="user_info.email"/>
-                                </b-card>
-                            </div>
-                            <div class="col-6">
+                            <transition-group class="list-item" tag="div" name="fade">
+
+                                <div class="card-center" v-for="(user_info,index) in users_info" :key="`lol`+index">
+                                    <b-card no-body>
+                                        <b-card-body class="contact">
+                                            <label :for="`user_info_${index}_name`">Фамилия Имя Отчество</label>
+                                            <b-form-input :id="`user_info_${index}_name`" v-model="user_info.name"/>
+                                            <label :for="`user_info_${index}_position`">Должность</label>
+                                            <b-form-input :id="`user_info_${index}_position`" v-model="user_info.position"/>
+                                            <label :for="`user_info_${index}_phone`">Мобильный телефон</label>
+                                            <b-form-input :id="`user_info_${index}_phone`" v-model="user_info.phone"/>
+                                            <label :for="`user_info_${index}_email`">email</label>
+                                            <b-form-input :id="`user_info_${index}_email`" v-model="user_info.email"/>
+                                        </b-card-body>
+                                    </b-card>
+                                </div>
+                            </transition-group>
+                            <div class="col-6" style="margin-left: -10px; min-width: 51% !important;">
                                 <b-card  class="contact-card">
-                                    <b-card-body class="center">
+                                    <b-card-body class="center" @click="addUserInfo">
                                         <span>Добавить</span><br>
                                         <img
-                                                @click="addUserInfo"
+
                                                 src="http://peterhanne.de/site/assets/files/4699/plus_schwarz.png"
                                                 style="width: 25%" alt="Добавить">
                                         <br>
@@ -119,7 +126,11 @@
         data() {
             return {
                 user: {},
-                organization:{},
+                organization:{
+                    region:{
+                        region:''
+                    }
+                },
                 users_info:[{
                     name:'',
                     position:'',
@@ -161,13 +172,21 @@
 </script>
 
 <style scoped>
+    .card-center{
+        min-width: 49%;
+        margin-left: 5px;
+        margin-bottom: 5px;
+    }
     .page{
         margin-top: 15px;
-        margin-right: 15%;
-        margin-left: 17%;
+        margin-right: 25%;
+        margin-left: 27%;
     }
     .contact-card{
         min-height: 100%;
+    }
+    .contact{
+        min-width: 45% !important;
     }
     .contact-card:hover{
         background: rgba(0, 0, 0, 0.03);
@@ -176,6 +195,17 @@
     .center{
         margin-top: 10%;
         margin-left: 38%;
+    }
+    .list-item{
+        min-width: 50%;
+        display: contents;
+        flex-basis: 100%;
+    }
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity ease .5s;
+    }
+    .fade-enter, .fade-leave-to /* .fade-leave-active до версии 2.1.8 */ {
+        opacity: 0;
     }
 
 </style>

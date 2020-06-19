@@ -5,12 +5,13 @@ namespace app\controllers\api;
 
 
 use app\models\Organizations;
+use yii\helpers\ArrayHelper;
 use yii\rest\Controller;
 
 class OrganizationsController extends Controller
 {
     public function actionGetOrg($id){
-        $org = Organizations::find()->where(['organizations.id'=>$id])->joinWith(['region'])->asArray()->one();
-        return array_merge($org,['region'=>$org['region']['region']]);
+        return Organizations::find()->where(['organizations.id'=>$id])->with(['region','founder'])->asArray()->one();
     }
+
 }
