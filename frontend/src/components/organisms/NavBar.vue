@@ -1,7 +1,7 @@
 <template>
     <div class="custom-navbar">
         <div class="row">
-            <div class="col-1 offset-2">
+            <div class="col-1 offset-3">
 
                 <b-dropdown variant="transparent" toggle-class="dropdown-menu drop text-decoration-none" no-caret>
                     <template v-slot:button-content>
@@ -11,7 +11,7 @@
                     <b-dropdown-text>
                         Данные об организации
                     </b-dropdown-text>
-                    <b-dropdown-item>Сведения об организации</b-dropdown-item>
+                    <b-dropdown-item href="/org-info">Сведения об организации</b-dropdown-item>
                     <b-dropdown-item>Сведения о колличесве мест и площади</b-dropdown-item>
                     <b-dropdown-item>Сведения о проживающих</b-dropdown-item>
                     <b-dropdown-item>Сведения о проживающих лицах <br> с ограниченными возможностями</b-dropdown-item>

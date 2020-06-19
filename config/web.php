@@ -73,6 +73,7 @@ $config = [
             'showScriptName' => false,
             'rules' => [
                 'main'=>'app/passport',
+                'org-info'=>'app/passport/org-info',
                 'api/user/current'=>'api/user/get-current',
                 'api/organization/by-id/<id:\d+>'=>'api/organizations/get-org'
             ],

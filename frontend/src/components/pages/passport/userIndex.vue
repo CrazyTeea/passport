@@ -16,9 +16,11 @@
         <div class="page" v-else>
             <div class="row">
                 <div class="col-8"><h4>{{organization.name}}</h4></div>
+                <div class="col-4"><b-button block variant="outline-secondary">Перейти к заполнению</b-button></div>
             </div>
             <div style="margin-top: 10px;" class="row">
-                <div class="col-8"><h5>Регион: {{organization.region}}</h5></div>
+                <div class="col-8"><h5>Регион: {{organization.region.region}}</h5></div>
+                <div class="col-4"><b-button block variant="outline-secondary">Инструкция</b-button></div>
             </div>
             <div style="margin-top: 10px;" class="row">
                 <div class="col-3">
@@ -72,7 +74,7 @@
                                     </b-card>
                                 </div>
                             </transition-group>
-                            <div class="col-6" style="margin-left: -10px; min-width: 51.49% !important;">
+                            <div class="col-6" style="margin-left: -10px; min-width: 51% !important;">
                                 <b-card  class="contact-card">
                                     <b-card-body class="center" @click="addUserInfo">
                                         <span>Добавить</span><br>
@@ -124,7 +126,11 @@
         data() {
             return {
                 user: {},
-                organization:{},
+                organization:{
+                    region:{
+                        region:''
+                    }
+                },
                 users_info:[{
                     name:'',
                     position:'',
@@ -173,8 +179,8 @@
     }
     .page{
         margin-top: 15px;
-        margin-right: 15%;
-        margin-left: 17%;
+        margin-right: 25%;
+        margin-left: 27%;
     }
     .contact-card{
         min-height: 100%;
