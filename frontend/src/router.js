@@ -15,6 +15,10 @@ const routes = [
     {
         path:'/area-info',
         component: require('./components/pages/passport/areaInfo.vue').default
+    },
+    {
+        path:'/living-info',
+        component: require('./components/pages/passport/livingInfo.vue').default
     }
 
 ];

@@ -24,7 +24,9 @@ class AppAsset extends AssetBundle
         'vue/app.css'
     ];
     public $js = [
-        'vue/app.js'
+        'vue/app.js',
+        'vue/vendor.js',
+        'vue/manifest.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',

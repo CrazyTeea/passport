@@ -22,7 +22,7 @@ mix.webpackConfig({
         publicPath: '/vue/',
     }
 });
-
+mix.extract();
 
 // Full API
 // mix.js(src, output);

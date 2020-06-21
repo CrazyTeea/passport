@@ -13,7 +13,7 @@
                     </b-dropdown-text>
                     <b-dropdown-item href="/org-info">Сведения об организации</b-dropdown-item>
                     <b-dropdown-item href="/area-info">Сведения о колличесве мест и площади</b-dropdown-item>
-                    <b-dropdown-item>Сведения о проживающих</b-dropdown-item>
+                    <b-dropdown-item href="/living-info">Сведения о проживающих</b-dropdown-item>
                     <b-dropdown-item>Сведения о проживающих лицах <br> с ограниченными возможностями</b-dropdown-item>
                     <b-dropdown-text>
                         Данные о жилом объекте
@@ -34,12 +34,12 @@
             <div class="col-2">
                 <div class="row">
                     <div class="col-6"><span class="font-weight-normal">Режим редактирования</span></div>
-                    <div class="col-1">
+                    <div class="col-2">
                         <b-form-checkbox size="lg" @change="$emit('block-save')" v-model="blockSave" inline switch/>
                     </div>
                     <div class="col-1">
                         <transition name="slide-fade">
-                            <b-button style="margin-left: 10px !important;" @click="$emit('save-page')" v-if="blockSave" size="sm" variant="outline-secondary">Сохранить</b-button>
+                            <b-button  @click="$emit('save-page')" v-if="blockSave" size="sm" variant="outline-secondary">Сохранить</b-button>
                         </transition>
                     </div>
                 </div>

@@ -16,7 +16,7 @@
         <div class="page" v-else>
             <div class="row">
                 <div class="col-8"><h4>{{organization.name}}</h4></div>
-                <div class="col-4"><b-button block variant="outline-secondary">Перейти к заполнению</b-button></div>
+                <div class="col-4"><b-button href="/org-info" block variant="outline-secondary">Перейти к заполнению</b-button></div>
             </div>
             <div style="margin-top: 10px;" class="row">
                 <div class="col-8"><h5>Регион: {{organization.region.region}}</h5></div>
