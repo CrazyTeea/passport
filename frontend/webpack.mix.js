@@ -16,12 +16,13 @@ mix.js('src/app.js', '../web/vue/')
     .setPublicPath('../web/vue')
     .browserSync('http://localhost:8080')
     .sourceMaps(false);
+mix.copy('../web/vue/fonts', '../web/fonts');
 mix.webpackConfig({
     output: {
         publicPath: '/vue/',
     }
 });
-mix.setResourceRoot('../');
+
 
 // Full API
 // mix.js(src, output);
@@ -37,7 +38,7 @@ mix.setResourceRoot('../');
 // mix.browserSync('my-site.test');
 // mix.combine(files, destination);
 // mix.babel(files, destination); <-- Identical to mix.combine(), but also includes Babel compilation.
-// mix.copy(from, to);
+
 // mix.copyDirectory(fromDir, toDir);
 // mix.minify(file);
 // mix.sourceMaps(); // Enable sourcemaps

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <nav-bar></nav-bar>
+        <nav-bar v-on:block-save="blockSave = !blockSave"></nav-bar>
 
         <b-jumbotron v-if="!user.id_org" >
             <template v-slot:header>
@@ -62,20 +62,48 @@
                                 <div class="card-center" v-for="(user_info,index) in users_info" :key="`lol`+index">
                                     <b-card no-body>
                                         <b-card-body class="contact">
-                                            <label :for="`user_info_${index}_name`">Фамилия Имя Отчество</label>
-                                            <b-form-input :id="`user_info_${index}_name`" v-model="user_info.name"/>
-                                            <label :for="`user_info_${index}_position`">Должность</label>
-                                            <b-form-input :id="`user_info_${index}_position`" v-model="user_info.position"/>
-                                            <label :for="`user_info_${index}_phone`">Мобильный телефон</label>
-                                            <b-form-input :id="`user_info_${index}_phone`" v-model="user_info.phone"/>
-                                            <label :for="`user_info_${index}_email`">email</label>
-                                            <b-form-input :id="`user_info_${index}_email`" v-model="user_info.email"/>
+                                            <div v-if="!blockSave">
+                                                <label :for="`user_info_${index}_name`">Фамилия Имя Отчество</label>
+                                                <b-form-input :id="`user_info_${index}_name`" v-model="user_info.name"/>
+                                                <label :for="`user_info_${index}_position`">Должность</label>
+                                                <b-form-input :id="`user_info_${index}_position`" v-model="user_info.position"/>
+                                                <label :for="`user_info_${index}_phone`">Мобильный телефон</label>
+                                                <b-form-input :id="`user_info_${index}_phone`" v-model="user_info.phone"/>
+                                                <label :for="`user_info_${index}_email`">email</label>
+                                                <b-form-input :id="`user_info_${index}_email`" v-model="user_info.email"/>
+                                            </div>
+                                            <div v-else>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        Фамилия Имя Отчество
+                                                        <p>{{user_info.name}}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        Должность
+                                                        <p> {{user_info.position}}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                       Мобильный телефон
+                                                        <p>{{user_info.phone}}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        email
+                                                        <p> {{user_info.email}}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </b-card-body>
                                     </b-card>
                                 </div>
                             </transition-group>
                             <div class="col-6" style="margin-left: -10px; min-width: 51% !important;">
-                                <b-card  class="contact-card">
+                                <b-card v-if="!blockSave" class="contact-card">
                                     <b-card-body class="center" @click="addUserInfo">
                                         <span>Добавить</span><br>
                                         <img
@@ -125,6 +153,7 @@
         },
         data() {
             return {
+                blockSave:true,
                 user: {},
                 organization:{
                     region:{
@@ -180,7 +209,7 @@
     .page{
         margin-top: 15px;
         margin-right: 25%;
-        margin-left: 27%;
+        margin-left: 25%;
     }
     .contact-card{
         min-height: 100%;

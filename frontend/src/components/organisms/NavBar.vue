@@ -12,7 +12,7 @@
                         Данные об организации
                     </b-dropdown-text>
                     <b-dropdown-item href="/org-info">Сведения об организации</b-dropdown-item>
-                    <b-dropdown-item>Сведения о колличесве мест и площади</b-dropdown-item>
+                    <b-dropdown-item href="/area-info">Сведения о колличесве мест и площади</b-dropdown-item>
                     <b-dropdown-item>Сведения о проживающих</b-dropdown-item>
                     <b-dropdown-item>Сведения о проживающих лицах <br> с ограниченными возможностями</b-dropdown-item>
                     <b-dropdown-text>
@@ -29,26 +29,64 @@
 
                 </b-dropdown>
             </div>
-            <div class="col-2"><span class="font-weight-normal">Колличество объектов: 3</span></div>
-            <div class="col-2"><span class="font-weight-normal">Выгрузить в exel</span></div>
-            <div class="col-3"><span class="font-weight-normal">Режим редактирования</span></div>
+            <div class="col-sm-2"><span class="font-weight-normal">Колличество объектов: 3</span></div>
+            <div class="col-sm-1"><span class="font-weight-normal">Выгрузить в exel</span></div>
+            <div class="col-2">
+                <div class="row">
+                    <div class="col-6"><span class="font-weight-normal">Режим редактирования</span></div>
+                    <div class="col-1">
+                        <b-form-checkbox size="lg" @change="$emit('block-save')" v-model="blockSave" inline switch/>
+                    </div>
+                    <div class="col-1">
+                        <transition name="slide-fade">
+                            <b-button style="margin-left: 10px !important;" @click="$emit('save-page')" v-if="blockSave" size="sm" variant="outline-secondary">Сохранить</b-button>
+                        </transition>
+                    </div>
+                </div>
+
+
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-    import {BDropdown,BDropdownItem,BDropdownText} from 'bootstrap-vue';
+    import {BDropdown,BButton,
+        BDropdownItem,BFormCheckbox,
+        BDropdownText} from 'bootstrap-vue';
     export default {
         components:{
-          BDropdown,
+            BFormCheckbox,
+            BDropdown,
             BDropdownItem,
-            BDropdownText
+            BDropdownText,
+            BButton
+        },
+        data(){
+            return {
+                blockSave:false,
+                savePage:false
+            }
         },
         name: "navBar"
     }
 </script>
 
 <style lang="scss">
+
+
+    .slide-fade-enter-active {
+        transition: all .4s ease;
+    }
+    .slide-fade-leave-active {
+        transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    }
+    .slide-fade-enter, .slide-fade-leave-to
+        /* .slide-fade-leave-active до версии 2.1.8 */ {
+        transform: translateX(10px);
+        opacity: 0;
+    }
+
     .custom-navbar{
         background: rgba(0,0,0,.1);
     }

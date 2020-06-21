@@ -1,6 +1,6 @@
 <template>
     <div id="org-info-page">
-        <nav-bar/>
+        <nav-bar v-on:block-save="blockSave = !blockSave"/>
         <div class="page">
             <h3>Сведения об организации</h3>
             <hr>
@@ -51,18 +51,18 @@
             <hr>
 
             <div class="row">
-                <div class="col-6">
+                <div class="col-10">
                     <label class="font-weight-bold" for="students_count-input">Численность обучающихся</label>
                 </div>
-                <div class="col-6">
+                <div class="col-2">
                     <b-form-input disabled id="students_count-input" v-model="organization.students_count"/>
                 </div>
             </div>
             <div style="margin-top: 5px" class="row">
-                <div class="col-6">
-                    <label style="margin-left: 20px" class="font-weight-bold" for="students_count_rus-input">Численность обучающихся граждан России</label>
+                <div class="col-10">
+                    <label style="margin-left: 20px" class="font-weight-bold" for="students_count_rus-input">1. Численность обучающихся граждан России</label>
                 </div>
-                <div class="col-6">
+                <div class="col-2">
                     <b-form-input disabled id="students_count_rus-input" v-model="organization.students_count_rus"/>
                 </div>
             </div>
@@ -80,68 +80,156 @@
                 </b-thead>
                 <b-tbody>
                     <b-tr>
-                        <b-td>Среднее профессиональное образование</b-td>
-                        <b-td><b-form-input/></b-td>
-                        <b-td><b-form-input/></b-td>
-                        <b-td><b-form-input/></b-td>
-                        <b-td><b-form-input/></b-td>
-                        <b-td></b-td>
+                        <b-th>Среднее профессиональное образование</b-th>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input disabled/></b-td>
                     </b-tr>
                     <b-tr>
-                        <b-td>Бакалавриат</b-td>
-                        <b-td><b-form-input/></b-td>
-                        <b-td><b-form-input/></b-td>
-                        <b-td><b-form-input/></b-td>
-                        <b-td><b-form-input/></b-td>
-                        <b-td></b-td>
+                        <b-th>Бакалавриат</b-th>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input disabled/></b-td>
                     </b-tr>
                     <b-tr>
-                        <b-td>Специалитет</b-td>
-                        <b-td><b-form-input/></b-td>
-                        <b-td><b-form-input/></b-td>
-                        <b-td><b-form-input/></b-td>
-                        <b-td><b-form-input/></b-td>
-                        <b-td></b-td>
+                        <b-th>Специалитет</b-th>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input disabled/></b-td>
                     </b-tr>
                     <b-tr>
-                        <b-td>Магистратура</b-td>
-                        <b-td><b-form-input/></b-td>
-                        <b-td><b-form-input/></b-td>
-                        <b-td><b-form-input/></b-td>
-                        <b-td><b-form-input/></b-td>
-                        <b-td></b-td>
+                        <b-th>Магистратура</b-th>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input disabled/></b-td>
                     </b-tr>
                     <b-tr>
-                        <b-td>Аспирантура</b-td>
-                        <b-td><b-form-input/></b-td>
-                        <b-td><b-form-input/></b-td>
-                        <b-td><b-form-input/></b-td>
-                        <b-td><b-form-input/></b-td>
-                        <b-td></b-td>
+                        <b-th>Аспирантура</b-th>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input disabled/></b-td>
                     </b-tr>
                     <b-tr>
-                        <b-td>Ординатура</b-td>
-                        <b-td><b-form-input/></b-td>
-                        <b-td><b-form-input/></b-td>
-                        <b-td><b-form-input/></b-td>
-                        <b-td><b-form-input/></b-td>
-                        <b-td></b-td>
+                        <b-th>Ординатура</b-th>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input disabled/></b-td>
                     </b-tr>
                     <b-tr>
-                        <b-td>По иным образовательным программам</b-td>
-                        <b-td><b-form-input/></b-td>
-                        <b-td><b-form-input/></b-td>
-                        <b-td><b-form-input/></b-td>
-                        <b-td><b-form-input/></b-td>
-                        <b-td></b-td>
+                        <b-th>По иным образовательным программам</b-th>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input disabled/></b-td>
                     </b-tr>
                     <b-tr>
-                        <b-td>Всего</b-td>
-                        <b-td></b-td>
-                        <b-td></b-td>
-                        <b-td></b-td>
-                        <b-td></b-td>
-                        <b-td></b-td>
+                        <b-th>Всего</b-th>
+                        <b-td><b-form-input disabled/></b-td>
+                        <b-td><b-form-input disabled/></b-td>
+                        <b-td><b-form-input disabled/></b-td>
+                        <b-td><b-form-input disabled/></b-td>
+                        <b-td><b-form-input disabled/></b-td>
+                    </b-tr>
+                </b-tbody>
+            </b-table-simple>
+
+            <div style="margin-top: 5px" class="row">
+                <div class="col-10">
+                    <label style="margin-left: 20px" class="font-weight-bold" for="students_count_foreign-input">2. Численность обучающихся иностранцев</label>
+                </div>
+                <div class="col-2">
+                    <b-form-input disabled id="students_count_foreign-input" v-model="organization.students_count_foreign"/>
+                </div>
+            </div>
+
+            <b-table-simple style="margin-top: 15px" small borderless>
+                <b-thead>
+                    <b-tr>
+                        <b-th> <span style="margin-left: 50px">2. Численность обучающихся иностранцев</span></b-th>
+                        <b-th>За счёт средств федерального бюджета</b-th>
+                        <b-th>За счёт средств бюджета субъекта</b-th>
+                        <b-th>За счёт средств местного бюджета</b-th>
+                        <b-th>По договорам об оказании платных образовательных услуг </b-th>
+                        <b-th>Всего</b-th>
+                    </b-tr>
+                </b-thead>
+                <b-tbody>
+                    <b-tr>
+                        <b-th>Среднее профессиональное образование</b-th>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input disabled/></b-td>
+                    </b-tr>
+                    <b-tr>
+                        <b-th>Бакалавриат</b-th>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input disabled/></b-td>
+                    </b-tr>
+                    <b-tr>
+                        <b-th>Специалитет</b-th>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input disabled/></b-td>
+                    </b-tr>
+                    <b-tr>
+                        <b-th>Магистратура</b-th>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input disabled/></b-td>
+                    </b-tr>
+                    <b-tr>
+                        <b-th>Аспирантура</b-th>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input disabled/></b-td>
+                    </b-tr>
+                    <b-tr>
+                        <b-th>Ординатура</b-th>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input disabled/></b-td>
+                    </b-tr>
+                    <b-tr>
+                        <b-th>По иным образовательным программам</b-th>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input disabled/></b-td>
+                    </b-tr>
+                    <b-tr>
+                        <b-th>Всего</b-th>
+                        <b-td><b-form-input disabled/></b-td>
+                        <b-td><b-form-input disabled/></b-td>
+                        <b-td><b-form-input disabled/></b-td>
+                        <b-td><b-form-input disabled/></b-td>
+                        <b-td><b-form-input disabled/></b-td>
                     </b-tr>
                 </b-tbody>
             </b-table-simple>
@@ -162,6 +250,7 @@
     export default {
         data(){
             return {
+                blockSave:true,
                 user:{},
                 students:[],
                 students_foreign:[],
@@ -206,6 +295,6 @@
     .page{
         margin-top: 15px;
         margin-right: 25%;
-        margin-left: 27%;
+        margin-left: 25%;
     }
 </style>

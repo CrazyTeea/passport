@@ -43,6 +43,7 @@ class SiteController extends Controller
     public function actionAdmin(){
         $user = new User();
         $user->username = 'admin@admin.ru';
+        $user->auth_key = Yii::$app->security->generateRandomString();
         $user->setPassword('password');
         if ($user->save()){
             $php = new PhpManager();

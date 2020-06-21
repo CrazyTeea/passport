@@ -12,4 +12,7 @@ class PassportController extends Controller
     public function actionOrgInfo(){
         return $this->render('orgInfo');
     }
+    public function actionAreaInfo(){
+        return $this->render('areaInfo');
+    }
 }
