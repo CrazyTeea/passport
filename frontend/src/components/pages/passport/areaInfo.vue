@@ -26,8 +26,8 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-5 point-1"><label class="font-weight-bold" for="org_area_live">1. Жилая площадь, пригодная для проживания</label></div>
-                <div class="col-6 point-5">
+                <div class="col-6 "><label class="point-1  font-weight-bold" for="org_area_live">1. Жилая площадь, пригодная для проживания</label></div>
+                <div class="col-6">
                     <b-input-group>
                         <template v-slot:append>
                             <b-input-group-text>м<sup>2</sup></b-input-group-text>
@@ -37,8 +37,8 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-5 point-2"><label class="font-weight-bold" for="org_area_students">А. Занятая обучающимися</label></div>
-                <div class="col-6 point-4">
+                <div class="col-6 "><label class="point-2 font-weight-bold" for="org_area_students">А. Занятая обучающимися</label></div>
+                <div class="col-6">
                     <b-input-group>
                         <template v-slot:append>
                             <b-input-group-text>м<sup>2</sup></b-input-group-text>
@@ -48,8 +48,8 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-5 point-2"><label class="font-weight-bold" for="org_area_foreign">Б. Занятая иными категориями нанимателей</label></div>
-                <div class="col-6 point-4">
+                <div class="col-6"><label class=" point-2 font-weight-bold" for="org_area_foreign">Б. Занятая иными категориями нанимателей</label></div>
+                <div class="col-6">
                     <b-input-group>
                         <template v-slot:append>
                             <b-input-group-text>м<sup>2</sup></b-input-group-text>
@@ -59,8 +59,8 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-5 point-2"><label class="font-weight-bold" for="org_area_svod">В. Свободная</label></div>
-                <div class="col-6 point-4">
+                <div class="col-6 "><label class="point-2 font-weight-bold" for="org_area_svod">В. Свободная</label></div>
+                <div class="col-6 ">
                     <b-input-group>
                         <template v-slot:append>
                             <b-input-group-text>м<sup>2</sup></b-input-group-text>
@@ -70,8 +70,8 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-5 point-2"><label class="font-weight-bold" for="org_area_not_used">Г. Неиспользуемая</label></div>
-                <div class="col-6 point-4">
+                <div class="col-6"><label class="point-2 font-weight-bold" for="org_area_not_used">Г. Неиспользуемая</label></div>
+                <div class="col-6 ">
                     <b-input-group>
                         <template v-slot:append>
                             <b-input-group-text>м<sup>2</sup></b-input-group-text>
@@ -81,8 +81,8 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-5 point-1"><label class="font-weight-bold" for="org_area_not_live_prigod">2. Нежилая площадь в пригодных для проживания объектах</label></div>
-                <div class="col-6 point-5">
+                <div class="col-6 "><label class="point-1 font-weight-bold" for="org_area_not_live_prigod">2. Нежилая площадь в пригодных для проживания объектах</label></div>
+                <div class="col-6 ">
                     <b-input-group>
                         <template v-slot:append>
                             <b-input-group-text>м<sup>2</sup></b-input-group-text>
@@ -187,17 +187,17 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-5 point-1"><label class="font-weight-bold" for="org_area_cnt_mest_prig">1. Количество пригодных для проживания мест</label></div>
-                <div class="col-6 point-5">
-                    <b-input-group append="мест">
+                <div class="col-6 "><label class="point-1 font-weight-bold" for="org_area_cnt_mest_prig">1. Количество пригодных для проживания мест</label></div>
+                <div class="col-6 ">
+                    <b-input-group  append="мест">
                         <b-form-input id="org_area_cnt_mest_prig" disabled/>
                     </b-input-group>
                 </div>
             </div>
             <div class="row">
-                <div class="col-5 point-2"><label class="font-weight-bold" for="org_area_cnt_mest_zan">А. Количество мест, занятых обучающимися</label></div>
-                <div class="col-6 point-4">
-                    <b-input-group append="мест">
+                <div class="col-6"><label class="point-2 font-weight-bold" for="org_area_cnt_mest_zan">А. Количество мест, занятых обучающимися</label></div>
+                <div class="col-6 ">
+                    <b-input-group  append="мест">
                         <b-form-input id="org_area_cnt_mest_zan" disabled/>
                     </b-input-group>
                 </div>
@@ -329,24 +329,24 @@
             </b-table-simple>
 
             <div class="row">
-                <div class="col-5 point-2"><label class="font-weight-bold" for="org_area_cnt_mest_zan_inie">Б. Количество мест, занятых иными категориями проживающих</label></div>
-                <div class="col-6 point-4">
+                <div class="col-6 "><label class="point-2 font-weight-bold" for="org_area_cnt_mest_zan_inie">Б. Количество мест, занятых иными категориями проживающих</label></div>
+                <div class="col-6">
                     <b-input-group append="мест">
                         <b-form-input id="org_area_cnt_mest_zan_inie" disabled/>
                     </b-input-group>
                 </div>
             </div>
             <div class="row">
-                <div class="col-5 point-2"><label class="font-weight-bold" for="org_area_cnt_svod_mest">В. Количество свободных мест</label></div>
-                <div class="col-6 point-4">
+                <div class="col-6 "><label class="point-2 font-weight-bold" for="org_area_cnt_svod_mest">В. Количество свободных мест</label></div>
+                <div class="col-6 ">
                     <b-input-group append="мест">
                         <b-form-input id="org_area_cnt_svod_mest" disabled/>
                     </b-input-group>
                 </div>
             </div>
             <div class="row">
-                <div class="col-5 point-2"><label class="font-weight-bold" for="org_area_cnt_neisp_mest">Г. Количество неиспользуемых мест</label></div>
-                <div class="col-6 point-4">
+                <div class="col-6 "><label class="point-2 font-weight-bold" for="org_area_cnt_neisp_mest">Г. Количество неиспользуемых мест</label></div>
+                <div class="col-6 ">
                     <b-input-group append="мест">
                         <b-form-input id="org_area_cnt_neisp_mest" disabled/>
                     </b-input-group>
@@ -354,8 +354,8 @@
             </div>
 
             <div class="row">
-                <div class="col-5 point-1"><label class="font-weight-bold" for="org_area_cnt_neprig_mest">2. Количество непригодных к использованию мест</label></div>
-                <div class="col-6 point-5">
+                <div class="col-6"><label class=" point-1 font-weight-bold" for="org_area_cnt_neprig_mest">2. Количество непригодных к использованию мест</label></div>
+                <div class="col-6">
                     <b-input-group append="мест">
                         <b-form-input id="org_area_cnt_neprig_mest" disabled/>
                     </b-input-group>
@@ -397,8 +397,8 @@
             </div>
 
             <div class="row">
-                <div class="col-5 point-1"><label class="font-weight-bold" for="org_area_cnt_vozmozh_mest_prig">1. Количество мест, возможных к вводу в эксплуатацию из числа неиспользуемых после проведения восстановительных работ</label></div>
-                <div class="col-6 point-5">
+                <div class="col-6"><label class="point-1 font-weight-bold" for="org_area_cnt_vozmozh_mest_prig">1. Количество мест, возможных к вводу в эксплуатацию из числа неиспользуемых после проведения восстановительных работ</label></div>
+                <div class="col-6">
                     <b-input-group append="мест">
                         <template v-slot:prepend>
                             <b-input-group-text >
@@ -416,8 +416,8 @@
             </div>
 
             <div class="row">
-                <div class="col-5 point-1"><label class="font-weight-bold" for="org_area_cnt_vozmozh_mest_ne_prig">2. Количество мест, возможных к вводу в эксплуатацию из числа непригодных к использованию после проведения восстановительных работ</label></div>
-                <div class="col-6 point-5">
+                <div class="col-6"><label class="point-1 font-weight-bold" for="org_area_cnt_vozmozh_mest_ne_prig">2. Количество мест, возможных к вводу в эксплуатацию из числа непригодных к использованию после проведения восстановительных работ</label></div>
+                <div class="col-6">
                     <b-input-group append="мест">
                         <template v-slot:prepend>
                             <b-input-group-text >
@@ -485,10 +485,10 @@
         margin-left: 30px;
     }
     .point-4{
-        margin-left: 76px;
+        margin-left: 5%;
     }
     .point-5{
-        margin-left: 86px;
+        margin-left: 6%;
     }
     .page{
         margin-top: 15px;
