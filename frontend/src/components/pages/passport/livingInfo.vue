@@ -1,7 +1,7 @@
 <template>
     <div>
         <nav-bar v-on:block-save="blockPage = !blockPage"/>
-        <div class="page">
+        <div class="container">
             <div class="row">
                 <div class="col-8">
                     <h3>
@@ -42,7 +42,8 @@
                         За счёт федерального бюджета
                         </span>
                     </template>
-                    <living-table/>
+                    <living-table title="Проживающие из числа обучающихся за счёт федерального бюджета" :is-invalid="false" :block-save="blockPage" v-bind:can-save="[0,1,3,4,6,7]"/>
+
                 </b-tab>
                 <b-tab no-body >
                     <template v-slot:title>
@@ -50,7 +51,8 @@
                         За счёт бюджета субъекта
                         </span>
                     </template>
-                    <living-table/>
+                    <living-table title="Проживающие из числа обучающихся за счёт федерального бюджета" :is-invalid="false" :block-save="blockPage" v-bind:can-save="[0,1,3,4,6,7]"/>
+
                 </b-tab>
                 <b-tab no-body >
                     <template v-slot:title>
@@ -58,7 +60,8 @@
                         За счёт местного бюджета
                         </span>
                     </template>
-                    <living-table/>
+                    <living-table title="Проживающие из числа обучающихся за счёт федерального бюджета" :is-invalid="false" :block-save="blockPage" v-bind:can-save="[0,1,3,4,6,7]"/>
+
                 </b-tab>
                 <b-tab no-body >
                     <template v-slot:title>
@@ -67,7 +70,8 @@
                         платных образовательных услуг
                         </span>
                     </template>
-                    <living-table/>
+                    <living-table title="Проживающие из числа обучающихся за счёт федерального бюджета" :is-invalid="false" :block-save="blockPage" v-bind:can-save="[0,1,3,4,6,7]"/>
+
                 </b-tab>
             </b-tabs>
             <div class="row">
@@ -188,16 +192,6 @@
 </script>
 
 <style scoped>
-    .page{
-        margin-top: 15px;
-        margin-right: 25%;
-        margin-left: 25%;
-    }
-    th{
-        min-width: 100px;
-        max-width: 100px;
-    }
-
 
 
 </style>

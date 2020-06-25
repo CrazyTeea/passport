@@ -9,21 +9,27 @@
                     </template>
                     <b-dropdown-item href="/main">Главная</b-dropdown-item>
                     <b-dropdown-text>
+                        <hr>
                         Данные об организации
+                        <hr>
                     </b-dropdown-text>
                     <b-dropdown-item href="/org-info">Сведения об организации</b-dropdown-item>
                     <b-dropdown-item href="/area-info">Сведения о колличесве мест и площади</b-dropdown-item>
                     <b-dropdown-item href="/living-info">Сведения о проживающих</b-dropdown-item>
-                    <b-dropdown-item>Сведения о проживающих лицах <br> с ограниченными возможностями</b-dropdown-item>
+                    <b-dropdown-item href="/living-info-inv">Сведения о проживающих лицах <br> с ограниченными возможностями</b-dropdown-item>
                     <b-dropdown-text>
+                        <hr>
                         Данные о жилом объекте
+                        <hr>
                     </b-dropdown-text>
-                    <b-dropdown-item>Сведения о жилом объекте</b-dropdown-item>
+                    <b-dropdown-item href="/objects-info">Сведения о жилом объекте</b-dropdown-item>
                     <b-dropdown-item>Сведения о площади, проживающих <br> и колличестве мест</b-dropdown-item>
                     <b-dropdown-item>Сведения о поступлениях и расходах</b-dropdown-item>
                     <b-dropdown-item>Сведения о тарифах</b-dropdown-item>
                     <b-dropdown-text>
+                        <hr>
                         Документы
+                        <hr>
                     </b-dropdown-text>
                     <b-dropdown-item>Загрузить документы</b-dropdown-item>
 

@@ -76,6 +76,8 @@ $config = [
                 'org-info'=>'app/passport/org-info',
                 'area-info'=>'app/passport/area-info',
                 'living-info'=>'app/passport/living-info',
+                'living-info-inv'=>'app/passport/living-info-inv',
+                'objects-info'=>'app/objects/object',
 
                 'api/user/current'=>'api/user/get-current',
                 'api/organization/by-id/<id:\d+>'=>'api/organizations/get-org'

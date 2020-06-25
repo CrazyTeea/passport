@@ -14,7 +14,11 @@ let mix = require('laravel-mix');
 mix.js('src/app.js', '../web/vue/')
     .sass('src/app.scss', '../web/vue/')
     .setPublicPath('../web/vue')
-    .browserSync('http://localhost:8080')
+    .browserSync(
+        {
+            proxy: 'http://localhost:8080',
+            open:false
+        })
     .sourceMaps(false);
 mix.copy('../web/vue/fonts', '../web/fonts');
 mix.webpackConfig({

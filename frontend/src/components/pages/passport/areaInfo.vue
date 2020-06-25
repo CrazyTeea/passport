@@ -1,7 +1,7 @@
 <template>
     <div>
         <nav-bar v-on:block-save="blockSave =!blockSave"/>
-        <div class="page">
+        <div class="container">
             <div class="row">
                 <div class="col-8">
                     <h3>Сведения о количестве мест и площади жилищного фонда, используемого в уставной деятельности</h3>
@@ -489,10 +489,5 @@
     }
     .point-5{
         margin-left: 6%;
-    }
-    .page{
-        margin-top: 15px;
-        margin-right: 25%;
-        margin-left: 25%;
     }
 </style>
