@@ -282,7 +282,59 @@
             </div>
 
             <hr>
+            <div class="row">
+                <div class="col-6"><label for="object_area_ne_plosh_prig_proz">Количество мест оборудованных для лиц с ограниченными возможностями здоровья</label></div>
+                <div class="col-6">
+                    <b-input-group append="м2">
+                        <b-form-input type="number" v-model="currentObject.schet_bud_subj" id="object_area_ne_plosh_prig_proz"/>
+                    </b-input-group>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6"><label for="object_area_ne_plosh_prig_proz">Количество мест, возможных к вводу в эксплуатацию после проведения восстановительных работ</label></div>
+                <div class="col-6">
+                    <b-input-group append="м2">
+                        <b-form-input type="number" v-model="currentObject.schet_bud_subj" id="object_area_ne_plosh_prig_proz"/>
+                    </b-input-group>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6"><label class="ml-4" for="object_area_ne_plosh_prig_proz">1. Количество мест, возможных к вводу в эксплуатацию из числа неиспользуемых после проведения восстановительных работ</label></div>
+                <div class="col-6">
+                    <b-input-group append="м2">
+                        <template v-slot:prepend>
+                            <b-input-group-text >
+                                <i id="huy_mest_tooltip" class="fas fa-question-circle"></i>
+                            </b-input-group-text>
+                            <b-tooltip custom-class="tooltip_width" target="huy_mest_tooltip">
+                                Восстановительные работы - проведение капитального ремонта/приведения
+                                объекта в соответствие с установленными санитарными и техническими
+                                правилами и нормами, иными требованиями законодательства
+                            </b-tooltip>
+                        </template>
+                        <b-form-input type="number" v-model="currentObject.schet_bud_subj" id="object_area_ne_plosh_prig_proz"/>
+                    </b-input-group>
+                </div>
+            </div>
 
+            <div class="row mt-2">
+                <div class="col-6"><label class="ml-4" for="object_area_neisp">2. Количество мест, возможных к вводу в эксплуатацию из числа непригодных к использованию после проведения восстановительных работ</label></div>
+                <div class="col-6">
+                    <b-input-group append="м2">
+                        <template v-slot:prepend>
+                            <b-input-group-text >
+                                <i id="huy_mest_tooltip2" class="fas fa-question-circle"></i>
+                            </b-input-group-text>
+                            <b-tooltip custom-class="tooltip_width" target="huy_mest_tooltip2">
+                                Восстановительные работы - проведение капитального ремонта/приведения
+                                объекта в соответствие с установленными санитарными и техническими
+                                правилами и нормами, иными требованиями законодательства
+                            </b-tooltip>
+                        </template>
+                        <b-form-input type="number" v-model="currentObject.schet_bud_subj" id="object_area_neisp"/>
+                    </b-input-group>
+                </div>
+            </div>
 
 
         </div>
@@ -291,17 +343,19 @@
 
 <script>
     import NavBar from "../../organisms/NavBar";
-    import {BFormSelect, BFormInput,BInputGroup,BTableSimple,
-        BThead,BTh,BTr,BTd,BTbody} from 'bootstrap-vue'
+    import {BFormSelect, BFormInput,BInputGroup,BTableSimple,BInputGroupText,
+        BThead,BTh,BTr,BTd,BTbody,BTooltip} from 'bootstrap-vue'
     export default {
         name: "object_area",
         components:{
             NavBar,
+            BTooltip,
             BFormSelect,
             BFormInput,
             BInputGroup,
             BTableSimple,
             BThead,BTh,
+            BInputGroupText,
             BTr,BTd,BTbody
         },
         methods:{

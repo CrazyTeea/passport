@@ -19,4 +19,7 @@ class ObjectsController extends Controller
     public function actionArea(){
         return $this->render('area');
     }
+    public function actionTariff(){
+        return $this->render('tariff');
+    }
 }
