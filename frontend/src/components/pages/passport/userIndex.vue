@@ -13,7 +13,7 @@
             </template>
         </b-jumbotron>
 
-        <div class="page" v-else>
+        <div class="container" v-else>
             <div class="row">
                 <div class="col-8"><h4>{{organization.name}}</h4></div>
                 <div class="col-4"><b-button href="/org-info" block variant="outline-secondary">Перейти к заполнению</b-button></div>
@@ -205,11 +205,6 @@
         min-width: 49%;
         margin-left: 5px;
         margin-bottom: 5px;
-    }
-    .page{
-        margin-top: 15px;
-        margin-right: 25%;
-        margin-left: 25%;
     }
     .contact-card{
         min-height: 100%;

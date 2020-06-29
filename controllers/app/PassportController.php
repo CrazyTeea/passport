@@ -18,4 +18,7 @@ class PassportController extends Controller
     public function actionLivingInfo(){
         return $this->render('livingInfo');
     }
+    public function actionLivingInfoInv(){
+        return $this->render('livingInfoInv');
+    }
 }

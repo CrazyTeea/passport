@@ -19,6 +19,18 @@ const routes = [
     {
         path:'/living-info',
         component: require('./components/pages/passport/livingInfo.vue').default
+    },
+    {
+        path:'/living-info-inv',
+        component: require('./components/pages/passport/livingInfo_inv.vue').default
+    },
+    {
+        path:'/objects-info',
+        component: require('./components/pages/object/object.vue').default
+    },
+    {
+        path:'/objects-area',
+        component: require('./components/pages/object/object_area.vue').default
     }
 
 ];

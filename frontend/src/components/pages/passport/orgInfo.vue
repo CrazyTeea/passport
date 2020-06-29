@@ -1,7 +1,7 @@
 <template>
     <div id="org-info-page">
         <nav-bar v-on:block-save="blockSave = !blockSave"/>
-        <div class="page">
+        <div class="container">
             <h3>Сведения об организации</h3>
             <hr>
             <b-form-group
@@ -292,9 +292,5 @@
 </script>
 
 <style scoped>
-    .page{
-        margin-top: 15px;
-        margin-right: 25%;
-        margin-left: 25%;
-    }
+
 </style>
