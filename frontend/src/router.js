@@ -27,6 +27,10 @@ const routes = [
     {
         path:'/objects-info',
         component: require('./components/pages/object/object.vue').default
+    },
+    {
+        path:'/objects-area',
+        component: require('./components/pages/object/object_area.vue').default
     }
 
 ];

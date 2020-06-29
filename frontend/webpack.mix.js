@@ -27,7 +27,7 @@ mix.webpackConfig({
     }
 });
 mix.extract();
-
+mix.disableNotifications();
 // Full API
 // mix.js(src, output);
 // mix.react(src, output); <-- Identical to mix.js(), but registers React Babel compilation.
@@ -47,7 +47,6 @@ mix.extract();
 // mix.minify(file);
 // mix.sourceMaps(); // Enable sourcemaps
 // mix.version(); // Enable versioning.
- mix.disableNotifications();
 // mix.setPublicPath('path/to/public');
 // mix.setResourceRoot('prefix/for/resource/locators');
 // mix.autoload({}); <-- Will be passed to Webpack's ProvidePlugin.

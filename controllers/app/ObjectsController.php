@@ -16,4 +16,7 @@ class ObjectsController extends Controller
         }
         return $this->render('object');
     }
+    public function actionArea(){
+        return $this->render('area');
+    }
 }
