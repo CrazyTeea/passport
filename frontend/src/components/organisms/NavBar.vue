@@ -26,7 +26,7 @@
                             <b-dropdown-item href="/objects-info">Сведения о жилом объекте</b-dropdown-item>
                             <b-dropdown-item href="/objects-area">Сведения о площади, проживающих <br> и колличестве мест</b-dropdown-item>
                             <b-dropdown-item>Сведения о поступлениях и расходах</b-dropdown-item>
-                            <b-dropdown-item>Сведения о тарифах</b-dropdown-item>
+                            <b-dropdown-item href="/objects-tariff">Сведения о тарифах</b-dropdown-item>
                             <b-dropdown-text>
                                 <hr>
                                 Документы

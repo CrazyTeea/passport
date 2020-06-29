@@ -31,7 +31,12 @@ const routes = [
     {
         path:'/objects-area',
         component: require('./components/pages/object/object_area.vue').default
+    },
+    {
+        path:'/objects-tariff',
+        component: require('./components/pages/object/object_tariff.vue').default
     }
+
 
 ];
 
