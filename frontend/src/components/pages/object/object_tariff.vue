@@ -1,6 +1,6 @@
 <template>
     <div>
-        <nav-bar />
+        <nav-bar v-on:block-save="blockSave = !blockSave" />
 
         <div class="container">
             <div class="rov">
@@ -16,7 +16,7 @@
                 </div>
             </div>
 
-            <b-button href="/objects-info" variant="outline-secondary">Добавить объект</b-button>
+            <b-button v-if="!blockSave" href="/objects-info" variant="outline-secondary">Добавить объект</b-button>
 
             <hr>
 
@@ -34,38 +34,38 @@
                 <b-tbody>
                     <b-tr>
                         <b-td>Для обучающиеся за счёт бюджетных средств</b-td>
-                        <b-td><b-form-input/></b-td>
-                        <b-td><b-form-input/></b-td>
-                        <b-td><b-form-input/></b-td>
-                        <b-td><b-form-input/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
                     </b-tr>
                     <b-tr>
                         <b-td>Для обучающиеся по договорам об оказании платных образовательных услуг </b-td>
-                        <b-td><b-form-input/></b-td>
-                        <b-td><b-form-input/></b-td>
-                        <b-td><b-form-input/></b-td>
-                        <b-td><b-form-input/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
                     </b-tr>
                     <b-tr>
                         <b-td>Для лиц не являющимися гражданами России</b-td>
-                        <b-td><b-form-input/></b-td>
-                        <b-td><b-form-input/></b-td>
-                        <b-td><b-form-input/></b-td>
-                        <b-td><b-form-input/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
                     </b-tr>
                     <b-tr>
                         <b-td>Для обучающихся других образовательных организаций</b-td>
-                        <b-td><b-form-input/></b-td>
-                        <b-td><b-form-input/></b-td>
-                        <b-td><b-form-input/></b-td>
-                        <b-td><b-form-input/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
                     </b-tr>
                     <b-tr>
                         <b-td>Для иных нанимателей</b-td>
-                        <b-td><b-form-input/></b-td>
-                        <b-td><b-form-input/></b-td>
-                        <b-td><b-form-input/></b-td>
-                        <b-td><b-form-input/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input :disabled="blockSave"/></b-td>
                     </b-tr>
                 </b-tbody>
 
@@ -103,6 +103,7 @@
         },
         data(){
             return {
+                blockSave:true,
                 currentObject:{},
                 objectsTitle:[
                     {

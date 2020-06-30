@@ -10,7 +10,8 @@ use yii\bootstrap4\ActiveForm;
 $this->title = 'Вход';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-login">
+<div class="site-login container">
+
     <p>Заполните поля для входа:</p>
 
     <?php $form = ActiveForm::begin([

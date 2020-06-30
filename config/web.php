@@ -77,9 +77,13 @@ $config = [
                 'area-info'=>'app/passport/area-info',
                 'living-info'=>'app/passport/living-info',
                 'living-info-inv'=>'app/passport/living-info-inv',
+
+
+
                 'objects-info'=>'app/objects/object',
                 'objects-area'=>'app/objects/area',
                 'objects-tariff'=>'app/objects/tariff',
+                'objects-money'=>'app/objects/money',
 
                 'api/user/current'=>'api/user/get-current',
                 'api/organization/by-id/<id:\d+>'=>'api/organizations/get-org',

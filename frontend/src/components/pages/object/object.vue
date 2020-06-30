@@ -18,7 +18,7 @@
                 </div>
             </div>
 
-            <b-button v-if="!disablePage" @click="modalShow = !modalShow">Добавить объект</b-button>
+            <b-button variant="outline-secondary" v-if="!disablePage" @click="modalShow = !modalShow">Добавить объект</b-button>
 
             <b-modal hide-header v-model="modalShow">
 
