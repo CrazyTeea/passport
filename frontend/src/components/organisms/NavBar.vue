@@ -32,7 +32,7 @@
                                 Документы
                                 <hr>
                             </b-dropdown-text>
-                            <b-dropdown-item>Загрузить документы</b-dropdown-item>
+                            <b-dropdown-item href="/documents">Загрузить документы</b-dropdown-item>
 
                         </b-dropdown>
 
