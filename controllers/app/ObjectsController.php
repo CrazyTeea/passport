@@ -22,4 +22,7 @@ class ObjectsController extends Controller
     public function actionTariff(){
         return $this->render('tariff');
     }
+    public function actionMoney(){
+        return $this->render('money');
+    }
 }
