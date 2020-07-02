@@ -182,4 +182,8 @@ class User extends ActiveRecord implements IdentityInterface
         return key($role) ?? 'guest';
     }
 
+    public function actionInfo(){
+
+    }
+
 }
