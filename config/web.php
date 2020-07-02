@@ -95,6 +95,7 @@ $config = [
                 'api/organization/users/<id:\d+>'=>'api/organizations/users-info',
 
                 'organization/users-info/<id:\d+>'=>'app/organizations/users-info',
+                'organization/users-info/<id:\d+>/delete'=>'app/organizations/delete-users-info',
 
 
 
