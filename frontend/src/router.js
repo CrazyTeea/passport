@@ -39,6 +39,10 @@ const routes = [
     {
         path:'/objects-money',
         component: require('./components/pages/object/object_money.vue').default
+    },
+    {
+        path:'/documents',
+        component: require('./components/pages/docs/uploadPage.vue').default
     }
 
 

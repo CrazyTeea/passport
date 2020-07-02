@@ -83,4 +83,8 @@ class Organizations extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Regions::className(), ['id' => 'id_region']);
     }
+
+    public function getUsersInfo(){
+        return $this->hasMany(UsersInfo::class,['id_org'=>'id']);
+    }
 }

@@ -85,8 +85,19 @@ $config = [
                 'objects-tariff'=>'app/objects/tariff',
                 'objects-money'=>'app/objects/money',
 
+                'documents'=>'app/documents',
+
                 'api/user/current'=>'api/user/get-current',
+                'api/user/info/<id_org:\d+>'=>'api/user/info',
+
+
                 'api/organization/by-id/<id:\d+>'=>'api/organizations/get-org',
+                'api/organization/users/<id:\d+>'=>'api/organizations/users-info',
+
+                'organization/users-info/<id:\d+>'=>'app/organizations/users-info',
+
+
+
                 'api/regions'=>'api/regions/all'
             ],
         ],

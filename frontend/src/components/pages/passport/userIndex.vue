@@ -1,6 +1,6 @@
 <template>
     <div>
-        <nav-bar v-on:block-save="blockSave = !blockSave"></nav-bar>
+        <nav-bar v-on:save-page="savePage" v-on:block-save="blockSave = !blockSave"></nav-bar>
 
         <b-jumbotron v-if="!user.id_org" >
             <template v-slot:header>
@@ -153,6 +153,7 @@
         },
         data() {
             return {
+                csrf: document.getElementsByName("csrf-token")[0].content,
                 blockSave:true,
                 user: {},
                 organization:{
@@ -170,10 +171,25 @@
         },
         async mounted() {
             await this.getUser();
-            if (this.user.id_org)
+            if (this.user.id_org) {
                 await this.getOrg(this.user.id_org);
+                await this.getUserInfo()
+            }
         },
         methods:{
+            async savePage(){
+                let data = new FormData();
+
+                data.append('users',JSON.stringify(this.users_info))
+
+                await Axios.post(`/organization/users-info/${this.user.id_org}`,data,{
+                    headers: {
+                        "X-CSRF-Token": this.csrf
+                    }
+                }).then(res=>{
+                    console.log(data);
+                })
+            },
             addUserInfo(){
                 if (this.users_info.length < 3)
                     this.users_info.push({
@@ -191,9 +207,33 @@
                 await Axios.get('/api/user/current').then(res=>
                 {this.user = res.data; console.log(res.data)});
             },
-            async getOrg(id){
-                await Axios.get(`/api/organization/by-id/${id}`).then(res=>
+            async getOrg(){
+                await Axios.get(`/api/organization/by-id/${this.user.id_org}`).then(res=>
                 {this.organization = res.data;console.log(res.data)});
+            },
+            async getUserInfo(){
+                await Axios.get(`/api/organization/users/${this.user.id_org}`).then(res=>{
+                    res.data.forEach((item,index)=>{
+                        if (!index){
+                            this.users_info[0] = {
+                                name : item.name,
+                                position : item.position,
+                                email : item.email,
+                                phone : item.phone,
+
+                            };
+                        }
+                        else {
+                            this.users_info.push({
+                                name : item.name,
+                                position : item.position,
+                                email : item.email,
+                                phone : item.phone,
+
+                            })
+                        }
+                    })
+                })
             }
         }
 
