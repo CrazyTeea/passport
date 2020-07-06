@@ -91,4 +91,7 @@ class Organizations extends \yii\db\ActiveRecord
     public function getInfo(){
         return $this->hasMany(OrgInfo::class,['id_org'=>'id']);
     }
+    public function getArea(){
+        return $this->hasOne(OrgArea::class,['id_org'=>'id']);
+    }
 }

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <nav-bar v-on:block-save="blockSave =!blockSave"/>
+        <nav-bar v-on:save-page="savePage" v-on:block-save="blockSave =!blockSave"/>
         <div class="container">
             <div class="row">
                 <div class="col-8">
@@ -375,7 +375,7 @@
                 <div class="col-6"><label class="font-weight-bold" for="org_area_cnt_mest_nuzd">Количество обучающихся, нуждающихся в жилье</label></div>
                 <div class="col-6">
                     <b-input-group append="человек">
-                        <b-form-input id="org_area_cnt_mest_nuzd" :disabled="blockSave"/>
+                        <b-form-input id="org_area_cnt_mest_nuzd" v-model="organization.area.area_cnt_nuzhd_zhil" :disabled="blockSave"/>
                     </b-input-group>
                 </div>
             </div>
@@ -383,7 +383,7 @@
                 <div class="col-6"><label class="font-weight-bold" for="org_area_cnt_live_in_other">Количество обучающихся, проживающих в жилом фонде других организаций</label></div>
                 <div class="col-6">
                     <b-input-group append="человек">
-                        <b-form-input id="org_area_cnt_live_in_other" :disabled="blockSave"/>
+                        <b-form-input id="org_area_cnt_live_in_other " v-model="organization.area.area_cnt_prozh_u_drugih" :disabled="blockSave"/>
                     </b-input-group>
                 </div>
             </div>
@@ -443,6 +443,7 @@
 </template>
 
 <script>
+    import Axios from 'axios';
     import NavBar from "../../organisms/NavBar";
     import {BFormInput,BTableSimple,BTooltip,
         BInputGroup,BInputGroupText,
@@ -463,8 +464,41 @@
         },
         data(){
             return{
+                csrf: document.getElementsByName("csrf-token")[0].content,
                 blockSave:true,
+                id_org:null,
+                organization:{},
+                user:{}
             }
+        },
+        methods:{
+            async getUser(){
+                await Axios.get('/api/user/current').then(res=>
+                {this.user = res.data;});
+            },
+            async getOrg(){
+                await Axios.get(`/api/organization/by-id/${this.id_org}`).then(res=> {
+                        this.organization = res.data
+                        this.organization.area = res.data.area ?? {}
+                    }
+                );
+            },
+            async savePage(){
+                let data = new FormData();
+                data.append('org_area',JSON.stringify(this.organization.area));
+                await Axios.post(`/organization/set-org-area/${this.id_org}`,data,{
+                    headers: {
+                        "X-CSRF-Token": this.csrf
+                    }
+                }).then(res=>{
+                    console.log(res.data);
+                })
+            }
+        },
+        async mounted(){
+            await this.getUser();
+            this.id_org = this.user.id_org;
+            await this.getOrg()
         }
     }
 </script>

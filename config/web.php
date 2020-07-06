@@ -98,6 +98,7 @@ $config = [
                 'organization/users-info/<id:\d+>/delete'=>'app/organizations/delete-users-info',
 
                 'organization/set-org-info/<id:\d+>'=>'app/organizations/set-org-info',
+                'organization/set-org-area/<id:\d+>'=>'app/organizations/set-org-area',
 
 
 
