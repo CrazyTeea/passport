@@ -13,7 +13,7 @@
             </template>
         </b-jumbotron>
 
-        <div class="container" v-else>
+        <div class="container mt-2" v-else>
             <div class="row">
                 <div class="col-8"><h4>{{organization.name}}</h4></div>
                 <div class="col-4"><b-button href="/org-info" block variant="outline-secondary">Перейти к заполнению</b-button></div>
@@ -27,7 +27,7 @@
                     <label class="font-weight-bold" for="contact_check">Контактные данные заполнены</label>
                 </div>
                 <div class="col-6">
-                    <b-form-checkbox id="contact_check"></b-form-checkbox>
+                    <b-form-checkbox disabled id="contact_check"></b-form-checkbox>
                 </div>
             </div>
             <div style="margin-top: 10px;" class="row">
@@ -35,7 +35,7 @@
                     <label class="font-weight-bold" for="file_check">Документы загружены</label>
                 </div>
                 <div class="col-6">
-                    <b-form-checkbox id="file_check"></b-form-checkbox>
+                    <b-form-checkbox disabled id="file_check"></b-form-checkbox>
                 </div>
             </div>
 
@@ -99,23 +99,17 @@
                                                 </div>
                                             </div>
                                         </b-card-body>
+                                        <template v-if="!blockSave" v-slot:footer>
+                                            <b-button @click="deleteUserInfo(index)" variant="outline-danger" block>Удалить</b-button>
+                                        </template>
                                     </b-card>
                                 </div>
                             </transition-group>
                             <div class="col-6" style="margin-left: -10px; min-width: 51% !important;">
                                 <b-card v-if="!blockSave" class="contact-card">
-                                    <b-card-body class="center" @click="addUserInfo">
-                                        <span>Добавить</span><br>
-                                        <img
-
-                                                src="http://peterhanne.de/site/assets/files/4699/plus_schwarz.png"
-                                                style="width: 25%" alt="Добавить">
-                                        <br>
-
+                                    <b-card-body @click="addUserInfo">
+                                        <img class="center" style="width: 25%" src="http://peterhanne.de/site/assets/files/4699/plus_schwarz.png" alt="Добавить">
                                     </b-card-body>
-                                    <template v-slot:footer>
-                                        <b-button @click="deleteUserInfo" variant="outline-danger" block>Удалить</b-button>
-                                    </template>
                                 </b-card>
                             </div>
                         </div>
@@ -162,6 +156,7 @@
                     }
                 },
                 users_info:[{
+                    id:null,
                     name:'',
                     position:'',
                     phone:'',
@@ -187,21 +182,31 @@
                         "X-CSRF-Token": this.csrf
                     }
                 }).then(res=>{
-                    console.log(data);
+                    this.getUserInfo();
                 })
             },
             addUserInfo(){
                 if (this.users_info.length < 3)
                     this.users_info.push({
-                        name:'',
-                        position:'',
-                        phone:'',
-                        email:''
+                        id:null,
+                        name:null,
+                        position:null,
+                        phone:null,
+                        email:null
                     });
             },
-            deleteUserInfo(){
-                if (this.users_info.length > 1)
-                    this.users_info.pop()
+            async deleteUserInfo(index){
+                let id = this.users_info[index].id;
+                if (id){
+                    await Axios.post(`/organization/users-info/${id}/delete`, {}, {
+                        headers: {
+                            "X-CSRF-Token": this.csrf
+                        }
+                    }).then(res => {
+                        if (res.data.success)
+                            this.users_info.splice(index,1);
+                    })
+                }else this.users_info.splice(index,1);
             },
             async getUser(){
                 await Axios.get('/api/user/current').then(res=>
@@ -213,25 +218,18 @@
             },
             async getUserInfo(){
                 await Axios.get(`/api/organization/users/${this.user.id_org}`).then(res=>{
+                    this.users_info = [];
                     res.data.forEach((item,index)=>{
-                        if (!index){
-                            this.users_info[0] = {
-                                name : item.name,
-                                position : item.position,
-                                email : item.email,
-                                phone : item.phone,
 
-                            };
-                        }
-                        else {
-                            this.users_info.push({
-                                name : item.name,
-                                position : item.position,
-                                email : item.email,
-                                phone : item.phone,
+                        this.users_info.push({
+                            id:item.id,
+                            name : item.name,
+                            position : item.position,
+                            email : item.email,
+                            phone : item.phone,
 
-                            })
-                        }
+                        })
+
                     })
                 })
             }
@@ -257,8 +255,9 @@
         cursor: pointer;
     }
     .center{
-        margin-top: 10%;
-        margin-left: 38%;
+        margin-left: 35%;
+        margin-top: 25%;
+        margin-bottom: 25%;
     }
     .list-item{
         min-width: 50%;
