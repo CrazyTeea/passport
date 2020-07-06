@@ -12,7 +12,7 @@ use yii\rest\Controller;
 class OrganizationsController extends Controller
 {
     public function actionGetOrg($id){
-        return Organizations::find()->where(['organizations.id'=>$id])->with(['region','founder','info'])->asArray()->one();
+        return Organizations::find()->where(['organizations.id'=>$id])->with(['region','founder','info','area'])->asArray()->one();
     }
 
     public function actionUsersInfo($id){

@@ -4,6 +4,7 @@
 namespace app\controllers\app;
 
 use app\models\Organizations;
+use app\models\OrgArea;
 use app\models\OrgInfo;
 use app\models\UsersInfo;
 use Yii;
@@ -86,6 +87,19 @@ class OrganizationsController extends Controller
                 $info_save[$inf->stud_type] = ['success'=>$inf->save(),'errors'=>$inf->getErrors()];                
             }   
             $ret = ['org'=>['success'=>$org_save,'errors'=>$org->getErrors()],'info'=>$info_save];     
+        }
+        return Json::encode($ret ?? 'не верный пост');
+    }
+
+    public function actionSetOrgArea($id)
+    {
+        if($post = Yii::$app->request->post()){
+            $post = Json::decode($post['org_area'],false);
+            $area = OrgArea::findOne(['id_org'=>$id]) ?? new OrgArea();
+            $area->id_org = $id;
+            $area->area_cnt_nuzhd_zhil = $post->area_cnt_nuzhd_zhil;
+            $area->area_cnt_prozh_u_drugih = $post->area_cnt_prozh_u_drugih;
+            $ret = ['org_area'=>['success'=>$area->save(),'errors'=>$area->getErrors()]];
         }
         return Json::encode($ret ?? 'не верный пост');
     }
