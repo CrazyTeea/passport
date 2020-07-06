@@ -27,7 +27,7 @@
                     <label class="font-weight-bold" for="contact_check">Контактные данные заполнены</label>
                 </div>
                 <div class="col-6">
-                    <b-form-checkbox disabled id="contact_check"></b-form-checkbox>
+                    <b-form-checkbox v-model="cont_dan" disabled id="contact_check"></b-form-checkbox>
                 </div>
             </div>
             <div style="margin-top: 10px;" class="row">
@@ -150,6 +150,7 @@
                 csrf: document.getElementsByName("csrf-token")[0].content,
                 blockSave:true,
                 user: {},
+                cont_dan:false,
                 organization:{
                     region:{
                         region:''
@@ -220,7 +221,6 @@
                 await Axios.get(`/api/organization/users/${this.user.id_org}`).then(res=>{
                     this.users_info = [];
                     res.data.forEach((item,index)=>{
-
                         this.users_info.push({
                             id:item.id,
                             name : item.name,
@@ -231,6 +231,8 @@
                         })
 
                     })
+                    if(res.data.length)
+                        this.cont_dan = true
                 })
             }
         }

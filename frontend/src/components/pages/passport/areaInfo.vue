@@ -105,7 +105,7 @@
                 </div>
             </div>
 
-            <b-table-simple borderless>
+            <b-table-simple fixed borderless>
                 <b-thead>
                     <b-tr>
                         <b-th>Общая площадь, непригодная для проживания</b-th>
@@ -203,11 +203,11 @@
                 </div>
             </div>
 
-            <b-table-simple borderless>
+            <b-table-simple fixed borderless>
                 <b-thead>
                     <b-tr>
                         <b-th>А. Количество мест, занятых обучающимися</b-th>
-                        <b-th><6 м2 на одного проживающего</b-th>
+                        <b-th>м2 на одного проживающего</b-th>
                         <b-th>6 м2 и более на одного проживающего</b-th>
                         <b-th>Всего</b-th>
                     </b-tr>
