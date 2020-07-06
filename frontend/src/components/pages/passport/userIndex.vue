@@ -156,6 +156,7 @@
                     }
                 },
                 users_info:[{
+                    id:null,
                     name:'',
                     position:'',
                     phone:'',

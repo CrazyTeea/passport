@@ -1,6 +1,6 @@
 <template>
     <div id="org-info-page">
-        <nav-bar v-on:block-save="blockSave = !blockSave"/>
+         <nav-bar v-on:save-page="savePage" v-on:block-save="blockSave = !blockSave"/> 
         <div class="container">
             <h3>Сведения об организации</h3>
             <hr>
@@ -51,26 +51,26 @@
             <hr>
 
             <div class="row">
-                <div class="col-10">
+                <div class="col-8">
                     <label class="font-weight-bold" for="students_count-input">Численность обучающихся</label>
                 </div>
-                <div class="col-2">
-                    <b-form-input disabled id="students_count-input" v-model="organization.students_count"/>
+                <div class="col-4">
+                    <b-form-input disabled id="students_count-input" v-model="organization.stud_cnt"/>
                 </div>
             </div>
-            <div style="margin-top: 5px" class="row">
-                <div class="col-10">
-                    <label style="margin-left: 20px" class="font-weight-bold" for="students_count_rus-input">1. Численность обучающихся граждан России</label>
+            <div class="row mt-2">
+                <div class="col-8">
+                    <label class="font-weight-bold ml-4" for="students_count_rus-input">1. Численность обучающихся граждан России</label>
                 </div>
-                <div class="col-2">
-                    <b-form-input disabled id="students_count_rus-input" v-model="organization.students_count_rus"/>
+                <div class="col-4">
+                    <b-form-input disabled id="students_count_rus-input" v-model="organization.stud_cnt_rus"/>
                 </div>
             </div>
 
-            <b-table-simple style="margin-top: 15px" small borderless>
+            <b-table-simple v-if="organization.info" class="mt-2" small borderless>
                 <b-thead>
                     <b-tr>
-                        <b-th> <span style="margin-left: 50px">1. Численность обучающихся граждан России</span></b-th>
+                        <b-th> <span class="ml-6">1. Численность обучающихся граждан России</span></b-th>
                         <b-th>За счёт средств федерального бюджета</b-th>
                         <b-th>За счёт средств бюджета субъекта</b-th>
                         <b-th>За счёт средств местного бюджета</b-th>
@@ -81,58 +81,58 @@
                 <b-tbody>
                     <b-tr>
                         <b-th>Среднее профессиональное образование</b-th>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input v-model="organization.info[0].s_f_b_spo" :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input v-model="organization.info[0].s_b_s_spo" :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input v-model="organization.info[0].s_m_b_spo" :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input v-model="organization.info[0].s_p_u_spo" :disabled="blockSave"/></b-td>
                         <b-td><b-form-input disabled/></b-td>
                     </b-tr>
                     <b-tr>
                         <b-th>Бакалавриат</b-th>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input v-model="organization.info[0].s_f_b_bak" :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input v-model="organization.info[0].s_b_s_bak" :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input v-model="organization.info[0].s_m_b_bak" :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input v-model="organization.info[0].s_p_u_bak" :disabled="blockSave"/></b-td>
                         <b-td><b-form-input disabled/></b-td>
                     </b-tr>
                     <b-tr>
                         <b-th>Специалитет</b-th>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input v-model="organization.info[0].s_f_b_spec" :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input v-model="organization.info[0].s_b_s_spec" :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input v-model="organization.info[0].s_m_b_spec" :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input v-model="organization.info[0].s_p_u_spec" :disabled="blockSave"/></b-td>
                         <b-td><b-form-input disabled/></b-td>
                     </b-tr>
                     <b-tr>
                         <b-th>Магистратура</b-th>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input v-model="organization.info[0].s_f_b_mag" :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input v-model="organization.info[0].s_b_s_mag" :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input v-model="organization.info[0].s_m_b_mag" :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input v-model="organization.info[0].s_p_u_mag" :disabled="blockSave"/></b-td>
                         <b-td><b-form-input disabled/></b-td>
                     </b-tr>
                     <b-tr>
                         <b-th>Аспирантура</b-th>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input v-model="organization.info[0].s_f_b_asp" :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input v-model="organization.info[0].s_b_s_asp" :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input v-model="organization.info[0].s_m_b_asp" :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input v-model="organization.info[0].s_p_u_asp" :disabled="blockSave"/></b-td>
                         <b-td><b-form-input disabled/></b-td>
                     </b-tr>
                     <b-tr>
                         <b-th>Ординатура</b-th>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input v-model="organization.info[0].s_f_b_ord" :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input v-model="organization.info[0].s_b_s_ord" :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input v-model="organization.info[0].s_m_b_ord" :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input v-model="organization.info[0].s_p_u_ord" :disabled="blockSave"/></b-td>
                         <b-td><b-form-input disabled/></b-td>
                     </b-tr>
                     <b-tr>
                         <b-th>По иным образовательным программам</b-th>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input v-model="organization.info[0].s_f_b_in" :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input v-model="organization.info[0].s_b_s_in" :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input v-model="organization.info[0].s_m_b_in" :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input v-model="organization.info[0].s_p_u_in" :disabled="blockSave"/></b-td>
                         <b-td><b-form-input disabled/></b-td>
                     </b-tr>
                     <b-tr>
@@ -169,58 +169,58 @@
                 <b-tbody>
                     <b-tr>
                         <b-th>Среднее профессиональное образование</b-th>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input v-model="organization.info[1].s_f_b_spo" :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input v-model="organization.info[1].s_b_s_spo" :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input v-model="organization.info[1].s_m_b_spo" :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input v-model="organization.info[1].s_p_u_spo" :disabled="blockSave"/></b-td>
                         <b-td><b-form-input disabled/></b-td>
                     </b-tr>
                     <b-tr>
                         <b-th>Бакалавриат</b-th>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input v-model="organization.info[1].s_f_b_bak" :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input v-model="organization.info[1].s_b_s_bak" :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input v-model="organization.info[1].s_m_b_bak" :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input v-model="organization.info[1].s_p_u_bak" :disabled="blockSave"/></b-td>
                         <b-td><b-form-input disabled/></b-td>
                     </b-tr>
                     <b-tr>
                         <b-th>Специалитет</b-th>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input v-model="organization.info[1].s_f_b_spec" :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input v-model="organization.info[1].s_b_s_spec" :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input v-model="organization.info[1].s_m_b_spec" :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input v-model="organization.info[1].s_p_u_spec" :disabled="blockSave"/></b-td>
                         <b-td><b-form-input disabled/></b-td>
                     </b-tr>
                     <b-tr>
                         <b-th>Магистратура</b-th>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input v-model="organization.info[1].s_f_b_mag" :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input v-model="organization.info[1].s_b_s_mag" :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input v-model="organization.info[1].s_m_b_mag" :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input v-model="organization.info[1].s_p_u_mag" :disabled="blockSave"/></b-td>
                         <b-td><b-form-input disabled/></b-td>
                     </b-tr>
                     <b-tr>
                         <b-th>Аспирантура</b-th>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input v-model="organization.info[1].s_f_b_asp" :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input v-model="organization.info[1].s_b_s_asp" :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input v-model="organization.info[1].s_m_b_asp" :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input v-model="organization.info[1].s_p_u_asp" :disabled="blockSave"/></b-td>
                         <b-td><b-form-input disabled/></b-td>
                     </b-tr>
                     <b-tr>
                         <b-th>Ординатура</b-th>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input v-model="organization.info[1].s_f_b_ord" :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input v-model="organization.info[1].s_b_s_ord" :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input v-model="organization.info[1].s_m_b_ord" :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input v-model="organization.info[1].s_p_u_ord" :disabled="blockSave"/></b-td>
                         <b-td><b-form-input disabled/></b-td>
                     </b-tr>
                     <b-tr>
                         <b-th>По иным образовательным программам</b-th>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input v-model="organization.info[1].s_f_b_in" :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input v-model="organization.info[1].s_b_s_in" :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input v-model="organization.info[1].s_m_b_in" :disabled="blockSave"/></b-td>
+                        <b-td><b-form-input v-model="organization.info[1].s_p_u_in" :disabled="blockSave"/></b-td>
                         <b-td><b-form-input disabled/></b-td>
                     </b-tr>
                     <b-tr>
@@ -250,6 +250,7 @@
     export default {
         data(){
             return {
+                csrf: document.getElementsByName("csrf-token")[0].content,
                 blockSave:true,
                 user:{},
                 students:[],
@@ -275,16 +276,37 @@
         async mounted() {
             await this.getUser();
             this.id_org = this.user.id_org
-            await this.getOrg(this.id_org);
+            await this.getOrg()
         },
         methods:{
             async getUser(){
                 await Axios.get('/api/user/current').then(res=>
-                {this.user = res.data; console.log(res.data)});
+                {this.user = res.data;});
             },
-            async getOrg(id){
-                await Axios.get(`/api/organization/by-id/${id}`).then(res=>
-                {this.organization = res.data;console.log(res.data)});
+            async getOrg(){
+                await Axios.get(`/api/organization/by-id/${this.id_org}`).then(res=>
+                {
+                    this.organization = res.data
+                    if (res.data.info){
+                        res.data.info.forEach(item=>{
+                             this.organization.info[parseInt(item.stud_type)] = item;
+                        })
+                    }
+                    this.organization.info = res.data.info || {};
+                    console.log( this.organization.info)
+                }
+                );
+            },
+            async savePage(){
+                let data = new FormData();
+                data.append('org',JSON.stringify(this.organization));
+                await Axios.post(`/organization/set-org-info/${this.id_org}`,data,{
+                        headers: {
+                            "X-CSRF-Token": this.csrf
+                        }
+                    }).then(res=>{
+                        console.log(res.data);
+                })
             }
         }
 
