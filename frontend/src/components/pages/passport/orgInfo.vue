@@ -67,10 +67,10 @@
                 </div>
             </div>
 
-            <b-table-simple v-if="organization.info" class="mt-2" small borderless>
+            <b-table-simple fixed v-if="organization.info" class="mt-2" small borderless>
                 <b-thead>
                     <b-tr>
-                        <b-th> <span class="ml-6">1. Численность обучающихся граждан России</span></b-th>
+                        <b-th> <span class="ml-5">1. Численность обучающихся граждан России</span></b-th>
                         <b-th>За счёт средств федерального бюджета</b-th>
                         <b-th>За счёт средств бюджета субъекта</b-th>
                         <b-th>За счёт средств местного бюджета</b-th>
@@ -80,7 +80,7 @@
                 </b-thead>
                 <b-tbody>
                     <b-tr>
-                        <b-th>Среднее профессиональное образование</b-th>
+                        <b-th>Спо</b-th>
                         <b-td><b-form-input v-model="organization.info[0].s_f_b_spo" :disabled="blockSave"/></b-td>
                         <b-td><b-form-input v-model="organization.info[0].s_b_s_spo" :disabled="blockSave"/></b-td>
                         <b-td><b-form-input v-model="organization.info[0].s_m_b_spo" :disabled="blockSave"/></b-td>
@@ -128,7 +128,7 @@
                         <b-td><b-form-input disabled/></b-td>
                     </b-tr>
                     <b-tr>
-                        <b-th>По иным образовательным программам</b-th>
+                        <b-th>По иным о.п</b-th>
                         <b-td><b-form-input v-model="organization.info[0].s_f_b_in" :disabled="blockSave"/></b-td>
                         <b-td><b-form-input v-model="organization.info[0].s_b_s_in" :disabled="blockSave"/></b-td>
                         <b-td><b-form-input v-model="organization.info[0].s_m_b_in" :disabled="blockSave"/></b-td>
@@ -146,19 +146,19 @@
                 </b-tbody>
             </b-table-simple>
 
-            <div style="margin-top: 5px" class="row">
+            <div class="row mt-2">
                 <div class="col-10">
-                    <label style="margin-left: 20px" class="font-weight-bold" for="students_count_foreign-input">2. Численность обучающихся иностранцев</label>
+                    <label class="font-weight-bold ml-4" for="students_count_foreign-input">2. Численность обучающихся иностранцев</label>
                 </div>
                 <div class="col-2">
                     <b-form-input disabled id="students_count_foreign-input" v-model="organization.students_count_foreign"/>
                 </div>
             </div>
 
-            <b-table-simple style="margin-top: 15px" small borderless>
+            <b-table-simple v-if="organization.info" fixed class="mt-2" small borderless>
                 <b-thead>
                     <b-tr>
-                        <b-th> <span style="margin-left: 50px">2. Численность обучающихся иностранцев</span></b-th>
+                        <b-th> <span class="ml-5">2. Численность обучающихся иностранцев</span></b-th>
                         <b-th>За счёт средств федерального бюджета</b-th>
                         <b-th>За счёт средств бюджета субъекта</b-th>
                         <b-th>За счёт средств местного бюджета</b-th>
@@ -168,7 +168,7 @@
                 </b-thead>
                 <b-tbody>
                     <b-tr>
-                        <b-th>Среднее профессиональное образование</b-th>
+                        <b-th>Спо</b-th>
                         <b-td><b-form-input v-model="organization.info[1].s_f_b_spo" :disabled="blockSave"/></b-td>
                         <b-td><b-form-input v-model="organization.info[1].s_b_s_spo" :disabled="blockSave"/></b-td>
                         <b-td><b-form-input v-model="organization.info[1].s_m_b_spo" :disabled="blockSave"/></b-td>
@@ -216,7 +216,7 @@
                         <b-td><b-form-input disabled/></b-td>
                     </b-tr>
                     <b-tr>
-                        <b-th>По иным образовательным программам</b-th>
+                        <b-th>По иным о.п</b-th>
                         <b-td><b-form-input v-model="organization.info[1].s_f_b_in" :disabled="blockSave"/></b-td>
                         <b-td><b-form-input v-model="organization.info[1].s_b_s_in" :disabled="blockSave"/></b-td>
                         <b-td><b-form-input v-model="organization.info[1].s_m_b_in" :disabled="blockSave"/></b-td>
