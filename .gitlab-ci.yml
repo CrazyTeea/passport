@@ -50,4 +50,4 @@ run_migrate:
   script:
     - >
       ssh -p$PORT $DEST_SERVER "set -x && /usr/bin/php $DEST_PATH/yii
-      migrate"
+      migrate --interactive=0"
