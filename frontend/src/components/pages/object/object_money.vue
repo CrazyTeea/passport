@@ -142,7 +142,7 @@
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row mt-2">
                 <div class="col-6">
                     <label class="ml-2" for="object_area_neisp">
                         1. Расходы на коммунальные услуги
@@ -414,7 +414,7 @@
             </div>
 
 
-            <div class="row">
+            <div class="row mt-2">
                 <div class="col-6">
                     <label class="ml-4" for="object_area_neisp">
                         З. Противопожарные мероприятия
@@ -535,7 +535,7 @@
             </div>
 
 
-            <div class="row">
+            <div class="row mt-2">
                 <div class="col-6">
                     <label class="ml-2" for="object_area_neisp">
                         4. Расходы на уплату налогов
@@ -692,7 +692,7 @@
                     </b-input-group>
                 </div>
             </div>
-            <div class="row">
+            <div class="row mt-2">
                 <div class="col-6">
                     <label for="object_area_neisp">
                         Фонд оплаты труда
