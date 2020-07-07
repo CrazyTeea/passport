@@ -1,7 +1,7 @@
 <template>
     <div>
         <nav-bar v-on:save-page="savePage" v-on:block-save="blockSave =!blockSave"/>
-        <div class="container">
+        <div v-if="organization.area" class="container">
             <div class="row">
                 <div class="col-8">
                     <h3>Сведения о количестве мест и площади жилищного фонда, используемого в уставной деятельности</h3>
@@ -20,74 +20,74 @@
                         <template v-slot:append>
                             <b-input-group-text>м<sup>2</sup></b-input-group-text>
                         </template>
-                        <b-form-input id="org_area" disabled/>
+                        <b-form-input id="org_area" v-model="organization.area.area_prig_prozh" disabled/>
                     </b-input-group>
 
                 </div>
             </div>
             <div class="row">
-                <div class="col-6 "><label class="point-1  font-weight-bold" for="org_area_live">1. Жилая площадь, пригодная для проживания</label></div>
+                <div class="col-6 "><label class="ml-2  font-weight-bold" for="org_area_live">1. Жилая площадь, пригодная для проживания</label></div>
                 <div class="col-6">
                     <b-input-group>
                         <template v-slot:append>
                             <b-input-group-text>м<sup>2</sup></b-input-group-text>
                         </template>
-                        <b-form-input id="org_area_live" disabled/>
+                        <b-form-input id="org_area_live" v-model="organization.area.area_zhil_prig_prozh" disabled/>
                     </b-input-group>
                 </div>
             </div>
             <div class="row">
-                <div class="col-6 "><label class="point-2 font-weight-bold" for="org_area_students">А. Занятая обучающимися</label></div>
+                <div class="col-6 "><label class="ml-4 font-weight-bold" for="org_area_students">А. Занятая обучающимися</label></div>
                 <div class="col-6">
                     <b-input-group>
                         <template v-slot:append>
                             <b-input-group-text>м<sup>2</sup></b-input-group-text>
                         </template>
-                        <b-form-input id="org_area_students" disabled/>
+                        <b-form-input id="org_area_students" v-model="organization.area.area_zan_obuch" disabled/>
                     </b-input-group>
                 </div>
             </div>
             <div class="row">
-                <div class="col-6"><label class=" point-2 font-weight-bold" for="org_area_foreign">Б. Занятая иными категориями нанимателей</label></div>
+                <div class="col-6"><label class=" ml-4 font-weight-bold" for="org_area_foreign">Б. Занятая иными категориями нанимателей</label></div>
                 <div class="col-6">
                     <b-input-group>
                         <template v-slot:append>
                             <b-input-group-text>м<sup>2</sup></b-input-group-text>
                         </template>
-                        <b-form-input id="org_area_foreign" disabled/>
+                        <b-form-input id="org_area_foreign" v-model="organization.area.area_in_kat_nan" disabled/>
                     </b-input-group>
                 </div>
             </div>
             <div class="row">
-                <div class="col-6 "><label class="point-2 font-weight-bold" for="org_area_svod">В. Свободная</label></div>
+                <div class="col-6 "><label class="ml-4 font-weight-bold" for="org_area_svod">В. Свободная</label></div>
                 <div class="col-6 ">
                     <b-input-group>
                         <template v-slot:append>
                             <b-input-group-text>м<sup>2</sup></b-input-group-text>
                         </template>
-                        <b-form-input id="org_area_svod" disabled/>
+                        <b-form-input id="org_area_svod" v-model="organization.area.svobod" disabled/>
                     </b-input-group>
                 </div>
             </div>
             <div class="row">
-                <div class="col-6"><label class="point-2 font-weight-bold" for="org_area_not_used">Г. Неиспользуемая</label></div>
+                <div class="col-6"><label class="ml-4 font-weight-bold" for="org_area_not_used">Г. Неиспользуемая</label></div>
                 <div class="col-6 ">
                     <b-input-group>
                         <template v-slot:append>
                             <b-input-group-text>м<sup>2</sup></b-input-group-text>
                         </template>
-                        <b-form-input id="org_area_not_used" disabled/>
+                        <b-form-input id="org_area_not_used" v-model="organization.area.ne_isp" disabled/>
                     </b-input-group>
                 </div>
             </div>
             <div class="row">
-                <div class="col-6 "><label class="point-1 font-weight-bold" for="org_area_not_live_prigod">2. Нежилая площадь в пригодных для проживания объектах</label></div>
+                <div class="col-6 "><label class="ml-2 font-weight-bold" for="org_area_not_live_prigod">2. Нежилая площадь в пригодных для проживания объектах</label></div>
                 <div class="col-6 ">
                     <b-input-group>
                         <template v-slot:append>
                             <b-input-group-text>м<sup>2</sup></b-input-group-text>
                         </template>
-                        <b-form-input id="org_area_not_live_prigod" disabled/>
+                        <b-form-input id="org_area_not_live_prigod" v-model="organization.area.ne_zhil_plosh_v_prig_dlya_prozh" disabled/>
                     </b-input-group>
                 </div>
             </div>
@@ -100,7 +100,7 @@
                         <template v-slot:append>
                             <b-input-group-text>м<sup>2</sup></b-input-group-text>
                         </template>
-                        <b-form-input id="org_area_not_prigod" disabled/>
+                        <b-form-input id="org_area_not_prigod" v-model="organization.area.area_obsh_ne_prig_dlya_prozh" disabled/>
                     </b-input-group>
                 </div>
             </div>
@@ -117,20 +117,20 @@
                 <b-tbody>
                     <b-tr>
                         <b-td>Требует капитального ремонта</b-td>
-                        <b-td><b-form-input disabled/></b-td>
-                        <b-td><b-form-input disabled/></b-td>
+                        <b-td><b-form-input v-model="organization.area.area_zhil_t_k_r" disabled/></b-td>
+                        <b-td><b-form-input v-model="organization.area.area_ne_zhil_n_a_s" disabled/></b-td>
                         <b-td><b-form-input disabled/></b-td>
                     </b-tr>
                     <b-tr>
                         <b-td>Находится в аварийном состоянии</b-td>
-                        <b-td><b-form-input disabled/></b-td>
-                        <b-td><b-form-input disabled/></b-td>
+                        <b-td><b-form-input v-model="organization.area.area_zhil_n_a_s" disabled/></b-td>
+                        <b-td><b-form-input v-model="organization.area.area_ne_zhil_n_a_s" disabled/></b-td>
                         <b-td><b-form-input disabled/></b-td>
                     </b-tr>
                     <b-tr>
                         <b-td>Непригодна для проживания</b-td>
-                        <b-td><b-form-input disabled/></b-td>
-                        <b-td><b-form-input disabled/></b-td>
+                        <b-td><b-form-input v-model="organization.area.area_zhil_n_p" disabled/></b-td>
+                        <b-td><b-form-input v-model="organization.area.area_ne_zhil_n_p" disabled/></b-td>
                         <b-td><b-form-input disabled/></b-td>
                     </b-tr>
                 </b-tbody>
@@ -145,7 +145,7 @@
                         <template v-slot:append>
                             <b-input-group-text>м<sup>2</sup></b-input-group-text>
                         </template>
-                        <b-form-input id="org_area_metres" disabled/>
+                        <b-form-input id="org_area_metres" v-model="organization.area.area_kv_metr_zhil"  disabled/>
                     </b-input-group>
                 </div>
             </div>
@@ -156,7 +156,7 @@
                         <template v-slot:append>
                             <b-input-group-text>м<sup>2</sup></b-input-group-text>
                         </template>
-                        <b-form-input id="org_area_metres_2" disabled/>
+                        <b-form-input id="org_area_metres_2" v-model="organization.area.area_kv_metr_obsh" disabled/>
                     </b-input-group>
                 </div>
             </div>
@@ -168,7 +168,7 @@
                         <template v-slot:append>
                             <b-input-group-text>м<sup>2</sup></b-input-group-text>
                         </template>
-                        <b-form-input id="org_area_not_used_ustav" disabled/>
+                        <b-form-input id="org_area_not_used_ustav" v-model="organization.area.area_obj_ne_isp_v_ust_dey" disabled/>
                     </b-input-group>
                 </div>
             </div>
@@ -182,23 +182,23 @@
                 <div class="col-6"><label class="font-weight-bold" for="org_area_cnt_mest">Количество мест</label></div>
                 <div class="col-6">
                     <b-input-group append="мест">
-                        <b-form-input id="org_area_cnt_mest" disabled/>
+                        <b-form-input id="org_area_cnt_mest" v-model="organization.area.area_cnt_mest" disabled/>
                     </b-input-group>
                 </div>
             </div>
             <div class="row">
-                <div class="col-6 "><label class="point-1 font-weight-bold" for="org_area_cnt_mest_prig">1. Количество пригодных для проживания мест</label></div>
+                <div class="col-6 "><label class="ml-2 font-weight-bold" for="org_area_cnt_mest_prig">1. Количество пригодных для проживания мест</label></div>
                 <div class="col-6 ">
                     <b-input-group  append="мест">
-                        <b-form-input id="org_area_cnt_mest_prig" disabled/>
+                        <b-form-input id="org_area_cnt_mest_prig" v-model="organization.area.area_cnt_mest_prig_prozh" disabled/>
                     </b-input-group>
                 </div>
             </div>
             <div class="row">
-                <div class="col-6"><label class="point-2 font-weight-bold" for="org_area_cnt_mest_zan">А. Количество мест, занятых обучающимися</label></div>
+                <div class="col-6"><label class="ml-4 font-weight-bold" for="org_area_cnt_mest_zan">А. Количество мест, занятых обучающимися</label></div>
                 <div class="col-6 ">
                     <b-input-group  append="мест">
-                        <b-form-input id="org_area_cnt_mest_zan" disabled/>
+                        <b-form-input id="org_area_cnt_mest_zan" v-model="organization.area.area_cnt_mest_zan_obuch" disabled/>
                     </b-input-group>
                 </div>
             </div>
@@ -218,10 +218,10 @@
                             Среднее профессиональное образование
                         </b-td>
                         <b-td>
-                            <b-form-input disabled/>
+                            <b-form-input v-model="organization.area.m2_spo" disabled/>
                         </b-td>
                         <b-td>
-                            <b-form-input disabled/>
+                            <b-form-input v-model="organization.area.c6m2_spo" disabled/>
                         </b-td>
                         <b-td>
                             <b-form-input disabled/>
@@ -232,10 +232,10 @@
                             Бакалавриат
                         </b-td>
                         <b-td>
-                            <b-form-input disabled/>
+                            <b-form-input v-model="organization.area.m2_bak" disabled/>
                         </b-td>
                         <b-td>
-                            <b-form-input disabled/>
+                            <b-form-input v-model="organization.area.c6m2_bak" disabled/>
                         </b-td>
                         <b-td>
                             <b-form-input disabled/>
@@ -246,10 +246,10 @@
                             Специалитет
                         </b-td>
                         <b-td>
-                            <b-form-input disabled/>
+                            <b-form-input v-model="organization.area.m2_spec" disabled/>
                         </b-td>
                         <b-td>
-                            <b-form-input disabled/>
+                            <b-form-input v-model="organization.area.c6m2_spec" disabled/>
                         </b-td>
                         <b-td>
                             <b-form-input disabled/>
@@ -260,10 +260,10 @@
                             Магистратура
                         </b-td>
                         <b-td>
-                            <b-form-input disabled/>
+                            <b-form-input v-model="organization.area.m2_mag" disabled/>
                         </b-td>
                         <b-td>
-                            <b-form-input disabled/>
+                            <b-form-input v-model="organization.area.c6m2_mag" disabled/>
                         </b-td>
                         <b-td>
                             <b-form-input disabled/>
@@ -274,10 +274,10 @@
                             Аспирантура
                         </b-td>
                         <b-td>
-                            <b-form-input disabled/>
+                            <b-form-input v-model="organization.area.m2_asp" disabled/>
                         </b-td>
                         <b-td>
-                            <b-form-input disabled/>
+                            <b-form-input v-model="organization.area.c6m2_asp" disabled/>
                         </b-td>
                         <b-td>
                             <b-form-input disabled/>
@@ -288,10 +288,10 @@
                             Ординатрура
                         </b-td>
                         <b-td>
-                            <b-form-input disabled/>
+                            <b-form-input v-model="organization.area.m2_ord" disabled/>
                         </b-td>
                         <b-td>
-                            <b-form-input disabled/>
+                            <b-form-input v-model="organization.area.c6m2_ord" disabled/>
                         </b-td>
                         <b-td>
                             <b-form-input disabled/>
@@ -302,10 +302,10 @@
                             Иные обучающиеся
                         </b-td>
                         <b-td>
-                            <b-form-input disabled/>
+                            <b-form-input v-model="organization.area.m2_in" disabled/>
                         </b-td>
                         <b-td>
-                            <b-form-input disabled/>
+                            <b-form-input v-model="organization.area.c6m2_in" disabled/>
                         </b-td>
                         <b-td>
                             <b-form-input disabled/>
@@ -329,35 +329,35 @@
             </b-table-simple>
 
             <div class="row">
-                <div class="col-6 "><label class="point-2 font-weight-bold" for="org_area_cnt_mest_zan_inie">Б. Количество мест, занятых иными категориями проживающих</label></div>
+                <div class="col-6 "><label class="ml-4 font-weight-bold" for="org_area_cnt_mest_zan_inie">Б. Количество мест, занятых иными категориями проживающих</label></div>
                 <div class="col-6">
                     <b-input-group append="мест">
-                        <b-form-input id="org_area_cnt_mest_zan_inie" disabled/>
+                        <b-form-input v-model="organization.area.area_cnt_mest_zan_in_obuch"  id="org_area_cnt_mest_zan_inie" disabled/>
                     </b-input-group>
                 </div>
             </div>
             <div class="row">
-                <div class="col-6 "><label class="point-2 font-weight-bold" for="org_area_cnt_svod_mest">В. Количество свободных мест</label></div>
+                <div class="col-6 "><label class="ml-4 font-weight-bold" for="org_area_cnt_svod_mest">В. Количество свободных мест</label></div>
                 <div class="col-6 ">
                     <b-input-group append="мест">
-                        <b-form-input id="org_area_cnt_svod_mest" disabled/>
+                        <b-form-input v-model="organization.area.area_cnt_svob_mest" id="org_area_cnt_svod_mest" disabled/>
                     </b-input-group>
                 </div>
             </div>
             <div class="row">
-                <div class="col-6 "><label class="point-2 font-weight-bold" for="org_area_cnt_neisp_mest">Г. Количество неиспользуемых мест</label></div>
+                <div class="col-6 "><label class="ml-4 font-weight-bold" for="org_area_cnt_neisp_mest">Г. Количество неиспользуемых мест</label></div>
                 <div class="col-6 ">
                     <b-input-group append="мест">
-                        <b-form-input id="org_area_cnt_neisp_mest" disabled/>
+                        <b-form-input v-model="organization.area.area_cnt_ne_mest"  id="org_area_cnt_neisp_mest" disabled/>
                     </b-input-group>
                 </div>
             </div>
 
             <div class="row">
-                <div class="col-6"><label class=" point-1 font-weight-bold" for="org_area_cnt_neprig_mest">2. Количество непригодных к использованию мест</label></div>
+                <div class="col-6"><label class=" ml-2 font-weight-bold" for="org_area_cnt_neprig_mest">2. Количество непригодных к использованию мест</label></div>
                 <div class="col-6">
                     <b-input-group append="мест">
-                        <b-form-input id="org_area_cnt_neprig_mest" disabled/>
+                        <b-form-input v-model="organization.area.area_cnt_mest_ne_prig_k_prozh"   id="org_area_cnt_neprig_mest" disabled/>
                     </b-input-group>
                 </div>
             </div>
@@ -367,7 +367,7 @@
                 <div class="col-6"><label class="font-weight-bold" for="org_area_cnt_mest_invalid">Количество мест оборудованных для лиц с ограниченными возможностями здоровья</label></div>
                 <div class="col-6">
                     <b-input-group append="мест">
-                        <b-form-input id="org_area_cnt_mest_invalid" disabled/>
+                        <b-form-input v-model="organization.area.area_cnt_mest_invalid"  id="org_area_cnt_mest_invalid" disabled/>
                     </b-input-group>
                 </div>
             </div>
@@ -383,7 +383,7 @@
                 <div class="col-6"><label class="font-weight-bold" for="org_area_cnt_live_in_other">Количество обучающихся, проживающих в жилом фонде других организаций</label></div>
                 <div class="col-6">
                     <b-input-group append="человек">
-                        <b-form-input id="org_area_cnt_live_in_other " v-model="organization.area.area_cnt_prozh_u_drugih" :disabled="blockSave"/>
+                        <b-form-input id="org_area_cnt_live_in_other" v-model="organization.area.area_cnt_prozh_u_drugih" :disabled="blockSave"/>
                     </b-input-group>
                 </div>
             </div>
@@ -391,13 +391,13 @@
                 <div class="col-6"><label class="font-weight-bold" for="org_area_cnt_mest_vost_rab">Количество мест, возможных к вводу в эксплуатацию после проведения восстановительных работ</label></div>
                 <div class="col-6">
                     <b-input-group append="мест">
-                        <b-form-input id="org_area_cnt_mest_vost_rab" disabled/>
+                        <b-form-input v-model="organization.area.area_cnt_mest_vozm_k_vvodu_v_esk"  id="org_area_cnt_mest_vost_rab" disabled/>
                     </b-input-group>
                 </div>
             </div>
 
             <div class="row">
-                <div class="col-6"><label class="point-1 font-weight-bold" for="org_area_cnt_vozmozh_mest_prig">1. Количество мест, возможных к вводу в эксплуатацию из числа неиспользуемых после проведения восстановительных работ</label></div>
+                <div class="col-6"><label class="ml-2 font-weight-bold" for="org_area_cnt_vozmozh_mest_prig">1. Количество мест, возможных к вводу в эксплуатацию из числа неиспользуемых после проведения восстановительных работ</label></div>
                 <div class="col-6">
                     <b-input-group append="мест">
                         <template v-slot:prepend>
@@ -410,13 +410,13 @@
                                 правилами и нормами, иными требованиями законодательства
                             </b-tooltip>
                         </template>
-                        <b-form-input id="org_area_cnt_vozmozh_mest_prig" disabled/>
+                        <b-form-input  v-model="organization.area.area_cnt_mest_vozm_mest_is_neisp"  id="org_area_cnt_vozmozh_mest_prig" disabled/>
                     </b-input-group>
                 </div>
             </div>
 
             <div class="row">
-                <div class="col-6"><label class="point-1 font-weight-bold" for="org_area_cnt_vozmozh_mest_ne_prig">2. Количество мест, возможных к вводу в эксплуатацию из числа непригодных к использованию после проведения восстановительных работ</label></div>
+                <div class="col-6"><label class="ml-2 font-weight-bold" for="org_area_cnt_vozmozh_mest_ne_prig">2. Количество мест, возможных к вводу в эксплуатацию из числа непригодных к использованию после проведения восстановительных работ</label></div>
                 <div class="col-6">
                     <b-input-group append="мест">
                         <template v-slot:prepend>
@@ -429,7 +429,7 @@
                                 правилами и нормами, иными требованиями законодательства
                             </b-tooltip>
                         </template>
-                        <b-form-input id="org_area_cnt_vozmozh_mest_ne_prig" disabled/>
+                        <b-form-input v-model="organization.area.area_cnt_mest_vozm_mest_is_neprig" id="org_area_cnt_vozmozh_mest_ne_prig" disabled/>
                     </b-input-group>
                 </div>
             </div>
@@ -480,6 +480,7 @@
                 await Axios.get(`/api/organization/by-id/${this.id_org}`).then(res=> {
                         this.organization = res.data
                         this.organization.area = res.data.area ?? {}
+                        console.log(this.organization)
                     }
                 );
             },
@@ -512,16 +513,5 @@
     .row{
         margin-top: 5px;
     }
-    .point-1{
-        margin-left: 20px;
-    }
-    .point-2{
-        margin-left: 30px;
-    }
-    .point-4{
-        margin-left: 5%;
-    }
-    .point-5{
-        margin-left: 6%;
-    }
+
 </style>
