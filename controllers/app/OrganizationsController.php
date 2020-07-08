@@ -7,6 +7,7 @@ use app\models\Organizations;
 use app\models\OrgArea;
 use app\models\OrgInfo;
 use app\models\OrgLiving;
+use app\models\OrgLivingStudents;
 use app\models\UsersInfo;
 use Yii;
 use yii\helpers\Json;
@@ -113,10 +114,42 @@ class OrganizationsController extends Controller
             $liv = OrgLiving::findOne(['id_org'=>$id]) ?? new OrgLiving();
             $keys = [];
             $liv->id_org = $id;
-            foreach ($post as $key => $item){
-                $liv->$key = $item;
+
+            if (isset($post->living)) {
+
+                foreach ($post->living as $key => $item) {
+                    $liv->$key = $item;
+                }
             }
-            $ret = ['org_area'=>['success'=>$liv->save(),'errors'=>$liv->getErrors()]];
+
+            $ret = ['org_living'=>['success'=>$liv->save(),'errors'=>$liv->getErrors()]];
+            $living_studs =[];
+            foreach ($post->living_studs as $item){
+
+                $stud_item = Json::decode(Json::encode($item),false);
+                if (isset($stud_item->label)  and $stud_item->label =='Всего' or !isset($stud_item->type)) continue;
+                $stud = isset($stud_item->id) ? OrgLivingStudents::findOne($stud_item->id) : new OrgLivingStudents();
+                if ($stud->isNewRecord){
+                    $stud->invalid = $post->invalid;
+                    $stud->id_org = $id;
+                    $stud->id_living = $liv->id;
+                }
+
+                $stud->type = $stud_item->type;
+                $stud->budjet_type = $stud_item->budjet_type;
+                $stud->spo = $stud_item->spo ?? null;
+                $stud->bak = $stud_item->bak ?? null;
+                $stud->spec = $stud_item->spec ?? null;
+                $stud->mag = $stud_item->mag ?? null;
+                $stud->asp = $stud_item->asp ?? null;
+                $stud->ord = $stud_item->ord ?? null;
+                $stud->in = $stud_item->ipo ?? null;
+                if (!$stud->spec and !$stud->spo and !$stud->bak and !$stud->mag and !$stud->ord and !$stud->in) continue;
+                $living_studs[] = ['success' => $stud->save(), 'errors' => $stud->errors];
+
+            }
+            $ret = ['org_living'=>['success'=>$liv->save(),'errors'=>$liv->getErrors()],'living_studs'=>$living_studs];
+
         }
         return Json::encode($ret ?? 'не верный пост');
     }

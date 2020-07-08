@@ -2,6 +2,8 @@
 
 namespace app\models;
 
+use Yii;
+
 /**
  * This is the model class for table "org_living_students".
  *
@@ -18,6 +20,7 @@ namespace app\models;
  * @property int|null $ord
  * @property int|null $in
  * @property int|null $budjet_type
+ * @property int|null $invalid
  *
  * @property OrgLiving $living
  * @property Organizations $org
@@ -38,7 +41,7 @@ class OrgLivingStudents extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_org', 'id_living', 'spo', 'bak', 'spec', 'mag', 'asp', 'ord', 'in','budjet_type'], 'integer'],
+            [['id_org', 'id_living', 'spo', 'bak', 'spec', 'mag', 'asp', 'ord', 'in', 'budjet_type', 'invalid'], 'integer'],
             [['type', 'name'], 'string'],
             [['id_living'], 'exist', 'skipOnError' => true, 'targetClass' => OrgLiving::className(), 'targetAttribute' => ['id_living' => 'id']],
             [['id_org'], 'exist', 'skipOnError' => true, 'targetClass' => Organizations::className(), 'targetAttribute' => ['id_org' => 'id']],
@@ -63,6 +66,8 @@ class OrgLivingStudents extends \yii\db\ActiveRecord
             'asp' => 'Asp',
             'ord' => 'Ord',
             'in' => 'In',
+            'budjet_type' => 'Budjet Type',
+            'invalid' => 'Invalid',
         ];
     }
 
