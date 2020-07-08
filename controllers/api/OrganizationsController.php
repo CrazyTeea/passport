@@ -29,7 +29,7 @@ class OrganizationsController extends Controller
         $inv = Yii::$app->request->get('living_st_inv');
         $livingStudents = OrgLivingStudents::findAll(['id_org'=>$id,'invalid'=>$inv]);
 
-        return ['organization'=>$org,'info'=>$info,'area'=>$area,'living'=>$living,'region'=>$region,'founder'=>$founder,'livingStudents'=>$livingStudents ?? []];
+        return ['organization'=>$org,'info'=>$info,'area'=>$area,'living'=>$living,'region'=>$region,'founder'=>$founder,'livingStudents'=>$livingStudents];
     }
 
     public function actionUsersInfo($id){

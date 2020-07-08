@@ -1,69 +1,70 @@
 <template>
-    <div>
-        <nav-bar v-on:save-page="savePage" v-on:block-save="blockPage = !blockPage"/>
-        <div class="container">
-            <div class="row">
-                <div class="col-8">
-                    <h3>
-                        Сведения о проживающих лицах с ограниченными возможностями в жилищном фонде, используемом в уставной деятельности
-                    </h3>
+    <transition name="bounce">
+        <div v-if="componentReady">
+            <nav-bar v-on:save-page="savePage" v-on:block-save="blockPage = !blockPage"/>
+            <div class="container">
+                <div class="row">
+                    <div class="col-8">
+                        <h3>
+                            Сведения о проживающих лицах с ограниченными возможностями в жилищном фонде, используемом в уставной деятельности
+                        </h3>
+                    </div>
                 </div>
-            </div>
-            <hr>
-            <div class="row">
-                <div class="col-6"><label for="living_cnt_inv">Проживающие из числа обучающихся с ограниченными возможностями здоровья</label></div>
-                <div class="col-6">
-                    <b-input-group append="Человек">
-                        <b-form-input id="living_cnt_inv" disabled/>
-                    </b-input-group>
+                <hr>
+                <div class="row">
+                    <div class="col-6"><label for="living_cnt_inv">Проживающие из числа обучающихся с ограниченными возможностями здоровья</label></div>
+                    <div class="col-6">
+                        <b-input-group append="Человек">
+                            <b-form-input id="living_cnt_inv" disabled/>
+                        </b-input-group>
+                    </div>
                 </div>
-            </div>
-            <hr>
+                <hr>
 
-            <b-tabs content-class="mt-3" nav-class="font-weigh-bold" small justified>
-                <b-tab no-body>
-                    <template v-slot:title>
+                <b-tabs content-class="mt-3" nav-class="font-weigh-bold" small justified>
+                    <b-tab no-body>
+                        <template v-slot:title>
                         <span class="text-secondary">
                         За счёт федерального бюджета
                         </span>
-                    </template>
-                    <living-table :items="items_b.items" title="Проживающие из числа обучающихся с ограниченными возможностями здоровья за счёт федерального бюджета" :is-invalid="true" :block-save="blockPage" v-bind:can-save="items_b.canSave"/>
+                        </template>
+                        <living-table :items="items_b.items" title="Проживающие из числа обучающихся с ограниченными возможностями здоровья за счёт федерального бюджета" :is-invalid="true" :block-save="blockPage" v-bind:can-save="items_b.canSave"/>
 
-                </b-tab>
-                <b-tab no-body >
-                    <template v-slot:title>
+                    </b-tab>
+                    <b-tab no-body >
+                        <template v-slot:title>
                         <span class="text-secondary">
                         За счёт бюджета субъекта
                         </span>
-                    </template>
-                    <living-table :items="items_s.items" title="Проживающие из числа обучающихся с ограниченными возможностями здоровья за счёт федерального бюджета" :is-invalid="true" :block-save="blockPage" v-bind:can-save="items_s.canSave"/>
+                        </template>
+                        <living-table :items="items_s.items" title="Проживающие из числа обучающихся с ограниченными возможностями здоровья за счёт федерального бюджета" :is-invalid="true" :block-save="blockPage" v-bind:can-save="items_s.canSave"/>
 
-                </b-tab>
-                <b-tab no-body >
-                    <template v-slot:title>
+                    </b-tab>
+                    <b-tab no-body >
+                        <template v-slot:title>
                         <span class="text-secondary">
                         За счёт местного бюджета
                         </span>
-                    </template>
-                    <living-table :items="items_m.items" title="Проживающие из числа обучающихся с ограниченными возможностями здоровья за счёт федерального бюджета" :is-invalid="true" :block-save="blockPage" v-bind:can-save="items_m.canSave"/>
+                        </template>
+                        <living-table :items="items_m.items" title="Проживающие из числа обучающихся с ограниченными возможностями здоровья за счёт федерального бюджета" :is-invalid="true" :block-save="blockPage" v-bind:can-save="items_m.canSave"/>
 
-                </b-tab>
-                <b-tab no-body >
-                    <template v-slot:title>
+                    </b-tab>
+                    <b-tab no-body >
+                        <template v-slot:title>
                         <span class="text-secondary">
                               По договорам об оказании
                         платных образовательных услуг
                         </span>
-                    </template>
-                    <living-table :items="items_p.items" title="Проживающие из числа обучающихся с ограниченными возможностями здоровья за счёт федерального бюджета" :is-invalid="true" :block-save="blockPage" v-bind:can-save="items_p.canSave"/>
+                        </template>
+                        <living-table :items="items_p.items" title="Проживающие из числа обучающихся с ограниченными возможностями здоровья за счёт федерального бюджета" :is-invalid="true" :block-save="blockPage" v-bind:can-save="items_p.canSave"/>
 
-                </b-tab>
-            </b-tabs>
+                    </b-tab>
+                </b-tabs>
 
 
+            </div>
         </div>
-    </div>
-
+    </transition>
 </template>
 
 <script>
@@ -77,6 +78,7 @@
         data(){
             return {
                 csrf: document.getElementsByName("csrf-token")[0].content,
+                componentReady: false,
                 blockPage:true,
                 user:{},
                 organization:{},
@@ -1478,12 +1480,16 @@
                 }).then(res=>{
                     this.getOrg()
                 })
-            }
+            },
+
         },
         async mounted(){
             await this.getUser();
             this.id_org = this.user.id_org;
             await this.getOrg()
+           // document.addEventListener("pagehide", this.unloadEvent(event));
+          //  document.addEventListener("pageshow", this.loadEvent());
+            this.componentReady = true;
         },
         components:{
             NavBar,
@@ -1496,5 +1502,19 @@
 </script>
 
 <style scoped>
+    .bounce-enter-active {
+        transition: all .3s ease;
+    }
+    .bounce-leave-active {
+        transition: all .3s ease;
+    }
+    .bounce-enter  {
+        transform: translateX(100px);
+        opacity: 0;
+    }
+    .bounce-leave-to {
+        transform: translateX(-100px);
+        opacity: 0;
+    }
 
 </style>
