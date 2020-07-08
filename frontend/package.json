@@ -37,7 +37,9 @@
     "bootstrap-vue": "^2.15.0",
     "eslint": "^7.4.0",
     "jquery": "^3.5.1",
+    "v-select2-component": "^0.4.3",
     "vue": "^2.6.11",
-    "vue-router": "^3.3.4"
+    "vue-router": "^3.3.4",
+    "vue-select": "^3.10.5"
   }
 }

@@ -70,7 +70,10 @@
 
             <div class="row">
                 <div class="col-6"><label for="obj_region">Регион расположения жилого объекта</label></div>
-                <div class="col-6"><b-form-select :disabled="disablePage" v-model="currentObject.id_region" :options="regions" id="obj_region"/></div>
+                <div class="col-6">
+                    <v-select :reduce="region=>region.value" label="text" :disabled="disablePage" v-model="currentObject.id_region" :options="regions" id="obj_region"/>
+                    <!--<b-form-select :disabled="disablePage" v-model="currentObject.id_region" :options="regions" id="obj_region"/>-->
+                </div>
             </div>
 
             <div class="row mt-2">
@@ -265,8 +268,9 @@
         BInputGroupText,
         BModal,
         BTooltip
-    } from 'bootstrap-vue'
-    import Axios from 'axios'
+    } from 'bootstrap-vue';
+    import Axios from 'axios';
+    import vSelect from 'vue-select'
 
     export default {
         components:{
@@ -276,6 +280,7 @@
             BButton,BModal,
             BFormGroup,BTooltip,
             BInputGroup,BInputGroupText,
+            vSelect
         },
         data(){
             return {
@@ -318,6 +323,7 @@
         },
         watch:{
             objects(){
+                this.objectsTitle = [];
                 this.objects.forEach(item=>{
                     this.objectsTitle.push({
                         value:item.id,
@@ -346,21 +352,26 @@
             },
             addObject(){
                 this.objects.push({
-                    id:12,
+                    id:null,
                     name:this.objName,
                     address:null,
-                    id_region:1,
+                    id_region:null,
                     kad_number:null,
-                    osnov_isp:0,
+                    osnov_isp:null,
                     reg_zap:null,
-                    smet_sum:0,
                     doc_number:null,
-                    plan_zhil_pom:0,
-                    razm_type:0,
-                    nal_uch_isp_res:0,
+                    plan_zhil_pom:null,
+                    razm_type:null,
+                    smet_sum:null,
+                    nal_uch_isp_res:null,
                     date_start_stroy:null,
                     date_zdan:null,
-                    date_exploat:null
+                    date_exploat:null,
+                    sum_fins:null,
+                    schet_fed_bud:null,
+                    schet_bud_subj:null,
+                    schet_vnebud:null,
+                    rek_kap_rem:true,
                 });
                 this.objName = null;
                 this.modalShow = false;
