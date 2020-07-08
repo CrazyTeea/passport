@@ -1,5 +1,6 @@
 <template>
-    <div>
+    <transition name="bounce">
+        <div v-if="componentReady">
         <nav-bar v-on:save-page="savePage" v-on:block-save="blockPage = !blockPage"/>
         <div v-if="organization.living" class="container">
             <div class="row">
@@ -160,6 +161,7 @@
 
         </div>
     </div>
+    </transition>
 </template>
 
 <script>
@@ -203,6 +205,7 @@
                 user:{},
                 organization:{},
                 id_org:null,
+                componentReady:false,
                 items_b:{
                     items:[
                         {
@@ -1613,12 +1616,26 @@
         async mounted(){
             await this.getUser();
             this.id_org = this.user.id_org;
-            await this.getOrg()
+            await this.getOrg();
+            this.componentReady=true;
         }
     }
 </script>
 
 <style scoped>
 
-
+    .bounce-enter-active {
+        transition: all .3s ease;
+    }
+    .bounce-leave-active {
+        transition: all .3s ease;
+    }
+    .bounce-enter  {
+        transform: translateX(100px);
+        opacity: 0;
+    }
+    .bounce-leave-to {
+        transform: translateX(-100px);
+        opacity: 0;
+    }
 </style>

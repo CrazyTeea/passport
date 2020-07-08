@@ -1,5 +1,6 @@
 <template>
-    <div>
+    <transition name="bounce">
+      <div v-if="componentReady">
         <nav-bar v-on:save-page="savePage" v-on:block-save="blockSave =!blockSave"/>
         <div v-if="organization.area" class="container">
             <div class="row">
@@ -440,6 +441,7 @@
 
 
     </div>
+    </transition>
 </template>
 
 <script>
@@ -474,6 +476,7 @@
         },
         data(){
             return{
+                componentReady:false,
                 csrf: document.getElementsByName("csrf-token")[0].content,
                 blockSave:true,
                 id_org:null,
@@ -509,7 +512,8 @@
         async mounted(){
             await this.getUser();
             this.id_org = this.user.id_org;
-            await this.getOrg()
+            await this.getOrg();
+            this.componentReady=true;
         }
     }
 </script>
@@ -522,6 +526,21 @@
     }
     .row{
         margin-top: 5px;
+    }
+
+    .bounce-enter-active {
+        transition: all .3s ease;
+    }
+    .bounce-leave-active {
+        transition: all .3s ease;
+    }
+    .bounce-enter  {
+        transform: translateX(100px);
+        opacity: 0;
+    }
+    .bounce-leave-to {
+        transform: translateX(-100px);
+        opacity: 0;
     }
 
 </style>

@@ -1,5 +1,7 @@
 <template>
-    <div id="org-info-page">
+
+    <transition name="bounce">
+        <div v-if="componentReady" id="org-info-page">
         <nav-bar v-on:save-page="savePage" v-on:block-save="blockSave = !blockSave"/>
         <div v-if="organization" class="container">
             <h3>Сведения об организации</h3>
@@ -239,6 +241,7 @@
         </div>
 
     </div>
+    </transition>
 
 </template>
 
@@ -262,7 +265,8 @@
                     region:{
                         region:''
                     }
-                }
+                },
+                componentReady:false
             }
         },
         components:{
@@ -277,7 +281,7 @@
             await this.getUser();
             this.id_org = this.user.id_org
             await this.getOrg()
-            console.log(this.organization)
+            this.componentReady=true;
         },
         methods:{
             async getUser(){
@@ -315,5 +319,18 @@
 </script>
 
 <style scoped>
-
+    .bounce-enter-active {
+        transition: all .3s ease;
+    }
+    .bounce-leave-active {
+        transition: all .3s ease;
+    }
+    .bounce-enter  {
+        transform: translateX(100px);
+        opacity: 0;
+    }
+    .bounce-leave-to {
+        transform: translateX(-100px);
+        opacity: 0;
+    }
 </style>
