@@ -58,8 +58,8 @@
 
 <script>
     import NavBar from "../../organisms/NavBar";
-    import {BCard,BCardText,BFormGroup,BInputGroup,BInputGroupText,
-        BButton,BFormFile} from 'bootstrap-vue'
+    import {BButton, BCard, BCardText, BFormFile, BFormGroup, BInputGroup, BInputGroupText} from 'bootstrap-vue'
+
     export default {
         name: "uploadPage",
         components: {

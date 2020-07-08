@@ -6,6 +6,7 @@ namespace app\controllers\app;
 use app\models\Organizations;
 use app\models\OrgArea;
 use app\models\OrgInfo;
+use app\models\OrgLiving;
 use app\models\UsersInfo;
 use Yii;
 use yii\helpers\Json;
@@ -97,9 +98,25 @@ class OrganizationsController extends Controller
             $post = Json::decode($post['org_area'],false);
             $area = OrgArea::findOne(['id_org'=>$id]) ?? new OrgArea();
             $area->id_org = $id;
-            $area->area_cnt_nuzhd_zhil = $post->area_cnt_nuzhd_zhil;
-            $area->area_cnt_prozh_u_drugih = $post->area_cnt_prozh_u_drugih;
+            foreach ($post as $key => $item){
+                $area->$key = $item;
+            }
             $ret = ['org_area'=>['success'=>$area->save(),'errors'=>$area->getErrors()]];
+        }
+        return Json::encode($ret ?? 'не верный пост');
+    }
+
+    public function actionSetOrgLiving($id)
+    {
+        if($post = Yii::$app->request->post()){
+            $post = Json::decode($post['org_living'],false);
+            $liv = OrgLiving::findOne(['id_org'=>$id]) ?? new OrgLiving();
+            $keys = [];
+            $liv->id_org = $id;
+            foreach ($post as $key => $item){
+                $liv->$key = $item;
+            }
+            $ret = ['org_area'=>['success'=>$liv->save(),'errors'=>$liv->getErrors()]];
         }
         return Json::encode($ret ?? 'не верный пост');
     }

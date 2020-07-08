@@ -1,8 +1,8 @@
 <?php
 
 use mdm\admin\AnimateAsset;
-use yii\helpers\ArrayHelper;
 use yii\bootstrap4\Html;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 use yii\web\YiiAsset;
 

@@ -2,8 +2,6 @@
 
 namespace app\models;
 
-use Yii;
-
 /**
  * This is the model class for table "organizations".
  *
@@ -93,5 +91,11 @@ class Organizations extends \yii\db\ActiveRecord
     }
     public function getArea(){
         return $this->hasOne(OrgArea::class,['id_org'=>'id']);
+    }
+    public function getLiving(){
+        return $this->hasOne(OrgLiving::class,['id_org'=>'id']);
+    }
+    public function getLivingStudents(){
+        return $this->hasMany(OrgLivingStudents::class,['id_org'=>'id']);
     }
 }

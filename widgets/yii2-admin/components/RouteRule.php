@@ -2,7 +2,6 @@
 
 namespace mdm\admin\components;
 
-use Yii;
 use yii\rbac\Rule;
 
 /**

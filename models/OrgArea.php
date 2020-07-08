@@ -2,8 +2,6 @@
 
 namespace app\models;
 
-use Yii;
-
 /**
  * This is the model class for table "org_area".
  *
@@ -39,13 +37,13 @@ use Yii;
  * @property float|null $m2_asp
  * @property float|null $m2_ord
  * @property float|null $m2_in
- * @property float|null $6m2_spo
- * @property float|null $6m2_bak
- * @property float|null $6m2_spec
- * @property float|null $6m2_mag
- * @property float|null $6m2_asp
- * @property float|null $6m2_ord
- * @property float|null $6m2_in
+ * @property float|null $c6m2_spo
+ * @property float|null $c6m2_bak
+ * @property float|null $c6m2_spec
+ * @property float|null $c6m2_mag
+ * @property float|null $c6m2_asp
+ * @property float|null $c6m2_ord
+ * @property float|null $c6m2_in
  * @property int|null $area_cnt_mest_zan_in_obuch
  * @property int|null $area_cnt_svob_mest
  * @property int|null $area_cnt_ne_mest
@@ -75,8 +73,16 @@ class OrgArea extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_org', 'area_cnt_mest', 'area_cnt_mest_prig_prozh', 'area_cnt_mest_zan_obuch', 'area_cnt_mest_zan_in_obuch', 'area_cnt_svob_mest', 'area_cnt_ne_mest', 'area_cnt_mest_ne_prig_k_prozh', 'area_cnt_mest_invalid', 'area_cnt_nuzhd_zhil', 'area_cnt_prozh_u_drugih', 'area_cnt_mest_vozm_k_vvodu_v_esk', 'area_cnt_mest_vozm_mest_is_neisp', 'area_cnt_mest_vozm_mest_is_neprig'], 'integer'],
-            [['area_prig_prozh', 'area_zhil_prig_prozh', 'area_zan_obuch', 'area_in_kat_nan', 'svobod', 'ne_isp', 'ne_zhil_plosh_v_prig_dlya_prozh', 'area_obsh_ne_prig_dlya_prozh', 'area_zhil_t_k_r', 'area_zhil_n_a_s', 'area_zhil_n_p', 'area_ne_zhil_t_k_r', 'area_ne_zhil_n_a_s', 'area_ne_zhil_n_p', 'area_obsh_t_k_r', 'area_obsh_zhil_n_a_s', 'area_obsh_zhil_n_p', 'area_kv_metr_zhil', 'area_kv_metr_obsh', 'area_obj_ne_isp_v_ust_dey', 'm2_spo', 'm2_bak', 'm2_spec', 'm2_mag', 'm2_asp', 'm2_ord', 'm2_in', '6m2_spo', '6m2_bak', '6m2_spec', '6m2_mag', '6m2_asp', '6m2_ord', '6m2_in'], 'number'],
+            [['id_org', 'area_cnt_mest', 'area_cnt_mest_prig_prozh', 'area_cnt_mest_zan_obuch', 'area_cnt_mest_zan_in_obuch',
+                'area_cnt_svob_mest', 'area_cnt_ne_mest', 'area_cnt_mest_ne_prig_k_prozh', 'area_cnt_mest_invalid',
+                'area_cnt_nuzhd_zhil', 'area_cnt_prozh_u_drugih', 'area_cnt_mest_vozm_k_vvodu_v_esk',
+                'area_cnt_mest_vozm_mest_is_neisp', 'area_cnt_mest_vozm_mest_is_neprig'], 'integer'],
+            [['area_prig_prozh', 'area_zhil_prig_prozh', 'area_zan_obuch', 'area_in_kat_nan', 'svobod',
+                'ne_isp', 'ne_zhil_plosh_v_prig_dlya_prozh', 'area_obsh_ne_prig_dlya_prozh', 'area_zhil_t_k_r',
+                'area_zhil_n_a_s', 'area_zhil_n_p', 'area_ne_zhil_t_k_r', 'area_ne_zhil_n_a_s', 'area_ne_zhil_n_p',
+                'area_obsh_t_k_r', 'area_obsh_zhil_n_a_s', 'area_obsh_zhil_n_p', 'area_kv_metr_zhil', 'area_kv_metr_obsh',
+                'area_obj_ne_isp_v_ust_dey', 'm2_spo', 'm2_bak', 'm2_spec', 'm2_mag', 'm2_asp', 'm2_ord', 'm2_in', 'c6m2_spo',
+                'c6m2_bak', 'c6m2_spec', 'c6m2_mag', 'c6m2_asp', 'c6m2_ord', 'c6m2_in'], 'number'],
             [['id_org'], 'exist', 'skipOnError' => true, 'targetClass' => Organizations::className(), 'targetAttribute' => ['id_org' => 'id']],
         ];
     }

@@ -2,10 +2,10 @@
 
 namespace mdm\admin\controllers;
 
-use Yii;
 use mdm\admin\models\Route;
-use yii\web\Controller;
+use Yii;
 use yii\filters\VerbFilter;
+use yii\web\Controller;
 
 /**
  * Description of RuleController

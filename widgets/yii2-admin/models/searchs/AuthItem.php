@@ -2,10 +2,10 @@
 
 namespace mdm\admin\models\searchs;
 
+use mdm\admin\components\Configs;
 use Yii;
 use yii\base\Model;
 use yii\data\ArrayDataProvider;
-use mdm\admin\components\Configs;
 use yii\rbac\Item;
 
 /**

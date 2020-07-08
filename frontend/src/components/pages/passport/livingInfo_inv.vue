@@ -69,7 +69,8 @@
 <script>
     import NavBar from "../../organisms/NavBar";
     import livingTable from "../../organisms/livingTable";
-    import {BFormInput,BTabs,BTab, BInputGroup} from 'bootstrap-vue'
+    import {BFormInput, BInputGroup, BTab, BTabs} from 'bootstrap-vue'
+
     export default {
         name: "livingInfo_inv",
         data(){

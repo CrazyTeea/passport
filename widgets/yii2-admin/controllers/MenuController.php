@@ -2,13 +2,13 @@
 
 namespace mdm\admin\controllers;
 
-use Yii;
+use mdm\admin\components\Helper;
 use mdm\admin\models\Menu;
 use mdm\admin\models\searchs\Menu as MenuSearch;
+use Yii;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
-use mdm\admin\components\Helper;
 
 /**
  * MenuController implements the CRUD actions for Menu model.

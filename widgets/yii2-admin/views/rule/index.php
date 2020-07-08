@@ -2,7 +2,6 @@
 
 use yii\bootstrap4\Html;
 use yii\grid\GridView;
-use yii\widgets\Pjax;
 
 /* @var $this  yii\web\View */
 /* @var $model mdm\admin\models\BizRule */

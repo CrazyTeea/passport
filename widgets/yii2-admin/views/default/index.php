@@ -1,8 +1,8 @@
 <?php
 
-use yii\web\View;
 use yii\helpers\Markdown;
 use yii\helpers\Url;
+use yii\web\View;
 
 /* @var $this View */
 

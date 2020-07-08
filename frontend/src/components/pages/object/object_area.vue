@@ -346,9 +346,21 @@
 
 <script>
     import NavBar from "../../organisms/NavBar";
-    import {BFormSelect, BFormInput,BInputGroup,
-        BTableSimple,BInputGroupText,BButton,
-        BThead,BTh,BTr,BTd,BTbody,BTooltip} from 'bootstrap-vue'
+    import {
+        BButton,
+        BFormInput,
+        BFormSelect,
+        BInputGroup,
+        BInputGroupText,
+        BTableSimple,
+        BTbody,
+        BTd,
+        BTh,
+        BThead,
+        BTooltip,
+        BTr
+    } from 'bootstrap-vue'
+
     export default {
         name: "object_area",
         components:{

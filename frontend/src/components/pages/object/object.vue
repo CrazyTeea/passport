@@ -256,9 +256,18 @@
 
 <script>
     import NavBar from "../../organisms/NavBar";
-    import {BFormInput,BFormSelect,BFormGroup,BInputGroup,BInputGroupText,
-        BButton,BModal,BTooltip} from 'bootstrap-vue'
+    import {
+        BButton,
+        BFormGroup,
+        BFormInput,
+        BFormSelect,
+        BInputGroup,
+        BInputGroupText,
+        BModal,
+        BTooltip
+    } from 'bootstrap-vue'
     import Axios from 'axios'
+
     export default {
         components:{
             NavBar,

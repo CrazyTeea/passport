@@ -4,37 +4,37 @@
             <div class="row">
                 <div class="col-1">
 
-                        <b-dropdown variant="transparent" menu-class="dropdown-menu" toggle-class=" text-decoration-none" no-caret>
-                            <template v-slot:button-content>
-                                <i class="fas fa-align-justify"></i>
-                            </template>
-                            <b-dropdown-item href="/main">Главная</b-dropdown-item>
-                            <b-dropdown-text>
-                                <hr>
-                                Данные об организации
-                                <hr>
-                            </b-dropdown-text>
-                            <b-dropdown-item href="/org-info">Сведения об организации</b-dropdown-item>
-                            <b-dropdown-item href="/area-info">Сведения о колличесве мест и площади</b-dropdown-item>
-                            <b-dropdown-item href="/living-info">Сведения о проживающих</b-dropdown-item>
-                            <b-dropdown-item href="/living-info-inv">Сведения о проживающих лицах <br> с ограниченными возможностями</b-dropdown-item>
-                            <b-dropdown-text>
-                                <hr>
-                                Данные о жилом объекте
-                                <hr>
-                            </b-dropdown-text>
-                            <b-dropdown-item href="/objects-info">Сведения о жилом объекте</b-dropdown-item>
-                            <b-dropdown-item href="/objects-area">Сведения о площади, проживающих <br> и колличестве мест</b-dropdown-item>
-                            <b-dropdown-item href="/objects-money">Сведения о поступлениях и расходах</b-dropdown-item>
-                            <b-dropdown-item href="/objects-tariff">Сведения о тарифах</b-dropdown-item>
-                            <b-dropdown-text>
-                                <hr>
-                                Документы
-                                <hr>
-                            </b-dropdown-text>
-                            <b-dropdown-item href="/documents">Загрузить документы</b-dropdown-item>
+                    <b-dropdown variant="transparent" menu-class="dropdown-menu" toggle-class=" text-decoration-none" no-caret>
+                        <template v-slot:button-content>
+                            <i class="fas fa-align-justify"></i>
+                        </template>
+                        <b-dropdown-item href="/main">Главная</b-dropdown-item>
+                        <b-dropdown-text>
+                            <hr>
+                            Данные об организации
+                            <hr>
+                        </b-dropdown-text>
+                        <b-dropdown-item href="/org-info">Сведения об организации</b-dropdown-item>
+                        <b-dropdown-item href="/area-info">Сведения о колличесве мест и площади</b-dropdown-item>
+                        <b-dropdown-item href="/living-info">Сведения о проживающих</b-dropdown-item>
+                        <b-dropdown-item href="/living-info-inv">Сведения о проживающих лицах <br> с ограниченными возможностями</b-dropdown-item>
+                        <b-dropdown-text>
+                            <hr>
+                            Данные о жилом объекте
+                            <hr>
+                        </b-dropdown-text>
+                        <b-dropdown-item href="/objects-info">Сведения о жилом объекте</b-dropdown-item>
+                        <b-dropdown-item href="/objects-area">Сведения о площади, проживающих <br> и колличестве мест</b-dropdown-item>
+                        <b-dropdown-item href="/objects-money">Сведения о поступлениях и расходах</b-dropdown-item>
+                        <b-dropdown-item href="/objects-tariff">Сведения о тарифах</b-dropdown-item>
+                        <b-dropdown-text>
+                            <hr>
+                            Документы
+                            <hr>
+                        </b-dropdown-text>
+                        <b-dropdown-item href="/documents">Загрузить документы</b-dropdown-item>
 
-                        </b-dropdown>
+                    </b-dropdown>
 
 
                 </div>
@@ -62,9 +62,8 @@
 </template>
 
 <script>
-    import {BDropdown,BButton,
-        BDropdownItem,BFormCheckbox,
-        BDropdownText} from 'bootstrap-vue';
+    import {BButton, BDropdown, BDropdownItem, BDropdownText, BFormCheckbox} from 'bootstrap-vue';
+
     export default {
         components:{
             BFormCheckbox,

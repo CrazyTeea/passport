@@ -14,7 +14,6 @@ use Yii;
 use yii\console\Controller;
 
 
-
 class ReferenceController extends Controller
 {
     static $jwt_key = 'example_key233';
