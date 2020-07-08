@@ -2,9 +2,9 @@
 
 namespace mdm\admin\models\form;
 
+use mdm\admin\models\User;
 use Yii;
 use yii\base\Model;
-use mdm\admin\models\User;
 
 /**
  * Login form

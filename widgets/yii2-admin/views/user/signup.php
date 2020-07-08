@@ -1,8 +1,8 @@
 <?php
 
 use kartik\select2\Select2;
-use yii\bootstrap4\Html;
 use yii\bootstrap4\ActiveForm;
+use yii\bootstrap4\Html;
 
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */

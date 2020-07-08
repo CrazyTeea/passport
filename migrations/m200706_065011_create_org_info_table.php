@@ -1,6 +1,5 @@
 <?php
 
-use phpDocumentor\Reflection\Types\Integer;
 use yii\db\Migration;
 
 /**

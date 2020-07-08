@@ -2,8 +2,8 @@
 
 namespace mdm\admin\models;
 
-use Yii;
 use mdm\admin\components\Configs;
+use Yii;
 use yii\db\Query;
 
 /**

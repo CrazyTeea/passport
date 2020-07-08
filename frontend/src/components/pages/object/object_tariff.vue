@@ -84,8 +84,8 @@
 
 <script>
     import NavBar from "../../organisms/NavBar";
-    import {BFormSelect,BButton,BThead,BFormInput,
-        BTh,BTr,BTd,BTbody,BTableSimple} from 'bootstrap-vue'
+    import {BButton, BFormInput, BFormSelect, BTableSimple, BTbody, BTd, BTh, BThead, BTr} from 'bootstrap-vue'
+
     export default {
         name: "object_tariff",
         components:{

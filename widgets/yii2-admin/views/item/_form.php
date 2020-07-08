@@ -1,11 +1,11 @@
 <?php
 
-use yii\bootstrap4\Html;
-use yii\bootstrap4\ActiveForm;
-use mdm\admin\components\RouteRule;
 use mdm\admin\AutocompleteAsset;
-use yii\helpers\Json;
 use mdm\admin\components\Configs;
+use mdm\admin\components\RouteRule;
+use yii\bootstrap4\ActiveForm;
+use yii\bootstrap4\Html;
+use yii\helpers\Json;
 
 /* @var $this yii\web\View */
 /* @var $model mdm\admin\models\AuthItem */

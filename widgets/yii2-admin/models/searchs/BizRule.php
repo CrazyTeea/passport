@@ -2,12 +2,12 @@
 
 namespace mdm\admin\models\searchs;
 
+use mdm\admin\components\Configs;
+use mdm\admin\components\RouteRule;
+use mdm\admin\models\BizRule as MBizRule;
 use Yii;
 use yii\base\Model;
 use yii\data\ArrayDataProvider;
-use mdm\admin\models\BizRule as MBizRule;
-use mdm\admin\components\RouteRule;
-use mdm\admin\components\Configs;
 
 /**
  * Description of BizRule

@@ -2,9 +2,8 @@
 
 namespace mdm\admin\components;
 
-use Yii;
-use yii\caching\TagDependency;
 use mdm\admin\models\Menu;
+use yii\caching\TagDependency;
 
 /**
  * MenuHelper used to generate menu depend of user role.

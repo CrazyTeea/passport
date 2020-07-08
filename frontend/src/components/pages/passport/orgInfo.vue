@@ -244,9 +244,9 @@
 
 <script>
     import NavBar from "../../organisms/NavBar";
-    import {BFormGroup,BFormInput,BTh,BTr,BTd,BThead,BTbody,
-        BTableSimple} from 'bootstrap-vue'
+    import {BFormGroup, BFormInput, BTableSimple, BTbody, BTd, BTh, BThead, BTr} from 'bootstrap-vue'
     import Axios from "axios";
+
     export default {
         data(){
             return {

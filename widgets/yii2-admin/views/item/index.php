@@ -1,9 +1,9 @@
 <?php
 
+use mdm\admin\components\Configs;
+use mdm\admin\components\RouteRule;
 use yii\bootstrap4\Html;
 use yii\grid\GridView;
-use mdm\admin\components\RouteRule;
-use mdm\admin\components\Configs;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */

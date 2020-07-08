@@ -2,10 +2,9 @@
 
 namespace mdm\admin\models\searchs;
 
-use Yii;
+use mdm\admin\models\Menu as MenuModel;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use mdm\admin\models\Menu as MenuModel;
 
 /**
  * Menu represents the model behind the search form about [[\mdm\admin\models\Menu]].

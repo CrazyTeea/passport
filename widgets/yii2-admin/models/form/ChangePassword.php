@@ -2,8 +2,8 @@
 
 namespace mdm\admin\models\form;
 
-use Yii;
 use mdm\admin\models\User;
+use Yii;
 use yii\base\Model;
 
 /**

@@ -723,8 +723,8 @@
 
 <script>
     import NavBar from "../../organisms/NavBar";
-    import {BFormInput,BInputGroup,BButton,BInputGroupText,BTooltip,
-        BFormSelect} from 'bootstrap-vue'
+    import {BButton, BFormInput, BFormSelect, BInputGroup, BInputGroupText, BTooltip} from 'bootstrap-vue'
+
     export default {
         name: "object_money",
         components:{

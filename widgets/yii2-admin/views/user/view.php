@@ -1,8 +1,8 @@
 <?php
 
+use mdm\admin\components\Helper;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
-use mdm\admin\components\Helper;
 
 /* @var $this yii\web\View */
 /* @var $model mdm\admin\models\User */

@@ -2,14 +2,14 @@
 
 namespace mdm\admin\controllers;
 
-use Yii;
-use mdm\admin\models\BizRule;
-use yii\web\Controller;
-use mdm\admin\models\searchs\BizRule as BizRuleSearch;
-use yii\filters\VerbFilter;
-use yii\web\NotFoundHttpException;
-use mdm\admin\components\Helper;
 use mdm\admin\components\Configs;
+use mdm\admin\components\Helper;
+use mdm\admin\models\BizRule;
+use mdm\admin\models\searchs\BizRule as BizRuleSearch;
+use Yii;
+use yii\filters\VerbFilter;
+use yii\web\Controller;
+use yii\web\NotFoundHttpException;
 
 /**
  * Description of RuleController

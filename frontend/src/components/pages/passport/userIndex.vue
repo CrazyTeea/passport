@@ -125,10 +125,20 @@
 
 <script>
     import NavBar from "../../organisms/NavBar.vue";
-    import {BJumbotron,BButton,BCollapse,
-        BFormCheckbox,BCardHeader,BFormInput,
-        BCard,BCardBody,BCardText,VBToggle} from 'bootstrap-vue';
+    import {
+        BButton,
+        BCard,
+        BCardBody,
+        BCardHeader,
+        BCardText,
+        BCollapse,
+        BFormCheckbox,
+        BFormInput,
+        BJumbotron,
+        VBToggle
+    } from 'bootstrap-vue';
     import Axios from 'axios';
+
     export default {
         components:{
             NavBar,

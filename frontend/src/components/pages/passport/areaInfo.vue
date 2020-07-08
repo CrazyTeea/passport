@@ -445,9 +445,19 @@
 <script>
     import Axios from 'axios';
     import NavBar from "../../organisms/NavBar";
-    import {BFormInput,BTableSimple,BTooltip,
-        BInputGroup,BInputGroupText,
-        BThead,BTbody,BTh,BTd,BTr} from 'bootstrap-vue'
+    import {
+        BFormInput,
+        BInputGroup,
+        BInputGroupText,
+        BTableSimple,
+        BTbody,
+        BTd,
+        BTh,
+        BThead,
+        BTooltip,
+        BTr
+    } from 'bootstrap-vue'
+
     export default {
         components:{
             NavBar,

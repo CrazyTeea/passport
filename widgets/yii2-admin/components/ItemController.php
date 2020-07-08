@@ -2,14 +2,14 @@
 
 namespace mdm\admin\components;
 
-use Yii;
 use mdm\admin\models\AuthItem;
 use mdm\admin\models\searchs\AuthItem as AuthItemSearch;
-use yii\web\Controller;
-use yii\web\NotFoundHttpException;
+use Yii;
 use yii\base\NotSupportedException;
 use yii\filters\VerbFilter;
 use yii\rbac\Item;
+use yii\web\Controller;
+use yii\web\NotFoundHttpException;
 
 /**
  * AuthItemController implements the CRUD actions for AuthItem model.

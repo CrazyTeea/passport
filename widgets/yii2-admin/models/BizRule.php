@@ -2,9 +2,9 @@
 
 namespace mdm\admin\models;
 
+use mdm\admin\components\Configs;
 use Yii;
 use yii\rbac\Rule;
-use mdm\admin\components\Configs;
 
 /**
  * BizRule
