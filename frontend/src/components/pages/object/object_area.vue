@@ -20,7 +20,7 @@
             <h4>
                 Площадь
             </h4>
-            
+
             <div class="row">
                 <div class="col-6"><label for="object_area">Общая площадь, пригодная для проживания</label></div>
                 <div class="col-6">

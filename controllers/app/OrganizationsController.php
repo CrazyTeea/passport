@@ -85,9 +85,9 @@ class OrganizationsController extends Controller
                 $inf->s_p_u_in = $info->s_p_u_in;
 
 
-                $info_save[$inf->stud_type] = ['success'=>$inf->save(),'errors'=>$inf->getErrors()];                
-            }   
-            $ret = ['org'=>['success'=>$org_save,'errors'=>$org->getErrors()],'info'=>$info_save];     
+                $info_save[$inf->stud_type] = ['success'=>$inf->save(),'errors'=>$inf->getErrors()];
+            }
+            $ret = ['org'=>['success'=>$org_save,'errors'=>$org->getErrors()],'info'=>$info_save];
         }
         return Json::encode($ret ?? 'не верный пост');
     }

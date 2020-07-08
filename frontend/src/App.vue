@@ -1,7 +1,5 @@
 <template>
-    <transition name="flip" mode="out-in">
-        <router-view :key="$route.fullPath"/>
-    </transition>
+    <router-view/>
 </template>
 
 <script>
@@ -13,17 +11,6 @@ export default {
 
 
 <style>
-    .flip-enter-active,
-    .flip-leave-active
-    {
-        transition: transform 0.3s ease-out;
-    }
-    .flip-enter {
-        transform: rotateY(90deg);
-    }
-    .flip-leave-to {
-        transform: rotateY(90deg);
-    }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

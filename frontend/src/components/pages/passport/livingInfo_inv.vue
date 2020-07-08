@@ -74,9 +74,9 @@
     export default {
         name: "livingInfo_inv",
         data(){
-          return {
-              blockSave:true
-          }
+            return {
+                blockSave:true
+            }
         },
         components:{
             NavBar,
