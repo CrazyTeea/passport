@@ -1,6 +1,6 @@
 <template>
     <div id="org-info-page">
-         <nav-bar v-on:save-page="savePage" v-on:block-save="blockSave = !blockSave"/> 
+        <nav-bar v-on:save-page="savePage" v-on:block-save="blockSave = !blockSave"/>
         <div class="container">
             <h3>Сведения об организации</h3>
             <hr>
@@ -285,27 +285,27 @@
             },
             async getOrg(){
                 await Axios.get(`/api/organization/by-id/${this.id_org}`).then(res=>
-                {
-                    this.organization = res.data
-                    if (res.data.info){
-                        res.data.info.forEach(item=>{
-                             this.organization.info[parseInt(item.stud_type)] = item;
-                        })
+                    {
+                        this.organization = res.data
+                        if (res.data.info){
+                            res.data.info.forEach(item=>{
+                                this.organization.info[parseInt(item.stud_type)] = item;
+                            })
+                        }
+                        this.organization.info = res.data.info || {};
+                        console.log( this.organization.info)
                     }
-                    this.organization.info = res.data.info || {};
-                    console.log( this.organization.info)
-                }
                 );
             },
             async savePage(){
                 let data = new FormData();
                 data.append('org',JSON.stringify(this.organization));
                 await Axios.post(`/organization/set-org-info/${this.id_org}`,data,{
-                        headers: {
-                            "X-CSRF-Token": this.csrf
-                        }
-                    }).then(res=>{
-                        console.log(res.data);
+                    headers: {
+                        "X-CSRF-Token": this.csrf
+                    }
+                }).then(res=>{
+                    console.log(res.data);
                 })
             }
         }

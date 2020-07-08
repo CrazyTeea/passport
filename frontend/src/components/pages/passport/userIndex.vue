@@ -87,7 +87,7 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-12">
-                                                       Мобильный телефон
+                                                        Мобильный телефон
                                                         <p>{{user_info.phone}}</p>
                                                     </div>
                                                 </div>

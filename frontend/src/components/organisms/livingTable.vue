@@ -57,16 +57,16 @@
             items:Array
         },
         methods:{
-          checkCanSave(index){
+            checkCanSave(index){
 
-              if (!this.blockSave && this.canSave && !this.items[index].disabled) {
-                  return !this.canSave.includes(index);
-              }
-              return true;
+                if (!this.blockSave && this.canSave && !this.items[index].disabled) {
+                    return !this.canSave.includes(index);
+                }
+                return true;
 
-          },
+            },
             addRow(index){
-              this.items.splice(index,0,{visible:true,editableLabel:true})
+                this.items.splice(index,0,{visible:true,editableLabel:true})
                 this.canSave.push(index);
             }
         },

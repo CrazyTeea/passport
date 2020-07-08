@@ -196,7 +196,7 @@
                 <div class="col-6"><label for="obj_sum_fins">Объемы финансирования строительства</label></div>
                 <div class="col-6">
                     <b-input-group append="Тысяч рублей">
-                    <b-form-input :disabled="disablePage" type="number" v-model="currentObject.sum_fins" disabled id="obj_sum_fins"/>
+                        <b-form-input :disabled="disablePage" type="number" v-model="currentObject.sum_fins" disabled id="obj_sum_fins"/>
                     </b-input-group>
                 </div>
             </div>
@@ -204,7 +204,7 @@
                 <div class="col-6"><label class="ml-2" for="obj_schet_fed_bud">1. За счёт средств федерального бюджета (если объект включен в ФАИП)</label></div>
                 <div class="col-6">
                     <b-input-group append="Тысяч рублей">
-                    <b-form-input :disabled="disablePage" type="number" v-model="currentObject.schet_fed_bud" id="obj_schet_fed_bud"/>
+                        <b-form-input :disabled="disablePage" type="number" v-model="currentObject.schet_fed_bud" id="obj_schet_fed_bud"/>
                     </b-input-group>
                 </div>
             </div>
@@ -212,7 +212,7 @@
                 <div class="col-6"><label class="ml-2" for="obj_schet_bud_subj">2. За счёт средств бюджета субъекта РФ</label></div>
                 <div class="col-6">
                     <b-input-group append="Тысяч рублей">
-                    <b-form-input :disabled="disablePage" type="number" v-model="currentObject.schet_bud_subj" id="obj_schet_bud_subj"/>
+                        <b-form-input :disabled="disablePage" type="number" v-model="currentObject.schet_bud_subj" id="obj_schet_bud_subj"/>
                     </b-input-group>
                 </div>
             </div>
@@ -220,7 +220,7 @@
                 <div class="col-6"><label class="ml-2" for="obj_schet_vnebud">3. За счёт внебюджетных средств</label></div>
                 <div class="col-6">
                     <b-input-group append="Тысяч рублей">
-                    <b-form-input :disabled="disablePage" type="number" v-model="currentObject.schet_vnebud" id="obj_schet_vnebud"/>
+                        <b-form-input :disabled="disablePage" type="number" v-model="currentObject.schet_vnebud" id="obj_schet_vnebud"/>
                     </b-input-group>
                 </div>
             </div>
@@ -317,28 +317,28 @@
             }
         },
         watch:{
-          objects(){
-              this.objects.forEach(item=>{
-                  this.objectsTitle.push({
-                      value:item.id,
-                      text:item.name
-                  })
-              })
-          }
+            objects(){
+                this.objects.forEach(item=>{
+                    this.objectsTitle.push({
+                        value:item.id,
+                        text:item.name
+                    })
+                })
+            }
         },
         async mounted(){
-          await this.getRegions();
+            await this.getRegions();
         },
         methods:{
             async getRegions(){
-              await Axios.get('/api/regions').then(response=>{
-                  response.data.forEach(item=>{
-                      this.regions.push({
-                          value:item.id,
-                          text:item.region
-                      })
-                  })
-              })
+                await Axios.get('/api/regions').then(response=>{
+                    response.data.forEach(item=>{
+                        this.regions.push({
+                            value:item.id,
+                            text:item.region
+                        })
+                    })
+                })
             },
             setObject(index){
                 this.currentObject = this.objects.find(item=>item.id===index);

@@ -1172,344 +1172,344 @@
             },
             async getOrg(){
                 await Axios.get(`/api/organization/by-id/${this.id_org}`).then(res=> {
-                        this.organization = res.data
-                        this.organization.living = res.data.living ?? {}
-                        let numbers = [
-                            {
-                                'rf_och':0,
-                                'in_och':0,
-                                'rf_zaoch':0,
-                                'in_zaoch':0,
-                                'rf_ochzaoch':0,
-                                'in_ochzaoch':0,
-                                'inv':0
-                            },
-                            {
-                                'rf_och':0,
-                                'in_och':0,
-                                'rf_zaoch':0,
-                                'in_zaoch':0,
-                                'rf_ochzaoch':0,
-                                'in_ochzaoch':0,
-                                'inv':0
-                            },
-                            {
-                                'rf_och':0,
-                                'in_och':0,
-                                'rf_zaoch':0,
-                                'in_zaoch':0,
-                                'rf_ochzaoch':0,
-                                'in_ochzaoch':0,
-                                'inv':0
-                            },
-                            {
-                                'rf_och':0,
-                                'in_och':0,
-                                'rf_zaoch':0,
-                                'in_zaoch':0,
-                                'rf_ochzaoch':0,
-                                'in_ochzaoch':0,
-                                'inv':0
-                            }
-                        ];
-                        res.data.livingStudents.forEach(item=>{
-                            let type = 'items_b'
-                            switch (item.budjet_type) {
-                                case '0':{type = 'items_b';break;}
-                                case '1':{type = 'items_s';break;}
-                                case '2':{type = 'items_m';break;}
-                                case '3':{type = 'items_p';break;}
+                    this.organization = res.data
+                    this.organization.living = res.data.living ?? {}
+                    let numbers = [
+                        {
+                            'rf_och':0,
+                            'in_och':0,
+                            'rf_zaoch':0,
+                            'in_zaoch':0,
+                            'rf_ochzaoch':0,
+                            'in_ochzaoch':0,
+                            'inv':0
+                        },
+                        {
+                            'rf_och':0,
+                            'in_och':0,
+                            'rf_zaoch':0,
+                            'in_zaoch':0,
+                            'rf_ochzaoch':0,
+                            'in_ochzaoch':0,
+                            'inv':0
+                        },
+                        {
+                            'rf_och':0,
+                            'in_och':0,
+                            'rf_zaoch':0,
+                            'in_zaoch':0,
+                            'rf_ochzaoch':0,
+                            'in_ochzaoch':0,
+                            'inv':0
+                        },
+                        {
+                            'rf_och':0,
+                            'in_och':0,
+                            'rf_zaoch':0,
+                            'in_zaoch':0,
+                            'rf_ochzaoch':0,
+                            'in_ochzaoch':0,
+                            'inv':0
+                        }
+                    ];
+                    res.data.livingStudents.forEach(item=>{
+                        let type = 'items_b'
+                        switch (item.budjet_type) {
+                            case '0':{type = 'items_b';break;}
+                            case '1':{type = 'items_s';break;}
+                            case '2':{type = 'items_m';break;}
+                            case '3':{type = 'items_p';break;}
 
-                            }
-                            switch (item.type) {
-                                case 'rf_och':{
-                                    if (!numbers[item.budjet_type]['rf_och']){
-                                        this.items_b.items[0] = {
-                                            id:item.id,
-                                            label:'Граждане РФ, обучающиеся по очной форме',
-                                            editableLabel:false,
-                                            visible:true,
-                                            budjet_type:0,
-                                            type:item.type,
-                                            button:false,
-                                            name:null,
-                                            spo:item.spo,
-                                            bak:item.bak,
-                                            spec:item.spec,
-                                            mag:item.mag,
-                                            asp:item.asp,
-                                            ord:item.ord,
-                                            ipo:item.ipo,
-                                            all:item.all,
-                                            disabled: false,
-                                        }
+                        }
+                        switch (item.type) {
+                            case 'rf_och':{
+                                if (!numbers[item.budjet_type]['rf_och']){
+                                    this.items_b.items[0] = {
+                                        id:item.id,
+                                        label:'Граждане РФ, обучающиеся по очной форме',
+                                        editableLabel:false,
+                                        visible:true,
+                                        budjet_type:0,
+                                        type:item.type,
+                                        button:false,
+                                        name:null,
+                                        spo:item.spo,
+                                        bak:item.bak,
+                                        spec:item.spec,
+                                        mag:item.mag,
+                                        asp:item.asp,
+                                        ord:item.ord,
+                                        ipo:item.ipo,
+                                        all:item.all,
+                                        disabled: false,
                                     }
-                                    else {
-                                        let index = this[type].items.findIndex(i=>i.type==='rf_och');
-                                        this[type].items.splice(index+1,0, {
-                                            id:item.id,
-                                            label:item.name,
-                                            editableLabel:true,
-                                            visible:true,
-                                            budjet_type:0,
-                                            type:item.type,
-                                            button:false,
-                                            name:null,
-                                            spo:item.spo,
-                                            bak:item.bak,
-                                            spec:item.spec,
-                                            mag:item.mag,
-                                            asp:item.asp,
-                                            ord:item.ord,
-                                            ipo:item.ipo,
-                                            all:item.all,
-                                            disabled: false,
-                                        });
-                                    }
-                                    numbers[item.budjet_type]['rf_och']++;
+                                }
+                                else {
+                                    let index = this[type].items.findIndex(i=>i.type==='rf_och');
+                                    this[type].items.splice(index+1,0, {
+                                        id:item.id,
+                                        label:item.name,
+                                        editableLabel:true,
+                                        visible:true,
+                                        budjet_type:0,
+                                        type:item.type,
+                                        button:false,
+                                        name:null,
+                                        spo:item.spo,
+                                        bak:item.bak,
+                                        spec:item.spec,
+                                        mag:item.mag,
+                                        asp:item.asp,
+                                        ord:item.ord,
+                                        ipo:item.ipo,
+                                        all:item.all,
+                                        disabled: false,
+                                    });
+                                }
+                                numbers[item.budjet_type]['rf_och']++;
 
-                                    break;
-                                }
-                                case 'in_och':{
-                                    if (!numbers[item.budjet_type]['in_och']){
-                                        let index = this[type].items.findIndex(i=>i.label==='Иностранцы, обучающиеся по очной форме');
-                                        this[type].items[index] = {
-                                            id:item.id,
-                                            budjet_type:0,
-                                            type:item.type,
-                                            name:null,
-                                            spo:item.spo,
-                                            bak:item.bak,
-                                            spec:item.spec,
-                                            mag:item.mag,
-                                            asp:item.asp,
-                                            ord:item.ord,
-                                            ipo:item.ipo,
-                                            all:item.all,
-                                            label:'Иностранцы, обучающиеся по очной форме',
-                                            editableLabel:false,
-                                            visible:true,
-                                            button:true,
-                                            disabled: true,
-                                        }
-                                    }else {
-                                        let index = this[type].items.findIndex(i=>i.type==='in_och');
-                                        this[type].items.splice(index+1,0, {
-                                            id:item.id,
-                                            label:item.name,
-                                            editableLabel:true,
-                                            visible:true,
-                                            budjet_type:0,
-                                            type:item.type,
-                                            button:false,
-                                            name:null,
-                                            spo:item.spo,
-                                            bak:item.bak,
-                                            spec:item.spec,
-                                            mag:item.mag,
-                                            asp:item.asp,
-                                            ord:item.ord,
-                                            ipo:item.ipo,
-                                            all:item.all,
-                                            disabled: true,
-                                        });
-                                    }
-                                    numbers[item.budjet_type]['in_och']++;
-                                    break;
-                                }
-                                case 'rf_zaoch':{
-                                    let index = 0;
-                                    if (!numbers[item.budjet_type]['rf_zaoch']){
-                                        index = this[type].items.findIndex(i=>i.label==='Иностранцы, обучающиеся по очной форме');
-                                        this[type].items[index] = {
-                                            id:item.id,
-                                            budjet_type:0,
-                                            type:item.type,
-                                            name:null,
-                                            spo:item.spo,
-                                            bak:item.bak,
-                                            spec:item.spec,
-                                            mag:item.mag,
-                                            asp:item.asp,
-                                            ord:item.ord,
-                                            ipo:item.ipo,
-                                            all:item.all,
-                                            label:'Иностранцы, обучающиеся по очной форме',
-                                            editableLabel:false,
-                                            visible:true,
-                                            button:true,
-                                            disabled: false,
-                                        }
-                                    }else {
-                                        index = this[type].items.findIndex(i=>i.type==='rf_zaoch');
-                                        this[type].items.splice(index+1,0, {
-                                            id:item.id,
-                                            label:item.name,
-                                            editableLabel:true,
-                                            visible:true,
-                                            budjet_type:0,
-                                            type:item.type,
-                                            button:false,
-                                            name:null,
-                                            spo:item.spo,
-                                            bak:item.bak,
-                                            spec:item.spec,
-                                            mag:item.mag,
-                                            asp:item.asp,
-                                            ord:item.ord,
-                                            ipo:item.ipo,
-                                            all:item.all,
-                                            disabled: false,
-                                        });
-                                    }
-                                    numbers[item.budjet_type]['rf_zaoch']++;
-                                    break;
-                                }
-                                case 'in_zaoch':{
-                                    if (!numbers['in_zaoch']){
-                                        let index = this[type].items.findIndex(i=>i.label==='Иностранцы, обучающиеся по очной форме');
-                                        this[type].items[index] = {
-                                            id:item.id,
-                                            budjet_type:0,
-                                            type:item.type,
-                                            name:null,
-                                            spo:item.spo,
-                                            bak:item.bak,
-                                            spec:item.spec,
-                                            mag:item.mag,
-                                            asp:item.asp,
-                                            ord:item.ord,
-                                            ipo:item.ipo,
-                                            all:item.all,
-                                            label:'Иностранцы, обучающиеся по очной форме',
-                                            editableLabel:false,
-                                            visible:true,
-                                            button:true,
-                                            disabled: true,
-                                        }
-                                    }else {
-                                        let index = this[type].items.findIndex(i=>i.type==='in_zaoch');
-                                        this[type].items.splice(index+1,0, {
-                                            id:item.id,
-                                            label:item.name,
-                                            editableLabel:true,
-                                            visible:true,
-                                            budjet_type:0,
-                                            type:item.type,
-                                            button:false,
-                                            name:null,
-                                            spo:item.spo,
-                                            bak:item.bak,
-                                            spec:item.spec,
-                                            mag:item.mag,
-                                            asp:item.asp,
-                                            ord:item.ord,
-                                            ipo:item.ipo,
-                                            all:item.all,
-                                            disabled: true,
-                                        });
-                                    }
-                                    numbers[item.budjet_type]['in_zaoch']++;
-                                    break;
-                                }
-                                case 'rf_ochzaoch':{
-                                    let index =0 ;
-                                    if (!numbers[item.budjet_type]['rf_ochzaoch']){
-                                        index = this[type].items.findIndex(i=>i.label==='Иностранцы, обучающиеся по очной форме');
-                                        this[type].items[index] = {
-                                            id:item.id,
-                                            budjet_type:0,
-                                            type:item.type,
-                                            name:null,
-                                            spo:item.spo,
-                                            bak:item.bak,
-                                            spec:item.spec,
-                                            mag:item.mag,
-                                            asp:item.asp,
-                                            ord:item.ord,
-                                            ipo:item.ipo,
-                                            all:item.all,
-                                            label:'Иностранцы, обучающиеся по очной форме',
-                                            editableLabel:false,
-                                            visible:true,
-                                            button:true,
-                                            disabled: false,
-                                        }
-                                    }else {
-                                        index = this[type].items.findIndex(i=>i.type==='rf_ochzaoch');
-                                        this[type].items.splice(index+1,0, {
-                                            id:item.id,
-                                            label:item.name,
-                                            editableLabel:true,
-                                            visible:true,
-                                            budjet_type:0,
-                                            type:item.type,
-                                            button:false,
-                                            name:null,
-                                            spo:item.spo,
-                                            bak:item.bak,
-                                            spec:item.spec,
-                                            mag:item.mag,
-                                            asp:item.asp,
-                                            ord:item.ord,
-                                            ipo:item.ipo,
-                                            all:item.all,
-                                            disabled: false,
-                                        });
-                                    }
-                                    numbers[item.budjet_type]['rf_ochzaoch']++;
-                                    break;
-                                }
-                                case 'in_ochzaoch':{
-                                    if (!numbers[item.budjet_type]['in_ochzaoch']){
-                                        let index = this[type].items.findIndex(i=>i.label==='Иностранцы, обучающиеся по очной форме');
-                                        this[type].items[index] = {
-                                            id:item.id,
-                                            budjet_type:0,
-                                            type:item.type,
-                                            name:null,
-                                            spo:item.spo,
-                                            bak:item.bak,
-                                            spec:item.spec,
-                                            mag:item.mag,
-                                            asp:item.asp,
-                                            ord:item.ord,
-                                            ipo:item.ipo,
-                                            all:item.all,
-                                            label:'Иностранцы, обучающиеся по очной форме',
-                                            editableLabel:false,
-                                            visible:true,
-                                            button:true,
-                                            disabled: true,
-                                        }
-                                    }else {
-                                        let index = this[type].items.findIndex(i=>i.type==='in_ochzaoch');
-                                        this[type].items.splice(index+1,0, {
-                                            id:item.id,
-                                            label:item.name,
-                                            editableLabel:true,
-                                            visible:true,
-                                            budjet_type:0,
-                                            type:item.type,
-                                            button:false,
-                                            name:null,
-                                            spo:item.spo,
-                                            bak:item.bak,
-                                            spec:item.spec,
-                                            mag:item.mag,
-                                            asp:item.asp,
-                                            ord:item.ord,
-                                            ipo:item.ipo,
-                                            all:item.all,
-                                            disabled: true,
-                                        });
-                                    }
-                                    numbers[item.budjet_type]['in_ochzaoch']++;
-                                    break;
-                                }
+                                break;
                             }
-                        })
-                    });
+                            case 'in_och':{
+                                if (!numbers[item.budjet_type]['in_och']){
+                                    let index = this[type].items.findIndex(i=>i.label==='Иностранцы, обучающиеся по очной форме');
+                                    this[type].items[index] = {
+                                        id:item.id,
+                                        budjet_type:0,
+                                        type:item.type,
+                                        name:null,
+                                        spo:item.spo,
+                                        bak:item.bak,
+                                        spec:item.spec,
+                                        mag:item.mag,
+                                        asp:item.asp,
+                                        ord:item.ord,
+                                        ipo:item.ipo,
+                                        all:item.all,
+                                        label:'Иностранцы, обучающиеся по очной форме',
+                                        editableLabel:false,
+                                        visible:true,
+                                        button:true,
+                                        disabled: true,
+                                    }
+                                }else {
+                                    let index = this[type].items.findIndex(i=>i.type==='in_och');
+                                    this[type].items.splice(index+1,0, {
+                                        id:item.id,
+                                        label:item.name,
+                                        editableLabel:true,
+                                        visible:true,
+                                        budjet_type:0,
+                                        type:item.type,
+                                        button:false,
+                                        name:null,
+                                        spo:item.spo,
+                                        bak:item.bak,
+                                        spec:item.spec,
+                                        mag:item.mag,
+                                        asp:item.asp,
+                                        ord:item.ord,
+                                        ipo:item.ipo,
+                                        all:item.all,
+                                        disabled: true,
+                                    });
+                                }
+                                numbers[item.budjet_type]['in_och']++;
+                                break;
+                            }
+                            case 'rf_zaoch':{
+                                let index = 0;
+                                if (!numbers[item.budjet_type]['rf_zaoch']){
+                                    index = this[type].items.findIndex(i=>i.label==='Иностранцы, обучающиеся по очной форме');
+                                    this[type].items[index] = {
+                                        id:item.id,
+                                        budjet_type:0,
+                                        type:item.type,
+                                        name:null,
+                                        spo:item.spo,
+                                        bak:item.bak,
+                                        spec:item.spec,
+                                        mag:item.mag,
+                                        asp:item.asp,
+                                        ord:item.ord,
+                                        ipo:item.ipo,
+                                        all:item.all,
+                                        label:'Иностранцы, обучающиеся по очной форме',
+                                        editableLabel:false,
+                                        visible:true,
+                                        button:true,
+                                        disabled: false,
+                                    }
+                                }else {
+                                    index = this[type].items.findIndex(i=>i.type==='rf_zaoch');
+                                    this[type].items.splice(index+1,0, {
+                                        id:item.id,
+                                        label:item.name,
+                                        editableLabel:true,
+                                        visible:true,
+                                        budjet_type:0,
+                                        type:item.type,
+                                        button:false,
+                                        name:null,
+                                        spo:item.spo,
+                                        bak:item.bak,
+                                        spec:item.spec,
+                                        mag:item.mag,
+                                        asp:item.asp,
+                                        ord:item.ord,
+                                        ipo:item.ipo,
+                                        all:item.all,
+                                        disabled: false,
+                                    });
+                                }
+                                numbers[item.budjet_type]['rf_zaoch']++;
+                                break;
+                            }
+                            case 'in_zaoch':{
+                                if (!numbers['in_zaoch']){
+                                    let index = this[type].items.findIndex(i=>i.label==='Иностранцы, обучающиеся по очной форме');
+                                    this[type].items[index] = {
+                                        id:item.id,
+                                        budjet_type:0,
+                                        type:item.type,
+                                        name:null,
+                                        spo:item.spo,
+                                        bak:item.bak,
+                                        spec:item.spec,
+                                        mag:item.mag,
+                                        asp:item.asp,
+                                        ord:item.ord,
+                                        ipo:item.ipo,
+                                        all:item.all,
+                                        label:'Иностранцы, обучающиеся по очной форме',
+                                        editableLabel:false,
+                                        visible:true,
+                                        button:true,
+                                        disabled: true,
+                                    }
+                                }else {
+                                    let index = this[type].items.findIndex(i=>i.type==='in_zaoch');
+                                    this[type].items.splice(index+1,0, {
+                                        id:item.id,
+                                        label:item.name,
+                                        editableLabel:true,
+                                        visible:true,
+                                        budjet_type:0,
+                                        type:item.type,
+                                        button:false,
+                                        name:null,
+                                        spo:item.spo,
+                                        bak:item.bak,
+                                        spec:item.spec,
+                                        mag:item.mag,
+                                        asp:item.asp,
+                                        ord:item.ord,
+                                        ipo:item.ipo,
+                                        all:item.all,
+                                        disabled: true,
+                                    });
+                                }
+                                numbers[item.budjet_type]['in_zaoch']++;
+                                break;
+                            }
+                            case 'rf_ochzaoch':{
+                                let index =0 ;
+                                if (!numbers[item.budjet_type]['rf_ochzaoch']){
+                                    index = this[type].items.findIndex(i=>i.label==='Иностранцы, обучающиеся по очной форме');
+                                    this[type].items[index] = {
+                                        id:item.id,
+                                        budjet_type:0,
+                                        type:item.type,
+                                        name:null,
+                                        spo:item.spo,
+                                        bak:item.bak,
+                                        spec:item.spec,
+                                        mag:item.mag,
+                                        asp:item.asp,
+                                        ord:item.ord,
+                                        ipo:item.ipo,
+                                        all:item.all,
+                                        label:'Иностранцы, обучающиеся по очной форме',
+                                        editableLabel:false,
+                                        visible:true,
+                                        button:true,
+                                        disabled: false,
+                                    }
+                                }else {
+                                    index = this[type].items.findIndex(i=>i.type==='rf_ochzaoch');
+                                    this[type].items.splice(index+1,0, {
+                                        id:item.id,
+                                        label:item.name,
+                                        editableLabel:true,
+                                        visible:true,
+                                        budjet_type:0,
+                                        type:item.type,
+                                        button:false,
+                                        name:null,
+                                        spo:item.spo,
+                                        bak:item.bak,
+                                        spec:item.spec,
+                                        mag:item.mag,
+                                        asp:item.asp,
+                                        ord:item.ord,
+                                        ipo:item.ipo,
+                                        all:item.all,
+                                        disabled: false,
+                                    });
+                                }
+                                numbers[item.budjet_type]['rf_ochzaoch']++;
+                                break;
+                            }
+                            case 'in_ochzaoch':{
+                                if (!numbers[item.budjet_type]['in_ochzaoch']){
+                                    let index = this[type].items.findIndex(i=>i.label==='Иностранцы, обучающиеся по очной форме');
+                                    this[type].items[index] = {
+                                        id:item.id,
+                                        budjet_type:0,
+                                        type:item.type,
+                                        name:null,
+                                        spo:item.spo,
+                                        bak:item.bak,
+                                        spec:item.spec,
+                                        mag:item.mag,
+                                        asp:item.asp,
+                                        ord:item.ord,
+                                        ipo:item.ipo,
+                                        all:item.all,
+                                        label:'Иностранцы, обучающиеся по очной форме',
+                                        editableLabel:false,
+                                        visible:true,
+                                        button:true,
+                                        disabled: true,
+                                    }
+                                }else {
+                                    let index = this[type].items.findIndex(i=>i.type==='in_ochzaoch');
+                                    this[type].items.splice(index+1,0, {
+                                        id:item.id,
+                                        label:item.name,
+                                        editableLabel:true,
+                                        visible:true,
+                                        budjet_type:0,
+                                        type:item.type,
+                                        button:false,
+                                        name:null,
+                                        spo:item.spo,
+                                        bak:item.bak,
+                                        spec:item.spec,
+                                        mag:item.mag,
+                                        asp:item.asp,
+                                        ord:item.ord,
+                                        ipo:item.ipo,
+                                        all:item.all,
+                                        disabled: true,
+                                    });
+                                }
+                                numbers[item.budjet_type]['in_ochzaoch']++;
+                                break;
+                            }
+                        }
+                    })
+                });
                 this.items_b.items.forEach((item,index)=>{
                     //console.log(item)
                     if (item.type === 'rf_ochzaoch' || item.type === 'rf_zaoch' || item.type === 'rf_och') {
