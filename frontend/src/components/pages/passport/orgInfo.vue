@@ -1,7 +1,7 @@
 <template>
     <div id="org-info-page">
         <nav-bar v-on:save-page="savePage" v-on:block-save="blockSave = !blockSave"/>
-        <div class="container">
+        <div v-if="organization" class="container">
             <h3>Сведения об организации</h3>
             <hr>
             <b-form-group
@@ -277,6 +277,7 @@
             await this.getUser();
             this.id_org = this.user.id_org
             await this.getOrg()
+            console.log(this.organization)
         },
         methods:{
             async getUser(){
