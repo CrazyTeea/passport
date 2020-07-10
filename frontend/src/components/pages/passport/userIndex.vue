@@ -1,128 +1,131 @@
 <template>
-    <transition enter-active-class="animated fadeInUp">
-        <div v-if="componentReady">
-            <nav-bar v-on:save-page="savePage" v-on:block-save="blockSave = !blockSave"></nav-bar>
+    <div>
 
-            <b-jumbotron v-if="!user.id_org" >
-                <template v-slot:header>
-                    <span class="text text-danger">Ошибка</span>
-                </template>
+        <nav-bar v-on:save-page="savePage" v-on:block-save="blockSave = !blockSave"></nav-bar>
+        <transition enter-active-class="animated fadeInUp">
+            <div v-if="componentReady">
+                <b-jumbotron v-if="!user.id_org" >
+                    <template v-slot:header>
+                        <span class="text text-danger">Ошибка</span>
+                    </template>
 
-                <template v-slot:lead>
-                    У пользователя отсутсвует информация об организации
-                    Обратитесь в техническую поддержку
-                </template>
-            </b-jumbotron>
+                    <template v-slot:lead>
+                        У пользователя отсутсвует информация об организации
+                        Обратитесь в техническую поддержку
+                    </template>
+                </b-jumbotron>
 
-            <div class="container mt-2" v-else>
-                <div class="row">
-                    <div class="col-8"><h4>{{organization.name}}</h4></div>
-                    <div class="col-4"><b-button href="/org-info" block variant="outline-secondary">Перейти к заполнению</b-button></div>
-                </div>
-                <div style="margin-top: 10px;" class="row">
-                    <div class="col-8"><h5>Регион: {{organization.region.region}}</h5></div>
-                    <div class="col-4"><b-button block variant="outline-secondary">Инструкция</b-button></div>
-                </div>
-                <div style="margin-top: 10px;" class="row">
-                    <div class="col-3">
-                        <label class="font-weight-bold" for="contact_check">Контактные данные заполнены</label>
+                <div class="container mt-2" v-else>
+                    <div class="row">
+                        <div class="col-8"><h4>{{organization.name}}</h4></div>
+                        <div class="col-4"><b-button href="/org-info" block variant="outline-secondary">Перейти к заполнению</b-button></div>
                     </div>
-                    <div class="col-6">
-                        <b-form-checkbox v-model="cont_dan" disabled id="contact_check"></b-form-checkbox>
+                    <div style="margin-top: 10px;" class="row">
+                        <div class="col-8"><h5>Регион: {{organization.region.region}}</h5></div>
+                        <div class="col-4"><b-button block variant="outline-secondary">Инструкция</b-button></div>
                     </div>
-                </div>
-                <div style="margin-top: 10px;" class="row">
-                    <div class="col-3">
-                        <label class="font-weight-bold" for="file_check">Документы загружены</label>
+                    <div style="margin-top: 10px;" class="row">
+                        <div class="col-3">
+                            <label class="font-weight-bold" for="contact_check">Контактные данные заполнены</label>
+                        </div>
+                        <div class="col-6">
+                            <b-form-checkbox v-model="cont_dan" disabled id="contact_check"></b-form-checkbox>
+                        </div>
                     </div>
-                    <div class="col-6">
-                        <b-form-checkbox disabled id="file_check"></b-form-checkbox>
+                    <div style="margin-top: 10px;" class="row">
+                        <div class="col-3">
+                            <label class="font-weight-bold" for="file_check">Документы загружены</label>
+                        </div>
+                        <div class="col-6">
+                            <b-form-checkbox disabled id="file_check"></b-form-checkbox>
+                        </div>
                     </div>
-                </div>
 
-                <b-card style="margin-top: 10px;" no-body class="mb-1">
-                    <b-card-header header-tag="header" class="p-1" role="tab">
-                        <label class="text-left font-weight-bold btn-block" v-b-toggle.news >Новости</label>
-                    </b-card-header>
-                    <b-collapse id="news" visible accordion="news"  role="tabpanel">
-                        <b-card-body>
-                            <b-card-text>Здесь будут новости</b-card-text>
-                        </b-card-body>
-                    </b-collapse>
-                </b-card>
-                <b-card style="margin-top: 10px;" no-body class="mb-1">
-                    <b-card-header header-tag="header" class="p-1" role="tab">
-                        <label class="text-left font-weight-bold btn-block" v-b-toggle.contact_info >Контактные данные
-                            заполняющих мониторинг сотрудников</label>
-                    </b-card-header>
-                    <b-collapse id="contact_info" visible accordion="contact_info"  role="tabpanel">
-                        <b-card-body >
-                            <div class="row">
-                                <transition-group class="list-item" tag="div" name="fade">
+                    <b-card style="margin-top: 10px;" no-body class="mb-1">
+                        <b-card-header header-tag="header" class="p-1" role="tab">
+                            <label class="text-left font-weight-bold btn-block" v-b-toggle.news >Новости</label>
+                        </b-card-header>
+                        <b-collapse id="news" visible accordion="news"  role="tabpanel">
+                            <b-card-body>
+                                <b-card-text>Здесь будут новости</b-card-text>
+                            </b-card-body>
+                        </b-collapse>
+                    </b-card>
+                    <b-card style="margin-top: 10px;" no-body class="mb-1">
+                        <b-card-header header-tag="header" class="p-1" role="tab">
+                            <label class="text-left font-weight-bold btn-block" v-b-toggle.contact_info >Контактные данные
+                                заполняющих мониторинг сотрудников</label>
+                        </b-card-header>
+                        <b-collapse id="contact_info" visible accordion="contact_info"  role="tabpanel">
+                            <b-card-body >
+                                <div class="row">
+                                    <transition-group class="list-item" tag="div" name="fade">
 
-                                    <div class="card-center" v-for="(user_info,index) in users_info" :key="`lol`+index">
-                                        <b-card no-body>
-                                            <b-card-body class="contact">
-                                                <div v-if="!blockSave">
-                                                    <label :for="`user_info_${index}_name`">Фамилия Имя Отчество</label>
-                                                    <b-form-input :id="`user_info_${index}_name`" v-model="user_info.name"/>
-                                                    <label :for="`user_info_${index}_position`">Должность</label>
-                                                    <b-form-input :id="`user_info_${index}_position`" v-model="user_info.position"/>
-                                                    <label :for="`user_info_${index}_phone`">Мобильный телефон</label>
-                                                    <b-form-input :id="`user_info_${index}_phone`" v-model="user_info.phone"/>
-                                                    <label :for="`user_info_${index}_email`">email</label>
-                                                    <b-form-input :id="`user_info_${index}_email`" v-model="user_info.email"/>
-                                                </div>
-                                                <div v-else>
-                                                    <div class="row">
-                                                        <div class="col-12">
-                                                            Фамилия Имя Отчество
-                                                            <p>{{user_info.name}}</p>
+                                        <div class="card-center" v-for="(user_info,index) in users_info" :key="`lol`+index">
+                                            <b-card no-body>
+                                                <b-card-body class="contact">
+                                                    <div v-if="!blockSave">
+                                                        <label :for="`user_info_${index}_name`">Фамилия Имя Отчество</label>
+                                                        <b-form-input :id="`user_info_${index}_name`" v-model="user_info.name"/>
+                                                        <label :for="`user_info_${index}_position`">Должность</label>
+                                                        <b-form-input :id="`user_info_${index}_position`" v-model="user_info.position"/>
+                                                        <label :for="`user_info_${index}_phone`">Мобильный телефон</label>
+                                                        <b-form-input :id="`user_info_${index}_phone`" v-model="user_info.phone"/>
+                                                        <label :for="`user_info_${index}_email`">email</label>
+                                                        <b-form-input :id="`user_info_${index}_email`" v-model="user_info.email"/>
+                                                    </div>
+                                                    <div v-else>
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                Фамилия Имя Отчество
+                                                                <p>{{user_info.name}}</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                Должность
+                                                                <p> {{user_info.position}}</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                Мобильный телефон
+                                                                <p>{{user_info.phone}}</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                email
+                                                                <p> {{user_info.email}}</p>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <div class="row">
-                                                        <div class="col-12">
-                                                            Должность
-                                                            <p> {{user_info.position}}</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-12">
-                                                            Мобильный телефон
-                                                            <p>{{user_info.phone}}</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-12">
-                                                            email
-                                                            <p> {{user_info.email}}</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                </b-card-body>
+                                                <template v-if="!blockSave" v-slot:footer>
+                                                    <b-button @click="deleteUserInfo(index)" variant="outline-danger" block>Удалить</b-button>
+                                                </template>
+                                            </b-card>
+                                        </div>
+                                    </transition-group>
+                                    <div class="col-6" style="margin-left: -10px; min-width: 51% !important;">
+                                        <b-card v-if="!blockSave" class="contact-card">
+                                            <b-card-body @click="addUserInfo">
+                                                <img class="center" style="width: 25%" src="http://peterhanne.de/site/assets/files/4699/plus_schwarz.png" alt="Добавить">
                                             </b-card-body>
-                                            <template v-if="!blockSave" v-slot:footer>
-                                                <b-button @click="deleteUserInfo(index)" variant="outline-danger" block>Удалить</b-button>
-                                            </template>
                                         </b-card>
                                     </div>
-                                </transition-group>
-                                <div class="col-6" style="margin-left: -10px; min-width: 51% !important;">
-                                    <b-card v-if="!blockSave" class="contact-card">
-                                        <b-card-body @click="addUserInfo">
-                                            <img class="center" style="width: 25%" src="http://peterhanne.de/site/assets/files/4699/plus_schwarz.png" alt="Добавить">
-                                        </b-card-body>
-                                    </b-card>
                                 </div>
-                            </div>
-                        </b-card-body>
-                    </b-collapse>
-                </b-card>
+                            </b-card-body>
+                        </b-collapse>
+                    </b-card>
 
+
+                </div>
 
             </div>
+        </transition>
+    </div>
 
-        </div>
-    </transition>
 </template>
 
 <script>
@@ -227,11 +230,11 @@
             },
             async getUser(){
                 await Axios.get('/api/user/current').then(res=>
-                {this.user = res.data; console.log(res.data)});
+                {this.user = res.data;});
             },
             async getOrg(){
                 await Axios.get(`/api/organization/by-id/${this.user.id_org}`).then(res=>
-                {this.organization = res.data;console.log(res.data)});
+                {this.organization = { ...res.data,...res.data.organization}});
             },
             async getUserInfo(){
                 await Axios.get(`/api/organization/users/${this.user.id_org}`).then(res=>{
@@ -245,7 +248,6 @@
                             phone : item.phone,
 
                         })
-
                     })
                     if(res.data.length)
                         this.cont_dan = true

@@ -1,8 +1,8 @@
 <template>
-    <transition enter-active-class="animated fadeInUp">
-        <div v-if="componentReady">
-            <nav-bar v-on:save-page="savePage" v-on:block-save="disablePage = !disablePage" />
-            <div class="container">
+    <div>
+        <nav-bar v-on:save-page="savePage" v-on:block-save="disablePage = !disablePage" />
+        <transition enter-active-class="animated fadeInUp" >
+            <div v-if="componentReady" class="container">
                 <div class="row">
                     <div class="col-8">
                         <h3>
@@ -258,8 +258,10 @@
 
 
             </div>
-        </div>
-    </transition>
+        </transition>
+    </div>
+
+
 
 </template>
 
