@@ -4,6 +4,8 @@
 namespace app\controllers\app;
 
 
+use app\models\Objects;
+use app\models\User;
 use Yii;
 use yii\helpers\Json;
 use yii\web\Controller;
@@ -24,5 +26,37 @@ class ObjectsController extends Controller
     }
     public function actionMoney(){
         return $this->render('money');
+    }
+    public function actionCreate($id_org){
+        if ($post = Yii::$app->request->post()){
+            $post = Json::decode($post['object'],false);
+
+            $obj = new Objects();
+            $obj->id_org = $id_org;
+
+            foreach ($post as $key=>$item){
+                $obj->$key = $item;
+            }
+
+            $ret = ['success'=>$obj->save(),'errors'=>$obj->getErrors()];
+
+        }
+        return Json::encode($ret ?? 'Не верный пост');
+    }
+    public function actionUpdate($id){
+        if ($post = Yii::$app->request->post()){
+            $post = Json::decode($post['object'],false);
+
+            $obj = Objects::findOne($id);
+
+            foreach ($post as $key=>$item){
+                if ($key != 'id_org')
+                    $obj->$key = $item;
+            }
+
+            $ret = ['success'=>$obj->save(),'errors'=>$obj->getErrors()];
+
+        }
+        return Json::encode($ret ?? 'Не верный пост');
     }
 }

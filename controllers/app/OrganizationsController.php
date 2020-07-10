@@ -39,9 +39,9 @@ class OrganizationsController extends Controller
         if($post = Yii::$app->request->post()){
             $post = Json::decode($post['org'],false);
             $org = Organizations::findOne($id);
-            $org->stud_cnt=$post->stud_cnt;
-            $org->stud_cnt_inos=$post->stud_cnt_inos;
-            $org->stud_cnt_rus=$post->stud_cnt_rus;
+            $org->stud_cnt=$post->organization->stud_cnt;
+            $org->stud_cnt_inos=$post->organization->stud_cnt_inos;
+            $org->stud_cnt_rus=$post->organization->stud_cnt_rus;
             $org_save = $org->save();
             $info_save = [];
             foreach($post->info as $info){
