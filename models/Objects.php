@@ -112,4 +112,8 @@ class Objects extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Regions::className(), ['id' => 'id_region']);
     }
+    public function getArea()
+    {
+        return $this->hasOne(ObjectsArea::className(), ['id_object' => 'id']);
+    }
 }

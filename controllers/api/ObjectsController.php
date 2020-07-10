@@ -10,6 +10,6 @@ use yii\rest\Controller;
 class ObjectsController extends Controller
 {
     public function actionByOrg($id_org){
-        return Objects::findAll(['id_org'=>$id_org,'system_status'=>1]);
+        return Objects::find()->where(['objects.id_org'=>$id_org,'system_status'=>1])->joinWith(['area'])->asArray()->all();
     }
 }

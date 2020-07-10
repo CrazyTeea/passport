@@ -5,6 +5,7 @@ namespace app\controllers\app;
 
 
 use app\models\Objects;
+use app\models\ObjectsArea;
 use app\models\User;
 use Yii;
 use yii\helpers\Json;
@@ -55,6 +56,23 @@ class ObjectsController extends Controller
             }
 
             $ret = ['success'=>$obj->save(),'errors'=>$obj->getErrors()];
+
+        }
+        return Json::encode($ret ?? 'Не верный пост');
+    }
+    public function actionSetArea($id){
+        if ($post = Yii::$app->request->post()){
+            $post = Json::decode($post['area'],false);
+
+            $area = ObjectsArea::findOne(['id_object'=>$id]) ?? new ObjectsArea();
+            if ($area->isNewRecord)
+                $area->id_object = $id;
+
+            foreach ($post as $key=>$item){
+                $area->$key = $item;
+            }
+
+            $ret = ['success'=>$area->save(),'errors'=>$area->getErrors()];
 
         }
         return Json::encode($ret ?? 'Не верный пост');

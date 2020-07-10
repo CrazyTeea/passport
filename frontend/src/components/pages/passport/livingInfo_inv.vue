@@ -1,8 +1,9 @@
 <template>
-    <transition name="bounce">
-        <div v-if="componentReady">
-            <nav-bar v-on:save-page="savePage" v-on:block-save="blockPage = !blockPage"/>
-            <div class="container">
+
+    <div >
+        <nav-bar v-on:save-page="savePage" v-on:block-save="blockPage = !blockPage"/>
+        <transition enter-active-class="animated fadeInUp">
+            <div v-if="componentReady" class="container">
                 <div class="row">
                     <div class="col-8">
                         <h3>
@@ -63,8 +64,9 @@
 
 
             </div>
-        </div>
-    </transition>
+        </transition>
+    </div>
+
 </template>
 
 <script>
@@ -1504,19 +1506,5 @@
 </script>
 
 <style scoped>
-    .bounce-enter-active {
-        transition: all .3s ease;
-    }
-    .bounce-leave-active {
-        transition: all .3s ease;
-    }
-    .bounce-enter  {
-        transform: translateX(100px);
-        opacity: 0;
-    }
-    .bounce-leave-to {
-        transform: translateX(-100px);
-        opacity: 0;
-    }
 
 </style>
