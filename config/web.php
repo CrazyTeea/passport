@@ -78,21 +78,22 @@ $config = [
                 'living-info'=>'app/passport/living-info',
                 'living-info-inv'=>'app/passport/living-info-inv',
 
-
-
                 'objects-info'=>'app/objects/object',
                 'objects-area'=>'app/objects/area',
                 'objects-tariff'=>'app/objects/tariff',
                 'objects-money'=>'app/objects/money',
-
                 'documents'=>'app/documents',
 
                 'api/user/current'=>'api/user/get-current',
                 'api/user/info/<id_org:\d+>'=>'api/user/info',
+                'api/regions'=>'api/regions/all',
 
 
                 'api/organization/by-id/<id:\d+>'=>'api/organizations/get-org',
                 'api/organization/users/<id:\d+>'=>'api/organizations/users-info',
+
+
+                'api/objects/org/<id_org:\d+>'=>'api/objects/by-org',
 
                 'organization/users-info/<id:\d+>'=>'app/organizations/users-info',
                 'organization/users-info/<id:\d+>/delete'=>'app/organizations/delete-users-info',
@@ -101,9 +102,10 @@ $config = [
                 'organization/set-org-area/<id:\d+>'=>'app/organizations/set-org-area',
                 'organization/set-org-living/<id:\d+>'=>'app/organizations/set-org-living',
 
+                'object/create/<id_org:\d+>'=>'app/objects/create',
+                'object/update/<id:\d+>'=>'app/objects/update',
 
 
-                'api/regions'=>'api/regions/all'
             ],
         ],
 

@@ -291,14 +291,14 @@
             async getOrg(){
                 await Axios.get(`/api/organization/by-id/${this.id_org}`).then(res=>
                     {
-                        this.organization = res.data
+                        this.organization = res.data;
+                        this.organization = {...this.organization,...res.data.organization};
                         if (res.data.info){
                             res.data.info.forEach(item=>{
                                 this.organization.info[parseInt(item.stud_type)] = item;
                             })
                         }
                         this.organization.info = res.data.info || {};
-                        console.log( this.organization.info)
                     }
                 );
             },
@@ -310,7 +310,10 @@
                         "X-CSRF-Token": this.csrf
                     }
                 }).then(res=>{
+                    this.getOrg()
                     console.log(res.data);
+                }).finally(()=>{
+                    this.blockSave = true;
                 })
             }
         }

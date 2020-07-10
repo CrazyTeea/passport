@@ -1479,6 +1479,8 @@
                     }
                 }).then(res=>{
                     this.getOrg()
+                }).finally(()=>{
+                    this.blockPage = true;
                 })
             },
 

@@ -38,18 +38,30 @@
 
 
                 </div>
-                <div class="col-3"><span class="font-weight-normal">Колличество объектов: 3</span></div>
-                <div class="col-3"><span class="font-weight-normal">Выгрузить в exel</span></div>
+                <div class="col-3"><span class="small font-weight-normal">Колличество объектов: 3</span></div>
+                <div class="col-3"><span class="small font-weight-normal">Выгрузить в exel</span></div>
                 <div class="col-4">
                     <div class="row">
-                        <div class="col-6"><span class="font-weight-normal">Режим редактирования</span></div>
-                        <div class="col-2">
-                            <b-form-checkbox size="lg" @change="$emit('block-save')" v-model="blockSave" inline switch/>
+                        <div class="col-7"><span class="small font-weight-normal">Режим редактирования</span></div>
+                        <div class="col-5 mt-2 mb-2">
+
+                            <transition
+                                    mode="out-in"
+                                    name="custom-classes-transition"
+                                        enter-active-class="animated "
+                                        leave-active-class="animated fadeOutRight">
+                                <b-button :key="blockSave" class="text-center" size="sm" variant="outline-secondary" block  @click="click">{{blockSave ? 'Редактировать' : 'Сохранить'}}</b-button>
+                            </transition>
+
+
+
+
+                            <!--<b-form-checkbox size="lg" @change="$emit('block-save')" v-model="blockSave" inline switch/>
                         </div>
                         <div class="col-1">
                             <transition name="slide-fade">
                                 <b-button  @click="$emit('save-page')" v-if="blockSave" size="sm" variant="outline-secondary">Сохранить</b-button>
-                            </transition>
+                            </transition>-->
                         </div>
                     </div>
 
@@ -74,8 +86,21 @@
         },
         data(){
             return {
-                blockSave:false,
-                savePage:false
+                blockSave:true,
+            }
+        },
+        methods:{
+            click(){
+              if (this.blockSave) this.change();
+              else this.save();
+            },
+            change(){
+                this.blockSave = false;
+                this.$emit('block-save');
+            },
+            save(){
+                this.blockSave = true;
+                this.$emit('save-page');
             }
         },
         name: "navBar"

@@ -505,7 +505,9 @@
                         "X-CSRF-Token": this.csrf
                     }
                 }).then(res=>{
-                    console.log(res.data);
+                    this.getOrg();
+                }).finally(()=>{
+                    this.blockSave = true;
                 })
             }
         },

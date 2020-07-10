@@ -194,6 +194,8 @@
                     }
                 }).then(res=>{
                     this.getUserInfo();
+                }).finally(()=>{
+                    this.blockSave = true;
                 })
             },
             addUserInfo(){
