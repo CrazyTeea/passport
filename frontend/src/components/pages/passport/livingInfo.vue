@@ -1,5 +1,5 @@
 <template>
-    <transition name="bounce">
+    <transition enter-active-class="animated fadeInUp">
         <div v-if="componentReady">
         <nav-bar v-on:save-page="savePage" v-on:block-save="blockPage = !blockPage"/>
         <div v-if="organization.living" class="container">
@@ -1625,18 +1625,4 @@
 
 <style scoped>
 
-    .bounce-enter-active {
-        transition: all .3s ease;
-    }
-    .bounce-leave-active {
-        transition: all .3s ease;
-    }
-    .bounce-enter  {
-        transform: translateX(100px);
-        opacity: 0;
-    }
-    .bounce-leave-to {
-        transform: translateX(-100px);
-        opacity: 0;
-    }
 </style>
