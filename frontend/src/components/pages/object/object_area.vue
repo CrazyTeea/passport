@@ -391,9 +391,7 @@
             objects(){
                 this.objectsTitle = [];
                 this.objects.forEach((item,index)=>{
-                    console.log(index)
                     this.objectsTitle.push({
-
                         value:index,
                         text:item.name
                     })
@@ -425,7 +423,6 @@
                         "X-CSRF-Token": this.csrf
                     }
                 }).then(res=>{
-                    console.log(res.data);
                     this.getObject();
                 }).finally(()=>{
                     this.blockPage = true;

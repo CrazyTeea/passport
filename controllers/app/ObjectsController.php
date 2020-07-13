@@ -6,6 +6,7 @@ namespace app\controllers\app;
 
 use app\models\Objects;
 use app\models\ObjectsArea;
+use app\models\ObjectsMoney;
 use app\models\User;
 use Yii;
 use yii\helpers\Json;
@@ -73,6 +74,23 @@ class ObjectsController extends Controller
             }
 
             $ret = ['success'=>$area->save(),'errors'=>$area->getErrors()];
+
+        }
+        return Json::encode($ret ?? 'Не верный пост');
+    }
+    public function actionSetMoney($id){
+        if ($post = Yii::$app->request->post()){
+            $post = Json::decode($post['money'],false);
+
+            $money = ObjectsMoney::findOne(['id_object'=>$id]) ?? new ObjectsMoney();
+            if ($money->isNewRecord)
+                $money->id_object = $id;
+
+            foreach ($post as $key=>$item){
+                $money->$key = $item;
+            }
+
+            $ret = ['success'=>$money->save(),'errors'=>$money->getErrors()];
 
         }
         return Json::encode($ret ?? 'Не верный пост');
