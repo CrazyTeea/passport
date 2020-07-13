@@ -7,6 +7,7 @@ namespace app\controllers\app;
 use app\models\Objects;
 use app\models\ObjectsArea;
 use app\models\ObjectsMoney;
+use app\models\ObjectsTariff;
 use app\models\User;
 use Yii;
 use yii\helpers\Json;
@@ -91,6 +92,24 @@ class ObjectsController extends Controller
             }
 
             $ret = ['success'=>$money->save(),'errors'=>$money->getErrors()];
+
+        }
+        return Json::encode($ret ?? 'Не верный пост');
+    }
+
+    public function actionSetTariff($id){
+        if ($post = Yii::$app->request->post()){
+            $post = Json::decode($post['tariff'],false);
+
+            $tariff = ObjectsTariff::findOne(['id_object'=>$id]) ?? new ObjectsTariff();
+            if ($tariff->isNewRecord)
+                $tariff->id_object = $id;
+
+            foreach ($post as $key=>$item){
+                $tariff->$key = $item;
+            }
+
+            $ret = ['success'=>$tariff->save(),'errors'=>$tariff->getErrors()];
 
         }
         return Json::encode($ret ?? 'Не верный пост');
