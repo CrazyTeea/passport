@@ -15,7 +15,7 @@
                     </div>
                 </div>
 
-                <b-button v-if="!blockPage" href="/objects-info" variant="outline-secondary">Добавить объект</b-button>
+                <b-button v-if="!blockPage" :to="{name:'object',params:{modalShow:true}}" variant="outline-secondary">Добавить объект</b-button>
                 <div v-if="currentObject">
                     <hr>
                     <h4>

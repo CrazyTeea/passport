@@ -5,14 +5,6 @@
         <transition enter-active-class="animated fadeInUp">
             <div v-if="componentReady" class="container">
 
-                <div class="row">
-                    <div class="col-8">
-                        <h4>
-                            Сведения о поступлениях и расходах на жилой объект
-                        </h4>
-                    </div>
-                </div>
-
                 <hr>
                 <div class="row mt-2">
                     <div class="col-8"><h4>
@@ -25,7 +17,7 @@
                         <b-form-select @change="setObject" :options="objectsTitle"/>
                     </div>
                 </div>
-                <b-button v-if="!blockPage" href="/objects-info" variant="outline-secondary">Добавить объект</b-button>
+                <b-button v-if="!blockPage" :to="{name:'object',params:{modalShow:true}}" variant="outline-secondary">Добавить объект</b-button>
 
                 <hr>
 

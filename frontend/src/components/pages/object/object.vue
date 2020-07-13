@@ -21,7 +21,7 @@
 
                 <b-button variant="outline-secondary" v-if="!disablePage" @click="modalShow = !modalShow">Добавить объект</b-button>
 
-                <b-modal hide-header v-model="modalShow">
+                <b-modal hide-header v-model="modal_show">
 
                     <b-form-group
                             id="fieldset-obj_name"
@@ -290,17 +290,18 @@
             BInputGroup,BInputGroupText,
             vSelect
         },
+        props:{modalShow:false},
         data(){
             return {
                 csrf: document.getElementsByName("csrf-token")[0].content,
                 objName:'',
                 componentReady:false,
                 obj_index:null,
-                modalShow:false,
                 currentObject: null,
                 regions:[],
                 id_org:null,
                 user:{},
+                modal_show:false,
                 disablePage:true,
                 objectsTitle:[],
                 objects:[]
@@ -320,10 +321,12 @@
             }
         },
         async mounted(){
+            console.log(this.modalShow)
             await this.getRegions();
             await this.getUser();
             this.id_org = this.user.id_org;
             await this.getObject()
+            this.modal_show = this.modalShow;
             this.componentReady = true
 
         },
@@ -344,7 +347,6 @@
             },
             setObject(index){
                 this.currentObject = this.objects.find((item,i)=>i===index);
-                console.log(this.currentObject)
             },
             async getObject(){
                 await Axios.get(`/api/objects/org/${this.id_org}`).then(res=>{
@@ -378,7 +380,7 @@
                 });
                 this.objName = null;
                 this.obj_index = this.objects.length-1;
-                this.modalShow = false;
+                this.modal_show = false;
                 this.currentObject = this.objects[this.objects.length-1];
             },
             async savePage(){
