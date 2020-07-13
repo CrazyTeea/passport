@@ -120,4 +120,8 @@ class Objects extends \yii\db\ActiveRecord
     {
         return $this->hasOne(ObjectsMoney::className(), ['id_object' => 'id']);
     }
+    public function getTariff()
+    {
+        return $this->hasOne(ObjectsTariff::className(), ['id_object' => 'id']);
+    }
 }

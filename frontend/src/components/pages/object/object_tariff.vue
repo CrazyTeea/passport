@@ -1,83 +1,78 @@
 <template>
     <div>
-        <nav-bar v-on:block-save="blockSave = !blockSave" />
-
-        <div class="container">
-            <div class="rov">
-                <div class="col-8">
-                    <h4>Сведения о тарифах установленных для проживания в жилом объекте</h4>
+        <nav-bar v-on:save-page="saveObject" v-on:block-save="blockSave = !blockSave" />
+        <transition enter-active-class="animated fadeInUp">
+            <div v-if="componentReady" class="container">
+                <div class="rov">
+                    <div class="col-8">
+                        <h4>Сведения о тарифах установленных для проживания в жилом объекте</h4>
+                    </div>
                 </div>
-            </div>
 
-            <div class="row">
-                <div class="col-6"><label >Наименование жилого объекта</label></div>
-                <div class="col-6">
-                    <b-form-select @change="setObject" :options="objectsTitle"/>
+                <div class="row">
+                    <div class="col-6"><label >Наименование жилого объекта</label></div>
+                    <div class="col-6">
+                        <b-form-select @change="setObject" :options="objectsTitle"/>
+                    </div>
                 </div>
+
+                <b-button v-if="!blockSave" href="/objects-info" variant="outline-secondary">Добавить объект</b-button>
+
+                <hr>
+
+                <transition enter-active-class="animated fadeIn">
+                    <b-table-simple v-if="currentObject" borderless>
+                    <b-thead>
+                        <b-tr>
+                            <b-th>Размер платы</b-th>
+                            <b-th>За коммунальные услуги с учетом усредненных тарифов</b-th>
+                            <b-th>За коммунальные услуги (по показаниям приборов учета)</b-th>
+                            <b-th>За пользование жилым помещением</b-th>
+                            <b-th>За дополнительные услуги (комфортность, иное)</b-th>
+                        </b-tr>
+                    </b-thead>
+                    <b-tbody>
+                        <b-tr>
+                            <b-td>Для обучающиеся за счёт бюджетных средств</b-td>
+                            <b-td><b-form-input v-model="currentObject.tariff.u_t_b" :disabled="blockSave"/></b-td>
+                            <b-td><b-form-input v-model="currentObject.tariff.k_u_b" :disabled="blockSave"/></b-td>
+                            <b-td><b-form-input v-model="currentObject.tariff.p_p_b" :disabled="blockSave"/></b-td>
+                            <b-td><b-form-input v-model="currentObject.tariff.d_u_b" :disabled="blockSave"/></b-td>
+                        </b-tr>
+                        <b-tr>
+                            <b-td>Для обучающиеся по договорам об оказании платных образовательных услуг </b-td>
+                            <b-td><b-form-input v-model="currentObject.tariff.u_t_p" :disabled="blockSave"/></b-td>
+                            <b-td><b-form-input v-model="currentObject.tariff.k_u_p" :disabled="blockSave"/></b-td>
+                            <b-td><b-form-input v-model="currentObject.tariff.p_p_p" :disabled="blockSave"/></b-td>
+                            <b-td><b-form-input v-model="currentObject.tariff.d_u_p" :disabled="blockSave"/></b-td>
+                        </b-tr>
+                        <b-tr>
+                            <b-td>Для лиц не являющимися гражданами России</b-td>
+                            <b-td><b-form-input v-model="currentObject.tariff.u_t_nr" :disabled="blockSave"/></b-td>
+                            <b-td><b-form-input v-model="currentObject.tariff.k_u_nr" :disabled="blockSave"/></b-td>
+                            <b-td><b-form-input v-model="currentObject.tariff.p_p_nr" :disabled="blockSave"/></b-td>
+                            <b-td><b-form-input v-model="currentObject.tariff.d_u_nr" :disabled="blockSave"/></b-td>
+                        </b-tr>
+                        <b-tr>
+                            <b-td>Для обучающихся других образовательных организаций</b-td>
+                            <b-td><b-form-input v-model="currentObject.tariff.u_t_do" :disabled="blockSave"/></b-td>
+                            <b-td><b-form-input v-model="currentObject.tariff.k_u_do" :disabled="blockSave"/></b-td>
+                            <b-td><b-form-input v-model="currentObject.tariff.p_p_do" :disabled="blockSave"/></b-td>
+                            <b-td><b-form-input v-model="currentObject.tariff.d_u_do" :disabled="blockSave"/></b-td>
+                        </b-tr>
+                        <b-tr>
+                            <b-td>Для иных нанимателей</b-td>
+                            <b-td><b-form-input v-model="currentObject.tariff.u_t_in" :disabled="blockSave"/></b-td>
+                            <b-td><b-form-input v-model="currentObject.tariff.k_u_in" :disabled="blockSave"/></b-td>
+                            <b-td><b-form-input v-model="currentObject.tariff.p_p_in" :disabled="blockSave"/></b-td>
+                            <b-td><b-form-input v-model="currentObject.tariff.d_u_in" :disabled="blockSave"/></b-td>
+                        </b-tr>
+                    </b-tbody>
+                </b-table-simple>
+                </transition>
+
             </div>
-
-            <b-button v-if="!blockSave" href="/objects-info" variant="outline-secondary">Добавить объект</b-button>
-
-            <hr>
-
-
-            <b-table-simple borderless>
-                <b-thead>
-                    <b-tr>
-                        <b-th>Размер платы</b-th>
-                        <b-th>За коммунальные услуги с учетом усредненных тарифов</b-th>
-                        <b-th>За коммунальные услуги (по показаниям приборов учета)</b-th>
-                        <b-th>За пользование жилым помещением</b-th>
-                        <b-th>За дополнительные услуги (комфортность, иное)</b-th>
-                    </b-tr>
-                </b-thead>
-                <b-tbody>
-                    <b-tr>
-                        <b-td>Для обучающиеся за счёт бюджетных средств</b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                    </b-tr>
-                    <b-tr>
-                        <b-td>Для обучающиеся по договорам об оказании платных образовательных услуг </b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                    </b-tr>
-                    <b-tr>
-                        <b-td>Для лиц не являющимися гражданами России</b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                    </b-tr>
-                    <b-tr>
-                        <b-td>Для обучающихся других образовательных организаций</b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                    </b-tr>
-                    <b-tr>
-                        <b-td>Для иных нанимателей</b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                        <b-td><b-form-input :disabled="blockSave"/></b-td>
-                    </b-tr>
-                </b-tbody>
-
-            </b-table-simple>
-
-
-
-
-
-
-
-        </div>
+        </transition>
 
     </div>
 </template>
@@ -85,6 +80,7 @@
 <script>
     import NavBar from "../../organisms/NavBar";
     import {BButton, BFormInput, BFormSelect, BTableSimple, BTbody, BTd, BTh, BThead, BTr} from 'bootstrap-vue'
+    import Axios from "axios";
 
     export default {
         name: "object_tariff",
@@ -95,46 +91,63 @@
             BThead,BTh,BTr,
             BTd,BTbody,BTableSimple
         },
+        async mounted(){
+            await this.getUser();
+            this.id_org = this.user.id_org;
+            await this.getObject();
+            this.componentReady = true;
+        },
+        watch:{
+            objects(){
+                this.objectsTitle = [];
+                this.objects.forEach((item,index)=>{
+                    this.objectsTitle.push({
+                        value:index,
+                        text:item.name
+                    })
+                })
+            }
+        },
         methods:{
-            setObject(index){
-                this.currentObject = this.objects.find(item=>item.id===index);
-                console.log(index,this.currentObject);
+            async getUser(){
+                await Axios.get('/api/user/current').then(res=>
+                {this.user = res.data;});
             },
+            setObject(index){
+                this.currentObject = this.objects.find((item,i)=>i===index);
+            },
+            async getObject(){
+                await Axios.get(`/api/objects/org/${this.id_org}`).then(res=>{
+                    this.objects = res.data
+                    this.objects.forEach(item=>{
+                        if (!item.tariff)
+                            item.tariff = {}
+                    })
+                })
+            },
+            async saveObject(){
+                let data = new FormData();
+                data.append('tariff',JSON.stringify(this.currentObject.tariff))
+                Axios.post(`/object/set-tariff/${this.currentObject.id}`,data,{
+                    headers: {
+                        "X-CSRF-Token": this.csrf
+                    }
+                }).then(res=>{
+                    this.getObject();
+                }).finally(()=>{
+                    this.blockPage = true;
+                })
+            }
         },
         data(){
             return {
                 blockSave:true,
-                currentObject:{},
-                objectsTitle:[
-                    {
-                        value:1,
-                        text:'object 0'
-                    }
-                ],
-                objects:[
-                    {
-                        id:1,
-                        name:'object 0',
-                        address:'',
-                        id_region:1,
-                        kad_number:'',
-                        osnov_isp:0,
-                        reg_zap:'',
-                        doc_number:'',
-                        plan_zhil_pom:0,
-                        razm_type:0,
-                        smet_sum:0,
-                        nal_uch_isp_res:0,
-                        date_start_stroy:null,
-                        date_zdan:null,
-                        date_exploat:null,
-                        sum_fins:0,
-                        schet_fed_bud:0,
-                        schet_bud_subj:0,
-                        schet_vnebud:0,
-                        rek_kap_rem:true,
-                    }
-                ]
+                csrf: document.getElementsByName("csrf-token")[0].content,
+                componentReady:false,
+                currentObject:null,
+                objectsTitle:[],
+                objects:[],
+                user:{}
             }
         }
     }

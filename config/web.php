@@ -105,7 +105,8 @@ $config = [
                 'object/create/<id_org:\d+>'=>'app/objects/create',
                 'object/update/<id:\d+>'=>'app/objects/update',
                 'object/set-area/<id:\d+>'=>'app/objects/set-area',
-                'object/set-money/<id:\d+>'=>'app/objects/set-money'
+                'object/set-money/<id:\d+>'=>'app/objects/set-money',
+                'object/set-tariff/<id:\d+>'=>'app/objects/set-tariff'
 
 
             ],
