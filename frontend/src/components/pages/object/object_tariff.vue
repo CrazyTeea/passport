@@ -16,7 +16,7 @@
                     </div>
                 </div>
 
-                <b-button v-if="!blockSave" href="/objects-info" variant="outline-secondary">Добавить объект</b-button>
+                <b-button v-if="!blockSave" :to="{name:'object',params:{modalShow:true}}" variant="outline-secondary">Добавить объект</b-button>
 
                 <hr>
 
@@ -95,6 +95,7 @@
             await this.getUser();
             this.id_org = this.user.id_org;
             await this.getObject();
+
             this.componentReady = true;
         },
         watch:{
