@@ -116,4 +116,8 @@ class Objects extends \yii\db\ActiveRecord
     {
         return $this->hasOne(ObjectsArea::className(), ['id_object' => 'id']);
     }
+    public function getMoney()
+    {
+        return $this->hasOne(ObjectsMoney::className(), ['id_object' => 'id']);
+    }
 }
