@@ -88,6 +88,7 @@ $config = [
                 'api/user/info/<id_org:\d+>'=>'api/user/info',
                 'api/regions'=>'api/regions/all',
 
+                'api/get-doc-types/<id_org:\d+>'=>'api/organizations/get-doc-types',
 
                 'api/organization/by-id/<id:\d+>'=>'api/organizations/get-org',
                 'api/organization/users/<id:\d+>'=>'api/organizations/users-info',

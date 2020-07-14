@@ -1,8 +1,8 @@
 <template>
     <div class="custom-navbar">
         <div class="container">
-            <div class="row">
-                <div class="col-1">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
+                <div class="col">
 
                     <b-dropdown variant="transparent" menu-class="dropdown-menu" toggle-class=" text-decoration-none" no-caret>
                         <template v-slot:button-content>
@@ -38,19 +38,18 @@
 
 
                 </div>
-                <div class="col-3"><span class="small font-weight-normal">Колличество объектов: 3</span></div>
-                <div class="col-3"><span class="small font-weight-normal">Выгрузить в exel</span></div>
-                <div class="col-4">
+                <div class=" col mt-2 mb-2"><span class="font-weight-normal">Колличество объектов: 3</span></div>
+                <div class=" col mt-2 mb-2"><span class="font-weight-normal">Выгрузить в exel</span></div>
+                <div class=" col mt-2 mb-2">
                     <div class="row">
-                        <div class="col-7"><span class="small font-weight-normal">Режим редактирования</span></div>
-                        <div class="col-5 mt-2 mb-2">
+                        <div class="col-auto">
 
                             <transition
                                     mode="out-in"
                                     name="custom-classes-transition"
                                         enter-active-class="animated "
-                                        leave-active-class="animated fadeOutRight">
-                                <b-button :key="blockSave" class="text-center" size="sm" variant="outline-secondary" block  @click="click">{{blockSave ? 'Редактировать' : 'Сохранить'}}</b-button>
+                                        leave-active-class="animated fadeOutLeft">
+                                <b-button pill :key="blockSave" class="text-center" size="sm" variant="outline-secondary" block  @click="click">{{blockSave ? 'Редактировать' : 'Сохранить'}}</b-button>
                             </transition>
 
 
@@ -109,18 +108,6 @@
 
 <style lang="scss">
 
-
-    .slide-fade-enter-active {
-        transition: all .4s ease;
-    }
-    .slide-fade-leave-active {
-        transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-    }
-    .slide-fade-enter, .slide-fade-leave-to
-        /* .slide-fade-leave-active до версии 2.1.8 */ {
-        transform: translateX(10px);
-        opacity: 0;
-    }
 
     .dropdown-menu {
         border: 1px solid #ebeef5;
