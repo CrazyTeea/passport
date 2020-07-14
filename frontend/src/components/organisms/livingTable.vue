@@ -17,15 +17,15 @@
             <b-tr v-for="(item,index) in items" :key="index" v-if="item.visible">
                 <b-td>
                     <div class="row">
-                        <div class="col-9">
+                        <div class="col-8">
                             <b-form-input v-model="item.label" :disabled="checkCanSave(index)" v-if="item.editableLabel"/>
                             <span v-else>{{item.label}}</span>
                         </div>
-                        <div class="col-3" v-if="!isInvalid">
-                            <b-button class="align-items-center" @click="addRow(index)" v-if="item.button" variant="outline-secondary" block>
+                        <div class="col" v-if="!isInvalid">
+                            <b-button pill class="align-items-center" @click="addRow(index)" v-if="item.button" variant="outline-secondary" >
                                 <i class="fas fa-plus"></i>
                             </b-button>
-                            <b-button @click="item.visible = false" v-if="item.editableLabel" variant="outline-secondary" block>
+                            <b-button pill @click="deleteRow(index)" v-if="item.editableLabel" variant="outline-secondary" >
                                 <i class="fas fa-minus"></i>
                             </b-button>
                         </div>
@@ -54,9 +54,16 @@
             canSave:Array,
             isInvalid:false,
             title:String,
-            items:Array
+            items:Array,
+            deletedItems:null
         },
         methods:{
+            deleteRow(index){
+                if (this.items[index].id){
+                    this.deletedItems.push(this.items[index].id)
+                }
+                this.items.splice(index,1)
+            },
             checkCanSave(index){
 
                 if (!this.blockSave && this.canSave && !this.items[index].disabled) {

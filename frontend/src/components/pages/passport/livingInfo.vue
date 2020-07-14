@@ -43,7 +43,7 @@
                         За счёт федерального бюджета
                         </span>
                         </template>
-                        <living-table :items="items_b.items" title="Проживающие из числа обучающихся за счёт федерального бюджета" :is-invalid="false" :block-save="blockPage" v-bind:can-save="items_b.canSave"/>
+                        <living-table :deletedItems="itemsToDelete.items_b" :items="items_b.items" title="Проживающие из числа обучающихся за счёт федерального бюджета" :is-invalid="false" :block-save="blockPage" v-bind:can-save="items_b.canSave"/>
 
                     </b-tab>
                     <b-tab no-body >
@@ -52,7 +52,7 @@
                         За счёт бюджета субъекта
                         </span>
                         </template>
-                        <living-table :items="items_s.items" title="Проживающие из числа обучающихся за счёт федерального бюджета" :is-invalid="false" :block-save="blockPage" v-bind:can-save="items_s.canSave"/>
+                        <living-table :deletedItems="itemsToDelete.items_s" :items="items_s.items" title="Проживающие из числа обучающихся за счёт федерального бюджета" :is-invalid="false" :block-save="blockPage" v-bind:can-save="items_s.canSave"/>
 
                     </b-tab>
                     <b-tab no-body >
@@ -61,7 +61,7 @@
                         За счёт местного бюджета
                         </span>
                         </template>
-                        <living-table :items="items_m.items" title="Проживающие из числа обучающихся за счёт федерального бюджета" :is-invalid="false" :block-save="blockPage" v-bind:can-save="items_m.canSave"/>
+                        <living-table :deletedItems="itemsToDelete.items_m" :items="items_m.items" title="Проживающие из числа обучающихся за счёт федерального бюджета" :is-invalid="false" :block-save="blockPage" v-bind:can-save="items_m.canSave"/>
 
                     </b-tab>
                     <b-tab no-body >
@@ -71,7 +71,7 @@
                         платных образовательных услуг
                         </span>
                         </template>
-                        <living-table :items="items_p.items" title="Проживающие из числа обучающихся за счёт федерального бюджета" :is-invalid="false" :block-save="blockPage" v-bind:can-save="items_p.canSave"/>
+                        <living-table :deletedItems="itemsToDelete.items_p" :items="items_p.items" title="Проживающие из числа обучающихся за счёт федерального бюджета" :is-invalid="false" :block-save="blockPage" v-bind:can-save="items_p.canSave"/>
 
                     </b-tab>
                 </b-tabs>
@@ -207,6 +207,12 @@
                 organization:{},
                 id_org:null,
                 componentReady:false,
+                itemsToDelete:{
+                    items_b:[],
+                    items_s:[],
+                    items_m:[],
+                    items_p:[],
+                },
                 items_b:{
                     items:[
                         {
@@ -708,6 +714,14 @@
                     canSave:[]
                 },
 
+            }
+        },
+        watch:{
+            itemsToDelete:{
+                handler(){
+                    console.log(this.itemsToDelete)
+                },
+                deep:true
             }
         },
         methods:{
@@ -1222,8 +1236,9 @@
                                     disabled: true,
                                 }
                             ],
-                                canSave:[]
+                            canSave:[]
                         };
+
                         this.organization.living = res.data.living ?? {}
                         let numbers = [
                             {
@@ -1273,7 +1288,6 @@
                                     break;
                                 }
                                 case 1: {
-                                    console.log(item.budjet_type)
                                     type = 'items_s';
                                     break;
                                 }
@@ -1290,7 +1304,8 @@
                             switch (item.type) {
                                 case 'rf_och': {
                                     if (!numbers[item.budjet_type]['rf_och']) {
-                                        this[type].items[0] = {
+                                        let index = this[type].items.findIndex(i => i.label === 'Граждане РФ, обучающиеся по очной форме');
+                                        this[type].items[index] = {
                                             id: item.id,
                                             label: 'Граждане РФ, обучающиеся по очной форме',
                                             editableLabel: false,
@@ -1497,7 +1512,7 @@
                                             label: 'Граждане РФ, обучающиеся по очно-заочной форме',
                                             editableLabel: false,
                                             visible: true,
-                                            button: true,
+                                            button: false,
                                             disabled: false,
                                         }
                                     } else {

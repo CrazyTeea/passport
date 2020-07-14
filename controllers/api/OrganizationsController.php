@@ -4,17 +4,17 @@
 namespace app\controllers\api;
 
 
+use app\models\DocTypes;
 use app\models\Founders;
 use app\models\Organizations;
 use app\models\OrgArea;
+use app\models\OrgDocs;
 use app\models\OrgInfo;
 use app\models\OrgLiving;
 use app\models\OrgLivingStudents;
 use app\models\Regions;
 use app\models\UsersInfo;
 use Yii;
-use yii\data\ActiveDataProvider;
-use yii\helpers\ArrayHelper;
 use yii\rest\Controller;
 
 class OrganizationsController extends Controller
@@ -34,6 +34,10 @@ class OrganizationsController extends Controller
 
     public function actionUsersInfo($id){
         return UsersInfo::find()->where(['id_org'=>$id])->asArray()->all();
+    }
+
+    public function actionGetDocTypes($id_org){
+        return OrgDocs::find()->joinWith(['descriptor','file'])->where(['id_org'=>$id_org])->asArray()->all();
     }
 
 }
