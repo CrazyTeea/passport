@@ -5,6 +5,7 @@ namespace app\controllers\app;
 
 use app\models\Organizations;
 use app\models\OrgArea;
+use app\models\OrgDocs;
 use app\models\OrgInfo;
 use app\models\OrgLiving;
 use app\models\OrgLivingStudents;
@@ -43,6 +44,22 @@ class OrganizationsController extends Controller
             $org->stud_cnt_inos=$post->organization->stud_cnt_inos;
             $org->stud_cnt_rus=$post->organization->stud_cnt_rus;
             $org_save = $org->save();
+
+
+            $org_docs = OrgDocs::findAll(['id_desc'=>[1,2],'id_org'=>$id]);
+            if (!$org_docs){
+                $org_doc = new OrgDocs();
+                $org_doc->id_org = $id;
+                $org_doc->id_desc = 1;
+                $org_doc->save();
+
+                $org_doc = new OrgDocs();
+                $org_doc->id_org = $id;
+                $org_doc->id_desc = 2;
+                $org_doc->save();
+            }
+
+
             $info_save = [];
             foreach($post->info as $info){
                 $inf = OrgInfo::findOne([$info->id]) ?? new OrgInfo();
