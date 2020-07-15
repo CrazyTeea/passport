@@ -2,7 +2,7 @@
     <div class="custom-navbar">
         <div class="container">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
-                <div class="col">
+                <div class="col  mb-2">
 
                     <b-dropdown variant="transparent" menu-class="dropdown-menu" toggle-class=" text-decoration-none" no-caret>
                         <template v-slot:button-content>
@@ -38,18 +38,17 @@
 
 
                 </div>
-                <div class=" col mt-2 mb-2"><span class="font-weight-normal">Колличество объектов: 3</span></div>
-                <div class=" col mt-2 mb-2"><span class="font-weight-normal">Выгрузить в exel</span></div>
+                <div class=" col mt-2 mb-2"><span class="font-weight-bold">Количество объектов: 3</span></div>
+                <div class=" col mt-2 mb-2"><span class="font-weight-bold">Выгрузить в excel <i class="fas text-success fa-file-excel"></i></span></div>
                 <div class=" col mt-2 mb-2">
-                    <div class="row">
-                        <div class="col-auto">
+
 
                             <transition
                                     mode="out-in"
                                     name="custom-classes-transition"
                                         enter-active-class="animated "
                                         leave-active-class="animated fadeOutLeft">
-                                <b-button pill :key="blockSave" class="text-center" size="sm" variant="outline-secondary" block  @click="click">{{blockSave ? 'Редактировать' : 'Сохранить'}}</b-button>
+                                <b-button pill :key="blockSave" class="font-weight-bold" size="sm" variant="outline-secondary" block  @click="click">{{blockSave ? 'Редактировать' : 'Сохранить'}}</b-button>
                             </transition>
 
 
@@ -61,8 +60,6 @@
                             <transition name="slide-fade">
                                 <b-button  @click="$emit('save-page')" v-if="blockSave" size="sm" variant="outline-secondary">Сохранить</b-button>
                             </transition>-->
-                        </div>
-                    </div>
 
 
                 </div>
