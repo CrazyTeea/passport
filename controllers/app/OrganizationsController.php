@@ -61,9 +61,13 @@ class OrganizationsController extends Controller
 
 
             $info_save = [];
-            foreach($post->info as $info){
+            foreach($post->info as $key=>$info){
                 $inf = OrgInfo::findOne([$info->id]) ?? new OrgInfo();
+
                 $inf->id_org = $info->id_org;
+
+
+
                 $inf->stud_type = $info->stud_type;
 
 
