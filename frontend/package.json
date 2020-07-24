@@ -18,7 +18,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "browser-sync": "^2.26.7",
+    "browser-sync": "^2.26.10",
     "browser-sync-webpack-plugin": "^2.2.2",
     "cross-env": "^7.0.2",
     "laravel-mix": "^5.0.4",
@@ -31,12 +31,12 @@
     "vue-template-compiler": "^2.6.11"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.13.1",
+    "@fortawesome/fontawesome-free": "^5.14.0",
     "animate.css": "^4.1.0",
     "axios": "^0.19.2",
     "bootstrap": "^4.5.0",
     "bootstrap-vue": "^2.15.0",
-    "eslint": "^7.4.0",
+    "eslint": "^7.5.0",
     "jquery": "^3.5.1",
     "v-select2-component": "^0.4.3",
     "vue": "^2.6.11",
