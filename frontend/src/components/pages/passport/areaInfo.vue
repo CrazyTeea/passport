@@ -21,7 +21,7 @@
                             <template v-slot:append>
                                 <b-input-group-text>м<sup>2</sup></b-input-group-text>
                             </template>
-                            <b-form-input id="org_area" v-model="organization.area.area_prig_prozh" disabled/>
+                            <b-form-input id="org_area" v-model="area.area_prig_prozh" disabled/>
                         </b-input-group>
 
                     </div>
@@ -33,7 +33,7 @@
                             <template v-slot:append>
                                 <b-input-group-text>м<sup>2</sup></b-input-group-text>
                             </template>
-                            <b-form-input id="org_area_live" v-model="organization.area.area_zhil_prig_prozh" disabled/>
+                            <b-form-input id="org_area_live" v-model="area.area_zhil_prig_prozh" disabled/>
                         </b-input-group>
                     </div>
                 </div>
@@ -44,7 +44,7 @@
                             <template v-slot:append>
                                 <b-input-group-text>м<sup>2</sup></b-input-group-text>
                             </template>
-                            <b-form-input id="org_area_students" v-model="organization.area.area_zan_obuch" disabled/>
+                            <b-form-input id="org_area_students" v-model="area.area_zan_obuch" disabled/>
                         </b-input-group>
                     </div>
                 </div>
@@ -55,7 +55,7 @@
                             <template v-slot:append>
                                 <b-input-group-text>м<sup>2</sup></b-input-group-text>
                             </template>
-                            <b-form-input id="org_area_foreign" v-model="organization.area.area_in_kat_nan" disabled/>
+                            <b-form-input id="org_area_foreign" v-model="area.area_in_kat_nan" disabled/>
                         </b-input-group>
                     </div>
                 </div>
@@ -66,7 +66,7 @@
                             <template v-slot:append>
                                 <b-input-group-text>м<sup>2</sup></b-input-group-text>
                             </template>
-                            <b-form-input id="org_area_svod" v-model="organization.area.svobod" disabled/>
+                            <b-form-input id="org_area_svod" v-model="area.svobod" disabled/>
                         </b-input-group>
                     </div>
                 </div>
@@ -77,7 +77,7 @@
                             <template v-slot:append>
                                 <b-input-group-text>м<sup>2</sup></b-input-group-text>
                             </template>
-                            <b-form-input id="org_area_not_used" v-model="organization.area.ne_isp" disabled/>
+                            <b-form-input id="org_area_not_used" v-model="area.ne_isp" disabled/>
                         </b-input-group>
                     </div>
                 </div>
@@ -88,7 +88,7 @@
                             <template v-slot:append>
                                 <b-input-group-text>м<sup>2</sup></b-input-group-text>
                             </template>
-                            <b-form-input id="org_area_not_live_prigod" v-model="organization.area.ne_zhil_plosh_v_prig_dlya_prozh" disabled/>
+                            <b-form-input id="org_area_not_live_prigod" v-model="area.ne_zhil_plosh_v_prig_dlya_prozh" disabled/>
                         </b-input-group>
                     </div>
                 </div>
@@ -101,7 +101,7 @@
                             <template v-slot:append>
                                 <b-input-group-text>м<sup>2</sup></b-input-group-text>
                             </template>
-                            <b-form-input id="org_area_not_prigod" v-model="organization.area.area_obsh_ne_prig_dlya_prozh" disabled/>
+                            <b-form-input id="org_area_not_prigod" v-model="area.area_obsh_ne_prig_dlya_prozh" disabled/>
                         </b-input-group>
                     </div>
                 </div>
@@ -118,21 +118,21 @@
                     <b-tbody>
                         <b-tr>
                             <b-td>Требует капитального ремонта</b-td>
-                            <b-td><b-form-input v-model="organization.area.area_zhil_t_k_r" disabled/></b-td>
-                            <b-td><b-form-input v-model="organization.area.area_ne_zhil_n_a_s" disabled/></b-td>
-                            <b-td><b-form-input disabled/></b-td>
+                            <b-td><b-form-input v-model="area.area_zhil_t_k_r" disabled/></b-td>
+                            <b-td><b-form-input v-model="area.area_ne_zhil_t_k_r" disabled/></b-td>
+                            <b-td><b-form-input v-model="area.all_t_k_r" disabled/></b-td>
                         </b-tr>
                         <b-tr>
                             <b-td>Находится в аварийном состоянии</b-td>
-                            <b-td><b-form-input v-model="organization.area.area_zhil_n_a_s" disabled/></b-td>
-                            <b-td><b-form-input v-model="organization.area.area_ne_zhil_n_a_s" disabled/></b-td>
-                            <b-td><b-form-input disabled/></b-td>
+                            <b-td><b-form-input v-model="area.area_zhil_n_a_s" disabled/></b-td>
+                            <b-td><b-form-input v-model="area.area_ne_zhil_n_a_s" disabled/></b-td>
+                            <b-td><b-form-input v-model="area.all_n_a_s" disabled/></b-td>
                         </b-tr>
                         <b-tr>
                             <b-td>Непригодна для проживания</b-td>
-                            <b-td><b-form-input v-model="organization.area.area_zhil_n_p" disabled/></b-td>
-                            <b-td><b-form-input v-model="organization.area.area_ne_zhil_n_p" disabled/></b-td>
-                            <b-td><b-form-input disabled/></b-td>
+                            <b-td><b-form-input v-model="area.area_zhil_n_p" disabled/></b-td>
+                            <b-td><b-form-input v-model="area.area_ne_zhil_n_p" disabled/></b-td>
+                            <b-td><b-form-input v-model="area.all_n_p" disabled/></b-td>
                         </b-tr>
                     </b-tbody>
                 </b-table-simple>
@@ -146,7 +146,7 @@
                             <template v-slot:append>
                                 <b-input-group-text>м<sup>2</sup></b-input-group-text>
                             </template>
-                            <b-form-input id="org_area_metres" v-model="organization.area.area_kv_metr_zhil"  disabled/>
+                            <b-form-input id="org_area_metres" v-model="area.area_kv_metr_zhil"  disabled/>
                         </b-input-group>
                     </div>
                 </div>
@@ -157,7 +157,7 @@
                             <template v-slot:append>
                                 <b-input-group-text>м<sup>2</sup></b-input-group-text>
                             </template>
-                            <b-form-input id="org_area_metres_2" v-model="organization.area.area_kv_metr_obsh" disabled/>
+                            <b-form-input id="org_area_metres_2" v-model="area.area_kv_metr_obsh" disabled/>
                         </b-input-group>
                     </div>
                 </div>
@@ -169,7 +169,7 @@
                             <template v-slot:append>
                                 <b-input-group-text>м<sup>2</sup></b-input-group-text>
                             </template>
-                            <b-form-input id="org_area_not_used_ustav" v-model="organization.area.area_obj_ne_isp_v_ust_dey" disabled/>
+                            <b-form-input id="org_area_not_used_ustav" v-model="area.area_obj_ne_isp_v_ust_dey" disabled/>
                         </b-input-group>
                     </div>
                 </div>
@@ -183,7 +183,7 @@
                     <div class="col-6"><label class="font-weight-bold" for="org_area_cnt_mest">Количество мест</label></div>
                     <div class="col-6">
                         <b-input-group append="мест">
-                            <b-form-input id="org_area_cnt_mest" v-model="organization.area.area_cnt_mest" disabled/>
+                            <b-form-input id="org_area_cnt_mest" v-model="area.area_cnt_mest" disabled/>
                         </b-input-group>
                     </div>
                 </div>
@@ -191,7 +191,7 @@
                     <div class="col-6 "><label class="ml-2 font-weight-bold" for="org_area_cnt_mest_prig">1. Количество пригодных для проживания мест</label></div>
                     <div class="col-6 ">
                         <b-input-group  append="мест">
-                            <b-form-input id="org_area_cnt_mest_prig" v-model="organization.area.area_cnt_mest_prig_prozh" disabled/>
+                            <b-form-input id="org_area_cnt_mest_prig" v-model="area.area_cnt_mest_prig_prozh" disabled/>
                         </b-input-group>
                     </div>
                 </div>
@@ -199,7 +199,7 @@
                     <div class="col-6"><label class="ml-4 font-weight-bold" for="org_area_cnt_mest_zan">А. Количество мест, занятых обучающимися</label></div>
                     <div class="col-6 ">
                         <b-input-group  append="мест">
-                            <b-form-input id="org_area_cnt_mest_zan" v-model="organization.area.area_cnt_mest_zan_obuch" disabled/>
+                            <b-form-input id="org_area_cnt_mest_zan" v-model="area.area_cnt_mest_zan_obuch" disabled/>
                         </b-input-group>
                     </div>
                 </div>
@@ -219,10 +219,10 @@
                                 Среднее профессиональное образование
                             </b-td>
                             <b-td>
-                                <b-form-input v-model="organization.area.m2_spo" disabled/>
+                                <b-form-input v-model="area.m2_spo" disabled/>
                             </b-td>
                             <b-td>
-                                <b-form-input v-model="organization.area.c6m2_spo" disabled/>
+                                <b-form-input v-model="area.c6m2_spo" disabled/>
                             </b-td>
                             <b-td>
                                 <b-form-input disabled/>
@@ -233,10 +233,10 @@
                                 Бакалавриат
                             </b-td>
                             <b-td>
-                                <b-form-input v-model="organization.area.m2_bak" disabled/>
+                                <b-form-input v-model="area.m2_bak" disabled/>
                             </b-td>
                             <b-td>
-                                <b-form-input v-model="organization.area.c6m2_bak" disabled/>
+                                <b-form-input v-model="area.c6m2_bak" disabled/>
                             </b-td>
                             <b-td>
                                 <b-form-input disabled/>
@@ -247,10 +247,10 @@
                                 Специалитет
                             </b-td>
                             <b-td>
-                                <b-form-input v-model="organization.area.m2_spec" disabled/>
+                                <b-form-input v-model="area.m2_spec" disabled/>
                             </b-td>
                             <b-td>
-                                <b-form-input v-model="organization.area.c6m2_spec" disabled/>
+                                <b-form-input v-model="area.c6m2_spec" disabled/>
                             </b-td>
                             <b-td>
                                 <b-form-input disabled/>
@@ -261,10 +261,10 @@
                                 Магистратура
                             </b-td>
                             <b-td>
-                                <b-form-input v-model="organization.area.m2_mag" disabled/>
+                                <b-form-input v-model="area.m2_mag" disabled/>
                             </b-td>
                             <b-td>
-                                <b-form-input v-model="organization.area.c6m2_mag" disabled/>
+                                <b-form-input v-model="area.c6m2_mag" disabled/>
                             </b-td>
                             <b-td>
                                 <b-form-input disabled/>
@@ -275,10 +275,10 @@
                                 Аспирантура
                             </b-td>
                             <b-td>
-                                <b-form-input v-model="organization.area.m2_asp" disabled/>
+                                <b-form-input v-model="area.m2_asp" disabled/>
                             </b-td>
                             <b-td>
-                                <b-form-input v-model="organization.area.c6m2_asp" disabled/>
+                                <b-form-input v-model="area.c6m2_asp" disabled/>
                             </b-td>
                             <b-td>
                                 <b-form-input disabled/>
@@ -289,10 +289,10 @@
                                 Ординатрура
                             </b-td>
                             <b-td>
-                                <b-form-input v-model="organization.area.m2_ord" disabled/>
+                                <b-form-input v-model="area.m2_ord" disabled/>
                             </b-td>
                             <b-td>
-                                <b-form-input v-model="organization.area.c6m2_ord" disabled/>
+                                <b-form-input v-model="area.c6m2_ord" disabled/>
                             </b-td>
                             <b-td>
                                 <b-form-input disabled/>
@@ -303,10 +303,10 @@
                                 Иные обучающиеся
                             </b-td>
                             <b-td>
-                                <b-form-input v-model="organization.area.m2_in" disabled/>
+                                <b-form-input v-model="area.m2_in" disabled/>
                             </b-td>
                             <b-td>
-                                <b-form-input v-model="organization.area.c6m2_in" disabled/>
+                                <b-form-input v-model="area.c6m2_in" disabled/>
                             </b-td>
                             <b-td>
                                 <b-form-input disabled/>
@@ -333,7 +333,7 @@
                     <div class="col-6 "><label class="ml-4 font-weight-bold" for="org_area_cnt_mest_zan_inie">Б. Количество мест, занятых иными категориями проживающих</label></div>
                     <div class="col-6">
                         <b-input-group append="мест">
-                            <b-form-input v-model="organization.area.area_cnt_mest_zan_in_obuch"  id="org_area_cnt_mest_zan_inie" disabled/>
+                            <b-form-input v-model="area.area_cnt_mest_zan_in_obuch"  id="org_area_cnt_mest_zan_inie" disabled/>
                         </b-input-group>
                     </div>
                 </div>
@@ -341,7 +341,7 @@
                     <div class="col-6 "><label class="ml-4 font-weight-bold" for="org_area_cnt_svod_mest">В. Количество свободных мест</label></div>
                     <div class="col-6 ">
                         <b-input-group append="мест">
-                            <b-form-input v-model="organization.area.area_cnt_svob_mest" id="org_area_cnt_svod_mest" disabled/>
+                            <b-form-input v-model="area.area_cnt_svob_mest" id="org_area_cnt_svod_mest" disabled/>
                         </b-input-group>
                     </div>
                 </div>
@@ -349,7 +349,7 @@
                     <div class="col-6 "><label class="ml-4 font-weight-bold" for="org_area_cnt_neisp_mest">Г. Количество неиспользуемых мест</label></div>
                     <div class="col-6 ">
                         <b-input-group append="мест">
-                            <b-form-input v-model="organization.area.area_cnt_ne_mest"  id="org_area_cnt_neisp_mest" disabled/>
+                            <b-form-input v-model="area.area_cnt_ne_mest"  id="org_area_cnt_neisp_mest" disabled/>
                         </b-input-group>
                     </div>
                 </div>
@@ -358,7 +358,7 @@
                     <div class="col-6"><label class=" ml-2 font-weight-bold" for="org_area_cnt_neprig_mest">2. Количество непригодных к использованию мест</label></div>
                     <div class="col-6">
                         <b-input-group append="мест">
-                            <b-form-input v-model="organization.area.area_cnt_mest_ne_prig_k_prozh"   id="org_area_cnt_neprig_mest" disabled/>
+                            <b-form-input v-model="area.area_cnt_mest_ne_prig_k_prozh"   id="org_area_cnt_neprig_mest" disabled/>
                         </b-input-group>
                     </div>
                 </div>
@@ -368,7 +368,7 @@
                     <div class="col-6"><label class="font-weight-bold" for="org_area_cnt_mest_invalid">Количество мест оборудованных для лиц с ограниченными возможностями здоровья</label></div>
                     <div class="col-6">
                         <b-input-group append="мест">
-                            <b-form-input v-model="organization.area.area_cnt_mest_invalid"  id="org_area_cnt_mest_invalid" disabled/>
+                            <b-form-input v-model="area.area_cnt_mest_invalid"  id="org_area_cnt_mest_invalid" disabled/>
                         </b-input-group>
                     </div>
                 </div>
@@ -376,7 +376,7 @@
                     <div class="col-6"><label class="font-weight-bold" for="org_area_cnt_mest_nuzd">Количество обучающихся, нуждающихся в жилье</label></div>
                     <div class="col-6">
                         <b-input-group append="человек">
-                            <b-form-input id="org_area_cnt_mest_nuzd" v-model="organization.area.area_cnt_nuzhd_zhil" :disabled="blockSave"/>
+                            <b-form-input id="org_area_cnt_mest_nuzd" v-model="area.area_cnt_nuzhd_zhil" :disabled="blockSave"/>
                         </b-input-group>
                     </div>
                 </div>
@@ -384,7 +384,7 @@
                     <div class="col-6"><label class="font-weight-bold" for="org_area_cnt_live_in_other">Количество обучающихся, проживающих в жилом фонде других организаций</label></div>
                     <div class="col-6">
                         <b-input-group append="человек">
-                            <b-form-input id="org_area_cnt_live_in_other" v-model="organization.area.area_cnt_prozh_u_drugih" :disabled="blockSave"/>
+                            <b-form-input id="org_area_cnt_live_in_other" v-model="area.area_cnt_prozh_u_drugih" :disabled="blockSave"/>
                         </b-input-group>
                     </div>
                 </div>
@@ -392,7 +392,7 @@
                     <div class="col-6"><label class="font-weight-bold" for="org_area_cnt_mest_vost_rab">Количество мест, возможных к вводу в эксплуатацию после проведения восстановительных работ</label></div>
                     <div class="col-6">
                         <b-input-group append="мест">
-                            <b-form-input v-model="organization.area.area_cnt_mest_vozm_k_vvodu_v_esk"  id="org_area_cnt_mest_vost_rab" disabled/>
+                            <b-form-input v-model="area.area_cnt_mest_vozm_k_vvodu_v_esk"  id="org_area_cnt_mest_vost_rab" disabled/>
                         </b-input-group>
                     </div>
                 </div>
@@ -411,7 +411,7 @@
                                     правилами и нормами, иными требованиями законодательства
                                 </b-tooltip>
                             </template>
-                            <b-form-input  v-model="organization.area.area_cnt_mest_vozm_mest_is_neisp"  id="org_area_cnt_vozmozh_mest_prig" disabled/>
+                            <b-form-input  v-model="area.area_cnt_mest_vozm_mest_is_neisp"  id="org_area_cnt_vozmozh_mest_prig" disabled/>
                         </b-input-group>
                     </div>
                 </div>
@@ -430,7 +430,7 @@
                                     правилами и нормами, иными требованиями законодательства
                                 </b-tooltip>
                             </template>
-                            <b-form-input v-model="organization.area.area_cnt_mest_vozm_mest_is_neprig" id="org_area_cnt_vozmozh_mest_ne_prig" disabled/>
+                            <b-form-input v-model="area.area_cnt_mest_vozm_mest_is_neprig" id="org_area_cnt_vozmozh_mest_ne_prig" disabled/>
                         </b-input-group>
                     </div>
                 </div>
@@ -475,14 +475,86 @@
         data(){
             return{
                 componentReady:false,
+                area:null,
                 csrf: document.getElementsByName("csrf-token")[0].content,
                 blockSave:true,
                 id_org:null,
-                organization:{},
+                organization:null,
                 user:{}
             }
         },
+        watch: {
+          organization: {
+              handler(){
+                  if (this.componentReady)
+                  this.countArea()
+              },
+              deep: true
+          }
+        },
         methods:{
+            countArea(){
+
+
+                let zil = {
+                    area_zan_obuch:0,
+                    area_in_kat_nan:0,
+                    svobod:0,
+                    ne_isp:0
+                }
+                let nezil = 0;
+
+
+                this.organization.objects?.forEach(item=>{
+                    zil.area_zan_obuch += ~~parseFloat(item.area.zan_obuch);
+                    zil.area_in_kat_nan += ~~parseFloat(item.area.zan_inie);
+                    zil.svobod += ~~parseFloat(item.area.svobod);
+                    zil.ne_isp += ~~parseFloat(item.area.neisp);
+
+                    nezil += (~~parseFloat(item.area.punkt_pit)
+                     + ~~parseFloat(item.area.pom_dlya_uch)
+                     + ~~parseFloat(item.area.pom_dlya_med)
+                     + ~~parseFloat(item.area.pom_dlya_sport)
+                     + ~~parseFloat(item.area.pom_dlya_soc)
+                     + ~~parseFloat(item.area.pom_dlya_kult)
+                     + ~~parseFloat(item.area.in_nezh_plosh));
+                })
+
+                this.area.all_t_k_r =
+                    ~~parseFloat(this.area.area_zhil_t_k_r) +
+                    ~~parseFloat(this.area.area_ne_zhil_t_k_r);
+
+                this.area.all_n_a_s =
+                    ~~parseFloat(this.area.area_zhil_n_a_s) +
+                    ~~parseFloat(this.area.area_ne_zhil_n_a_s);
+
+                this.area.all_n_p =
+                    ~~parseFloat(this.area.area_zhil_n_p) +
+                    ~~parseFloat(this.area.area_ne_zhil_n_p);
+
+                this.area.area_obsh_ne_prig_dlya_prozh =
+                    this.area.all_n_p +
+                    this.area.all_n_a_s +
+                    this.area.all_t_k_r;
+
+
+
+                this.area.area_zan_obuch = zil.area_zan_obuch;
+                this.area.area_in_kat_nan = zil.area_in_kat_nan;
+                this.area.svobod = zil.svobod;
+                this.area.ne_isp = zil.ne_isp;
+                this.area.ne_zhil_plosh_v_prig_dlya_prozh = nezil;
+
+
+                this.area.area_zhil_prig_prozh =
+                    ~~parseFloat(this.area.area_zan_obuch) +
+                    ~~parseFloat(this.area.area_in_kat_nan) +
+                    ~~parseFloat(this.area.svobod) +
+                    ~~parseFloat(this.area.ne_isp);
+                this.area.area_prig_prozh =
+                    ~~parseFloat(this.area.area_zhil_prig_prozh) +
+                    ~~parseFloat(this.area.ne_zhil_plosh_v_prig_dlya_prozh);
+            },
             async getUser(){
                 await Axios.get('/api/user/current').then(res=>
                 {this.user = res.data;});
@@ -490,13 +562,18 @@
             async getOrg(){
                 await Axios.get(`/api/organization/by-id/${this.id_org}`).then(res=> {
                         this.organization = res.data
-                        this.organization.area = res.data.area ?? {}
+                        this.area = res.data.area ?? {}
                     }
                 );
+                await Axios.get(`/api/objects/org/${this.id_org}`).then(res=>{
+                    this.organization.objects = res.data
+                })
+                this.countArea()
+
             },
             async savePage(){
                 let data = new FormData();
-                data.append('org_area',JSON.stringify(this.organization.area));
+                data.append('org_area',JSON.stringify(this.area));
                 await Axios.post(`/organization/set-org-area/${this.id_org}`,data,{
                     headers: {
                         "X-CSRF-Token": this.csrf
