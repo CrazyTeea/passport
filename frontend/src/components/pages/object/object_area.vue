@@ -287,7 +287,7 @@
 
                     <hr>
                     <div class="row">
-                        <div class="col-6"><label for="object_area_ne_plosh_prig_proz21">Количество мест оборудованных для лиц с ограниченными возможностями здоровья</label></div>
+                        <div class="col-6"><label for="object_area_ne_plosh_prig_proz21">Количество мест, оборудованных для лиц с ограниченными возможностями здоровья</label></div>
                         <div class="col-6">
                             <b-input-group append="м2">
                                 <b-form-input type="number" :disabled="blockPage"  v-model="currentObject.area.cnt_mest_inv" id="object_area_ne_plosh_prig_proz21"/>
