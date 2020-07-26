@@ -365,7 +365,7 @@
                 <hr>
 
                 <div class="row">
-                    <div class="col-6"><label class="font-weight-bold" for="org_area_cnt_mest_invalid">Количество мест оборудованных для лиц с ограниченными возможностями здоровья</label></div>
+                    <div class="col-6"><label class="font-weight-bold" for="org_area_cnt_mest_invalid">Количество мест, оборудованных для лиц с ограниченными возможностями здоровья</label></div>
                     <div class="col-6">
                         <b-input-group append="мест">
                             <b-form-input v-model="area.area_cnt_mest_invalid"  id="org_area_cnt_mest_invalid" disabled/>
@@ -562,6 +562,28 @@
                 let b= ~~parseFloat(this.area.area_zan_obuch) + ~~parseFloat(this.area.area_in_kat_nan);
                 this.area.area_kv_metr_zhil = b > 0 ? (this.area.area_zhil_prig_prozh / (b)) : 0 ;
                 this.area.area_kv_metr_obsh = b > 0 ? (this.area.area_prig_prozh / (b)) : 0 ;
+
+                this.area.area_obj_ne_isp_v_ust_dey =
+                    this.area.area_obsh_ne_prig_dlya_prozh +
+                    this.area.area_prig_prozh;
+
+                this.area.area_cnt_mest_zan_obuch = this.organization.objects?.reduce((a,b)=>a+b.area ? b.area.cnt_mest_zan_obuch : 0,0);
+                this.area.area_cnt_mest_zan_in_obuch = this.organization.objects?.reduce((a,b)=>a+b.area ? b.area.cnt_mest_zan_in_obuch : 0,0);
+                this.area.area_cnt_svob_mest = this.organization.objects?.reduce((a,b)=>a+b.area ? b.area.cnt_svobod_mest : 0,0);
+                this.area.area_cnt_ne_mest = this.organization.objects?.reduce((a,b)=>a+b.area ? b.area.cnt_neisp_mest : 0,0);
+                this.area.area_cnt_mest_ne_prig_k_prozh = this.organization.objects?.reduce((a,b)=>a+b.area ? b.area.cnt_nepr_isp_mest : 0,0);
+                this.area.area_cnt_mest_invalid = this.organization.objects?.reduce((a,b)=>a+b.area ? b.area.cnt_mest_inv : 0,0);
+
+                this.area.area_cnt_mest_prig_prozh =
+                    ~~parseFloat(this.area.area_cnt_mest_zan_obuch) +
+                    ~~parseFloat(this.area.area_cnt_mest_zan_in_obuch) +
+                    ~~parseFloat(this.area.area_cnt_svob_mest) +
+                    ~~parseFloat(this.area.area_cnt_ne_mest);
+
+                this.area.area_cnt_mest = ~~parseFloat(this.area.area_cnt_mest_prig_prozh) +
+                    ~~parseFloat(this.area.area_cnt_mest_ne_prig_k_prozh);
+
+
             },
             async getUser(){
                 await Axios.get('/api/user/current').then(res=>
@@ -581,7 +603,7 @@
             },
             async savePage(){
                 let data = new FormData();
-                data.append('org_area',JSON.stringify(this.area));
+                data.append('org_area',JSON.stringify(this.organization.area));
                 await Axios.post(`/organization/set-org-area/${this.id_org}`,data,{
                     headers: {
                         "X-CSRF-Token": this.csrf
