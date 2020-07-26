@@ -376,7 +376,7 @@
                     <div class="col-6"><label class="font-weight-bold" for="org_area_cnt_mest_nuzd">Количество обучающихся, нуждающихся в жилье</label></div>
                     <div class="col-6">
                         <b-input-group append="человек">
-                            <b-form-input id="org_area_cnt_mest_nuzd" v-model="area.area_cnt_nuzhd_zhil" :disabled="blockSave"/>
+                            <b-form-input id="org_area_cnt_mest_nuzd" v-model="organization.area.area_cnt_nuzhd_zhil" :disabled="blockSave"/>
                         </b-input-group>
                     </div>
                 </div>
@@ -384,7 +384,7 @@
                     <div class="col-6"><label class="font-weight-bold" for="org_area_cnt_live_in_other">Количество обучающихся, проживающих в жилом фонде других организаций</label></div>
                     <div class="col-6">
                         <b-input-group append="человек">
-                            <b-form-input id="org_area_cnt_live_in_other" v-model="area.area_cnt_prozh_u_drugih" :disabled="blockSave"/>
+                            <b-form-input id="org_area_cnt_live_in_other" v-model="organization.area.area_cnt_prozh_u_drugih" :disabled="blockSave"/>
                         </b-input-group>
                     </div>
                 </div>
@@ -506,18 +506,21 @@
 
 
                 this.organization.objects?.forEach(item=>{
-                    zil.area_zan_obuch += ~~parseFloat(item.area.zan_obuch);
-                    zil.area_in_kat_nan += ~~parseFloat(item.area.zan_inie);
-                    zil.svobod += ~~parseFloat(item.area.svobod);
-                    zil.ne_isp += ~~parseFloat(item.area.neisp);
+                    if (item.area){
+                        zil.area_zan_obuch += ~~parseFloat(item.area.zan_obuch);
+                        zil.area_in_kat_nan += ~~parseFloat(item.area.zan_inie);
+                        zil.svobod += ~~parseFloat(item.area.svobod);
+                        zil.ne_isp += ~~parseFloat(item.area.neisp);
 
-                    nezil += (~~parseFloat(item.area.punkt_pit)
-                     + ~~parseFloat(item.area.pom_dlya_uch)
-                     + ~~parseFloat(item.area.pom_dlya_med)
-                     + ~~parseFloat(item.area.pom_dlya_sport)
-                     + ~~parseFloat(item.area.pom_dlya_soc)
-                     + ~~parseFloat(item.area.pom_dlya_kult)
-                     + ~~parseFloat(item.area.in_nezh_plosh));
+                        nezil += (~~parseFloat(item.area.punkt_pit)
+                            + ~~parseFloat(item.area.pom_dlya_uch)
+                            + ~~parseFloat(item.area.pom_dlya_med)
+                            + ~~parseFloat(item.area.pom_dlya_sport)
+                            + ~~parseFloat(item.area.pom_dlya_soc)
+                            + ~~parseFloat(item.area.pom_dlya_kult)
+                            + ~~parseFloat(item.area.in_nezh_plosh));
+                    }
+
                 })
 
                 this.area.all_t_k_r =
@@ -554,6 +557,11 @@
                 this.area.area_prig_prozh =
                     ~~parseFloat(this.area.area_zhil_prig_prozh) +
                     ~~parseFloat(this.area.ne_zhil_plosh_v_prig_dlya_prozh);
+
+
+                let b= ~~parseFloat(this.area.area_zan_obuch) + ~~parseFloat(this.area.area_in_kat_nan);
+                this.area.area_kv_metr_zhil = b > 0 ? (this.area.area_zhil_prig_prozh / (b)) : 0 ;
+                this.area.area_kv_metr_obsh = b > 0 ? (this.area.area_prig_prozh / (b)) : 0 ;
             },
             async getUser(){
                 await Axios.get('/api/user/current').then(res=>
@@ -561,8 +569,8 @@
             },
             async getOrg(){
                 await Axios.get(`/api/organization/by-id/${this.id_org}`).then(res=> {
-                        this.organization = res.data
-                        this.area = res.data.area ?? {}
+                        this.organization = res.data;
+                        this.organization.area = this.area = res.data.area ?? {}
                     }
                 );
                 await Axios.get(`/api/objects/org/${this.id_org}`).then(res=>{
