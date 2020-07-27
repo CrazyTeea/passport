@@ -567,12 +567,16 @@
                     this.area.area_obsh_ne_prig_dlya_prozh +
                     this.area.area_prig_prozh;
 
-                this.area.area_cnt_mest_zan_obuch = this.organization.objects?.reduce((a,b)=>a+b.area ? b.area.cnt_mest_zan_obuch : 0,0);
-                this.area.area_cnt_mest_zan_in_obuch = this.organization.objects?.reduce((a,b)=>a+b.area ? b.area.cnt_mest_zan_in_obuch : 0,0);
-                this.area.area_cnt_svob_mest = this.organization.objects?.reduce((a,b)=>a+b.area ? b.area.cnt_svobod_mest : 0,0);
-                this.area.area_cnt_ne_mest = this.organization.objects?.reduce((a,b)=>a+b.area ? b.area.cnt_neisp_mest : 0,0);
-                this.area.area_cnt_mest_ne_prig_k_prozh = this.organization.objects?.reduce((a,b)=>a+b.area ? b.area.cnt_nepr_isp_mest : 0,0);
-                this.area.area_cnt_mest_invalid = this.organization.objects?.reduce((a,b)=>a+b.area ? b.area.cnt_mest_inv : 0,0);
+                this.area.area_cnt_mest_zan_obuch = this.organization.objects?.reduce((a,b)=>a+ ((b.area) ? b.area.cnt_mest_zan_obuch : 0),0);
+                this.area.area_cnt_mest_zan_in_obuch = this.organization.objects?.reduce((a,b)=>a+(b.area ? b.area.cnt_mest_zan_in_obuch : 0),0);
+                this.area.area_cnt_svob_mest = this.organization.objects?.reduce((a,b)=>a+(b.area ? b.area.cnt_svobod_mest : 0),0);
+                this.area.area_cnt_ne_mest = this.organization.objects?.reduce((a,b)=>a+(b.area ? b.area.cnt_neisp_mest : 0),0);
+                this.area.area_cnt_mest_ne_prig_k_prozh = this.organization.objects?.reduce((a,b)=>a+(b.area ? b.area.cnt_nepr_isp_mest : 0),0);
+                this.area.area_cnt_mest_invalid = this.organization.objects?.reduce((a,b)=>a+(b.area ? b.area.cnt_mest_inv : 0),0);
+                this.area.area_cnt_mest_vozm_mest_is_neisp = this.organization.objects?.reduce((a,b)=>a+(b.area ? b.area.cnt_mest_vozm_neisp_mest : 0),0);
+                this.area.area_cnt_mest_vozm_mest_is_neprig = this.organization.objects?.reduce((a,b)=>a+(b.area ? b.area.cnt_mest_vozm_neprig_mest : 0),0);
+
+
 
                 this.area.area_cnt_mest_prig_prozh =
                     ~~parseFloat(this.area.area_cnt_mest_zan_obuch) +
@@ -582,6 +586,10 @@
 
                 this.area.area_cnt_mest = ~~parseFloat(this.area.area_cnt_mest_prig_prozh) +
                     ~~parseFloat(this.area.area_cnt_mest_ne_prig_k_prozh);
+
+
+                this.area.area_cnt_mest_vozm_k_vvodu_v_esk = ~~parseFloat(this.area.area_cnt_mest_vozm_mest_is_neisp) +
+                    ~~parseFloat(this.area.area_cnt_mest_vozm_mest_is_neprig);
 
 
             },
