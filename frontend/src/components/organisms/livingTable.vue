@@ -23,7 +23,7 @@
                         </div>
                         <div class="col" v-if="!isInvalid">
                             <b-button pill class="align-items-center" @click="addRow(index)" v-if="item.button" variant="outline-secondary" >
-                                <i class="fas fa-plus"></i>
+                                <i class="fas fa-plus rotate-buuton"></i>
                             </b-button>
                             <b-button pill @click="deleteRow(index)" v-if="item.editableLabel" variant="outline-secondary" >
                                 <i class="fas fa-minus"></i>
@@ -93,6 +93,13 @@
     th{
         min-width: 100px !important;
         max-width: 100px !important;
+    }
+    .rotate-buuton {
+        transition: ease .4s;
+    }
+    .rotate-buuton:hover {
+        transform: rotate(180deg);
+        transition: ease .4s;
     }
 
 </style>
