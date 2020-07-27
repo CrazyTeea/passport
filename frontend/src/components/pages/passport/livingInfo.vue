@@ -205,7 +205,13 @@
                 blockPage:true,
                 user:{},
                 organization:{},
-                living:{},
+                living:{
+                    cnt_stud_obuch:0,
+                    cnt_stud:0,
+                    all_p:0,
+                    all_s:0,
+                    prozh_is_person:0
+                },
                 id_org:null,
                 componentReady:false,
                 itemsToDelete:{
@@ -729,6 +735,31 @@
                     this.cntLiving()
                 },
                 deep:true
+            },
+            items_b: {
+                handler() {
+                    console.log('ke')
+                    this.cntLiving()
+                },
+                deep:true
+            },
+            items_s: {
+                handler() {
+                    this.cntLiving()
+                },
+                deep:true
+            },
+            items_m: {
+                handler() {
+                    this.cntLiving()
+                },
+                deep:true
+            },
+            items_p: {
+                handler() {
+                    this.cntLiving()
+                },
+                deep:true
             }
         },
         methods:{
@@ -748,6 +779,13 @@
                     + ~~parseInt(this.organization.living.nauch_s)
                     + ~~parseInt(this.organization.living.prof_s)
                     + ~~parseInt(this.organization.living.in_s)
+
+                this.living.cnt_stud_obuch =
+                    ~~parseInt(this.items_b.items[this.items_b.items.length-1].all) +
+                    ~~parseInt(this.items_m.items[this.items_m.items.length-1].all) +
+                    ~~parseInt(this.items_s.items[this.items_s.items.length-1].all) +
+                    ~~parseInt(this.items_p.items[this.items_p.items.length-1].all) ;
+
                 this.living.prozh_is_person = this.living.all_s + this.living.all_p;
 
             },
