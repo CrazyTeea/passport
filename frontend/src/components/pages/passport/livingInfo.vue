@@ -18,7 +18,7 @@
                     </div>
                     <div class="col-6">
                         <b-input-group append="Человек">
-                            <b-form-input id="living_cnt" v-model="organization.living.cnt_stud" disabled/>
+                            <b-form-input id="living_cnt" v-model="living.cnt_stud" disabled/>
                         </b-input-group>
                     </div>
                 </div>
@@ -31,7 +31,7 @@
                     </div>
                     <div class="col-6">
                         <b-input-group append="Человек">
-                            <b-form-input id="living_cnt_students" v-model="organization.living.cnt_stud_obuch" disabled/>
+                            <b-form-input id="living_cnt_students" v-model="living.cnt_stud_obuch" disabled/>
                         </b-input-group>
                     </div>
                 </div>
@@ -104,7 +104,7 @@
                     </div>
                     <div class="col-6">
                         <b-input-group append="Человек">
-                            <b-form-input v-model="organization.living.prozh_is_person" id="live_proz_person" disabled/>
+                            <b-form-input v-model="living.prozh_is_person" id="live_proz_person" disabled/>
                         </b-input-group>
                     </div>
                 </div>
@@ -141,8 +141,8 @@
                         </b-tr>
                         <b-tr>
                             <b-td>Всего</b-td>
-                            <b-td><b-form-input disabled/></b-td>
-                            <b-td><b-form-input disabled/></b-td>
+                            <b-td><b-form-input v-model="living.all_p" disabled/></b-td>
+                            <b-td><b-form-input v-model="living.all_s" disabled/></b-td>
                         </b-tr>
                     </b-tbody>
                 </b-table-simple>
@@ -205,6 +205,7 @@
                 blockPage:true,
                 user:{},
                 organization:{},
+                living:{},
                 id_org:null,
                 componentReady:false,
                 itemsToDelete:{
@@ -722,9 +723,34 @@
                     console.log(this.itemsToDelete)
                 },
                 deep:true
+            },
+            organization: {
+                handler() {
+                    this.cntLiving()
+                },
+                deep:true
             }
         },
         methods:{
+            cntLiving(){
+
+                this.living.cnt_stud =
+                    ~~parseInt(this.living.inie_pr) +
+                    ~~parseInt(this.living.cnt_stud_obuch) +
+                    ~~parseInt(this.living.prozh_is_person);
+                this.living.all_p
+                    = ~~parseInt(this.organization.living.rab_p)
+                    + ~~parseInt(this.organization.living.nauch_p)
+                    + ~~parseInt(this.organization.living.prof_p)
+                    + ~~parseInt(this.organization.living.in_p)
+                this.living.all_s
+                    = ~~parseInt(this.organization.living.rab_s)
+                    + ~~parseInt(this.organization.living.nauch_s)
+                    + ~~parseInt(this.organization.living.prof_s)
+                    + ~~parseInt(this.organization.living.in_s)
+                this.living.prozh_is_person = this.living.all_s + this.living.all_p;
+
+            },
             async getUser(){
                 await Axios.get('/api/user/current').then(res=>
                 {this.user = res.data;});
@@ -738,6 +764,7 @@
                     this.organization = res.data
 
                     if (this.organization) {
+
                         this.items_b={
                             items:[
                                 {
@@ -1588,7 +1615,8 @@
                                     break;
                                 }
                             }
-                        })
+                        });
+                        this.cntLiving()
                     }
                 });
                 this.items_b.items.forEach((item,index)=>{
