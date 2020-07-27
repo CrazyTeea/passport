@@ -1,5 +1,5 @@
 <template>
-    <b-table-simple small borderless>
+    <b-table-simple small borderless responsive>
         <b-thead>
             <b-tr>
                 <b-th class="vert-text"><div><span>{{title}}</span></div></b-th>
@@ -14,7 +14,7 @@
             </b-tr>
         </b-thead>
         <b-tbody>
-            <b-tr v-for="(item,index) in items" :key="index" v-if="item.visible">
+            <b-tr v-for="(item,index) in items" :key="`item_kek_${index}`" v-if="item.visible" @change="cntRow(item)">
                 <b-td>
                     <div class="row">
                         <div class="col-8">
@@ -23,7 +23,7 @@
                         </div>
                         <div class="col" v-if="!isInvalid">
                             <b-button pill class="align-items-center" @click="addRow(index)" v-if="item.button" variant="outline-secondary" >
-                                <i class="fas fa-plus rotate-buuton"></i>
+                                <i class="fas fa-plus rotate-button"></i>
                             </b-button>
                             <b-button pill @click="deleteRow(index)" v-if="item.editableLabel" variant="outline-secondary" >
                                 <i class="fas fa-minus"></i>
@@ -57,7 +57,35 @@
             items:Array,
             deletedItems:null
         },
+
         methods:{
+            cntRow(item2){
+
+
+                Object.keys(this.items[this.items.length-1]).forEach(item=>{
+                    if (!(item === 'label' || item === 'visible' || item === 'editableLabel' || item === 'button'))
+                        this.items[this.items.length-1][item] = 0
+                })
+                let kek = 0;
+                for (let i=0; i < this.items.length-1;i++){
+                    Object.keys(this.items[this.items.length-1]).forEach(item=>{
+                        if (!(item === 'label' || item === 'visible' || item === 'editableLabel' || item === 'button' || item === 'all')) {
+                            kek+= ~~parseInt(this.items[i][item]);
+                            this.items[this.items.length - 1][item] += ~~parseInt(this.items[i][item])
+                            this.items[this.items.length - 1].all = kek;
+                        }
+                    })
+                }
+
+                item2.all =
+                    ~~parseInt(item2.spo) +
+                    ~~parseInt(item2.bak) +
+                    ~~parseInt(item2.spec) +
+                    ~~parseInt(item2.mag) +
+                    ~~parseInt(item2.asp) +
+                    ~~parseInt(item2.ord);
+
+            },
             deleteRow(index){
                 if (this.items[index].id){
                     this.deletedItems.push(this.items[index].id)
@@ -94,10 +122,10 @@
         min-width: 100px !important;
         max-width: 100px !important;
     }
-    .rotate-buuton {
+    .rotate-button {
         transition: ease .4s;
     }
-    .rotate-buuton:hover {
+    .rotate-button:hover {
         transform: rotate(180deg);
         transition: ease .4s;
     }

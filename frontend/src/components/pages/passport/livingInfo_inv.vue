@@ -16,7 +16,7 @@
                     <div class="col-6"><label for="living_cnt_inv">Проживающие из числа обучающихся с ограниченными возможностями здоровья</label></div>
                     <div class="col-6">
                         <b-input-group append="Человек">
-                            <b-form-input id="living_cnt_inv" disabled/>
+                            <b-form-input id="living_cnt_inv" v-model="living.cnt_inv" disabled/>
                         </b-input-group>
                     </div>
                 </div>
@@ -85,6 +85,9 @@
                 user:{},
                 organization:{},
                 id_org:null,
+                living:{
+                    cnt_inv:0
+                },
                 items_b:{
                     items:[
                         {
@@ -587,7 +590,53 @@
                 },
             }
         },
+        watch: {
+            organization: {
+                handler() {
+                    this.cntLiving()
+                },
+                deep:true
+            },
+            items_b: {
+                handler() {
+                    console.log('ke')
+                    this.cntLiving()
+                },
+                deep:true
+            },
+            items_s: {
+                handler() {
+                    this.cntLiving()
+                },
+                deep:true
+            },
+            items_m: {
+                handler() {
+                    this.cntLiving()
+                },
+                deep:true
+            },
+            items_p: {
+                handler() {
+                    this.cntLiving()
+                },
+                deep:true
+            }
+        },
         methods:{
+            cntLiving(){
+
+
+
+                this.living.cnt_inv =
+                    ~~parseInt(this.items_b.items[this.items_b.items.length-1].all) +
+                    ~~parseInt(this.items_m.items[this.items_m.items.length-1].all) +
+                    ~~parseInt(this.items_s.items[this.items_s.items.length-1].all) +
+                    ~~parseInt(this.items_p.items[this.items_p.items.length-1].all) ;
+
+
+
+            },
             async getUser(){
                 await Axios.get('/api/user/current').then(res=>
                 {this.user = res.data;});
