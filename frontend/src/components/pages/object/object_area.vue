@@ -26,7 +26,7 @@
                         <div class="col-6"><label for="object_area">Общая площадь, пригодная для проживания</label></div>
                         <div class="col-6">
                             <b-input-group append="м2">
-                                <b-form-input type="number" v-model="currentObject.schet_bud_subj" disabled id="object_area"/>
+                                <b-form-input type="number" v-model="objArea.obsh_prig" disabled id="object_area"/>
                             </b-input-group>
                         </div>
                     </div>
@@ -34,7 +34,7 @@
                         <div class="col-6"><label class="ml-1" for="object_area_prig">1. Жилая площадь, пригодная для проживания</label></div>
                         <div class="col-6">
                             <b-input-group append="м2">
-                                <b-form-input type="number" disabled v-model="currentObject.schet_bud_subj" id="object_area_prig"/>
+                                <b-form-input type="number" disabled v-model="objArea.zhil_prig" id="object_area_prig"/>
                             </b-input-group>
                         </div>
                     </div>
@@ -74,7 +74,7 @@
                         <div class="col-6"><label class="ml-1" for="object_area_ne_plosh_prig_proz1">2. Нежилая площадь в пригодных для проживания объектах</label></div>
                         <div class="col-6">
                             <b-input-group append="м2">
-                                <b-form-input type="number" disabled v-model="currentObject.schet_bud_subj" id="object_area_ne_plosh_prig_proz1"/>
+                                <b-form-input type="number" disabled v-model="objArea.ne_zhil_v_prig" id="object_area_ne_plosh_prig_proz1"/>
                             </b-input-group>
                         </div>
                     </div>
@@ -85,7 +85,7 @@
                         <div class="col-6"><label class="ml-2" for="object_area_soc_inf">А. Социальная инфраструктура</label></div>
                         <div class="col-6">
                             <b-input-group append="м2">
-                                <b-form-input type="number" disabled v-model="currentObject.schet_bud_subj" id="object_area_soc_inf"/>
+                                <b-form-input type="number" disabled v-model="objArea.soc_inf" id="object_area_soc_inf"/>
                             </b-input-group>
                         </div>
                     </div>
@@ -152,7 +152,7 @@
                         <div class="col-6"><label for="object_area_obsh_plosh_nep">Общая площадь, непригодная для проживания</label></div>
                         <div class="col-6">
                             <b-input-group append="м2">
-                                <b-form-input type="number" disabled v-model="currentObject.schet_bud_subj" id="object_area_obsh_plosh_nep"/>
+                                <b-form-input type="number" disabled v-model="objArea.obsh_ne_prig" id="object_area_obsh_plosh_nep"/>
                             </b-input-group>
                         </div>
                     </div>
@@ -170,19 +170,19 @@
                                 <b-td>Требует капитального ремонта</b-td>
                                 <b-td><b-form-input v-model="currentObject.area.zhil_tkr" :disabled="blockPage"  type="number" /></b-td>
                                 <b-td><b-form-input v-model="currentObject.area.nzhil_tkr" :disabled="blockPage"  type="number" /></b-td>
-                                <b-td><b-form-input disabled type="number" /></b-td>
+                                <b-td><b-form-input disabled v-model="objArea.all_tkr" type="number" /></b-td>
                             </b-tr>
                             <b-tr>
                                 <b-td>Находится в аварийном состоянии</b-td>
                                 <b-td><b-form-input v-model="currentObject.area.zhil_nas" :disabled="blockPage"  type="number" /></b-td>
                                 <b-td><b-form-input v-model="currentObject.area.nzhil_nas" :disabled="blockPage"  type="number" /></b-td>
-                                <b-td><b-form-input disabled type="number" /></b-td>
+                                <b-td><b-form-input disabled v-model="objArea.all_nas" type="number" /></b-td>
                             </b-tr>
                             <b-tr>
                                 <b-td>Непригодна для проживания</b-td>
                                 <b-td><b-form-input v-model="currentObject.area.zhil_np" :disabled="blockPage"  type="number" /></b-td>
                                 <b-td><b-form-input v-model="currentObject.area.nzhil_np" :disabled="blockPage"  type="number" /></b-td>
-                                <b-td><b-form-input disabled type="number" /></b-td>
+                                <b-td><b-form-input disabled v-model="objArea.all_np" type="number" /></b-td>
                             </b-tr>
                         </b-tbody>
                     </b-table-simple>
@@ -210,7 +210,7 @@
                         <div class="col-6"><label for="object_area_ne_plosh_prig_proz6">Количество квадратных метров жилой площади на одного проживающего</label></div>
                         <div class="col-6">
                             <b-input-group append="м2">
-                                <b-form-input type="number" disabled v-model="currentObject.schet_bud_subj" id="object_area_ne_plosh_prig_proz6"/>
+                                <b-form-input type="number" disabled v-model="objArea.cnt_mest_pl_na_odn" id="object_area_ne_plosh_prig_proz6"/>
                             </b-input-group>
                         </div>
                     </div>
@@ -218,7 +218,7 @@
                         <div class="col-6"><label for="object_area_ne_plosh_prig_proz223">Количество квадратных метров общей площади на одного проживающего</label></div>
                         <div class="col-6">
                             <b-input-group append="м2">
-                                <b-form-input type="number" disabled v-model="currentObject.schet_bud_subj" id="object_area_ne_plosh_prig_proz223"/>
+                                <b-form-input type="number" disabled v-model="objArea.cnt_mest_obsh_na_odn" id="object_area_ne_plosh_prig_proz223"/>
                             </b-input-group>
                         </div>
                     </div>
@@ -231,7 +231,7 @@
                         <div class="col-6"><label for="object_area_svod">Количество мест</label></div>
                         <div class="col-6">
                             <b-input-group append="м2">
-                                <b-form-input type="number" disabled v-model="currentObject.schet_bud_subj" id="object_area_svod"/>
+                                <b-form-input type="number" disabled v-model="objArea.cnt_mest" id="object_area_svod"/>
                             </b-input-group>
                         </div>
                     </div>
@@ -239,7 +239,7 @@
                         <div class="col-6"><label class="ml-2" for="object_area_neisp6">1. Количество пригодных для проживания мест</label></div>
                         <div class="col-6">
                             <b-input-group append="м2">
-                                <b-form-input type="number" disabled v-model="currentObject.schet_bud_subj" id="object_area_neisp6"/>
+                                <b-form-input type="number" disabled v-model="objArea.kol_prig_mest" id="object_area_neisp6"/>
                             </b-input-group>
                         </div>
                     </div>
@@ -298,7 +298,7 @@
                         <div class="col-6"><label for="object_area_ne_plosh_prig_proz88">Количество мест, возможных к вводу в эксплуатацию после проведения восстановительных работ</label></div>
                         <div class="col-6">
                             <b-input-group append="м2">
-                                <b-form-input type="number" disabled v-model="currentObject.schet_bud_subj" id="object_area_ne_plosh_prig_proz88"/>
+                                <b-form-input type="number" disabled v-model="objArea.cnt_mest_vozm" id="object_area_ne_plosh_prig_proz88"/>
                             </b-input-group>
                         </div>
                     </div>
@@ -396,6 +396,54 @@
                         text:item.name
                     })
                 })
+            },
+            currentObject: {
+                handler() {
+                    this.objArea.zhil_prig =
+                        ~~parseFloat(this.currentObject.area.zan_obuch) +
+                        ~~parseFloat(this.currentObject.area.zan_inie) +
+                        ~~parseFloat(this.currentObject.area.svobod) +
+                        ~~parseFloat(this.currentObject.area.neisp);
+
+                    this.objArea.all_tkr =
+                        ~~parseFloat(this.currentObject.area.zhil_tkr) +
+                        ~~parseFloat(this.currentObject.area.nzhil_tkr);
+                    this.objArea.all_nas =
+                        ~~parseFloat(this.currentObject.area.zhil_nas) +
+                        ~~parseFloat(this.currentObject.area.nzhil_nas);
+                    this.objArea.all_np =
+                        ~~parseFloat(this.currentObject.area.zhil_np) +
+                        ~~parseFloat(this.currentObject.area.nzhil_np);
+                    this.objArea.obsh_ne_prig = this.objArea.all_tkr + this.objArea.all_nas + this.objArea.all_np
+
+
+                    this.objArea.soc_inf =
+                        ~~parseFloat(this.currentObject.area.punkt_pit) +
+                        ~~parseFloat(this.currentObject.area.pom_dlya_uch) +
+                        ~~parseFloat(this.currentObject.area.pom_dlya_med) +
+                        ~~parseFloat(this.currentObject.area.pom_dlya_sport) +
+                        ~~parseFloat(this.currentObject.area.pom_dlya_kult) +
+                        ~~parseFloat(this.currentObject.area.pom_dlya_soc);
+
+                    this.objArea.ne_zhil_v_prig =
+                        ~~parseFloat(this.objArea.soc_inf) +
+                        ~~parseFloat(this.currentObject.area.in_nezh_plosh);
+
+                    this.objArea.kol_prig_mest =
+                        ~~parseFloat(this.currentObject.area.cnt_mest_zan_obuch) +
+                        ~~parseFloat(this.currentObject.area.cnt_mest_zan_in_obuch) +
+                        ~~parseFloat(this.currentObject.area.cnt_svobod_mest) +
+                        ~~parseFloat(this.currentObject.area.cnt_neisp_mest);
+
+                    this.objArea.obsh_prig = ~~parseFloat(this.objArea.zhil_prig) + ~~parseFloat(this.objArea.ne_zhil_v_prig)
+
+                    this.objArea.cnt_mest = this.objArea.kol_prig_mest + ~~parseFloat(this.currentObject.area.cnt_nepr_isp_mest)
+                    this.objArea.cnt_mest_vozm = ~~parseFloat(this.currentObject.area.cnt_mest_vozm_neisp_mest) + ~~parseFloat(this.currentObject.area.cnt_mest_vozm_neprig_mest)
+                    this.objArea.cnt_mest_pl_na_odn = this.objArea.zhil_prig / (~~parseFloat(this.currentObject.area.cnt_mest_zan_obuch) + ~~parseFloat(this.currentObject.area.cnt_mest_zan_in_obuch))
+                    this.objArea.cnt_mest_obsh_na_odn = this.objArea.obsh_prig / (~~parseFloat(this.currentObject.area.cnt_mest_zan_obuch) + ~~parseFloat(this.currentObject.area.cnt_mest_zan_in_obuch))
+
+                },
+                deep:true
             }
         },
         methods:{
@@ -435,6 +483,21 @@
                 blockPage:true,
                 currentObject:null,
                 componentReady:false,
+                objArea:{
+                    obsh_prig:0,
+                    zhil_prig:0,
+                    ne_zhil_v_prig:0,
+                    soc_inf:0,
+                    obsh_ne_prig:0,
+                    all_tkr:0,
+                    all_nas:0,
+                    all_np:0,
+                    cnt_mest_pl_na_odn:0,
+                    cnt_mest_obsh_na_odn:0,
+                    cnt_mest:0,
+                    kol_prig_mest:0,
+                    cnt_mest_vozm:0
+                },
                 id_org:null,
                 user:Object,
                 objectsTitle:[],
