@@ -63,13 +63,13 @@
 
 
                 Object.keys(this.items[this.items.length-1]).forEach(item=>{
-                    if (!(item === 'label' || item === 'visible' || item === 'editableLabel' || item === 'button'))
+                    if (!(item === 'label' || item === 'visible' || item === 'editableLabel' || item === 'button' || item === 'all' || item === 'id'|| item === 'budjet_type'))
                         this.items[this.items.length-1][item] = 0
                 })
                 let kek = 0;
                 for (let i=0; i < this.items.length-1;i++){
                     Object.keys(this.items[this.items.length-1]).forEach(item=>{
-                        if (!(item === 'label' || item === 'visible' || item === 'editableLabel' || item === 'button' || item === 'all')) {
+                        if (!(item === 'label' || item === 'visible' || item === 'editableLabel' || item === 'button' || item === 'all' || item === 'id'|| item === 'budjet_type')) {
                             kek+= ~~parseInt(this.items[i][item]);
                             this.items[this.items.length - 1][item] += ~~parseInt(this.items[i][item])
                             this.items[this.items.length - 1].all = kek;
@@ -109,6 +109,17 @@
             this.canSave.forEach(item=>{
                 this.items[item].disabled=false;
             })
+
+            let kek = 0;
+            for (let i=0; i < this.items.length-1;i++){
+                Object.keys(this.items[this.items.length-1]).forEach(item=>{
+                    if (!(item === 'label' || item === 'visible' || item === 'editableLabel' || item === 'button' || item === 'all'  || item === 'id'|| item === 'budjet_type')) {
+                        kek+= ~~parseInt(this.items[i][item]);
+                        this.items[this.items.length - 1][item] += ~~parseInt(this.items[i][item])
+                        this.items[this.items.length - 1].all = kek;
+                    }
+                })
+            }
 
         },
         components:{
