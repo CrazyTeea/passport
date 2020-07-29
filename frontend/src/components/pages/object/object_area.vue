@@ -435,6 +435,7 @@
                         ~~parseFloat(this.currentObject.area.cnt_svobod_mest) +
                         ~~parseFloat(this.currentObject.area.cnt_neisp_mest);
 
+
                     this.objArea.obsh_prig = ~~parseFloat(this.objArea.zhil_prig) + ~~parseFloat(this.objArea.ne_zhil_v_prig)
 
                     this.objArea.cnt_mest = this.objArea.kol_prig_mest + ~~parseFloat(this.currentObject.area.cnt_nepr_isp_mest)
@@ -466,7 +467,7 @@
             async saveObject(){
                 let data = new FormData();
                 data.append('area',JSON.stringify(this.currentObject.area))
-                Axios.post(`/object/set-area/${this.currentObject.id}`,data,{
+                await Axios.post(`/object/set-area/${this.currentObject.id}`,data,{
                     headers: {
                         "X-CSRF-Token": this.csrf
                     }
