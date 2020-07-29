@@ -1,6 +1,6 @@
 <template>
 
-    <div class="mb-2">
+    <div >
         <nav-bar v-on:save-page="saveObject" v-on:block-save="blockPage = !blockPage"/>
         <transition enter-active-class="animated fadeInUp">
             <div v-if="componentReady" class="container">
@@ -18,9 +18,7 @@
                     </div>
                 </div>
                 <b-button v-if="!blockPage" :to="{name:'object',params:{modalShow:true}}" variant="outline-secondary">Добавить объект</b-button>
-
                 <hr>
-
                 <div v-if="currentObject">
                     <h3>Поступления</h3>
 
@@ -28,7 +26,7 @@
                         <div class="col-6"><label for="object_area_svod1">Общий объём поступлений</label></div>
                         <div class="col-6">
                             <b-input-group append="тысяч рублей">
-                                <b-form-input  type="number" disabled  id="object_area_svod1"/>
+                                <b-form-input v-model="money.obsh"  type="number" disabled  id="object_area_svod1"/>
                             </b-input-group>
                         </div>
                     </div>
@@ -130,7 +128,7 @@
                         <div class="col-6"><label for="object_area_svod">Общий объем средств, направленных на расходы жилого объекта</label></div>
                         <div class="col-6">
                             <b-input-group append="тысяч рублей">
-                                <b-form-input type="number" disabled  id="object_area_svod"/>
+                                <b-form-input type="number" v-model="money.obsh_sred" disabled  id="object_area_svod"/>
                             </b-input-group>
                         </div>
                     </div>
@@ -143,7 +141,7 @@
                         </div>
                         <div class="col-6">
                             <b-input-group append="тысяч рублей">
-                                <b-form-input type="number" disabled />
+                                <b-form-input v-model="money.rask" type="number" disabled />
                             </b-input-group>
                         </div>
                     </div>
@@ -244,7 +242,7 @@
                         </div>
                         <div class="col-6">
                             <b-input-group append="тысяч рублей">
-                                <b-form-input type="number" disabled />
+                                <b-form-input v-model="money.rass" type="number" disabled />
                             </b-input-group>
                         </div>
                     </div>
@@ -461,7 +459,7 @@
                         </div>
                         <div class="col-6">
                             <b-input-group append="тысяч рублей">
-                                <b-form-input type="number" disabled />
+                                <b-form-input v-model="money.rasb" type="number" disabled />
                             </b-input-group>
                         </div>
                     </div>
@@ -536,7 +534,7 @@
                         </div>
                         <div class="col-6">
                             <b-input-group append="тысяч рублей">
-                                <b-form-input type="number" disabled/>
+                                <b-form-input v-model="money.rasn" type="number" disabled/>
                             </b-input-group>
                         </div>
                     </div>
@@ -741,6 +739,51 @@
                         text:item.name
                     })
                 })
+            },
+            currentObject: {
+                handler(){
+                    this.money.obsh =
+                        ~~parseFloat(this.currentObject.money.money_prozh_bez_dop) +
+                        ~~parseFloat(this.currentObject.money.money_prozh_dop) +
+                        ~~parseFloat(this.currentObject.money.money_aren) +
+                        ~~parseFloat(this.currentObject.money.money_cel_sred);
+
+                    this.money.rask =
+                        ~~parseFloat(this.currentObject.money.voda) +
+                        ~~parseFloat(this.currentObject.money.tep) +
+                        ~~parseFloat(this.currentObject.money.gaz) +
+                        ~~parseFloat(this.currentObject.money.elect) ;
+
+                  this.money.rasb =
+                      ~~parseFloat(this.currentObject.money.ohrana) +
+                      ~~parseFloat(this.currentObject.money.anti_ter) +
+                      ~~parseFloat(this.currentObject.money.inie_rash_ohrana) ;
+                  this.money.rasn =
+                      ~~parseFloat(this.currentObject.money.nalog_imush) +
+                      ~~parseFloat(this.currentObject.money.zem_nalog);
+
+                  this.money.rass =
+                      ~~parseFloat(this.currentObject.money.uborka_ter) +
+                      ~~parseFloat(this.currentObject.money.uborka_pom) +
+                      ~~parseFloat(this.currentObject.money.tech_obs) +
+                      ~~parseFloat(this.currentObject.money.derivation) +
+                      ~~parseFloat(this.currentObject.money.tbo) +
+                      ~~parseFloat(this.currentObject.money.gos_prov) +
+                      ~~parseFloat(this.currentObject.money.attest) +
+                      ~~parseFloat(this.currentObject.money.prot_pozhar) +
+                      ~~parseFloat(this.currentObject.money.inie_rash);
+                    this.money.obsh_sred =
+                        ~~parseFloat(this.money.rask) +
+                        ~~parseFloat(this.money.rass) +
+                        ~~parseFloat(this.money.rasb) +
+                        ~~parseFloat(this.money.rasn) +
+                        ~~parseFloat(this.currentObject.money.svaz) +
+                        ~~parseFloat(this.currentObject.money.kap_rem) +
+                        ~~parseFloat(this.currentObject.money.tek_rem) +
+                        ~~parseFloat(this.currentObject.money.mygk_inv) +
+                        ~~parseFloat(this.currentObject.money.osn_sred);
+                },
+                deep:true
             }
         },
         methods:{
@@ -785,6 +828,14 @@
                 csrf: document.getElementsByName("csrf-token")[0].content,
                 blockPage:true,
                 currentObject:null,
+                money:{
+                    obsh:0,
+                    obsh_sred:0,
+                    rask:0,
+                    rass:0,
+                    rasb:0,
+                    rasn:0,
+                },
                 objectsTitle:[],
                 componentReady:false,
                 id_org:null,
