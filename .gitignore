@@ -36,3 +36,6 @@ tests/_support/_generated
 
 #vagrant folder
 /.vagrant
+/web/vue
+/web/uploads
+/web/fonts
