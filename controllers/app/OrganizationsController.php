@@ -3,6 +3,8 @@
 
 namespace app\controllers\app;
 
+use app\models\DocTypes;
+use app\models\Files;
 use app\models\Organizations;
 use app\models\OrgArea;
 use app\models\OrgDocs;
@@ -13,6 +15,7 @@ use app\models\UsersInfo;
 use Yii;
 use yii\helpers\Json;
 use yii\web\Controller;
+use yii\web\UploadedFile;
 
 class OrganizationsController extends Controller
 {
@@ -33,6 +36,39 @@ class OrganizationsController extends Controller
     }
     public function actionDeleteUsersInfo($id){
         return Json::encode(['success'=>UsersInfo::deleteAll(['id'=>$id])>0]);
+    }
+
+    public function actionSetFiles($id_org) {
+        if ($post = Yii::$app->request->post()){
+            $desc = $post['desc'];
+            $id_desc = DocTypes::findOne(['desc'=>$desc])->id ?? null;
+            if (!$id_desc) return Json::encode(['success'=>false,'error'=>['type'=>0,'message'=>'Дескриптор не найден в системе. Обратитесть в тех. поддержку']]);
+
+            $client_file = UploadedFile::getInstanceByName($desc);
+
+            if (!$client_file) return Json::encode(['success'=>false,'error'=>['type'=>1,'message'=>'Не удалось загрузить файл. Проверьте размер файла и его расширение']]);
+
+            $file = OrgDocs::find()->joinWith(['descriptor'])->where(['id_org'=>$id_org,'desc'=>$desc])->one() ?? new OrgDocs();
+            if ($file->isNewRecord){
+                $file->id_org = $id_org;
+                $file->id_desc = DocTypes::findOne(['desc'=>$desc])->id;
+            }elseif ($files = Files::findOne($file->id_file)) $files->deleteFile($id_org,$desc);
+            $file->id_file = (new Files())->upload($client_file,$id_org,$desc);
+           // $post = Json::decode($post,false);
+            return Json::encode(['success'=>$file->save(),'error'=>['type'=>2,'errors'=>$file->getErrors()]]);
+        }
+    }
+
+    public function actionDelFile($id_org) {
+        if ($post = Yii::$app->request->post()){
+            $desc = $post['desc'];
+
+            $file = OrgDocs::find()->joinWith(['descriptor'])->where(['id_org'=>$id_org,'desc'=>$desc])->one() ;
+
+            if ($file->file){
+                $file->file->deleteFile($id_org,$desc);
+            }
+        }
     }
 
     public function actionSetOrgInfo($id)
