@@ -10,6 +10,7 @@ use Yii;
  * @property int $id
  * @property int|null $id_desc
  * @property int|null $id_org
+ * @property int|null $id_file
  */
 class OrgDocs extends \yii\db\ActiveRecord
 {
@@ -27,7 +28,7 @@ class OrgDocs extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_desc', 'id_org'], 'integer'],
+            [['id_desc', 'id_org','id_file'], 'integer'],
         ];
     }
 

@@ -102,6 +102,8 @@ $config = [
                 'organization/set-org-info/<id:\d+>'=>'app/organizations/set-org-info',
                 'organization/set-org-area/<id:\d+>'=>'app/organizations/set-org-area',
                 'organization/set-org-living/<id:\d+>'=>'app/organizations/set-org-living',
+                'organization/set-org-files/<id_org:\d+>'=>'app/organizations/set-files',
+                'organization/del-file/<id_org:\d+>'=>'app/organizations/del-file',
 
                 'object/create/<id_org:\d+>'=>'app/objects/create',
                 'object/update/<id:\d+>'=>'app/objects/update',
