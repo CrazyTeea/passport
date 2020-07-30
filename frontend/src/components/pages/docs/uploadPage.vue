@@ -11,12 +11,10 @@
         <b-card-text>
           Загрузить документ
         </b-card-text>
-
         <b-form-group
             id="fileset-1"
             :label=docType.descriptor.label
             label-for="file-1"
-
         >
           <b-input-group>
             <b-form-file @input="saveFile(docType)" v-if="!docType.server_file && !docType.file" browse-text="Прикрепить" placeholder="Файл не выбран" :id="`file-${index}`" v-model="docType.server_file"></b-form-file>
@@ -28,7 +26,6 @@
           <transition  name="custom-classes-transition"
                        enter-active-class="animated zoomIn"
                        leave-active-class="animated zoomOutDown">
-
             <div class="d-block" v-if="docType.server_file || docType.file">
               <div class="row">
                 <div class="col">
@@ -42,21 +39,11 @@
                 <div class="col">
                   <b-button @click="deleteFile(docType)"  size="sm"  variant="danger"><i class="fas fa-trash-alt"></i></b-button>
                 </div>
-
               </div>
-
             </div>
-
-
           </transition>
-
         </b-form-group>
-
-
-
       </b-card>
-
-
     </div>
   </div>
 </template>
