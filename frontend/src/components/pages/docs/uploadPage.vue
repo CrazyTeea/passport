@@ -11,7 +11,7 @@
       >
         <template v-slot:modal-header>
           <div class="text-center  d-block w-100">
-             <span class="font-weight-bold">Ошибка!</span>
+            <span class="font-weight-bold">Ошибка!</span>
           </div>
         </template>
         <div class="justify-content-center d-block text-center text-danger">
@@ -53,7 +53,7 @@
                   </span>
                 </div>
                 <div class="col">
-                  <b-button @click="deleteFile(docType)"  size="sm"  variant="danger"><i class="fas fa-trash-alt"></i></b-button>
+                  <b-button v-if="docType.delButton"  @click="deleteFile(docType)"  size="sm"  variant="danger"><i class="fas fa-trash-alt"></i></b-button>
                 </div>
               </div>
             </div>
@@ -109,7 +109,7 @@ export default {
       await Axios.get(`/api/get-doc-types/${this.id_org}`).then(res => {
         this.docTypes = res.data
         this.docTypes = this.docTypes.map(item=>{
-          return {...item,...{progress:0,fileName:null}}
+          return {...item,...{progress:0,fileName:null,delButton:true}}
         })
       })
     },
@@ -148,7 +148,8 @@ export default {
           let data = new FormData();
           data.append('desc', item.descriptor.desc);
           data.append(item.descriptor.desc, item.server_file);
-          item.fileName = item.server_file.name
+          item.fileName = item.server_file.name;
+          item.delButton = false;
           await Axios.post(`/organization/set-org-files/${this.id_org}`, data, {
             onUploadProgress: e => {
               item.progress = Math.round((e.loaded * 100) / e.total);
@@ -163,6 +164,7 @@ export default {
               item.server_file = null
               setTimeout(()=>{
                 item.fileName = null
+                item.delButton = true
               },2000)
 
             }
