@@ -44,17 +44,17 @@
                        leave-active-class="animated zoomOutDown">
             <div class="d-block" v-if="docType.server_file || docType.file">
               <div class="row">
-                <div class="col">
-                  <span v-if="docType.server_file" class="float-right font-weight-bold text-center">
+                <div class="col d-flex align-items-center justify-content-center">
+                  <span v-if="docType.server_file" class="font-weight-bold text-center">
                     {{docType.server_file.name}}
                   </span>
-                  <span v-if="docType.file" class="float-right font-weight-bold text-center">
+                  <span v-if="docType.file" class="font-weight-bold text-center">
                     {{docType.file.name}}
                   </span>
+                  <i v-if="docType.delButton"  @click="deleteFile(docType)" class="ml-2 fas fa-trash-alt trash-icon"></i>
                 </div>
-                <div class="col">
-                  <b-button v-if="docType.delButton"  @click="deleteFile(docType)"  size="sm"  variant="danger"><i class="fas fa-trash-alt"></i></b-button>
-                </div>
+
+
               </div>
             </div>
           </transition>
@@ -189,5 +189,14 @@ export default {
 <style scoped>
 .shadow{
   box-shadow: 0 0 10px; /* Параметры тени */
+}
+.trash-icon {
+  color: red;
+  transform: scale(1);
+  transition: all .3s ease;
+}
+.trash-icon:hover {
+  transform: scale(1.3);
+  transition: all .3s ease;
 }
 </style>
