@@ -38,7 +38,7 @@
 
 
         </div>
-        <div class=" col mt-2 mb-2"><span class="font-weight-bold">Количество объектов: 3</span></div>
+        <div class=" col mt-2 mb-2"><span class="font-weight-bold">Количество объектов: {{cntObj}}</span></div>
         <div class=" col mt-2 mb-2"><span class="font-weight-bold">Выгрузить в excel <i class="fas text-success fa-file-excel"></i></span></div>
         <div v-if="saveButton" class=" col mt-2 mb-2">
 
@@ -59,6 +59,7 @@
 </template>
 
 <script>
+import Axios from 'axios';
 import {BButton, BDropdown, BDropdownItem, BDropdownText, BFormCheckbox} from 'bootstrap-vue';
 
 export default {
@@ -72,14 +73,27 @@ export default {
   props: {
     saveButton: {
       default:true
-    }
+    },
+    id_org:null
   },
   data(){
     return {
       blockSave:true,
+      cntObj:0
+    }
+  },
+  watch: {
+    async id_org(){
+      if (this.id_org)
+        await this.getObjCount()
     }
   },
   methods:{
+    async getObjCount(){
+      await Axios.get(`/api/organization/count-obj/${this.id_org}`).then(res=>{
+        this.cntObj = res.data
+      })
+    },
     click(){
       if (this.blockSave) this.change();
       else this.save();

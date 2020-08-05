@@ -1,6 +1,6 @@
 <template>
     <div>
-        <nav-bar v-on:save-page="savePage" v-on:block-save="disablePage = !disablePage" />
+        <nav-bar :id_org="id_org" v-on:save-page="savePage" v-on:block-save="disablePage = !disablePage" />
         <transition enter-active-class="animated fadeInUp" >
             <div v-if="componentReady" class="container">
                 <div class="row">

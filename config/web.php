@@ -92,7 +92,7 @@ $config = [
 
                 'api/organization/by-id/<id:\d+>'=>'api/organizations/get-org',
                 'api/organization/users/<id:\d+>'=>'api/organizations/users-info',
-
+                'api/organization/count-obj/<id:\d+>'=>'api/organizations/obj-count',
 
                 'api/objects/org/<id_org:\d+>'=>'api/objects/by-org',
 
@@ -100,6 +100,7 @@ $config = [
                 'organization/users-info/<id:\d+>/delete'=>'app/organizations/delete-users-info',
 
                 'organization/set-org-info/<id:\d+>'=>'app/organizations/set-org-info',
+
                 'organization/set-org-area/<id:\d+>'=>'app/organizations/set-org-area',
                 'organization/set-org-living/<id:\d+>'=>'app/organizations/set-org-living',
                 'organization/set-org-files/<id_org:\d+>'=>'app/organizations/set-files',
