@@ -1,7 +1,7 @@
 <template>
 
     <div >
-        <nav-bar v-on:save-page="saveObject" v-on:block-save="blockPage = !blockPage"/>
+        <nav-bar :id_org="id_org" v-on:save-page="saveObject" v-on:block-save="blockPage = !blockPage"/>
         <transition enter-active-class="animated fadeInUp">
             <div v-if="componentReady" class="container">
 

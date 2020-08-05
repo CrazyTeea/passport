@@ -6,6 +6,7 @@ namespace app\controllers\api;
 
 use app\models\DocTypes;
 use app\models\Founders;
+use app\models\Objects;
 use app\models\Organizations;
 use app\models\OrgArea;
 use app\models\OrgDocs;
@@ -30,6 +31,10 @@ class OrganizationsController extends Controller
         $livingStudents = OrgLivingStudents::findAll(['id_org'=>$id,'invalid'=>$inv]);
 
         return ['organization'=>$org,'info'=>$info,'area'=>$area,'living'=>$living,'region'=>$region,'founder'=>$founder,'livingStudents'=>$livingStudents];
+    }
+
+    public function actionObjCount($id){
+        return Objects::find()->where(['id_org'=>$id,'system_status'=>1])->count();
     }
 
     public function actionUsersInfo($id){

@@ -1,157 +1,158 @@
 <template>
-    <div>
-        <nav-bar v-on:save-page="saveObject" v-on:block-save="blockSave = !blockSave" />
-        <transition enter-active-class="animated fadeInUp">
-            <div v-if="componentReady" class="container">
-                <div class="rov">
-                    <div class="col-8">
-                        <h4>Сведения о тарифах установленных для проживания в жилом объекте</h4>
-                    </div>
-                </div>
+  <div>
+    <nav-bar :id_org="id_org" v-on:save-page="saveObject" v-on:block-save="blockSave = !blockSave" />
+    <transition enter-active-class="animated fadeInUp">
+      <div v-if="componentReady" class="container">
+        <div class="rov">
+          <div class="col-8">
+            <h4>Сведения о тарифах установленных для проживания в жилом объекте</h4>
+          </div>
+        </div>
 
-                <div class="row">
-                    <div class="col-6"><label >Наименование жилого объекта</label></div>
-                    <div class="col-6">
-                        <b-form-select @change="setObject" :options="objectsTitle"/>
-                    </div>
-                </div>
+        <div class="row">
+          <div class="col-6"><label >Наименование жилого объекта</label></div>
+          <div class="col-6">
+            <b-form-select @change="setObject" :options="objectsTitle"/>
+          </div>
+        </div>
 
-                <b-button v-if="!blockSave" :to="{name:'object',params:{modalShow:true}}" variant="outline-secondary">Добавить объект</b-button>
+        <b-button v-if="!blockSave" :to="{name:'object',params:{modalShow:true}}" variant="outline-secondary">Добавить объект</b-button>
 
-                <hr>
+        <hr>
 
-                <transition enter-active-class="animated fadeIn">
-                    <b-table-simple v-if="currentObject" borderless>
-                    <b-thead>
-                        <b-tr>
-                            <b-th>Размер платы</b-th>
-                            <b-th>За коммунальные услуги с учетом усредненных тарифов</b-th>
-                            <b-th>За коммунальные услуги (по показаниям приборов учета)</b-th>
-                            <b-th>За пользование жилым помещением</b-th>
-                            <b-th>За дополнительные услуги (комфортность, иное)</b-th>
-                        </b-tr>
-                    </b-thead>
-                    <b-tbody>
-                        <b-tr>
-                            <b-td>Для обучающиеся за счёт бюджетных средств</b-td>
-                            <b-td><b-form-input v-model="currentObject.tariff.u_t_b" :disabled="blockSave"/></b-td>
-                            <b-td><b-form-input v-model="currentObject.tariff.k_u_b" :disabled="blockSave"/></b-td>
-                            <b-td><b-form-input v-model="currentObject.tariff.p_p_b" :disabled="blockSave"/></b-td>
-                            <b-td><b-form-input v-model="currentObject.tariff.d_u_b" :disabled="blockSave"/></b-td>
-                        </b-tr>
-                        <b-tr>
-                            <b-td>Для обучающиеся по договорам об оказании платных образовательных услуг </b-td>
-                            <b-td><b-form-input v-model="currentObject.tariff.u_t_p" :disabled="blockSave"/></b-td>
-                            <b-td><b-form-input v-model="currentObject.tariff.k_u_p" :disabled="blockSave"/></b-td>
-                            <b-td><b-form-input v-model="currentObject.tariff.p_p_p" :disabled="blockSave"/></b-td>
-                            <b-td><b-form-input v-model="currentObject.tariff.d_u_p" :disabled="blockSave"/></b-td>
-                        </b-tr>
-                        <b-tr>
-                            <b-td>Для лиц не являющимися гражданами России</b-td>
-                            <b-td><b-form-input v-model="currentObject.tariff.u_t_nr" :disabled="blockSave"/></b-td>
-                            <b-td><b-form-input v-model="currentObject.tariff.k_u_nr" :disabled="blockSave"/></b-td>
-                            <b-td><b-form-input v-model="currentObject.tariff.p_p_nr" :disabled="blockSave"/></b-td>
-                            <b-td><b-form-input v-model="currentObject.tariff.d_u_nr" :disabled="blockSave"/></b-td>
-                        </b-tr>
-                        <b-tr>
-                            <b-td>Для обучающихся других образовательных организаций</b-td>
-                            <b-td><b-form-input v-model="currentObject.tariff.u_t_do" :disabled="blockSave"/></b-td>
-                            <b-td><b-form-input v-model="currentObject.tariff.k_u_do" :disabled="blockSave"/></b-td>
-                            <b-td><b-form-input v-model="currentObject.tariff.p_p_do" :disabled="blockSave"/></b-td>
-                            <b-td><b-form-input v-model="currentObject.tariff.d_u_do" :disabled="blockSave"/></b-td>
-                        </b-tr>
-                        <b-tr>
-                            <b-td>Для иных нанимателей</b-td>
-                            <b-td><b-form-input v-model="currentObject.tariff.u_t_in" :disabled="blockSave"/></b-td>
-                            <b-td><b-form-input v-model="currentObject.tariff.k_u_in" :disabled="blockSave"/></b-td>
-                            <b-td><b-form-input v-model="currentObject.tariff.p_p_in" :disabled="blockSave"/></b-td>
-                            <b-td><b-form-input v-model="currentObject.tariff.d_u_in" :disabled="blockSave"/></b-td>
-                        </b-tr>
-                    </b-tbody>
-                </b-table-simple>
-                </transition>
-
-            </div>
+        <transition enter-active-class="animated fadeIn">
+          <b-table-simple v-if="currentObject" borderless>
+            <b-thead>
+              <b-tr>
+                <b-th>Размер платы</b-th>
+                <b-th>За коммунальные услуги с учетом усредненных тарифов</b-th>
+                <b-th>За коммунальные услуги (по показаниям приборов учета)</b-th>
+                <b-th>За пользование жилым помещением</b-th>
+                <b-th>За дополнительные услуги (комфортность, иное)</b-th>
+              </b-tr>
+            </b-thead>
+            <b-tbody>
+              <b-tr>
+                <b-td>Для обучающиеся за счёт бюджетных средств</b-td>
+                <b-td><b-form-input v-model="currentObject.tariff.u_t_b" :disabled="blockSave"/></b-td>
+                <b-td><b-form-input v-model="currentObject.tariff.k_u_b" :disabled="blockSave"/></b-td>
+                <b-td><b-form-input v-model="currentObject.tariff.p_p_b" :disabled="blockSave"/></b-td>
+                <b-td><b-form-input v-model="currentObject.tariff.d_u_b" :disabled="blockSave"/></b-td>
+              </b-tr>
+              <b-tr>
+                <b-td>Для обучающиеся по договорам об оказании платных образовательных услуг </b-td>
+                <b-td><b-form-input v-model="currentObject.tariff.u_t_p" :disabled="blockSave"/></b-td>
+                <b-td><b-form-input v-model="currentObject.tariff.k_u_p" :disabled="blockSave"/></b-td>
+                <b-td><b-form-input v-model="currentObject.tariff.p_p_p" :disabled="blockSave"/></b-td>
+                <b-td><b-form-input v-model="currentObject.tariff.d_u_p" :disabled="blockSave"/></b-td>
+              </b-tr>
+              <b-tr>
+                <b-td>Для лиц не являющимися гражданами России</b-td>
+                <b-td><b-form-input v-model="currentObject.tariff.u_t_nr" :disabled="blockSave"/></b-td>
+                <b-td><b-form-input v-model="currentObject.tariff.k_u_nr" :disabled="blockSave"/></b-td>
+                <b-td><b-form-input v-model="currentObject.tariff.p_p_nr" :disabled="blockSave"/></b-td>
+                <b-td><b-form-input v-model="currentObject.tariff.d_u_nr" :disabled="blockSave"/></b-td>
+              </b-tr>
+              <b-tr>
+                <b-td>Для обучающихся других образовательных организаций</b-td>
+                <b-td><b-form-input v-model="currentObject.tariff.u_t_do" :disabled="blockSave"/></b-td>
+                <b-td><b-form-input v-model="currentObject.tariff.k_u_do" :disabled="blockSave"/></b-td>
+                <b-td><b-form-input v-model="currentObject.tariff.p_p_do" :disabled="blockSave"/></b-td>
+                <b-td><b-form-input v-model="currentObject.tariff.d_u_do" :disabled="blockSave"/></b-td>
+              </b-tr>
+              <b-tr>
+                <b-td>Для иных нанимателей</b-td>
+                <b-td><b-form-input v-model="currentObject.tariff.u_t_in" :disabled="blockSave"/></b-td>
+                <b-td><b-form-input v-model="currentObject.tariff.k_u_in" :disabled="blockSave"/></b-td>
+                <b-td><b-form-input v-model="currentObject.tariff.p_p_in" :disabled="blockSave"/></b-td>
+                <b-td><b-form-input v-model="currentObject.tariff.d_u_in" :disabled="blockSave"/></b-td>
+              </b-tr>
+            </b-tbody>
+          </b-table-simple>
         </transition>
 
-    </div>
+      </div>
+    </transition>
+
+  </div>
 </template>
 
 <script>
-    import NavBar from "../../organisms/NavBar";
-    import {BButton, BFormInput, BFormSelect, BTableSimple, BTbody, BTd, BTh, BThead, BTr} from 'bootstrap-vue'
-    import Axios from "axios";
+import NavBar from "../../organisms/NavBar";
+import {BButton, BFormInput, BFormSelect, BTableSimple, BTbody, BTd, BTh, BThead, BTr} from 'bootstrap-vue'
+import Axios from "axios";
 
-    export default {
-        name: "object_tariff",
-        components:{
-            NavBar,BButton,
-            BFormSelect,
-            BFormInput,
-            BThead,BTh,BTr,
-            BTd,BTbody,BTableSimple
-        },
-        async mounted(){
-            await this.getUser();
-            this.id_org = this.user.id_org;
-            await this.getObject();
+export default {
+  name: "object_tariff",
+  components:{
+    NavBar,BButton,
+    BFormSelect,
+    BFormInput,
+    BThead,BTh,BTr,
+    BTd,BTbody,BTableSimple
+  },
+  async mounted(){
+    await this.getUser();
+    this.id_org = this.user.id_org;
+    await this.getObject();
 
-            this.componentReady = true;
-        },
-        watch:{
-            objects(){
-                this.objectsTitle = [];
-                this.objects.forEach((item,index)=>{
-                    this.objectsTitle.push({
-                        value:index,
-                        text:item.name
-                    })
-                })
-            }
-        },
-        methods:{
-            async getUser(){
-                await Axios.get('/api/user/current').then(res=>
-                {this.user = res.data;});
-            },
-            setObject(index){
-                this.currentObject = this.objects.find((item,i)=>i===index);
-            },
-            async getObject(){
-                await Axios.get(`/api/objects/org/${this.id_org}`).then(res=>{
-                    this.objects = res.data
-                    this.objects.forEach(item=>{
-                        if (!item.tariff)
-                            item.tariff = {}
-                    })
-                })
-            },
-            async saveObject(){
-                let data = new FormData();
-                data.append('tariff',JSON.stringify(this.currentObject.tariff))
-                Axios.post(`/object/set-tariff/${this.currentObject.id}`,data,{
-                    headers: {
-                        "X-CSRF-Token": this.csrf
-                    }
-                }).then(res=>{
-                    this.getObject();
-                }).finally(()=>{
-                    this.blockPage = true;
-                })
-            }
-        },
-        data(){
-            return {
-                blockSave:true,
-                csrf: document.getElementsByName("csrf-token")[0].content,
-                componentReady:false,
-                currentObject:null,
-                objectsTitle:[],
-                objects:[],
-                user:{}
-            }
-        }
+    this.componentReady = true;
+  },
+  watch:{
+    objects(){
+      this.objectsTitle = [];
+      this.objects.forEach((item,index)=>{
+        this.objectsTitle.push({
+          value:index,
+          text:item.name
+        })
+      })
     }
+  },
+  methods:{
+    async getUser(){
+      await Axios.get('/api/user/current').then(res=>
+      {this.user = res.data;});
+    },
+    setObject(index){
+      this.currentObject = this.objects.find((item,i)=>i===index);
+    },
+    async getObject(){
+      await Axios.get(`/api/objects/org/${this.id_org}`).then(res=>{
+        this.objects = res.data
+        this.objects.forEach(item=>{
+          if (!item.tariff)
+            item.tariff = {}
+        })
+      })
+    },
+    async saveObject(){
+      let data = new FormData();
+      data.append('tariff',JSON.stringify(this.currentObject.tariff))
+      Axios.post(`/object/set-tariff/${this.currentObject.id}`,data,{
+        headers: {
+          "X-CSRF-Token": this.csrf
+        }
+      }).then(res=>{
+        this.getObject();
+      }).finally(()=>{
+        this.blockPage = true;
+      })
+    }
+  },
+  data(){
+    return {
+      blockSave:true,
+      id_org:null,
+      csrf: document.getElementsByName("csrf-token")[0].content,
+      componentReady:false,
+      currentObject:null,
+      objectsTitle:[],
+      objects:[],
+      user:{}
+    }
+  }
+}
 </script>
 
 <style scoped>
