@@ -1,13 +1,9 @@
-
-@import 'node_modules/bootstrap/scss/bootstrap';
-@import 'node_modules/bootstrap-vue/src/index.scss';
-@import "node_modules/vue-select/src/scss/vue-select.scss";
+@import '~bootstrap/scss/bootstrap';
+@import '~bootstrap-vue/src/index.scss';
+@import "~vue-select/src/scss/vue-select.scss";
 @import "~animate.css/source/animate.css";
 @import "~csshake/scss/csshake";
-
-
 $fa-font-path:  "webfonts";
-
 @import "webfonts/fontawesome.scss";
 @import "webfonts/solid.scss";
 @import "webfonts/regular.scss";
