@@ -1,26 +1,33 @@
-html,
-body {
-    height: 100%;
+html body {
+    max-width: 100%;
+    min-height: 100%;
 }
 
 .wrap {
     min-height: 100%;
-    height: auto;
+    /*height: auto;
     margin: 0 auto -60px;
-    padding: 0 0 60px;
+    padding: 0 0 60px;*/
 }
 
 .wrap > .container {
     padding: 20px 15px 20px;
 }
-
-.footer {
-    height: 60px;
-    background-color: #f5f5f5;
-    border-top: 1px solid #ddd;
-    padding-top: 20px;
+.wrap > .container-fluid {
+    padding: 0 0 50px !important;
+    min-height: 100% !important;
+    height: 100%;
 }
 
+.footer {
+    background-color: #f5f5f5;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+/*
 .jumbotron {
     text-align: center;
     background-color: transparent;
@@ -30,13 +37,15 @@ body {
     font-size: 21px;
     padding: 14px 24px;
 }
+*/
 
+/*
 .not-set {
     color: #c55;
     font-style: italic;
 }
 
-/* add sorting icons to gridview sort links */
+!* add sorting icons to gridview sort links *!
 a.asc:after, a.desc:after {
     position: relative;
     top: 1px;
@@ -49,11 +58,11 @@ a.asc:after, a.desc:after {
 }
 
 a.asc:after {
-    content: /*"\e113"*/ "\e151";
+    content: !*"\e113"*! "\e151";
 }
 
 a.desc:after {
-    content: /*"\e114"*/ "\e152";
+    content: !*"\e114"*! "\e152";
 }
 
 .sort-numerical a.asc:after {
@@ -90,7 +99,7 @@ a.desc:after {
     margin: 0 0 15px 0;
 }
 
-/* align the logout "link" (button in form) of the navbar */
+!* align the logout "link" (button in form) of the navbar *!
 .nav li > form > button.logout {
     padding: 15px;
     border: none;
@@ -113,3 +122,4 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+*/

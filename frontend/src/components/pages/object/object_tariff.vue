@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav-bar :id_org="id_org" v-on:save-page="saveObject" v-on:block-save="blockSave = !blockSave" />
+    <nav-bar v-on:save-page="saveObject" v-on:block-save="blockSave = !blockSave"/>
     <transition enter-active-class="animated fadeInUp">
       <div v-if="componentReady" class="container">
         <div class="rov">
@@ -10,13 +10,15 @@
         </div>
 
         <div class="row">
-          <div class="col-6"><label >Наименование жилого объекта</label></div>
+          <div class="col-6"><label>Наименование жилого объекта</label></div>
           <div class="col-6">
             <b-form-select @change="setObject" :options="objectsTitle"/>
           </div>
         </div>
 
-        <b-button v-if="!blockSave" :to="{name:'object',params:{modalShow:true}}" variant="outline-secondary">Добавить объект</b-button>
+        <b-button v-if="!blockSave" :to="{name:'object',params:{modalShow:true}}" variant="outline-secondary">Добавить
+          объект
+        </b-button>
 
         <hr>
 
@@ -34,38 +36,78 @@
             <b-tbody>
               <b-tr>
                 <b-td>Для обучающиеся за счёт бюджетных средств</b-td>
-                <b-td><b-form-input v-model="currentObject.tariff.u_t_b" :disabled="blockSave"/></b-td>
-                <b-td><b-form-input v-model="currentObject.tariff.k_u_b" :disabled="blockSave"/></b-td>
-                <b-td><b-form-input v-model="currentObject.tariff.p_p_b" :disabled="blockSave"/></b-td>
-                <b-td><b-form-input v-model="currentObject.tariff.d_u_b" :disabled="blockSave"/></b-td>
+                <b-td>
+                  <b-form-input v-model="currentObject.tariff.u_t_b" :disabled="blockSave"/>
+                </b-td>
+                <b-td>
+                  <b-form-input v-model="currentObject.tariff.k_u_b" :disabled="blockSave"/>
+                </b-td>
+                <b-td>
+                  <b-form-input v-model="currentObject.tariff.p_p_b" :disabled="blockSave"/>
+                </b-td>
+                <b-td>
+                  <b-form-input v-model="currentObject.tariff.d_u_b" :disabled="blockSave"/>
+                </b-td>
               </b-tr>
               <b-tr>
-                <b-td>Для обучающиеся по договорам об оказании платных образовательных услуг </b-td>
-                <b-td><b-form-input v-model="currentObject.tariff.u_t_p" :disabled="blockSave"/></b-td>
-                <b-td><b-form-input v-model="currentObject.tariff.k_u_p" :disabled="blockSave"/></b-td>
-                <b-td><b-form-input v-model="currentObject.tariff.p_p_p" :disabled="blockSave"/></b-td>
-                <b-td><b-form-input v-model="currentObject.tariff.d_u_p" :disabled="blockSave"/></b-td>
+                <b-td>Для обучающиеся по договорам об оказании платных образовательных услуг</b-td>
+                <b-td>
+                  <b-form-input v-model="currentObject.tariff.u_t_p" :disabled="blockSave"/>
+                </b-td>
+                <b-td>
+                  <b-form-input v-model="currentObject.tariff.k_u_p" :disabled="blockSave"/>
+                </b-td>
+                <b-td>
+                  <b-form-input v-model="currentObject.tariff.p_p_p" :disabled="blockSave"/>
+                </b-td>
+                <b-td>
+                  <b-form-input v-model="currentObject.tariff.d_u_p" :disabled="blockSave"/>
+                </b-td>
               </b-tr>
               <b-tr>
                 <b-td>Для лиц не являющимися гражданами России</b-td>
-                <b-td><b-form-input v-model="currentObject.tariff.u_t_nr" :disabled="blockSave"/></b-td>
-                <b-td><b-form-input v-model="currentObject.tariff.k_u_nr" :disabled="blockSave"/></b-td>
-                <b-td><b-form-input v-model="currentObject.tariff.p_p_nr" :disabled="blockSave"/></b-td>
-                <b-td><b-form-input v-model="currentObject.tariff.d_u_nr" :disabled="blockSave"/></b-td>
+                <b-td>
+                  <b-form-input v-model="currentObject.tariff.u_t_nr" :disabled="blockSave"/>
+                </b-td>
+                <b-td>
+                  <b-form-input v-model="currentObject.tariff.k_u_nr" :disabled="blockSave"/>
+                </b-td>
+                <b-td>
+                  <b-form-input v-model="currentObject.tariff.p_p_nr" :disabled="blockSave"/>
+                </b-td>
+                <b-td>
+                  <b-form-input v-model="currentObject.tariff.d_u_nr" :disabled="blockSave"/>
+                </b-td>
               </b-tr>
               <b-tr>
                 <b-td>Для обучающихся других образовательных организаций</b-td>
-                <b-td><b-form-input v-model="currentObject.tariff.u_t_do" :disabled="blockSave"/></b-td>
-                <b-td><b-form-input v-model="currentObject.tariff.k_u_do" :disabled="blockSave"/></b-td>
-                <b-td><b-form-input v-model="currentObject.tariff.p_p_do" :disabled="blockSave"/></b-td>
-                <b-td><b-form-input v-model="currentObject.tariff.d_u_do" :disabled="blockSave"/></b-td>
+                <b-td>
+                  <b-form-input v-model="currentObject.tariff.u_t_do" :disabled="blockSave"/>
+                </b-td>
+                <b-td>
+                  <b-form-input v-model="currentObject.tariff.k_u_do" :disabled="blockSave"/>
+                </b-td>
+                <b-td>
+                  <b-form-input v-model="currentObject.tariff.p_p_do" :disabled="blockSave"/>
+                </b-td>
+                <b-td>
+                  <b-form-input v-model="currentObject.tariff.d_u_do" :disabled="blockSave"/>
+                </b-td>
               </b-tr>
               <b-tr>
                 <b-td>Для иных нанимателей</b-td>
-                <b-td><b-form-input v-model="currentObject.tariff.u_t_in" :disabled="blockSave"/></b-td>
-                <b-td><b-form-input v-model="currentObject.tariff.k_u_in" :disabled="blockSave"/></b-td>
-                <b-td><b-form-input v-model="currentObject.tariff.p_p_in" :disabled="blockSave"/></b-td>
-                <b-td><b-form-input v-model="currentObject.tariff.d_u_in" :disabled="blockSave"/></b-td>
+                <b-td>
+                  <b-form-input v-model="currentObject.tariff.u_t_in" :disabled="blockSave"/>
+                </b-td>
+                <b-td>
+                  <b-form-input v-model="currentObject.tariff.k_u_in" :disabled="blockSave"/>
+                </b-td>
+                <b-td>
+                  <b-form-input v-model="currentObject.tariff.p_p_in" :disabled="blockSave"/>
+                </b-td>
+                <b-td>
+                  <b-form-input v-model="currentObject.tariff.d_u_in" :disabled="blockSave"/>
+                </b-td>
               </b-tr>
             </b-tbody>
           </b-table-simple>
@@ -73,6 +115,7 @@
 
       </div>
     </transition>
+    <scroll-button/>
 
   </div>
 </template>
@@ -81,75 +124,77 @@
 import NavBar from "../../organisms/NavBar";
 import {BButton, BFormInput, BFormSelect, BTableSimple, BTbody, BTd, BTh, BThead, BTr} from 'bootstrap-vue'
 import Axios from "axios";
+import scrollButton from "../../organisms/scrollButton";
 
 export default {
   name: "object_tariff",
-  components:{
-    NavBar,BButton,
+  components: {
+    scrollButton,
+    NavBar, BButton,
     BFormSelect,
     BFormInput,
-    BThead,BTh,BTr,
-    BTd,BTbody,BTableSimple
+    BThead, BTh, BTr,
+    BTd, BTbody, BTableSimple
   },
-  async mounted(){
+  async mounted() {
     await this.getUser();
     this.id_org = this.user.id_org;
     await this.getObject();
 
     this.componentReady = true;
   },
-  watch:{
-    objects(){
+  watch: {
+    objects() {
       this.objectsTitle = [];
-      this.objects.forEach((item,index)=>{
+      this.objects.forEach((item, index) => {
         this.objectsTitle.push({
-          value:index,
-          text:item.name
+          value: index,
+          text: item.name
         })
       })
     }
   },
-  methods:{
-    async getUser(){
-      await Axios.get('/api/user/current').then(res=>
-      {this.user = res.data;});
+  methods: {
+    async getUser() {
+      await Axios.get('/api/user/current').then(res => {
+        this.user = res.data;
+      });
     },
-    setObject(index){
-      this.currentObject = this.objects.find((item,i)=>i===index);
+    setObject(index) {
+      this.currentObject = this.objects.find((item, i) => i === index);
     },
-    async getObject(){
-      await Axios.get(`/api/objects/org/${this.id_org}`).then(res=>{
+    async getObject() {
+      await Axios.get(`/api/objects/org/${this.id_org}`).then(res => {
         this.objects = res.data
-        this.objects.forEach(item=>{
+        this.objects.forEach(item => {
           if (!item.tariff)
             item.tariff = {}
         })
       })
     },
-    async saveObject(){
+    async saveObject() {
       let data = new FormData();
-      data.append('tariff',JSON.stringify(this.currentObject.tariff))
-      Axios.post(`/object/set-tariff/${this.currentObject.id}`,data,{
+      data.append('tariff', JSON.stringify(this.currentObject.tariff))
+      Axios.post(`/object/set-tariff/${this.currentObject.id}`, data, {
         headers: {
           "X-CSRF-Token": this.csrf
         }
-      }).then(res=>{
+      }).then(res => {
         this.getObject();
-      }).finally(()=>{
+      }).finally(() => {
         this.blockPage = true;
       })
     }
   },
-  data(){
+  data() {
     return {
-      blockSave:true,
-      id_org:null,
+      blockSave: true,
       csrf: document.getElementsByName("csrf-token")[0].content,
-      componentReady:false,
-      currentObject:null,
-      objectsTitle:[],
-      objects:[],
-      user:{}
+      componentReady: false,
+      currentObject: null,
+      objectsTitle: [],
+      objects: [],
+      user: {}
     }
   }
 }

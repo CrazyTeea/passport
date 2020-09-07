@@ -1,8 +1,8 @@
 <template>
   <div class="custom-navbar">
     <div class="container">
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
-        <div class="col  mb-2">
+      <div class="row justify-content-center">
+        <div class="col m-auto">
 
           <b-dropdown variant="transparent" menu-class="dropdown-menu" toggle-class=" text-decoration-none" no-caret>
             <template v-slot:button-content>
@@ -10,27 +10,27 @@
             </template>
             <b-dropdown-item href="/main">Главная</b-dropdown-item>
             <b-dropdown-text>
-              <hr>
+              <i>
               Данные об организации
-              <hr>
+              </i>
             </b-dropdown-text>
             <b-dropdown-item href="/org-info">Сведения об организации</b-dropdown-item>
             <b-dropdown-item href="/area-info">Сведения о колличесве мест и площади</b-dropdown-item>
             <b-dropdown-item href="/living-info">Сведения о проживающих</b-dropdown-item>
             <b-dropdown-item href="/living-info-inv">Сведения о проживающих лицах <br> с ограниченными возможностями</b-dropdown-item>
             <b-dropdown-text>
-              <hr>
+              <i>
               Данные о жилом объекте
-              <hr>
+              </i>
             </b-dropdown-text>
             <b-dropdown-item href="/objects-info">Сведения о жилом объекте</b-dropdown-item>
             <b-dropdown-item href="/objects-area">Сведения о площади, проживающих <br> и колличестве мест</b-dropdown-item>
             <b-dropdown-item href="/objects-money">Сведения о поступлениях и расходах</b-dropdown-item>
             <b-dropdown-item href="/objects-tariff">Сведения о тарифах</b-dropdown-item>
             <b-dropdown-text>
-              <hr>
+              <i>
               Документы
-              <hr>
+              </i>
             </b-dropdown-text>
             <b-dropdown-item href="/documents">Загрузить документы</b-dropdown-item>
 
@@ -38,17 +38,15 @@
 
 
         </div>
-        <div class=" col mt-2 mb-2"><span class="font-weight-bold">Количество объектов: {{cntObj}}</span></div>
-        <div class=" col mt-2 mb-2"><span class="font-weight-bold">Выгрузить в excel <i class="fas text-success fa-file-excel"></i></span></div>
+        <div class=" col m-auto"><span class="font-weight-bold">Количество объектов: 3</span></div>
+        <div class=" col m-auto"><span class="font-weight-bold">Выгрузить в excel <i class="fas text-success fa-file-excel"></i></span></div>
         <div v-if="saveButton" class=" col mt-2 mb-2">
 
 
           <transition
               mode="out-in"
-              name="custom-classes-transition"
-              enter-active-class="animated "
-              leave-active-class="animated fadeOutLeft">
-            <b-button pill :key="blockSave" class="font-weight-bold" size="sm" variant="outline-secondary" block  @click="click">{{blockSave ? 'Редактировать' : 'Сохранить'}}</b-button>
+              name="banner-apper" >
+            <b-button pill :key="blockSave" class="font-weight-bold" size="sm" variant="outline-primary" block  @click="click">{{blockSave ? 'Редактировать' : 'Сохранить'}}</b-button>
           </transition>
 
         </div>
@@ -59,7 +57,6 @@
 </template>
 
 <script>
-import Axios from 'axios';
 import {BButton, BDropdown, BDropdownItem, BDropdownText, BFormCheckbox} from 'bootstrap-vue';
 
 export default {
@@ -73,27 +70,14 @@ export default {
   props: {
     saveButton: {
       default:true
-    },
-    id_org:null
+    }
   },
   data(){
     return {
       blockSave:true,
-      cntObj:0
-    }
-  },
-  watch: {
-    async id_org(){
-      if (this.id_org)
-        await this.getObjCount()
     }
   },
   methods:{
-    async getObjCount(){
-      await Axios.get(`/api/organization/count-obj/${this.id_org}`).then(res=>{
-        this.cntObj = res.data
-      })
-    },
     click(){
       if (this.blockSave) this.change();
       else this.save();
@@ -112,7 +96,6 @@ export default {
 </script>
 
 <style lang="scss">
-
 
 .dropdown-menu {
   border: 1px solid #ebeef5;
@@ -181,8 +164,46 @@ export default {
 
 .custom-navbar{
   background: rgba(0,0,0,.1);
+
+}
+.banner-apper-enter-active {
+  transition: all .6s ease;
 }
 
+.banner-apper-leave-active {
+  transition: all .6s ease;
+}
+
+.banner-apper-enter,  {
+  transform: translateX(80px);
+  opacity: 0;
+}
+.banner-apper-leave-to {
+  transform: translateX(-80px);
+  opacity: 0;
+}
+
+a {
+  #scroll {
+    display: none; /* Hidden by default */
+    position: fixed; /* Fixed/sticky position */
+    bottom: 20px; /* Place the button at the bottom of the page */
+    right: 30px; /* Place the button 30px from the right */
+    z-index: 99; /* Make sure it does not overlap */
+    border: none; /* Remove borders */
+    outline: none; /* Remove outline */
+    background-color: red; /* Set a background color */
+    color: white; /* Text color */
+    cursor: pointer; /* Add a mouse pointer on hover */
+    padding: 15px; /* Some padding */
+    border-radius: 10px; /* Rounded corners */
+    font-size: 18px; /* Increase font size */
+  }
+  #scroll:hover {
+    background-color: #555; /* Add a dark-grey background on hover */
+  }
+
+}
 
 
 </style>

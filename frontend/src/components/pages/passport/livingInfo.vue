@@ -1,9 +1,8 @@
 <template>
   <div>
-    <nav-bar :id_org="id_org" v-on:save-page="savePage" v-on:block-save="blockPage = !blockPage"/>
+    <nav-bar v-on:save-page="savePage" v-on:block-save="blockPage = !blockPage"/>
     <transition enter-active-class="animated fadeInUp">
       <div v-if="componentReady" class="container">
-
         <div class="row">
           <div class="col-8">
             <h3>
@@ -44,46 +43,55 @@
                         За счёт федерального бюджета
                         </span>
             </template>
-            <living-table :deletedItems="itemsToDelete.items_b" :items="items_b.items" title="Проживающие из числа обучающихся за счёт федерального бюджета" :is-invalid="false" :block-save="blockPage" v-bind:can-save="items_b.canSave"/>
+            <living-table :deletedItems="itemsToDelete.items_b" :items="items_b.items"
+                          title="Проживающие из числа обучающихся за счёт федерального бюджета" :is-invalid="false"
+                          :block-save="blockPage" v-bind:can-save="items_b.canSave"/>
 
           </b-tab>
-          <b-tab no-body >
+          <b-tab no-body>
             <template v-slot:title>
                         <span class="text-secondary">
                         За счёт бюджета субъекта
                         </span>
             </template>
-            <living-table :deletedItems="itemsToDelete.items_s" :items="items_s.items" title="Проживающие из числа обучающихся за счёт федерального бюджета" :is-invalid="false" :block-save="blockPage" v-bind:can-save="items_s.canSave"/>
+            <living-table :deletedItems="itemsToDelete.items_s" :items="items_s.items"
+                          title="Проживающие из числа обучающихся за счёт федерального бюджета" :is-invalid="false"
+                          :block-save="blockPage" v-bind:can-save="items_s.canSave"/>
 
           </b-tab>
-          <b-tab no-body >
+          <b-tab no-body>
             <template v-slot:title>
                         <span class="text-secondary">
                         За счёт местного бюджета
                         </span>
             </template>
-            <living-table :deletedItems="itemsToDelete.items_m" :items="items_m.items" title="Проживающие из числа обучающихся за счёт федерального бюджета" :is-invalid="false" :block-save="blockPage" v-bind:can-save="items_m.canSave"/>
+            <living-table :deletedItems="itemsToDelete.items_m" :items="items_m.items"
+                          title="Проживающие из числа обучающихся за счёт федерального бюджета" :is-invalid="false"
+                          :block-save="blockPage" v-bind:can-save="items_m.canSave"/>
 
           </b-tab>
-          <b-tab no-body >
+          <b-tab no-body>
             <template v-slot:title>
                         <span class="text-secondary">
                               По договорам об оказании
                         платных образовательных услуг
                         </span>
             </template>
-            <living-table :deletedItems="itemsToDelete.items_p" :items="items_p.items" title="Проживающие из числа обучающихся за счёт федерального бюджета" :is-invalid="false" :block-save="blockPage" v-bind:can-save="items_p.canSave"/>
+            <living-table :deletedItems="itemsToDelete.items_p" :items="items_p.items"
+                          title="Проживающие из числа обучающихся за счёт федерального бюджета" :is-invalid="false"
+                          :block-save="blockPage" v-bind:can-save="items_p.canSave"/>
 
           </b-tab>
         </b-tabs>
         <div class="row">
           <div class="col-6">
-            <label for="live_proz_poluch_step">Проживающие из числа обучающихся, получающие государственную соц. стипендию</label>
+            <label for="live_proz_poluch_step">Проживающие из числа обучающихся, получающие государственную соц.
+              стипендию</label>
           </div>
           <div class="col-6">
             <b-input-group append="Человек">
               <template v-slot:prepend>
-                <b-input-group-text >
+                <b-input-group-text>
                   <i id="bitch_tooltip" class="fas fa-question-circle"></i>
                 </b-input-group-text>
                 <b-tooltip custom-class="tooltip_width" target="bitch_tooltip">
@@ -91,7 +99,8 @@
                   № 273-ФЗ «Об образовании в Российской Федерации»
                 </b-tooltip>
               </template>
-              <b-form-input :disabled="blockPage" v-model="organization.living.cnt_stug_step" id="live_proz_poluch_step"/>
+              <b-form-input :disabled="blockPage" v-model="organization.living.cnt_stug_step"
+                            id="live_proz_poluch_step"/>
             </b-input-group>
 
           </div>
@@ -122,28 +131,48 @@
           <b-tbody>
             <b-tr>
               <b-td>Работники</b-td>
-              <b-td><b-form-input v-model="organization.living.rab_p" :disabled="blockPage"/></b-td>
-              <b-td><b-form-input v-model="organization.living.rab_s" :disabled="blockPage"/></b-td>
+              <b-td>
+                <b-form-input v-model="organization.living.rab_p" :disabled="blockPage"/>
+              </b-td>
+              <b-td>
+                <b-form-input v-model="organization.living.rab_s" :disabled="blockPage"/>
+              </b-td>
             </b-tr>
             <b-tr>
               <b-td>Научные сотрудники</b-td>
-              <b-td><b-form-input v-model="organization.living.nauch_p" :disabled="blockPage"/></b-td>
-              <b-td><b-form-input v-model="organization.living.nauch_s" :disabled="blockPage"/></b-td>
+              <b-td>
+                <b-form-input v-model="organization.living.nauch_p" :disabled="blockPage"/>
+              </b-td>
+              <b-td>
+                <b-form-input v-model="organization.living.nauch_s" :disabled="blockPage"/>
+              </b-td>
             </b-tr>
             <b-tr>
               <b-td>Профессорско-преподавательский состав</b-td>
-              <b-td><b-form-input v-model="organization.living.prof_p" :disabled="blockPage"/></b-td>
-              <b-td><b-form-input v-model="organization.living.prof_s" :disabled="blockPage"/></b-td>
+              <b-td>
+                <b-form-input v-model="organization.living.prof_p" :disabled="blockPage"/>
+              </b-td>
+              <b-td>
+                <b-form-input v-model="organization.living.prof_s" :disabled="blockPage"/>
+              </b-td>
             </b-tr>
             <b-tr>
               <b-td>Иные категории сотрудников организации</b-td>
-              <b-td><b-form-input v-model="organization.living.in_p" :disabled="blockPage"/></b-td>
-              <b-td><b-form-input v-model="organization.living.in_s" :disabled="blockPage"/></b-td>
+              <b-td>
+                <b-form-input v-model="organization.living.in_p" :disabled="blockPage"/>
+              </b-td>
+              <b-td>
+                <b-form-input v-model="organization.living.in_s" :disabled="blockPage"/>
+              </b-td>
             </b-tr>
             <b-tr>
               <b-td>Всего</b-td>
-              <b-td><b-form-input v-model="living.all_p" disabled/></b-td>
-              <b-td><b-form-input v-model="living.all_s" disabled/></b-td>
+              <b-td>
+                <b-form-input v-model="living.all_p" disabled/>
+              </b-td>
+              <b-td>
+                <b-form-input v-model="living.all_s" disabled/>
+              </b-td>
             </b-tr>
           </b-tbody>
         </b-table-simple>
@@ -162,6 +191,7 @@
 
       </div>
     </transition>
+    <scroll-button/>
   </div>
 
 </template>
@@ -185,587 +215,588 @@ import {
   BTr
 } from 'bootstrap-vue'
 import Axios from "axios";
+import scrollButton from "../../organisms/scrollButton";
 
 export default {
   name: "livingInfo",
-  components:{
+  components: {
+    scrollButton,
     NavBar,
-
     livingTable,
     BFormInput,
     BInputGroup,
-    BTabs,BTab,
+    BTabs, BTab,
     BTableSimple,
-    BThead,BTbody,
-    BTh,BTd,BTr,
+    BThead, BTbody,
+    BTh, BTd, BTr,
     BInputGroupText,
-    BTooltip,BButton
+    BTooltip, BButton
   },
-  data(){
+  data() {
     return {
       csrf: document.getElementsByName("csrf-token")[0].content,
-      blockPage:true,
-      user:{},
-      organization:{},
-      living:{
-        cnt_stud_obuch:0,
-        cnt_stud:0,
-        all_p:0,
-        all_s:0,
-        prozh_is_person:0
+      blockPage: true,
+      user: {},
+      organization: {},
+      living: {
+        cnt_stud_obuch: 0,
+        cnt_stud: 0,
+        all_p: 0,
+        all_s: 0,
+        prozh_is_person: 0
       },
-      id_org:null,
-      componentReady:false,
-      itemsToDelete:{
-        items_b:[],
-        items_s:[],
-        items_m:[],
-        items_p:[],
+      id_org: null,
+      componentReady: false,
+      itemsToDelete: {
+        items_b: [],
+        items_s: [],
+        items_m: [],
+        items_p: [],
       },
-      items_b:{
-        items:[
+      items_b: {
+        items: [
           {
-            label:'Граждане РФ, обучающиеся по очной форме',
-            editableLabel:false,
-            visible:true,
-            button:false,
-            name:null,
+            label: 'Граждане РФ, обучающиеся по очной форме',
+            editableLabel: false,
+            visible: true,
+            button: false,
+            name: null,
             budjet_type: 0,
-            spo:0,
-            bak:0,
-            spec:0,
-            mag:0,
-            asp:0,
-            ord:0,
-            ipo:0,
-            all:0,
-            type:'rf_och',
+            spo: 0,
+            bak: 0,
+            spec: 0,
+            mag: 0,
+            asp: 0,
+            ord: 0,
+            ipo: 0,
+            all: 0,
+            type: 'rf_och',
             disabled: false,
           },
 
           {
-            label:'Иностранцы, обучающиеся по очной форме',
-            editableLabel:false,
-            visible:true,
-            button:true,
-            spo:0,
-            bak:0,
-            spec:0,
-            mag:0,
-            asp:0,
-            ord:0,
+            label: 'Иностранцы, обучающиеся по очной форме',
+            editableLabel: false,
+            visible: true,
+            button: true,
+            spo: 0,
+            bak: 0,
+            spec: 0,
+            mag: 0,
+            asp: 0,
+            ord: 0,
             budjet_type: 0,
-            type:'in_och',
-            ipo:0,
-            all:0,
+            type: 'in_och',
+            ipo: 0,
+            all: 0,
             disabled: true,
           },
           {
-            label:'Граждане РФ, обучающиеся по заочной форме',
-            editableLabel:false,
-            visible:true,
-            button:false,
-            spo:0,
-            type:'rf_zaoch',
-            bak:0,
-            spec:0,
-            mag:0,
-            asp:0,
-            ord:0,
-            ipo:0,
+            label: 'Граждане РФ, обучающиеся по заочной форме',
+            editableLabel: false,
+            visible: true,
+            button: false,
+            spo: 0,
+            type: 'rf_zaoch',
+            bak: 0,
+            spec: 0,
+            mag: 0,
+            asp: 0,
+            ord: 0,
+            ipo: 0,
             budjet_type: 0,
-            all:0,
+            all: 0,
             disabled: false,
           },
           {
-            label:'Иностранцы, обучающиеся по заочной форме',
-            editableLabel:false,
-            visible:true,
-            button:true,
-            spo:0,
-            bak:0,
-            spec:0,
-            type:'in_zaoch',
-            mag:0,
-            asp:0,
-            ord:0,
-            ipo:0,
-            all:0,
+            label: 'Иностранцы, обучающиеся по заочной форме',
+            editableLabel: false,
+            visible: true,
+            button: true,
+            spo: 0,
+            bak: 0,
+            spec: 0,
+            type: 'in_zaoch',
+            mag: 0,
+            asp: 0,
+            ord: 0,
+            ipo: 0,
+            all: 0,
             budjet_type: 0,
             disabled: true,
           },
           {
-            label:'Граждане РФ, обучающиеся по очно-заочной форме',
-            editableLabel:false,
-            visible:true,
-            button:false,
-            spo:0,
-            bak:0,
-            type:'rf_ochzaoch',
-            spec:0,
-            mag:0,
-            asp:0,
+            label: 'Граждане РФ, обучающиеся по очно-заочной форме',
+            editableLabel: false,
+            visible: true,
+            button: false,
+            spo: 0,
+            bak: 0,
+            type: 'rf_ochzaoch',
+            spec: 0,
+            mag: 0,
+            asp: 0,
             budjet_type: 0,
-            ord:0,
-            ipo:0,
-            all:0,
+            ord: 0,
+            ipo: 0,
+            all: 0,
             disabled: false,
           },
           {
-            label:'Иностранцы, обучающиеся по очно-заочной форме',
-            editableLabel:false,
-            visible:true,
-            button:true,
-            spo:0,
-            bak:0,
-            spec:0,
+            label: 'Иностранцы, обучающиеся по очно-заочной форме',
+            editableLabel: false,
+            visible: true,
+            button: true,
+            spo: 0,
+            bak: 0,
+            spec: 0,
             budjet_type: 0,
-            mag:0,
-            asp:0,
-            type:'in_ochzaoch',
-            ord:0,
-            ipo:0,
-            all:0,
+            mag: 0,
+            asp: 0,
+            type: 'in_ochzaoch',
+            ord: 0,
+            ipo: 0,
+            all: 0,
             disabled: true,
           },
           {
-            label:'Всего',
-            editableLabel:false,
-            visible:true,
-            button:false,
-            spo:0,
-            bak:0,
+            label: 'Всего',
+            editableLabel: false,
+            visible: true,
+            button: false,
+            spo: 0,
+            bak: 0,
             budjet_type: 0,
-            spec:0,
-            mag:0,
-            asp:0,
-            ord:0,
-            ipo:0,
-            all:0,
+            spec: 0,
+            mag: 0,
+            asp: 0,
+            ord: 0,
+            ipo: 0,
+            all: 0,
             disabled: true,
           }
         ],
-        canSave:[]
+        canSave: []
       },
-      items_s:{
-        items:[
+      items_s: {
+        items: [
           {
-            label:'Граждане РФ, обучающиеся по очной форме',
-            editableLabel:false,
-            visible:true,
-            button:false,
-            name:null,
-            budjet_type:1,
-            spo:0,
-            bak:0,
-            spec:0,
-            mag:0,
-            asp:0,
-            ord:0,
-            ipo:0,
-            all:0,
-            type:'rf_och',
+            label: 'Граждане РФ, обучающиеся по очной форме',
+            editableLabel: false,
+            visible: true,
+            button: false,
+            name: null,
+            budjet_type: 1,
+            spo: 0,
+            bak: 0,
+            spec: 0,
+            mag: 0,
+            asp: 0,
+            ord: 0,
+            ipo: 0,
+            all: 0,
+            type: 'rf_och',
             disabled: false,
           },
 
           {
-            label:'Иностранцы, обучающиеся по очной форме',
-            editableLabel:false,
-            visible:true,
-            button:true,
-            spo:0,
-            bak:0,
-            spec:0,
-            mag:0,
-            asp:0,
-            ord:0,
-            budjet_type:1,
-            type:'in_och',
-            ipo:0,
-            all:0,
+            label: 'Иностранцы, обучающиеся по очной форме',
+            editableLabel: false,
+            visible: true,
+            button: true,
+            spo: 0,
+            bak: 0,
+            spec: 0,
+            mag: 0,
+            asp: 0,
+            ord: 0,
+            budjet_type: 1,
+            type: 'in_och',
+            ipo: 0,
+            all: 0,
             disabled: true,
           },
           {
-            label:'Граждане РФ, обучающиеся по заочной форме',
-            editableLabel:false,
-            visible:true,
-            button:false,
-            spo:0,
-            type:'rf_zaoch',
-            bak:0,
-            spec:0,
-            mag:0,
-            asp:0,
-            ord:0,
-            ipo:0,
-            budjet_type:1,
-            all:0,
+            label: 'Граждане РФ, обучающиеся по заочной форме',
+            editableLabel: false,
+            visible: true,
+            button: false,
+            spo: 0,
+            type: 'rf_zaoch',
+            bak: 0,
+            spec: 0,
+            mag: 0,
+            asp: 0,
+            ord: 0,
+            ipo: 0,
+            budjet_type: 1,
+            all: 0,
             disabled: false,
           },
           {
-            label:'Иностранцы, обучающиеся по заочной форме',
-            editableLabel:false,
-            visible:true,
-            button:true,
-            spo:0,
-            bak:0,
-            spec:0,
-            type:'in_zaoch',
-            mag:0,
-            asp:0,
-            ord:0,
-            ipo:0,
-            all:0,
+            label: 'Иностранцы, обучающиеся по заочной форме',
+            editableLabel: false,
+            visible: true,
+            button: true,
+            spo: 0,
+            bak: 0,
+            spec: 0,
+            type: 'in_zaoch',
+            mag: 0,
+            asp: 0,
+            ord: 0,
+            ipo: 0,
+            all: 0,
             budjet_type: 1,
             disabled: true,
           },
           {
-            label:'Граждане РФ, обучающиеся по очно-заочной форме',
-            editableLabel:false,
-            visible:true,
-            button:false,
-            spo:0,
-            bak:0,
-            type:'rf_ochzaoch',
-            spec:0,
-            mag:0,
-            asp:0,
-            budjet_type:1,
-            ord:0,
-            ipo:0,
-            all:0,
+            label: 'Граждане РФ, обучающиеся по очно-заочной форме',
+            editableLabel: false,
+            visible: true,
+            button: false,
+            spo: 0,
+            bak: 0,
+            type: 'rf_ochzaoch',
+            spec: 0,
+            mag: 0,
+            asp: 0,
+            budjet_type: 1,
+            ord: 0,
+            ipo: 0,
+            all: 0,
             disabled: false,
           },
           {
-            label:'Иностранцы, обучающиеся по очно-заочной форме',
-            editableLabel:false,
-            visible:true,
-            button:true,
-            spo:0,
-            bak:0,
-            spec:0,
-            budjet_type:1,
-            mag:0,
-            asp:0,
-            type:'in_ochzaoch',
-            ord:0,
-            ipo:0,
-            all:0,
+            label: 'Иностранцы, обучающиеся по очно-заочной форме',
+            editableLabel: false,
+            visible: true,
+            button: true,
+            spo: 0,
+            bak: 0,
+            spec: 0,
+            budjet_type: 1,
+            mag: 0,
+            asp: 0,
+            type: 'in_ochzaoch',
+            ord: 0,
+            ipo: 0,
+            all: 0,
             disabled: true,
           },
           {
-            label:'Всего',
-            editableLabel:false,
-            visible:true,
-            button:false,
-            spo:0,
-            bak:0,
-            budjet_type:1,
-            spec:0,
-            mag:0,
-            asp:0,
-            ord:0,
-            ipo:0,
-            all:0,
+            label: 'Всего',
+            editableLabel: false,
+            visible: true,
+            button: false,
+            spo: 0,
+            bak: 0,
+            budjet_type: 1,
+            spec: 0,
+            mag: 0,
+            asp: 0,
+            ord: 0,
+            ipo: 0,
+            all: 0,
             disabled: true,
           }
         ],
-        canSave:[]
+        canSave: []
       },
-      items_m:{
-        items:[
+      items_m: {
+        items: [
           {
-            label:'Граждане РФ, обучающиеся по очной форме',
-            editableLabel:false,
-            visible:true,
-            button:false,
-            name:null,
-            budjet_type:2,
-            spo:0,
-            bak:0,
-            spec:0,
-            mag:0,
-            asp:0,
-            ord:0,
-            ipo:0,
-            all:0,
-            type:'rf_och',
+            label: 'Граждане РФ, обучающиеся по очной форме',
+            editableLabel: false,
+            visible: true,
+            button: false,
+            name: null,
+            budjet_type: 2,
+            spo: 0,
+            bak: 0,
+            spec: 0,
+            mag: 0,
+            asp: 0,
+            ord: 0,
+            ipo: 0,
+            all: 0,
+            type: 'rf_och',
             disabled: false,
           },
 
           {
-            label:'Иностранцы, обучающиеся по очной форме',
-            editableLabel:false,
-            visible:true,
-            button:true,
-            spo:0,
-            bak:0,
-            spec:0,
-            mag:0,
-            asp:0,
-            ord:0,
-            budjet_type:2,
-            type:'in_och',
-            ipo:0,
-            all:0,
+            label: 'Иностранцы, обучающиеся по очной форме',
+            editableLabel: false,
+            visible: true,
+            button: true,
+            spo: 0,
+            bak: 0,
+            spec: 0,
+            mag: 0,
+            asp: 0,
+            ord: 0,
+            budjet_type: 2,
+            type: 'in_och',
+            ipo: 0,
+            all: 0,
             disabled: true,
           },
           {
-            label:'Граждане РФ, обучающиеся по заочной форме',
-            editableLabel:false,
-            visible:true,
-            button:false,
-            spo:0,
-            type:'rf_zaoch',
-            bak:0,
-            spec:0,
-            mag:0,
-            asp:0,
-            ord:0,
-            ipo:0,
-            budjet_type:2,
-            all:0,
+            label: 'Граждане РФ, обучающиеся по заочной форме',
+            editableLabel: false,
+            visible: true,
+            button: false,
+            spo: 0,
+            type: 'rf_zaoch',
+            bak: 0,
+            spec: 0,
+            mag: 0,
+            asp: 0,
+            ord: 0,
+            ipo: 0,
+            budjet_type: 2,
+            all: 0,
             disabled: false,
           },
           {
-            label:'Иностранцы, обучающиеся по заочной форме',
-            editableLabel:false,
-            visible:true,
-            button:true,
-            spo:0,
-            bak:0,
-            spec:0,
-            type:'in_zaoch',
-            mag:0,
-            asp:0,
-            ord:0,
-            ipo:0,
-            all:0,
-            budjet_type:2,
+            label: 'Иностранцы, обучающиеся по заочной форме',
+            editableLabel: false,
+            visible: true,
+            button: true,
+            spo: 0,
+            bak: 0,
+            spec: 0,
+            type: 'in_zaoch',
+            mag: 0,
+            asp: 0,
+            ord: 0,
+            ipo: 0,
+            all: 0,
+            budjet_type: 2,
             disabled: true,
           },
           {
-            label:'Граждане РФ, обучающиеся по очно-заочной форме',
-            editableLabel:false,
-            visible:true,
-            button:false,
-            spo:0,
-            bak:0,
-            type:'rf_ochzaoch',
-            spec:0,
-            mag:0,
-            asp:0,
-            budjet_type:2,
-            ord:0,
-            ipo:0,
-            all:0,
+            label: 'Граждане РФ, обучающиеся по очно-заочной форме',
+            editableLabel: false,
+            visible: true,
+            button: false,
+            spo: 0,
+            bak: 0,
+            type: 'rf_ochzaoch',
+            spec: 0,
+            mag: 0,
+            asp: 0,
+            budjet_type: 2,
+            ord: 0,
+            ipo: 0,
+            all: 0,
             disabled: false,
           },
           {
-            label:'Иностранцы, обучающиеся по очно-заочной форме',
-            editableLabel:false,
-            visible:true,
-            button:true,
-            spo:0,
-            bak:0,
-            spec:0,
-            budjet_type:2,
-            mag:0,
-            asp:0,
-            type:'in_ochzaoch',
-            ord:0,
-            ipo:0,
-            all:0,
+            label: 'Иностранцы, обучающиеся по очно-заочной форме',
+            editableLabel: false,
+            visible: true,
+            button: true,
+            spo: 0,
+            bak: 0,
+            spec: 0,
+            budjet_type: 2,
+            mag: 0,
+            asp: 0,
+            type: 'in_ochzaoch',
+            ord: 0,
+            ipo: 0,
+            all: 0,
             disabled: true,
           },
           {
-            label:'Всего',
-            editableLabel:false,
-            visible:true,
-            button:false,
-            spo:0,
-            bak:0,
-            budjet_type:2,
-            spec:0,
-            mag:0,
-            asp:0,
-            ord:0,
-            ipo:0,
-            all:0,
+            label: 'Всего',
+            editableLabel: false,
+            visible: true,
+            button: false,
+            spo: 0,
+            bak: 0,
+            budjet_type: 2,
+            spec: 0,
+            mag: 0,
+            asp: 0,
+            ord: 0,
+            ipo: 0,
+            all: 0,
             disabled: true,
           }
         ],
-        canSave:[]
+        canSave: []
       },
-      items_p:{
-        items:[
+      items_p: {
+        items: [
           {
-            label:'Граждане РФ, обучающиеся по очной форме',
-            editableLabel:false,
-            visible:true,
-            button:false,
-            name:null,
-            budjet_type:3,
-            spo:0,
-            bak:0,
-            spec:0,
-            mag:0,
-            asp:0,
-            ord:0,
-            ipo:0,
-            all:0,
-            type:'rf_och',
+            label: 'Граждане РФ, обучающиеся по очной форме',
+            editableLabel: false,
+            visible: true,
+            button: false,
+            name: null,
+            budjet_type: 3,
+            spo: 0,
+            bak: 0,
+            spec: 0,
+            mag: 0,
+            asp: 0,
+            ord: 0,
+            ipo: 0,
+            all: 0,
+            type: 'rf_och',
             disabled: false,
           },
 
           {
-            label:'Иностранцы, обучающиеся по очной форме',
-            editableLabel:false,
-            visible:true,
-            button:true,
-            spo:0,
-            bak:0,
-            spec:0,
-            mag:0,
-            asp:0,
-            ord:0,
-            budjet_type:3,
-            type:'in_och',
-            ipo:0,
-            all:0,
+            label: 'Иностранцы, обучающиеся по очной форме',
+            editableLabel: false,
+            visible: true,
+            button: true,
+            spo: 0,
+            bak: 0,
+            spec: 0,
+            mag: 0,
+            asp: 0,
+            ord: 0,
+            budjet_type: 3,
+            type: 'in_och',
+            ipo: 0,
+            all: 0,
             disabled: true,
           },
           {
-            label:'Граждане РФ, обучающиеся по заочной форме',
-            editableLabel:false,
-            visible:true,
-            button:false,
-            spo:0,
-            type:'rf_zaoch',
-            bak:0,
-            spec:0,
-            mag:0,
-            asp:0,
-            ord:0,
-            ipo:0,
-            budjet_type:3,
-            all:0,
+            label: 'Граждане РФ, обучающиеся по заочной форме',
+            editableLabel: false,
+            visible: true,
+            button: false,
+            spo: 0,
+            type: 'rf_zaoch',
+            bak: 0,
+            spec: 0,
+            mag: 0,
+            asp: 0,
+            ord: 0,
+            ipo: 0,
+            budjet_type: 3,
+            all: 0,
             disabled: false,
           },
           {
-            label:'Иностранцы, обучающиеся по заочной форме',
-            editableLabel:false,
-            visible:true,
-            button:true,
-            spo:0,
-            bak:0,
-            spec:0,
-            type:'in_zaoch',
-            mag:0,
-            asp:0,
-            ord:0,
-            ipo:0,
-            all:0,
-            budjet_type:3,
+            label: 'Иностранцы, обучающиеся по заочной форме',
+            editableLabel: false,
+            visible: true,
+            button: true,
+            spo: 0,
+            bak: 0,
+            spec: 0,
+            type: 'in_zaoch',
+            mag: 0,
+            asp: 0,
+            ord: 0,
+            ipo: 0,
+            all: 0,
+            budjet_type: 3,
             disabled: true,
           },
           {
-            label:'Граждане РФ, обучающиеся по очно-заочной форме',
-            editableLabel:false,
-            visible:true,
-            button:false,
-            spo:0,
-            bak:0,
-            type:'rf_ochzaoch',
-            spec:0,
-            mag:0,
-            asp:0,
-            budjet_type:3,
-            ord:0,
-            ipo:0,
-            all:0,
+            label: 'Граждане РФ, обучающиеся по очно-заочной форме',
+            editableLabel: false,
+            visible: true,
+            button: false,
+            spo: 0,
+            bak: 0,
+            type: 'rf_ochzaoch',
+            spec: 0,
+            mag: 0,
+            asp: 0,
+            budjet_type: 3,
+            ord: 0,
+            ipo: 0,
+            all: 0,
             disabled: false,
           },
           {
-            label:'Иностранцы, обучающиеся по очно-заочной форме',
-            editableLabel:false,
-            visible:true,
-            button:true,
-            spo:0,
-            bak:0,
-            spec:0,
-            budjet_type:3,
-            mag:0,
-            asp:0,
-            type:'in_ochzaoch',
-            ord:0,
-            ipo:0,
-            all:0,
+            label: 'Иностранцы, обучающиеся по очно-заочной форме',
+            editableLabel: false,
+            visible: true,
+            button: true,
+            spo: 0,
+            bak: 0,
+            spec: 0,
+            budjet_type: 3,
+            mag: 0,
+            asp: 0,
+            type: 'in_ochzaoch',
+            ord: 0,
+            ipo: 0,
+            all: 0,
             disabled: true,
           },
           {
-            label:'Всего',
-            editableLabel:false,
-            visible:true,
-            button:false,
-            spo:0,
-            bak:0,
-            budjet_type:3,
-            spec:0,
-            mag:0,
-            asp:0,
-            ord:0,
-            ipo:0,
-            all:0,
+            label: 'Всего',
+            editableLabel: false,
+            visible: true,
+            button: false,
+            spo: 0,
+            bak: 0,
+            budjet_type: 3,
+            spec: 0,
+            mag: 0,
+            asp: 0,
+            ord: 0,
+            ipo: 0,
+            all: 0,
             disabled: true,
           }
         ],
-        canSave:[]
+        canSave: []
       },
 
     }
   },
-  watch:{
-    itemsToDelete:{
-      handler(){
+  watch: {
+    itemsToDelete: {
+      handler() {
         console.log(this.itemsToDelete)
       },
-      deep:true
+      deep: true
     },
     organization: {
       handler() {
         this.cntLiving()
       },
-      deep:true
+      deep: true
     },
     items_b: {
       handler() {
         console.log('ke')
         this.cntLiving()
       },
-      deep:true
+      deep: true
     },
     items_s: {
       handler() {
         this.cntLiving()
       },
-      deep:true
+      deep: true
     },
     items_m: {
       handler() {
         this.cntLiving()
       },
-      deep:true
+      deep: true
     },
     items_p: {
       handler() {
         this.cntLiving()
       },
-      deep:true
+      deep: true
     }
   },
-  methods:{
-    cntLiving(){
+  methods: {
+    cntLiving() {
 
       this.living.cnt_stud =
           ~~parseInt(this.living.inie_pr) +
@@ -783,527 +814,528 @@ export default {
           + ~~parseInt(this.organization.living.in_s)
 
       this.living.cnt_stud_obuch =
-          ~~parseInt(this.items_b.items[this.items_b.items.length-1].all) +
-          ~~parseInt(this.items_m.items[this.items_m.items.length-1].all) +
-          ~~parseInt(this.items_s.items[this.items_s.items.length-1].all) +
-          ~~parseInt(this.items_p.items[this.items_p.items.length-1].all) ;
+          ~~parseInt(this.items_b.items[this.items_b.items.length - 1].all) +
+          ~~parseInt(this.items_m.items[this.items_m.items.length - 1].all) +
+          ~~parseInt(this.items_s.items[this.items_s.items.length - 1].all) +
+          ~~parseInt(this.items_p.items[this.items_p.items.length - 1].all);
 
       this.living.prozh_is_person = this.living.all_s + this.living.all_p;
 
     },
-    async getUser(){
-      await Axios.get('/api/user/current').then(res=>
-      {this.user = res.data;});
+    async getUser() {
+      await Axios.get('/api/user/current').then(res => {
+        this.user = res.data;
+      });
     },
-    async getOrg(){
-      await Axios.get(`/api/organization/by-id/${this.id_org}`,{
+    async getOrg() {
+      await Axios.get(`/api/organization/by-id/${this.id_org}`, {
         params: {
           living_st_inv: 0
         }
-      }).then(res=> {
+      }).then(res => {
         this.organization = res.data
 
         if (this.organization) {
 
-          this.items_b={
-            items:[
+          this.items_b = {
+            items: [
               {
-                label:'Граждане РФ, обучающиеся по очной форме',
-                editableLabel:false,
-                visible:true,
-                button:false,
-                name:null,
+                label: 'Граждане РФ, обучающиеся по очной форме',
+                editableLabel: false,
+                visible: true,
+                button: false,
+                name: null,
                 budjet_type: 0,
-                spo:0,
-                bak:0,
-                spec:0,
-                mag:0,
-                asp:0,
-                ord:0,
-                ipo:0,
-                all:0,
-                type:'rf_och',
+                spo: 0,
+                bak: 0,
+                spec: 0,
+                mag: 0,
+                asp: 0,
+                ord: 0,
+                ipo: 0,
+                all: 0,
+                type: 'rf_och',
                 disabled: false,
               },
 
               {
-                label:'Иностранцы, обучающиеся по очной форме',
-                editableLabel:false,
-                visible:true,
-                button:true,
-                spo:0,
-                bak:0,
-                spec:0,
-                mag:0,
-                asp:0,
-                ord:0,
+                label: 'Иностранцы, обучающиеся по очной форме',
+                editableLabel: false,
+                visible: true,
+                button: true,
+                spo: 0,
+                bak: 0,
+                spec: 0,
+                mag: 0,
+                asp: 0,
+                ord: 0,
                 budjet_type: 0,
-                type:'in_och',
-                ipo:0,
-                all:0,
+                type: 'in_och',
+                ipo: 0,
+                all: 0,
                 disabled: true,
               },
               {
-                label:'Граждане РФ, обучающиеся по заочной форме',
-                editableLabel:false,
-                visible:true,
-                button:false,
-                spo:0,
-                type:'rf_zaoch',
-                bak:0,
-                spec:0,
-                mag:0,
-                asp:0,
-                ord:0,
-                ipo:0,
+                label: 'Граждане РФ, обучающиеся по заочной форме',
+                editableLabel: false,
+                visible: true,
+                button: false,
+                spo: 0,
+                type: 'rf_zaoch',
+                bak: 0,
+                spec: 0,
+                mag: 0,
+                asp: 0,
+                ord: 0,
+                ipo: 0,
                 budjet_type: 0,
-                all:0,
+                all: 0,
                 disabled: false,
               },
               {
-                label:'Иностранцы, обучающиеся по заочной форме',
-                editableLabel:false,
-                visible:true,
-                button:true,
-                spo:0,
-                bak:0,
-                spec:0,
-                type:'in_zaoch',
-                mag:0,
-                asp:0,
-                ord:0,
-                ipo:0,
-                all:0,
+                label: 'Иностранцы, обучающиеся по заочной форме',
+                editableLabel: false,
+                visible: true,
+                button: true,
+                spo: 0,
+                bak: 0,
+                spec: 0,
+                type: 'in_zaoch',
+                mag: 0,
+                asp: 0,
+                ord: 0,
+                ipo: 0,
+                all: 0,
                 budjet_type: 0,
                 disabled: true,
               },
               {
-                label:'Граждане РФ, обучающиеся по очно-заочной форме',
-                editableLabel:false,
-                visible:true,
-                button:false,
-                spo:0,
-                bak:0,
-                type:'rf_ochzaoch',
-                spec:0,
-                mag:0,
-                asp:0,
+                label: 'Граждане РФ, обучающиеся по очно-заочной форме',
+                editableLabel: false,
+                visible: true,
+                button: false,
+                spo: 0,
+                bak: 0,
+                type: 'rf_ochzaoch',
+                spec: 0,
+                mag: 0,
+                asp: 0,
                 budjet_type: 0,
-                ord:0,
-                ipo:0,
-                all:0,
+                ord: 0,
+                ipo: 0,
+                all: 0,
                 disabled: false,
               },
               {
-                label:'Иностранцы, обучающиеся по очно-заочной форме',
-                editableLabel:false,
-                visible:true,
-                button:true,
-                spo:0,
-                bak:0,
-                spec:0,
+                label: 'Иностранцы, обучающиеся по очно-заочной форме',
+                editableLabel: false,
+                visible: true,
+                button: true,
+                spo: 0,
+                bak: 0,
+                spec: 0,
                 budjet_type: 0,
-                mag:0,
-                asp:0,
-                type:'in_ochzaoch',
-                ord:0,
-                ipo:0,
-                all:0,
+                mag: 0,
+                asp: 0,
+                type: 'in_ochzaoch',
+                ord: 0,
+                ipo: 0,
+                all: 0,
                 disabled: true,
               },
               {
-                label:'Всего',
-                editableLabel:false,
-                visible:true,
-                button:false,
-                spo:0,
-                bak:0,
+                label: 'Всего',
+                editableLabel: false,
+                visible: true,
+                button: false,
+                spo: 0,
+                bak: 0,
                 budjet_type: 0,
-                spec:0,
-                mag:0,
-                asp:0,
-                ord:0,
-                ipo:0,
-                all:0,
+                spec: 0,
+                mag: 0,
+                asp: 0,
+                ord: 0,
+                ipo: 0,
+                all: 0,
                 disabled: true,
               }
             ],
-            canSave:[]
+            canSave: []
           };
-          this.items_s={
-            items:[
+          this.items_s = {
+            items: [
               {
-                label:'Граждане РФ, обучающиеся по очной форме',
-                editableLabel:false,
-                visible:true,
-                button:false,
-                name:null,
-                budjet_type:1,
-                spo:0,
-                bak:0,
-                spec:0,
-                mag:0,
-                asp:0,
-                ord:0,
-                ipo:0,
-                all:0,
-                type:'rf_och',
+                label: 'Граждане РФ, обучающиеся по очной форме',
+                editableLabel: false,
+                visible: true,
+                button: false,
+                name: null,
+                budjet_type: 1,
+                spo: 0,
+                bak: 0,
+                spec: 0,
+                mag: 0,
+                asp: 0,
+                ord: 0,
+                ipo: 0,
+                all: 0,
+                type: 'rf_och',
                 disabled: false,
               },
 
               {
-                label:'Иностранцы, обучающиеся по очной форме',
-                editableLabel:false,
-                visible:true,
-                button:true,
-                spo:0,
-                bak:0,
-                spec:0,
-                mag:0,
-                asp:0,
-                ord:0,
-                budjet_type:1,
-                type:'in_och',
-                ipo:0,
-                all:0,
+                label: 'Иностранцы, обучающиеся по очной форме',
+                editableLabel: false,
+                visible: true,
+                button: true,
+                spo: 0,
+                bak: 0,
+                spec: 0,
+                mag: 0,
+                asp: 0,
+                ord: 0,
+                budjet_type: 1,
+                type: 'in_och',
+                ipo: 0,
+                all: 0,
                 disabled: true,
               },
               {
-                label:'Граждане РФ, обучающиеся по заочной форме',
-                editableLabel:false,
-                visible:true,
-                button:false,
-                spo:0,
-                type:'rf_zaoch',
-                bak:0,
-                spec:0,
-                mag:0,
-                asp:0,
-                ord:0,
-                ipo:0,
-                budjet_type:1,
-                all:0,
+                label: 'Граждане РФ, обучающиеся по заочной форме',
+                editableLabel: false,
+                visible: true,
+                button: false,
+                spo: 0,
+                type: 'rf_zaoch',
+                bak: 0,
+                spec: 0,
+                mag: 0,
+                asp: 0,
+                ord: 0,
+                ipo: 0,
+                budjet_type: 1,
+                all: 0,
                 disabled: false,
               },
               {
-                label:'Иностранцы, обучающиеся по заочной форме',
-                editableLabel:false,
-                visible:true,
-                button:true,
-                spo:0,
-                bak:0,
-                spec:0,
-                type:'in_zaoch',
-                mag:0,
-                asp:0,
-                ord:0,
-                ipo:0,
-                all:0,
+                label: 'Иностранцы, обучающиеся по заочной форме',
+                editableLabel: false,
+                visible: true,
+                button: true,
+                spo: 0,
+                bak: 0,
+                spec: 0,
+                type: 'in_zaoch',
+                mag: 0,
+                asp: 0,
+                ord: 0,
+                ipo: 0,
+                all: 0,
                 budjet_type: 1,
                 disabled: true,
               },
               {
-                label:'Граждане РФ, обучающиеся по очно-заочной форме',
-                editableLabel:false,
-                visible:true,
-                button:false,
-                spo:0,
-                bak:0,
-                type:'rf_ochzaoch',
-                spec:0,
-                mag:0,
-                asp:0,
-                budjet_type:1,
-                ord:0,
-                ipo:0,
-                all:0,
+                label: 'Граждане РФ, обучающиеся по очно-заочной форме',
+                editableLabel: false,
+                visible: true,
+                button: false,
+                spo: 0,
+                bak: 0,
+                type: 'rf_ochzaoch',
+                spec: 0,
+                mag: 0,
+                asp: 0,
+                budjet_type: 1,
+                ord: 0,
+                ipo: 0,
+                all: 0,
                 disabled: false,
               },
               {
-                label:'Иностранцы, обучающиеся по очно-заочной форме',
-                editableLabel:false,
-                visible:true,
-                button:true,
-                spo:0,
-                bak:0,
-                spec:0,
-                budjet_type:1,
-                mag:0,
-                asp:0,
-                type:'in_ochzaoch',
-                ord:0,
-                ipo:0,
-                all:0,
+                label: 'Иностранцы, обучающиеся по очно-заочной форме',
+                editableLabel: false,
+                visible: true,
+                button: true,
+                spo: 0,
+                bak: 0,
+                spec: 0,
+                budjet_type: 1,
+                mag: 0,
+                asp: 0,
+                type: 'in_ochzaoch',
+                ord: 0,
+                ipo: 0,
+                all: 0,
                 disabled: true,
               },
               {
-                label:'Всего',
-                editableLabel:false,
-                visible:true,
-                button:false,
-                spo:0,
-                bak:0,
-                budjet_type:1,
-                spec:0,
-                mag:0,
-                asp:0,
-                ord:0,
-                ipo:0,
-                all:0,
+                label: 'Всего',
+                editableLabel: false,
+                visible: true,
+                button: false,
+                spo: 0,
+                bak: 0,
+                budjet_type: 1,
+                spec: 0,
+                mag: 0,
+                asp: 0,
+                ord: 0,
+                ipo: 0,
+                all: 0,
                 disabled: true,
               }
             ],
-            canSave:[]
+            canSave: []
           };
-          this.items_m={
-            items:[
+          this.items_m = {
+            items: [
               {
-                label:'Граждане РФ, обучающиеся по очной форме',
-                editableLabel:false,
-                visible:true,
-                button:false,
-                name:null,
-                budjet_type:2,
-                spo:0,
-                bak:0,
-                spec:0,
-                mag:0,
-                asp:0,
-                ord:0,
-                ipo:0,
-                all:0,
-                type:'rf_och',
+                label: 'Граждане РФ, обучающиеся по очной форме',
+                editableLabel: false,
+                visible: true,
+                button: false,
+                name: null,
+                budjet_type: 2,
+                spo: 0,
+                bak: 0,
+                spec: 0,
+                mag: 0,
+                asp: 0,
+                ord: 0,
+                ipo: 0,
+                all: 0,
+                type: 'rf_och',
                 disabled: false,
               },
 
               {
-                label:'Иностранцы, обучающиеся по очной форме',
-                editableLabel:false,
-                visible:true,
-                button:true,
-                spo:0,
-                bak:0,
-                spec:0,
-                mag:0,
-                asp:0,
-                ord:0,
-                budjet_type:2,
-                type:'in_och',
-                ipo:0,
-                all:0,
+                label: 'Иностранцы, обучающиеся по очной форме',
+                editableLabel: false,
+                visible: true,
+                button: true,
+                spo: 0,
+                bak: 0,
+                spec: 0,
+                mag: 0,
+                asp: 0,
+                ord: 0,
+                budjet_type: 2,
+                type: 'in_och',
+                ipo: 0,
+                all: 0,
                 disabled: true,
               },
               {
-                label:'Граждане РФ, обучающиеся по заочной форме',
-                editableLabel:false,
-                visible:true,
-                button:false,
-                spo:0,
-                type:'rf_zaoch',
-                bak:0,
-                spec:0,
-                mag:0,
-                asp:0,
-                ord:0,
-                ipo:0,
-                budjet_type:2,
-                all:0,
+                label: 'Граждане РФ, обучающиеся по заочной форме',
+                editableLabel: false,
+                visible: true,
+                button: false,
+                spo: 0,
+                type: 'rf_zaoch',
+                bak: 0,
+                spec: 0,
+                mag: 0,
+                asp: 0,
+                ord: 0,
+                ipo: 0,
+                budjet_type: 2,
+                all: 0,
                 disabled: false,
               },
               {
-                label:'Иностранцы, обучающиеся по заочной форме',
-                editableLabel:false,
-                visible:true,
-                button:true,
-                spo:0,
-                bak:0,
-                spec:0,
-                type:'in_zaoch',
-                mag:0,
-                asp:0,
-                ord:0,
-                ipo:0,
-                all:0,
-                budjet_type:2,
+                label: 'Иностранцы, обучающиеся по заочной форме',
+                editableLabel: false,
+                visible: true,
+                button: true,
+                spo: 0,
+                bak: 0,
+                spec: 0,
+                type: 'in_zaoch',
+                mag: 0,
+                asp: 0,
+                ord: 0,
+                ipo: 0,
+                all: 0,
+                budjet_type: 2,
                 disabled: true,
               },
               {
-                label:'Граждане РФ, обучающиеся по очно-заочной форме',
-                editableLabel:false,
-                visible:true,
-                button:false,
-                spo:0,
-                bak:0,
-                type:'rf_ochzaoch',
-                spec:0,
-                mag:0,
-                asp:0,
-                budjet_type:2,
-                ord:0,
-                ipo:0,
-                all:0,
+                label: 'Граждане РФ, обучающиеся по очно-заочной форме',
+                editableLabel: false,
+                visible: true,
+                button: false,
+                spo: 0,
+                bak: 0,
+                type: 'rf_ochzaoch',
+                spec: 0,
+                mag: 0,
+                asp: 0,
+                budjet_type: 2,
+                ord: 0,
+                ipo: 0,
+                all: 0,
                 disabled: false,
               },
               {
-                label:'Иностранцы, обучающиеся по очно-заочной форме',
-                editableLabel:false,
-                visible:true,
-                button:true,
-                spo:0,
-                bak:0,
-                spec:0,
-                budjet_type:2,
-                mag:0,
-                asp:0,
-                type:'in_ochzaoch',
-                ord:0,
-                ipo:0,
-                all:0,
+                label: 'Иностранцы, обучающиеся по очно-заочной форме',
+                editableLabel: false,
+                visible: true,
+                button: true,
+                spo: 0,
+                bak: 0,
+                spec: 0,
+                budjet_type: 2,
+                mag: 0,
+                asp: 0,
+                type: 'in_ochzaoch',
+                ord: 0,
+                ipo: 0,
+                all: 0,
                 disabled: true,
               },
               {
-                label:'Всего',
-                editableLabel:false,
-                visible:true,
-                button:false,
-                spo:0,
-                bak:0,
-                budjet_type:2,
-                spec:0,
-                mag:0,
-                asp:0,
-                ord:0,
-                ipo:0,
-                all:0,
+                label: 'Всего',
+                editableLabel: false,
+                visible: true,
+                button: false,
+                spo: 0,
+                bak: 0,
+                budjet_type: 2,
+                spec: 0,
+                mag: 0,
+                asp: 0,
+                ord: 0,
+                ipo: 0,
+                all: 0,
                 disabled: true,
               }
             ],
-            canSave:[]
+            canSave: []
           };
-          this.items_p={
-            items:[
+          this.items_p = {
+            items: [
               {
-                label:'Граждане РФ, обучающиеся по очной форме',
-                editableLabel:false,
-                visible:true,
-                button:false,
-                name:null,
-                budjet_type:3,
-                spo:0,
-                bak:0,
-                spec:0,
-                mag:0,
-                asp:0,
-                ord:0,
-                ipo:0,
-                all:0,
-                type:'rf_och',
+                label: 'Граждане РФ, обучающиеся по очной форме',
+                editableLabel: false,
+                visible: true,
+                button: false,
+                name: null,
+                budjet_type: 3,
+                spo: 0,
+                bak: 0,
+                spec: 0,
+                mag: 0,
+                asp: 0,
+                ord: 0,
+                ipo: 0,
+                all: 0,
+                type: 'rf_och',
                 disabled: false,
               },
 
               {
-                label:'Иностранцы, обучающиеся по очной форме',
-                editableLabel:false,
-                visible:true,
-                button:true,
-                spo:0,
-                bak:0,
-                spec:0,
-                mag:0,
-                asp:0,
-                ord:0,
-                budjet_type:3,
-                type:'in_och',
-                ipo:0,
-                all:0,
+                label: 'Иностранцы, обучающиеся по очной форме',
+                editableLabel: false,
+                visible: true,
+                button: true,
+                spo: 0,
+                bak: 0,
+                spec: 0,
+                mag: 0,
+                asp: 0,
+                ord: 0,
+                budjet_type: 3,
+                type: 'in_och',
+                ipo: 0,
+                all: 0,
                 disabled: true,
               },
               {
-                label:'Граждане РФ, обучающиеся по заочной форме',
-                editableLabel:false,
-                visible:true,
-                button:false,
-                spo:0,
-                type:'rf_zaoch',
-                bak:0,
-                spec:0,
-                mag:0,
-                asp:0,
-                ord:0,
-                ipo:0,
-                budjet_type:3,
-                all:0,
+                label: 'Граждане РФ, обучающиеся по заочной форме',
+                editableLabel: false,
+                visible: true,
+                button: false,
+                spo: 0,
+                type: 'rf_zaoch',
+                bak: 0,
+                spec: 0,
+                mag: 0,
+                asp: 0,
+                ord: 0,
+                ipo: 0,
+                budjet_type: 3,
+                all: 0,
                 disabled: false,
               },
               {
-                label:'Иностранцы, обучающиеся по заочной форме',
-                editableLabel:false,
-                visible:true,
-                button:true,
-                spo:0,
-                bak:0,
-                spec:0,
-                type:'in_zaoch',
-                mag:0,
-                asp:0,
-                ord:0,
-                ipo:0,
-                all:0,
-                budjet_type:3,
+                label: 'Иностранцы, обучающиеся по заочной форме',
+                editableLabel: false,
+                visible: true,
+                button: true,
+                spo: 0,
+                bak: 0,
+                spec: 0,
+                type: 'in_zaoch',
+                mag: 0,
+                asp: 0,
+                ord: 0,
+                ipo: 0,
+                all: 0,
+                budjet_type: 3,
                 disabled: true,
               },
               {
-                label:'Граждане РФ, обучающиеся по очно-заочной форме',
-                editableLabel:false,
-                visible:true,
-                button:false,
-                spo:0,
-                bak:0,
-                type:'rf_ochzaoch',
-                spec:0,
-                mag:0,
-                asp:0,
-                budjet_type:3,
-                ord:0,
-                ipo:0,
-                all:0,
+                label: 'Граждане РФ, обучающиеся по очно-заочной форме',
+                editableLabel: false,
+                visible: true,
+                button: false,
+                spo: 0,
+                bak: 0,
+                type: 'rf_ochzaoch',
+                spec: 0,
+                mag: 0,
+                asp: 0,
+                budjet_type: 3,
+                ord: 0,
+                ipo: 0,
+                all: 0,
                 disabled: false,
               },
               {
-                label:'Иностранцы, обучающиеся по очно-заочной форме',
-                editableLabel:false,
-                visible:true,
-                button:true,
-                spo:0,
-                bak:0,
-                spec:0,
-                budjet_type:3,
-                mag:0,
-                asp:0,
-                type:'in_ochzaoch',
-                ord:0,
-                ipo:0,
-                all:0,
+                label: 'Иностранцы, обучающиеся по очно-заочной форме',
+                editableLabel: false,
+                visible: true,
+                button: true,
+                spo: 0,
+                bak: 0,
+                spec: 0,
+                budjet_type: 3,
+                mag: 0,
+                asp: 0,
+                type: 'in_ochzaoch',
+                ord: 0,
+                ipo: 0,
+                all: 0,
                 disabled: true,
               },
               {
-                label:'Всего',
-                editableLabel:false,
-                visible:true,
-                button:false,
-                spo:0,
-                bak:0,
-                budjet_type:3,
-                spec:0,
-                mag:0,
-                asp:0,
-                ord:0,
-                ipo:0,
-                all:0,
+                label: 'Всего',
+                editableLabel: false,
+                visible: true,
+                button: false,
+                spo: 0,
+                bak: 0,
+                budjet_type: 3,
+                spec: 0,
+                mag: 0,
+                asp: 0,
+                ord: 0,
+                ipo: 0,
+                all: 0,
                 disabled: true,
               }
             ],
-            canSave:[]
+            canSave: []
           };
 
           this.organization.living = res.data.living ?? {}
@@ -1659,50 +1691,50 @@ export default {
           this.cntLiving()
         }
       });
-      this.items_b.items.forEach((item,index)=>{
+      this.items_b.items.forEach((item, index) => {
         if (item.type === 'rf_ochzaoch' || item.type === 'rf_zaoch' || item.type === 'rf_och') {
           this.items_b.canSave.push(index)
         }
       })
-      this.items_s.items.forEach((item,index)=>{
+      this.items_s.items.forEach((item, index) => {
         if (item.type === 'rf_ochzaoch' || item.type === 'rf_zaoch' || item.type === 'rf_och') {
           this.items_s.canSave.push(index)
         }
       })
-      this.items_m.items.forEach((item,index)=>{
+      this.items_m.items.forEach((item, index) => {
         if (item.type === 'rf_ochzaoch' || item.type === 'rf_zaoch' || item.type === 'rf_och') {
           this.items_m.canSave.push(index)
 
         }
       })
-      this.items_p.items.forEach((item,index)=>{
+      this.items_p.items.forEach((item, index) => {
         if (item.type === 'rf_ochzaoch' || item.type === 'rf_zaoch' || item.type === 'rf_och') {
           this.items_p.canSave.push(index)
         }
       })
     },
-    async savePage(){
+    async savePage() {
       let data = new FormData();
-      this.organization.living_studs =  [...this.items_b.items,this.items_s.items,...this.items_m.items,...this.items_p.items];
+      this.organization.living_studs = [...this.items_b.items, this.items_s.items, ...this.items_m.items, ...this.items_p.items];
       this.organization.invalid = 0;
-      data.append('org_living',JSON.stringify(this.organization));
+      data.append('org_living', JSON.stringify(this.organization));
 
-      await Axios.post(`/organization/set-org-living/${this.id_org}`,data,{
+      await Axios.post(`/organization/set-org-living/${this.id_org}`, data, {
         headers: {
           "X-CSRF-Token": this.csrf
         }
-      }).then(res=>{
+      }).then(res => {
         this.getOrg()
-      }).finally(()=>{
+      }).finally(() => {
         this.blockPage = true;
       })
     }
   },
-  async mounted(){
+  async mounted() {
     await this.getUser();
     this.id_org = this.user.id_org;
     await this.getOrg();
-    this.componentReady=true;
+    this.componentReady = true;
   }
 }
 </script>
