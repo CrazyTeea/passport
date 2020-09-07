@@ -6,7 +6,7 @@
                 <b-th class="vert-text"><div><span>Среднее профессиональное образование</span></div></b-th>
                 <b-th class="vert-text"><div><span>Бакалавриат</span></div></b-th>
                 <b-th class="vert-text"><div><span>Специалитет</span></div></b-th>
-                <b-th class="vert-text"><div><span>Магистратура</span></div></b-th>
+                <b-th class="vert-text"><div><span>Магистратура много </span></div></b-th>
                 <b-th class="vert-text"><div><span>Аспирантура</span></div></b-th>
                 <b-th class="vert-text"><div><span>Ординатура</span></div></b-th>
                 <b-th class="vert-text"><div><span>Иные программы образования</span></div></b-th>
