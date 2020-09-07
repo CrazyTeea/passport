@@ -157,7 +157,8 @@ class OrganizationsController extends Controller
             $area = OrgArea::findOne(['id_org'=>$id]) ?? new OrgArea();
             $area->id_org = $id;
             foreach ($post as $key => $item){
-                $area->$key = $item;
+                if (!in_array($key,['all_t_k_r','all_n_a_s','all_n_p']))
+                    $area->$key = $item;
             }
             $ret = ['org_area'=>['success'=>$area->save(),'errors'=>$area->getErrors()]];
         }

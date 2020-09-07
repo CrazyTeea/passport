@@ -416,7 +416,7 @@ export default {
   data() {
     return {
       csrf: document.getElementsByName("csrf-token")[0].content,
-      blockSave: true,
+      blockSave: false,
       user: {},
       students: [],
       students_foreign: [],

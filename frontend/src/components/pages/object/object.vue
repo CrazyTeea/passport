@@ -339,7 +339,7 @@ export default {
       id_org: null,
       user: {},
       modal_show: false,
-      disablePage: true,
+      disablePage: false,
       objectsTitle: [],
       objects: []
     }
