@@ -59,11 +59,16 @@
         </div>
       </div>
     </div>
-    <b-alert show>
-      <div class="text-center">
-        "После внесения данных на странице не забудьте нажать кнопку "Сохранить"
-      </div>
-    </b-alert>
+    <transition
+        enter-active-class="animated fadeInDown"
+        leave-active-class="animated fadeOutUp">
+      <b-alert  v-if="!blockSave" show>
+        <div class="text-center">
+          "После внесения данных на странице не забудьте нажать кнопку "Сохранить"
+        </div>
+      </b-alert>
+    </transition>
+
   </div>
 
 
