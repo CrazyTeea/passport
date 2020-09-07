@@ -8,7 +8,7 @@ use app\widgets\Alert;
 use yii\bootstrap4\Breadcrumbs;
 use yii\bootstrap4\Html;
 use yii\bootstrap4\Nav;
-use yii\bootstrap4\NavBar;
+use app\widgets\NavBar;
 
 AppAsset::register($this);
 
@@ -30,7 +30,9 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => '<img src="/img/light-logo.svg"> &nbsp;'.Yii::$app->name,
+        'brandLabel' => Yii::$app->name ,
+        'brandUrl'=>'https://xn--80apneeq.xn--p1ai/',
+        'brandImage'=>'/img/light-logo.svg',
         'options' => [
             'class' => 'navbar-expand-lg navbar-dark bg-dark',
         ],
@@ -68,7 +70,7 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container mt-2">
-        <p class="text-center">&copy; My Company <?= date('Y') ?></p>
+        <p class="text-center">ИАС "Мониторинг</p>
     </div>
 </footer>
 
