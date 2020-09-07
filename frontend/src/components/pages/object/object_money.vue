@@ -830,7 +830,7 @@ export default {
   data() {
     return {
       csrf: document.getElementsByName("csrf-token")[0].content,
-      blockPage: true,
+      blockPage: false,
       currentObject: null,
       money: {
         obsh: 0,

@@ -93,7 +93,7 @@ export default {
     return {
       csrf: document.getElementsByName("csrf-token")[0].content,
       componentReady: false,
-      blockPage: true,
+      blockPage: false,
       user: {},
       organization: {},
       id_org: null,

@@ -235,7 +235,7 @@ export default {
   data() {
     return {
       csrf: document.getElementsByName("csrf-token")[0].content,
-      blockPage: true,
+      blockPage: false,
       user: {},
       organization: {},
       living: {

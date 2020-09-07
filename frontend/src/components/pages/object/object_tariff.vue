@@ -182,13 +182,13 @@ export default {
       }).then(res => {
         this.getObject();
       }).finally(() => {
-        this.blockPage = true;
+        this.blockSave = true;
       })
     }
   },
   data() {
     return {
-      blockSave: true,
+      blockSave: false,
       csrf: document.getElementsByName("csrf-token")[0].content,
       componentReady: false,
       currentObject: null,

@@ -525,7 +525,7 @@ export default {
       componentReady: false,
       area: null,
       csrf: document.getElementsByName("csrf-token")[0].content,
-      blockSave: true,
+      blockSave: false,
       id_org: null,
       organization: null,
       user: {}

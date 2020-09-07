@@ -174,7 +174,7 @@ export default {
   data() {
     return {
       csrf: document.getElementsByName("csrf-token")[0].content,
-      blockSave: true,
+      blockSave: false,
       user: {},
       cont_dan: false,
       componentReady: false,

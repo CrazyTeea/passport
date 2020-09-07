@@ -53,7 +53,7 @@ class ObjectsController extends Controller
             $obj = Objects::findOne($id);
 
             foreach ($post as $key=>$item){
-                if ($key != 'id_org')
+                if (!in_array($key,['id_org','area','money','tariff']))
                     $obj->$key = $item;
             }
 
