@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav-bar :save-button="false" />
+    <nav-bar :id_org="id_org" :save-button="false" />
     <div class="container">
 
 
