@@ -6,74 +6,38 @@
       <div v-if="componentReady && organization" class="container">
         <h3>Сведения об организации</h3>
         <hr>
-        <b-form-group
-            id="input-group-org_name"
-            label="Полное наименование организации"
-            label-for="input-org_name"
-        >
-          <b-form-input
-              id="input-org_name"
-              v-model="organization.name"
-              disabled
-          ></b-form-input>
-        </b-form-group>
-        <b-form-group
-            id="input-group-short_name"
-            label="Сокращенное наименование организации"
-            label-for="input-short_name"
-        >
-          <b-form-input
-              id="input-short_name"
-              v-model="organization.short_name"
-              disabled
-          ></b-form-input>
-        </b-form-group>
-        <b-form-group
-            id="input-group-org_founder"
-            label="Подчинение федеральному органу исполнительной власти"
-            label-for="input-org_founder"
-        >
-          <b-form-input
-              id="input-org_founder"
-              v-model="organization.founder.founder"
-              disabled
-          ></b-form-input>
-        </b-form-group>
-        <b-form-group
-            id="input-group-org_region"
-            label="Регион расположения организации"
-            label-for="input-org_region"
-        >
-          <b-form-input
-              id="input-org_region"
-              v-model="organization.region.region"
-              disabled
-          ></b-form-input>
-        </b-form-group>
+        <label class="font-weight-bold">Полное наименование организации"</label>
+          {{ organization.name }}
+        <br>
+        <label class="font-weight-bold">Сокращенное наименование организации"</label>
+          {{ organization.short_name }}
+        <br>
+        <label class="font-weight-bold">Подчинение федеральному органу исполнительной власти" </label>
+          {{ organization.founder.founder }}
+        <br>
+        <label class="font-weight-bold">Регион расположения организации</label>
+          {{ organization.region.region }}
+
+
         <hr>
 
         <div class="row">
-          <div class="col-8">
-            <label class="font-weight-bold" for="students_count-input">Численность обучающихся</label>
-          </div>
-          <div class="col-4">
-            <b-form-input disabled id="students_count-input" v-model="organization.stud_cnt"/>
+          <div class="col">
+            <label class="font-weight-bold" for="students_count-input">Численность обучающихся :</label>
+            {{ organization.stud_cnt }}
           </div>
         </div>
         <div class="row mt-2">
-          <div class="col-8">
-            <label class="font-weight-bold ml-4" for="students_count_rus-input">1. Численность обучающихся граждан
-              России</label>
-          </div>
-          <div class="col-4">
-            <b-form-input disabled id="students_count_rus-input" v-model="organization.stud_cnt_rus"/>
+          <div class="col">
+            <label class="font-weight-bold ml-4" for="students_count_rus-input">1. Численность обучающихся граждан России :</label>
+            {{ organization.stud_cnt_rus }}
           </div>
         </div>
 
         <b-table-simple fixed v-if="organization.info" class="mt-2" small borderless>
           <b-thead>
             <b-tr>
-              <b-th><span class="ml-5">1. Численность обучающихся граждан России</span></b-th>
+              <b-th><span class="ml-5">Численность обучающихся граждан России</span></b-th>
               <b-th>За счёт средств федерального бюджета</b-th>
               <b-th>За счёт средств бюджета субъекта</b-th>
               <b-th>За счёт средств местного бюджета</b-th>
@@ -85,164 +49,176 @@
             <b-tr>
               <b-th>Спо</b-th>
               <b-td>
-                <b-form-input v-model="organization.info[0].s_f_b_spo" :disabled="blockSave"/>
+                <b-form-input type="number" v-model="organization.info[0].s_f_b_spo" :disabled="blockSave"/>
               </b-td>
               <b-td>
-                <b-form-input v-model="organization.info[0].s_b_s_spo" :disabled="blockSave"/>
+                <b-form-input type="number" v-model="organization.info[0].s_b_s_spo" :disabled="blockSave"/>
               </b-td>
               <b-td>
-                <b-form-input v-model="organization.info[0].s_m_b_spo" :disabled="blockSave"/>
+                <b-form-input type="number" v-model="organization.info[0].s_m_b_spo" :disabled="blockSave"/>
               </b-td>
               <b-td>
-                <b-form-input v-model="organization.info[0].s_p_u_spo" :disabled="blockSave"/>
+                <b-form-input type="number" v-model="organization.info[0].s_p_u_spo" :disabled="blockSave"/>
               </b-td>
-              <b-td>
-                <b-form-input v-model="organization.info[0].spo_all" disabled/>
+              <b-td class="font-weight-bold">
+                <div class="mt-1">
+                {{ organization.info[0].spo_all }}
+                </div>
               </b-td>
             </b-tr>
             <b-tr>
               <b-th>Бакалавриат</b-th>
               <b-td>
-                <b-form-input v-model="organization.info[0].s_f_b_bak" :disabled="blockSave"/>
+                <b-form-input type="number" v-model="organization.info[0].s_f_b_bak" :disabled="blockSave"/>
               </b-td>
               <b-td>
-                <b-form-input v-model="organization.info[0].s_b_s_bak" :disabled="blockSave"/>
+                <b-form-input type="number" v-model="organization.info[0].s_b_s_bak" :disabled="blockSave"/>
               </b-td>
               <b-td>
-                <b-form-input v-model="organization.info[0].s_m_b_bak" :disabled="blockSave"/>
+                <b-form-input type="number" v-model="organization.info[0].s_m_b_bak" :disabled="blockSave"/>
               </b-td>
               <b-td>
-                <b-form-input v-model="organization.info[0].s_p_u_bak" :disabled="blockSave"/>
+                <b-form-input type="number" v-model="organization.info[0].s_p_u_bak" :disabled="blockSave"/>
               </b-td>
-              <b-td>
-                <b-form-input v-model="organization.info[0].bak_all" disabled/>
+              <b-td class="font-weight-bold ">
+                <div class="mt-1">
+                {{ organization.info[0].bak_all }}
+                </div>
               </b-td>
             </b-tr>
             <b-tr>
               <b-th>Специалитет</b-th>
               <b-td>
-                <b-form-input v-model="organization.info[0].s_f_b_spec" :disabled="blockSave"/>
+                <b-form-input type="number" v-model="organization.info[0].s_f_b_spec" :disabled="blockSave"/>
               </b-td>
               <b-td>
-                <b-form-input v-model="organization.info[0].s_b_s_spec" :disabled="blockSave"/>
+                <b-form-input type="number" v-model="organization.info[0].s_b_s_spec" :disabled="blockSave"/>
               </b-td>
               <b-td>
-                <b-form-input v-model="organization.info[0].s_m_b_spec" :disabled="blockSave"/>
+                <b-form-input type="number" v-model="organization.info[0].s_m_b_spec" :disabled="blockSave"/>
               </b-td>
               <b-td>
-                <b-form-input v-model="organization.info[0].s_p_u_spec" :disabled="blockSave"/>
+                <b-form-input type="number" v-model="organization.info[0].s_p_u_spec" :disabled="blockSave"/>
               </b-td>
-              <b-td>
-                <b-form-input v-model="organization.info[0].spec_all" disabled/>
+              <b-td class="font-weight-bold">
+                <div class="mt-1">
+                {{ organization.info[0].spec_all }}
+                </div>
               </b-td>
             </b-tr>
             <b-tr>
               <b-th>Магистратура</b-th>
               <b-td>
-                <b-form-input v-model="organization.info[0].s_f_b_mag" :disabled="blockSave"/>
+                <b-form-input type="number" v-model="organization.info[0].s_f_b_mag" :disabled="blockSave"/>
               </b-td>
               <b-td>
-                <b-form-input v-model="organization.info[0].s_b_s_mag" :disabled="blockSave"/>
+                <b-form-input type="number" v-model="organization.info[0].s_b_s_mag" :disabled="blockSave"/>
               </b-td>
               <b-td>
-                <b-form-input v-model="organization.info[0].s_m_b_mag" :disabled="blockSave"/>
+                <b-form-input type="number" v-model="organization.info[0].s_m_b_mag" :disabled="blockSave"/>
               </b-td>
               <b-td>
-                <b-form-input v-model="organization.info[0].s_p_u_mag" :disabled="blockSave"/>
+                <b-form-input type="number" v-model="organization.info[0].s_p_u_mag" :disabled="blockSave"/>
               </b-td>
-              <b-td>
-                <b-form-input v-model="organization.info[0].mag_all" disabled/>
+              <b-td class="font-weight-bold">
+                <div class="mt-1">
+                {{ organization.info[0].mag_all }}
+                </div>
               </b-td>
             </b-tr>
             <b-tr>
               <b-th>Аспирантура</b-th>
               <b-td>
-                <b-form-input v-model="organization.info[0].s_f_b_asp" :disabled="blockSave"/>
+                <b-form-input type="number" v-model="organization.info[0].s_f_b_asp" :disabled="blockSave"/>
               </b-td>
               <b-td>
-                <b-form-input v-model="organization.info[0].s_b_s_asp" :disabled="blockSave"/>
+                <b-form-input type="number" v-model="organization.info[0].s_b_s_asp" :disabled="blockSave"/>
               </b-td>
               <b-td>
-                <b-form-input v-model="organization.info[0].s_m_b_asp" :disabled="blockSave"/>
+                <b-form-input type="number" v-model="organization.info[0].s_m_b_asp" :disabled="blockSave"/>
               </b-td>
               <b-td>
-                <b-form-input v-model="organization.info[0].s_p_u_asp" :disabled="blockSave"/>
+                <b-form-input type="number" v-model="organization.info[0].s_p_u_asp" :disabled="blockSave"/>
               </b-td>
-              <b-td>
-                <b-form-input v-model="organization.info[0].asp_all" disabled/>
+              <b-td class="font-weight-bold">
+                <div class="mt-1">
+                {{ organization.info[0].asp_all }}
+                </div>
               </b-td>
             </b-tr>
             <b-tr>
               <b-th>Ординатура</b-th>
               <b-td>
-                <b-form-input v-model="organization.info[0].s_f_b_ord" :disabled="blockSave"/>
+                <b-form-input type="number" v-model="organization.info[0].s_f_b_ord" :disabled="blockSave"/>
               </b-td>
               <b-td>
-                <b-form-input v-model="organization.info[0].s_b_s_ord" :disabled="blockSave"/>
+                <b-form-input type="number" v-model="organization.info[0].s_b_s_ord" :disabled="blockSave"/>
               </b-td>
               <b-td>
-                <b-form-input v-model="organization.info[0].s_m_b_ord" :disabled="blockSave"/>
+                <b-form-input type="number" v-model="organization.info[0].s_m_b_ord" :disabled="blockSave"/>
               </b-td>
               <b-td>
-                <b-form-input v-model="organization.info[0].s_p_u_ord" :disabled="blockSave"/>
+                <b-form-input type="number" v-model="organization.info[0].s_p_u_ord" :disabled="blockSave"/>
               </b-td>
-              <b-td>
-                <b-form-input v-model="organization.info[0].ord_all" disabled/>
+              <b-td class="font-weight-bold">
+                <div class="mt-1">
+                {{ organization.info[0].ord_all }}
+                </div>
               </b-td>
             </b-tr>
             <b-tr>
-              <b-th>По иным о.п</b-th>
+              <b-th>По иным о.п.</b-th>
               <b-td>
-                <b-form-input v-model="organization.info[0].s_f_b_in" :disabled="blockSave"/>
+                <b-form-input type="number" v-model="organization.info[0].s_f_b_in" :disabled="blockSave"/>
               </b-td>
               <b-td>
-                <b-form-input v-model="organization.info[0].s_b_s_in" :disabled="blockSave"/>
+                <b-form-input type="number" v-model="organization.info[0].s_b_s_in" :disabled="blockSave"/>
               </b-td>
               <b-td>
-                <b-form-input v-model="organization.info[0].s_m_b_in" :disabled="blockSave"/>
+                <b-form-input type="number" v-model="organization.info[0].s_m_b_in" :disabled="blockSave"/>
               </b-td>
               <b-td>
-                <b-form-input v-model="organization.info[0].s_p_u_in" :disabled="blockSave"/>
+                <b-form-input type="number" v-model="organization.info[0].s_p_u_in" :disabled="blockSave"/>
               </b-td>
-              <b-td>
-                <b-form-input v-model="organization.info[0].in_all" disabled/>
+              <b-td class="font-weight-bold">
+                <div class="mt-1">
+                  {{ organization.info[0].in_all }}
+                </div>
+
               </b-td>
             </b-tr>
             <b-tr>
               <b-th>Всего</b-th>
-              <b-td>
-                <b-form-input v-model="organization.info[0].s_f_b_all" disabled/>
+              <b-td class="text-center">
+                {{organization.info[0].s_f_b_all}}
               </b-td>
-              <b-td>
-                <b-form-input v-model="organization.info[0].s_b_s_all" disabled/>
+              <b-td class="text-center">
+                {{ organization.info[0].s_b_s_all }}
               </b-td>
-              <b-td>
-                <b-form-input v-model="organization.info[0].s_m_b_all" disabled/>
+              <b-td class="text-center">
+                {{ organization.info[0].s_m_b_all }}
               </b-td>
-              <b-td>
-                <b-form-input v-model="organization.info[0].s_p_u_all" disabled/>
+              <b-td class="text-center">
+                {{ organization.info[0].s_p_u_all }}
               </b-td>
-              <b-td>
-                <b-form-input v-model="organization.info[0].all" disabled/>
+              <b-td class="font-weight-bold">
+                <!--{{ organization.info[0].all }}--><!--{{ organization.info[0].all }}-->
               </b-td>
             </b-tr>
           </b-tbody>
         </b-table-simple>
 
-        <div class="row mt-2">
+        <div class="row mt-3">
           <div class="col-10">
-            <label class="font-weight-bold ml-4" for="students_count_foreign-input">2. Численность обучающихся
-              иностранцев</label>
-          </div>
-          <div class="col-2">
-            <b-form-input disabled id="students_count_foreign-input" v-model="organization.stud_cnt_foreign"/>
+            <label class="font-weight-bold ml-4" for="students_count_foreign-input">2. Численность обучающихся иностранцев: </label>
+            {{ organization.stud_cnt_foreign }}
           </div>
         </div>
 
         <b-table-simple v-if="organization.info" fixed class="mt-2" small borderless>
           <b-thead>
             <b-tr>
-              <b-th><span class="ml-5">2. Численность обучающихся иностранцев</span></b-th>
+              <b-th><span class="ml-5">Численность обучающихся иностранцев</span></b-th>
               <b-th>За счёт средств федерального бюджета</b-th>
               <b-th>За счёт средств бюджета субъекта</b-th>
               <b-th>За счёт средств местного бюджета</b-th>
@@ -254,145 +230,161 @@
             <b-tr>
               <b-th>Спо</b-th>
               <b-td>
-                <b-form-input v-model="organization.info[1].s_f_b_spo" :disabled="blockSave"/>
+                <b-form-input type="number" v-model="organization.info[1].s_f_b_spo" :disabled="blockSave"/>
               </b-td>
               <b-td>
-                <b-form-input v-model="organization.info[1].s_b_s_spo" :disabled="blockSave"/>
+                <b-form-input type="number" v-model="organization.info[1].s_b_s_spo" :disabled="blockSave"/>
               </b-td>
               <b-td>
-                <b-form-input v-model="organization.info[1].s_m_b_spo" :disabled="blockSave"/>
+                <b-form-input type="number" v-model="organization.info[1].s_m_b_spo" :disabled="blockSave"/>
               </b-td>
               <b-td>
-                <b-form-input v-model="organization.info[1].s_p_u_spo" :disabled="blockSave"/>
+                <b-form-input type="number" v-model="organization.info[1].s_p_u_spo" :disabled="blockSave"/>
               </b-td>
-              <b-td>
-                <b-form-input v-model="organization.info[1].spo_all" disabled/>
+              <b-td class="font-weight-bold">
+                <div class="mt-1">
+                {{ organization.info[1].spo_all }}
+                </div>
               </b-td>
             </b-tr>
             <b-tr>
               <b-th>Бакалавриат</b-th>
               <b-td>
-                <b-form-input v-model="organization.info[1].s_f_b_bak" :disabled="blockSave"/>
+                <b-form-input type="number" v-model="organization.info[1].s_f_b_bak" :disabled="blockSave"/>
               </b-td>
               <b-td>
-                <b-form-input v-model="organization.info[1].s_b_s_bak" :disabled="blockSave"/>
+                <b-form-input type="number" v-model="organization.info[1].s_b_s_bak" :disabled="blockSave"/>
               </b-td>
               <b-td>
-                <b-form-input v-model="organization.info[1].s_m_b_bak" :disabled="blockSave"/>
+                <b-form-input type="number" v-model="organization.info[1].s_m_b_bak" :disabled="blockSave"/>
               </b-td>
               <b-td>
-                <b-form-input v-model="organization.info[1].s_p_u_bak" :disabled="blockSave"/>
+                <b-form-input type="number" v-model="organization.info[1].s_p_u_bak" :disabled="blockSave"/>
               </b-td>
-              <b-td>
-                <b-form-input v-model="organization.info[1].bak_all" disabled/>
+              <b-td class="font-weight-bold">
+                <div class="mt-1">
+                {{ organization.info[1].bak_all }}
+                </div>
               </b-td>
             </b-tr>
             <b-tr>
               <b-th>Специалитет</b-th>
               <b-td>
-                <b-form-input v-model="organization.info[1].s_f_b_spec" :disabled="blockSave"/>
+                <b-form-input type="number" v-model="organization.info[1].s_f_b_spec" :disabled="blockSave"/>
               </b-td>
               <b-td>
-                <b-form-input v-model="organization.info[1].s_b_s_spec" :disabled="blockSave"/>
+                <b-form-input type="number" v-model="organization.info[1].s_b_s_spec" :disabled="blockSave"/>
               </b-td>
               <b-td>
-                <b-form-input v-model="organization.info[1].s_m_b_spec" :disabled="blockSave"/>
+                <b-form-input type="number" v-model="organization.info[1].s_m_b_spec" :disabled="blockSave"/>
               </b-td>
               <b-td>
-                <b-form-input v-model="organization.info[1].s_p_u_spec" :disabled="blockSave"/>
+                <b-form-input type="number" v-model="organization.info[1].s_p_u_spec" :disabled="blockSave"/>
               </b-td>
-              <b-td>
-                <b-form-input v-model="organization.info[1].spec_all" disabled/>
+              <b-td class="font-weight-bold">
+                <div class="mt-1">
+                {{ organization.info[1].spec_all }}
+                </div>
               </b-td>
             </b-tr>
             <b-tr>
               <b-th>Магистратура</b-th>
               <b-td>
-                <b-form-input v-model="organization.info[1].s_f_b_mag" :disabled="blockSave"/>
+                <b-form-input type="number" v-model="organization.info[1].s_f_b_mag" :disabled="blockSave"/>
               </b-td>
               <b-td>
-                <b-form-input v-model="organization.info[1].s_b_s_mag" :disabled="blockSave"/>
+                <b-form-input type="number" v-model="organization.info[1].s_b_s_mag" :disabled="blockSave"/>
               </b-td>
               <b-td>
-                <b-form-input v-model="organization.info[1].s_m_b_mag" :disabled="blockSave"/>
+                <b-form-input type="number" v-model="organization.info[1].s_m_b_mag" :disabled="blockSave"/>
               </b-td>
               <b-td>
-                <b-form-input v-model="organization.info[1].s_p_u_mag" :disabled="blockSave"/>
+                <b-form-input type="number" v-model="organization.info[1].s_p_u_mag" :disabled="blockSave"/>
               </b-td>
-              <b-td>
-                <b-form-input v-model="organization.info[1].mag_all" disabled/>
+              <b-td class="font-weight-bold">
+                <div class="mt-1">
+                {{ organization.info[1].mag_all }}
+                </div>
               </b-td>
             </b-tr>
             <b-tr>
               <b-th>Аспирантура</b-th>
               <b-td>
-                <b-form-input v-model="organization.info[1].s_f_b_asp" :disabled="blockSave"/>
+                <b-form-input type="number" v-model="organization.info[1].s_f_b_asp" :disabled="blockSave"/>
               </b-td>
               <b-td>
-                <b-form-input v-model="organization.info[1].s_b_s_asp" :disabled="blockSave"/>
+                <b-form-input type="number" v-model="organization.info[1].s_b_s_asp" :disabled="blockSave"/>
               </b-td>
               <b-td>
-                <b-form-input v-model="organization.info[1].s_m_b_asp" :disabled="blockSave"/>
+                <b-form-input type="number" v-model="organization.info[1].s_m_b_asp" :disabled="blockSave"/>
               </b-td>
               <b-td>
-                <b-form-input v-model="organization.info[1].s_p_u_asp" :disabled="blockSave"/>
+                <b-form-input type="number" v-model="organization.info[1].s_p_u_asp" :disabled="blockSave"/>
               </b-td>
-              <b-td>
-                <b-form-input v-model="organization.info[1].asp_all" disabled/>
+              <b-td class="font-weight-bold">
+                <div class="mt-1">
+                {{ organization.info[1].asp_all }}
+                </div>
               </b-td>
             </b-tr>
             <b-tr>
               <b-th>Ординатура</b-th>
               <b-td>
-                <b-form-input v-model="organization.info[1].s_f_b_ord" :disabled="blockSave"/>
+                <b-form-input type="number" v-model="organization.info[1].s_f_b_ord" :disabled="blockSave"/>
               </b-td>
               <b-td>
-                <b-form-input v-model="organization.info[1].s_b_s_ord" :disabled="blockSave"/>
+                <b-form-input type="number" v-model="organization.info[1].s_b_s_ord" :disabled="blockSave"/>
               </b-td>
               <b-td>
-                <b-form-input v-model="organization.info[1].s_m_b_ord" :disabled="blockSave"/>
+                <b-form-input type="number" v-model="organization.info[1].s_m_b_ord" :disabled="blockSave"/>
               </b-td>
               <b-td>
-                <b-form-input v-model="organization.info[1].s_p_u_ord" :disabled="blockSave"/>
+                <b-form-input type="number" v-model="organization.info[1].s_p_u_ord" :disabled="blockSave"/>
               </b-td>
-              <b-td>
-                <b-form-input v-model="organization.info[1].ord_all" disabled/>
+              <b-td class="font-weight-bold">
+                <div class="mt-1">
+                {{ organization.info[1].ord_all }}
+                </div>
               </b-td>
             </b-tr>
             <b-tr>
-              <b-th>По иным о.п</b-th>
+              <b-th>По иным о.п.</b-th>
               <b-td>
-                <b-form-input v-model="organization.info[1].s_f_b_in" :disabled="blockSave"/>
+                <b-form-input type="number" v-model="organization.info[1].s_f_b_in" :disabled="blockSave"/>
               </b-td>
               <b-td>
-                <b-form-input v-model="organization.info[1].s_b_s_in" :disabled="blockSave"/>
+                <b-form-input type="number" v-model="organization.info[1].s_b_s_in" :disabled="blockSave"/>
               </b-td>
               <b-td>
-                <b-form-input v-model="organization.info[1].s_m_b_in" :disabled="blockSave"/>
+                <b-form-input type="number" v-model="organization.info[1].s_m_b_in" :disabled="blockSave"/>
               </b-td>
               <b-td>
-                <b-form-input v-model="organization.info[1].s_p_u_in" :disabled="blockSave"/>
+                <b-form-input type="number" v-model="organization.info[1].s_p_u_in" :disabled="blockSave"/>
               </b-td>
-              <b-td>
-                <b-form-input v-model="organization.info[1].in_all" disabled/>
+              <b-td class="font-weight-bold">
+                <div class="mt-1">
+                {{ organization.info[1].in_all }}
+                </div>
               </b-td>
             </b-tr>
             <b-tr>
               <b-th>Всего</b-th>
-              <b-td>
-                <b-form-input v-model="organization.info[1].s_f_b_all" disabled/>
+              <b-td class="text-center">
+                {{ organization.info[1].s_f_b_all }}
               </b-td>
-              <b-td>
-                <b-form-input v-model="organization.info[1].s_b_s_all" disabled/>
+              <b-td class="text-center">
+                {{ organization.info[1].s_b_s_all }}
               </b-td>
-              <b-td>
-                <b-form-input v-model="organization.info[1].s_m_b_all" disabled/>
+              <b-td class="text-center">
+                {{ organization.info[1].s_m_b_all }}
               </b-td>
-              <b-td>
-                <b-form-input v-model="organization.info[1].s_p_u_all" disabled/>
+              <b-td class="text-center">
+                {{ organization.info[1].s_p_u_all }}
               </b-td>
-              <b-td>
-                <b-form-input v-model="organization.info[1].all" disabled/>
+              <b-td class="font-weight-bold">
+                <div class="mt-1">
+                {{ organization.info[1].all }}
+                </div>
               </b-td>
             </b-tr>
           </b-tbody>
