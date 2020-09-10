@@ -1,14 +1,15 @@
 <?php
 
 /* @var $this \yii\web\View */
+
 /* @var $content string */
 
 use app\assets\AppAsset;
 use app\widgets\Alert;
+use app\widgets\NavBar;
 use yii\bootstrap4\Breadcrumbs;
 use yii\bootstrap4\Html;
 use yii\bootstrap4\Nav;
-use app\widgets\NavBar;
 
 AppAsset::register($this);
 
@@ -30,9 +31,9 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => Yii::$app->name ,
-        'brandUrl'=>'https://xn--80apneeq.xn--p1ai/',
-        'brandImage'=>'/img/light-logo.svg',
+        'brandLabel' => Yii::$app->name,
+        'brandUrl' => 'https://xn--80apneeq.xn--p1ai/',
+        'brandImage' => '/img/light-logo.svg',
         'options' => [
             'class' => 'navbar-expand-lg navbar-dark bg-dark',
         ],
@@ -40,8 +41,15 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav ml-auto'],
         'items' => [
+            Yii::$app->user->can('root') ? (['label' => 'Адммин панель', 'url' => ['/admin']]) : (''),
+            ['label' => 'Инструкция', 'url' => ['/manual']]
+        ]
+    ]);
+    echo Nav::widget([
+        'options' => ['class' => 'navbar-nav '],
+        'items' => [
             Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
+            ['label' => 'Login', 'url' => ['/site/login']]
             ) : (
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
@@ -70,7 +78,7 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container mt-2">
-        <p class="text-center">ИАС "Мониторинг</p>
+        <p class="text-center">ИАС "Мониторинг"</p>
     </div>
 </footer>
 

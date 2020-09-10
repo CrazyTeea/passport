@@ -23,6 +23,8 @@ return [
             '/api/regions/*',
             '/api/organizations/*',
             '/api/objects/*',
+            '/app/manual/*',
+            '/app/manual/index',
         ],
     ],
     '/app/passport/*' => [
@@ -47,6 +49,12 @@ return [
         'type' => 2,
     ],
     '/api/objects/*' => [
+        'type' => 2,
+    ],
+    '/app/manual/*' => [
+        'type' => 2,
+    ],
+    '/app/manual/index' => [
         'type' => 2,
     ],
 ];

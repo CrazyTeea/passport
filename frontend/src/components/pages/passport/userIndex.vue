@@ -29,19 +29,29 @@
             </div>
           </div>
           <div style="margin-top: 10px;" class="row">
-            <div class="col-3">
+            <div class="col-4">
               <label class="font-weight-bold" for="contact_check">Контактные данные заполнены</label>
             </div>
-            <div class="col-6">
-              <b-form-checkbox v-model="cont_dan" disabled id="contact_check"></b-form-checkbox>
+            <div class="col">
+              <div v-if="cont_dan">
+                <i class="fas fa-check text-success fa-2x"></i>
+              </div>
+              <div v-else>
+                <i class="fas fa-times fa-2x text-danger"></i>
+              </div>
             </div>
           </div>
           <div style="margin-top: 10px;" class="row">
-            <div class="col-3">
+            <div class="col-4">
               <label class="font-weight-bold" for="file_check">Документы загружены</label>
             </div>
-            <div class="col-6">
-              <b-form-checkbox disabled id="file_check"></b-form-checkbox>
+            <div class="col">
+              <!--<div v-if="cont_dan">
+                <i class="fas fa-check text-success fa-2x"></i>
+              </div>-->
+              <div>
+                <i class="fas fa-times fa-2x text-danger"></i>
+              </div>
             </div>
           </div>
 
@@ -69,15 +79,15 @@
                       <b-card no-body>
                         <b-card-body class="contact">
 
-                          <label :for="`user_info_${index}_name`">Фамилия Имя Отчество</label>
+                          <label class="font-weight-bold" :for="`user_info_${index}_name`">Фамилия Имя Отчество</label>
                           <b-form-input :disabled="blockSave" :id="`user_info_${index}_name`" v-model="user_info.name"/>
-                          <label class="mt-4" :for="`user_info_${index}_position`">Должность</label>
+                          <label class="mt-4 font-weight-bold" :for="`user_info_${index}_position`">Должность</label>
                           <b-form-input :disabled="blockSave" :id="`user_info_${index}_position`"
                                         v-model="user_info.position"/>
-                          <label class="mt-4" :for="`user_info_${index}_phone`">Мобильный телефон</label>
+                          <label class="mt-4 font-weight-bold" :for="`user_info_${index}_phone`">Мобильный телефон</label>
                           <b-form-input :disabled="blockSave" :id="`user_info_${index}_phone`"
                                         v-model="user_info.phone"/>
-                          <label class="mt-4" :for="`user_info_${index}_email`">email</label>
+                          <label class="mt-4 font-weight-bold" :for="`user_info_${index}_email`">email</label>
                           <b-form-input :disabled="blockSave" :id="`user_info_${index}_email`"
                                         v-model="user_info.email"/>
 
@@ -114,7 +124,7 @@
                       </b-card>
                     </div>
                   </transition-group>
-                  <div class="col-6" style="margin-left: -10px; min-width: 51% !important;">
+                  <div v-if="users_info.length < 2" class="col-6" style="margin-left: -10px; min-width: 51% !important;">
                     <b-card v-if="!blockSave" class="contact-card">
                       <b-card-body @click="addUserInfo">
                         <img class="center" style="width: 25%"
@@ -126,8 +136,6 @@
               </b-card-body>
             </b-collapse>
           </b-card>
-
-
         </div>
 
       </div>
@@ -262,8 +270,21 @@ export default {
 
           })
         })
-        if (res.data.length)
-          this.cont_dan = true
+        if (res.data.length){
+          res.data.forEach(item=>{
+            Object.keys(item).forEach(key=>{
+              if (!item[key]) {
+                this.cont_dan = false;
+                return;
+              }
+              else this.cont_dan = true;
+
+            })
+          })
+
+
+        }
+
       })
     }
   }
