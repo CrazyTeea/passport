@@ -23,10 +23,10 @@
         <hr>
 
         <transition enter-active-class="animated fadeIn">
-          <b-table-simple v-if="currentObject" borderless>
+          <b-table-simple fixed v-if="currentObject" borderless>
             <b-thead>
               <b-tr>
-                <b-th>Размер платы</b-th>
+                <b-th>Размер платы в рублях</b-th>
                 <b-th>За коммунальные услуги с учетом усредненных тарифов</b-th>
                 <b-th>За коммунальные услуги (по показаниям приборов учета)</b-th>
                 <b-th>За пользование жилым помещением</b-th>
@@ -37,76 +37,76 @@
               <b-tr>
                 <b-td>Для обучающиеся за счёт бюджетных средств</b-td>
                 <b-td>
-                  <b-form-input v-model="currentObject.tariff.u_t_b" :disabled="blockSave"/>
+                  <b-form-input type="number" v-model="currentObject.tariff.u_t_b" :disabled="blockSave"/>
                 </b-td>
                 <b-td>
-                  <b-form-input v-model="currentObject.tariff.k_u_b" :disabled="blockSave"/>
+                  <b-form-input type="number" v-model="currentObject.tariff.k_u_b" :disabled="blockSave"/>
                 </b-td>
                 <b-td>
-                  <b-form-input v-model="currentObject.tariff.p_p_b" :disabled="blockSave"/>
+                  <b-form-input type="number" v-model="currentObject.tariff.p_p_b" :disabled="blockSave"/>
                 </b-td>
                 <b-td>
-                  <b-form-input v-model="currentObject.tariff.d_u_b" :disabled="blockSave"/>
+                  <b-form-input type="number" v-model="currentObject.tariff.d_u_b" :disabled="blockSave"/>
                 </b-td>
               </b-tr>
               <b-tr>
-                <b-td>Для обучающиеся по договорам об оказании платных образовательных услуг</b-td>
-                <b-td>
-                  <b-form-input v-model="currentObject.tariff.u_t_p" :disabled="blockSave"/>
+                <b-td >Для обучающиеся по договорам об оказании платных образовательных услуг</b-td>
+                <b-td  >
+                  <b-form-input type="number" v-model="currentObject.tariff.u_t_p" :disabled="blockSave"/>
                 </b-td>
                 <b-td>
-                  <b-form-input v-model="currentObject.tariff.k_u_p" :disabled="blockSave"/>
+                  <b-form-input type="number" v-model="currentObject.tariff.k_u_p" :disabled="blockSave"/>
                 </b-td>
                 <b-td>
-                  <b-form-input v-model="currentObject.tariff.p_p_p" :disabled="blockSave"/>
+                  <b-form-input type="number" v-model="currentObject.tariff.p_p_p" :disabled="blockSave"/>
                 </b-td>
                 <b-td>
-                  <b-form-input v-model="currentObject.tariff.d_u_p" :disabled="blockSave"/>
+                  <b-form-input type="number" v-model="currentObject.tariff.d_u_p" :disabled="blockSave"/>
                 </b-td>
               </b-tr>
               <b-tr>
                 <b-td>Для лиц не являющимися гражданами России</b-td>
                 <b-td>
-                  <b-form-input v-model="currentObject.tariff.u_t_nr" :disabled="blockSave"/>
+                  <b-form-input type="number" v-model="currentObject.tariff.u_t_nr" :disabled="blockSave"/>
                 </b-td>
                 <b-td>
-                  <b-form-input v-model="currentObject.tariff.k_u_nr" :disabled="blockSave"/>
+                  <b-form-input type="number" v-model="currentObject.tariff.k_u_nr" :disabled="blockSave"/>
                 </b-td>
                 <b-td>
-                  <b-form-input v-model="currentObject.tariff.p_p_nr" :disabled="blockSave"/>
+                  <b-form-input type="number" v-model="currentObject.tariff.p_p_nr" :disabled="blockSave"/>
                 </b-td>
                 <b-td>
-                  <b-form-input v-model="currentObject.tariff.d_u_nr" :disabled="blockSave"/>
+                  <b-form-input type="number" v-model="currentObject.tariff.d_u_nr" :disabled="blockSave"/>
                 </b-td>
               </b-tr>
               <b-tr>
                 <b-td>Для обучающихся других образовательных организаций</b-td>
                 <b-td>
-                  <b-form-input v-model="currentObject.tariff.u_t_do" :disabled="blockSave"/>
+                  <b-form-input type="number" v-model="currentObject.tariff.u_t_do" :disabled="blockSave"/>
                 </b-td>
                 <b-td>
-                  <b-form-input v-model="currentObject.tariff.k_u_do" :disabled="blockSave"/>
+                  <b-form-input type="number" v-model="currentObject.tariff.k_u_do" :disabled="blockSave"/>
                 </b-td>
                 <b-td>
-                  <b-form-input v-model="currentObject.tariff.p_p_do" :disabled="blockSave"/>
+                  <b-form-input type="number" v-model="currentObject.tariff.p_p_do" :disabled="blockSave"/>
                 </b-td>
                 <b-td>
-                  <b-form-input v-model="currentObject.tariff.d_u_do" :disabled="blockSave"/>
+                  <b-form-input type="number" v-model="currentObject.tariff.d_u_do" :disabled="blockSave"/>
                 </b-td>
               </b-tr>
               <b-tr>
                 <b-td>Для иных нанимателей</b-td>
                 <b-td>
-                  <b-form-input v-model="currentObject.tariff.u_t_in" :disabled="blockSave"/>
+                  <b-form-input  type="number" v-model="currentObject.tariff.u_t_in" :disabled="blockSave"/>
                 </b-td>
                 <b-td>
-                  <b-form-input v-model="currentObject.tariff.k_u_in" :disabled="blockSave"/>
+                  <b-form-input type="number" v-model="currentObject.tariff.k_u_in" :disabled="blockSave"/>
                 </b-td>
                 <b-td>
-                  <b-form-input v-model="currentObject.tariff.p_p_in" :disabled="blockSave"/>
+                  <b-form-input type="number" v-model="currentObject.tariff.p_p_in" :disabled="blockSave"/>
                 </b-td>
                 <b-td>
-                  <b-form-input v-model="currentObject.tariff.d_u_in" :disabled="blockSave"/>
+                  <b-form-input type="number" v-model="currentObject.tariff.d_u_in" :disabled="blockSave"/>
                 </b-td>
               </b-tr>
             </b-tbody>

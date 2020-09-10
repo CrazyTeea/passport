@@ -8,7 +8,7 @@
         <hr>
         <div class="row mt-2">
           <div class="col-8"><h4>
-            Сведения о площади, проживающих и количестве мест в жилом объекте
+            Сведения о поступлениях и расходах на объект
           </h4></div>
         </div>
         <div class="row">
@@ -25,11 +25,8 @@
           <h3>Поступления</h3>
 
           <div class="row">
-            <div class="col-6"><label for="object_area_svod1">Общий объём поступлений</label></div>
-            <div class="col-6">
-              <b-input-group append="тысяч рублей">
-                <b-form-input v-model="money.obsh" type="number" disabled id="object_area_svod1"/>
-              </b-input-group>
+            <div class="col">
+              <label class="font-weight-bold">Общий объём поступлений: </label> {{ money.obsh }}
             </div>
           </div>
 
@@ -75,7 +72,6 @@
               </b-input-group>
             </div>
           </div>
-
           <div class="row mt-2">
             <div class="col-6">
               <label class="ml-4">
@@ -119,32 +115,27 @@
             </div>
           </div>
 
-
           <hr>
-
 
           <h3>Расходы</h3>
 
           <div class="row">
-            <div class="col-6"><label for="object_area_svod">Общий объем средств, направленных на расходы жилого
-              объекта</label></div>
-            <div class="col-6">
-              <b-input-group append="тысяч рублей">
-                <b-form-input type="number" v-model="money.obsh_sred" disabled id="object_area_svod"/>
-              </b-input-group>
+            <div class="col">
+              <label class="font-weight-bold">Общий объем средств, направленных на расходы жилого объекта: </label>
+              {{ money.obsh_sred }}
             </div>
+
+
           </div>
 
           <div class="row mt-2">
-            <div class="col-6">
-              <label class="ml-2">
-                1. Расходы на коммунальные услуги
+            <div class="col">
+              <label class="ml-2 font-weight-bold">
+                1. Расходы на коммунальные услуги:
               </label>
-            </div>
-            <div class="col-6">
-              <b-input-group append="тысяч рублей">
-                <b-form-input v-model="money.rask" type="number" disabled/>
-              </b-input-group>
+
+              {{ money.rask }}
+
             </div>
           </div>
           <div class="row mt-2">
@@ -237,15 +228,12 @@
 
 
           <div class="row mt-2">
-            <div class="col-6">
-              <label class="ml-2">
-                2. Расходы, связанные с содержанием имущества
+            <div class="col">
+              <label class="ml-2 font-weight-bold">
+                2. Расходы, связанные с содержанием имущества:
               </label>
-            </div>
-            <div class="col-6">
-              <b-input-group append="тысяч рублей">
-                <b-form-input v-model="money.rass" type="number" disabled/>
-              </b-input-group>
+              {{ money.rass }}
+
             </div>
           </div>
           <div class="row mt-2">
@@ -452,15 +440,12 @@
 
 
           <div class="row mt-2">
-            <div class="col-6">
-              <label class="ml-2">
-                3. Расходы на обеспечение безопасности проживания
+            <div class="col">
+              <label class="ml-2 font-weight-bold">
+                3. Расходы на обеспечение безопасности проживания:
               </label>
-            </div>
-            <div class="col-6">
-              <b-input-group append="тысяч рублей">
-                <b-form-input v-model="money.rasb" type="number" disabled/>
-              </b-input-group>
+              {{ money.rasb }}
+
             </div>
           </div>
           <div class="row mt-2">
@@ -527,15 +512,12 @@
 
 
           <div class="row mt-2">
-            <div class="col-6">
-              <label class="ml-2">
-                4. Расходы на уплату налогов
+            <div class="col">
+              <label class="ml-2 font-weight-bold">
+                4. Расходы на уплату налогов:
               </label>
-            </div>
-            <div class="col-6">
-              <b-input-group append="тысяч рублей">
-                <b-form-input v-model="money.rasn" type="number" disabled/>
-              </b-input-group>
+
+              {{ money.rasn }}
             </div>
           </div>
           <div class="row mt-2">
