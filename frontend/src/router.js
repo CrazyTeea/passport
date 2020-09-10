@@ -45,6 +45,10 @@ const routes = [
     {
         path:'/documents',
         component: require('./components/pages/docs/uploadPage.vue').default
+    },
+    {
+        path:'/manual',
+        component: require('./components/pages/passport/manual.vue').default
     }
 
 
