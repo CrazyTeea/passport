@@ -37,7 +37,7 @@
         <b-table-simple fixed v-if="organization.info" class="mt-2" small borderless>
           <b-thead>
             <b-tr>
-              <b-th><span class="ml-5">Численность обучающихся граждан России</span></b-th>
+              <b-th>Численность обучающихся граждан России</b-th>
               <b-th>За счёт средств федерального бюджета</b-th>
               <b-th>За счёт средств бюджета субъекта</b-th>
               <b-th>За счёт средств местного бюджета</b-th>
@@ -189,17 +189,25 @@
             </b-tr>
             <b-tr>
               <b-th>Всего</b-th>
-              <b-td class="text-center">
+              <b-td class="font-weight-bold">
+                <div class="ml-3">
                 {{organization.info[0].s_f_b_all}}
+                </div>
               </b-td>
-              <b-td class="text-center">
+              <b-td class="font-weight-bold">
+                <div class="ml-3">
                 {{ organization.info[0].s_b_s_all }}
+                </div>
               </b-td>
-              <b-td class="text-center">
+              <b-td class="font-weight-bold">
+                <div class="ml-3">
                 {{ organization.info[0].s_m_b_all }}
+                </div>
               </b-td>
-              <b-td class="text-center">
+              <b-td class="font-weight-bold">
+                <div class="ml-3">
                 {{ organization.info[0].s_p_u_all }}
+                </div>
               </b-td>
               <b-td class="font-weight-bold">
                 <!--{{ organization.info[0].all }}--><!--{{ organization.info[0].all }}-->
@@ -208,7 +216,7 @@
           </b-tbody>
         </b-table-simple>
 
-        <div class="row mt-3">
+        <div class="row mt-5">
           <div class="col-10">
             <label class="font-weight-bold ml-4" for="students_count_foreign-input">2. Численность обучающихся иностранцев: </label>
             {{ organization.stud_cnt_foreign }}
@@ -218,7 +226,7 @@
         <b-table-simple v-if="organization.info" fixed class="mt-2" small borderless>
           <b-thead>
             <b-tr>
-              <b-th><span class="ml-5">Численность обучающихся иностранцев</span></b-th>
+              <b-th>Численность обучающихся иностранцев</b-th>
               <b-th>За счёт средств федерального бюджета</b-th>
               <b-th>За счёт средств бюджета субъекта</b-th>
               <b-th>За счёт средств местного бюджета</b-th>
@@ -369,22 +377,31 @@
             </b-tr>
             <b-tr>
               <b-th>Всего</b-th>
-              <b-td class="text-center">
-                {{ organization.info[1].s_f_b_all }}
+              <b-td class="font-weight-bold">
+                <div class="ml-3">
+                  {{ organization.info[1].s_f_b_all }}
+                </div>
+
               </b-td>
-              <b-td class="text-center">
+              <b-td class="ml-2 font-weight-bold">
+                <div class="ml-3">
                 {{ organization.info[1].s_b_s_all }}
+                </div>
               </b-td>
-              <b-td class="text-center">
+              <b-td class="ml-2 font-weight-bold">
+                <div class="ml-3">
                 {{ organization.info[1].s_m_b_all }}
-              </b-td>
-              <b-td class="text-center">
-                {{ organization.info[1].s_p_u_all }}
+                </div>
               </b-td>
               <b-td class="font-weight-bold">
-                <div class="mt-1">
-                {{ organization.info[1].all }}
+                <div class="ml-3">
+                {{ organization.info[1].s_p_u_all }}
                 </div>
+              </b-td>
+              <b-td class="font-weight-bold">
+              <!--  <div class="mt-1">
+                {{ organization.info[1].all }}
+                </div>-->
               </b-td>
             </b-tr>
           </b-tbody>
