@@ -277,7 +277,7 @@
           <div class="row">
             <div class="col-6"><label for="object_area_svod">Количество мест</label></div>
             <div class="col-6">
-              <b-input-group append="м2">
+              <b-input-group append="мест">
                 <b-form-input type="number" disabled v-model="objArea.cnt_mest" id="object_area_svod"/>
               </b-input-group>
             </div>
@@ -286,7 +286,7 @@
             <div class="col-6"><label class="ml-2" for="object_area_neisp6">1. Количество пригодных для проживания
               мест</label></div>
             <div class="col-6">
-              <b-input-group append="м2">
+              <b-input-group append="мест">
                 <b-form-input type="number" disabled v-model="objArea.kol_prig_mest" id="object_area_neisp6"/>
               </b-input-group>
             </div>
@@ -295,7 +295,7 @@
             <div class="col-6"><label class="ml-4" for="object_area_ne_plosh_prig_proz7">А. Количество мест, занятых
               обучающимися</label></div>
             <div class="col-6">
-              <b-input-group append="м2">
+              <b-input-group append="мест">
                 <b-form-input type="number" :disabled="blockPage" v-model="currentObject.area.cnt_mest_zan_obuch"
                               id="object_area_ne_plosh_prig_proz7"/>
               </b-input-group>
@@ -305,7 +305,7 @@
             <div class="col-6"><label class="ml-4" for="object_area_ne_plosh_prig_proz77">Б. Количество мест, занятых
               иными категориями проживающих</label></div>
             <div class="col-6">
-              <b-input-group append="м2">
+              <b-input-group append="мест">
                 <b-form-input type="number" :disabled="blockPage" v-model="currentObject.area.cnt_mest_zan_in_obuch"
                               id="object_area_ne_plosh_prig_proz77"/>
               </b-input-group>
@@ -315,7 +315,7 @@
             <div class="col-6"><label class="ml-4" for="object_area_ne_plosh_prig_proz8">В. Количество свободных
               мест</label></div>
             <div class="col-6">
-              <b-input-group append="м2">
+              <b-input-group append="мест">
                 <b-form-input type="number" :disabled="blockPage" v-model="currentObject.area.cnt_svobod_mest"
                               id="object_area_ne_plosh_prig_proz8"/>
               </b-input-group>
@@ -325,7 +325,7 @@
             <div class="col-6"><label class="ml-4" for="object_area_ne_plosh_prig_proz9">Г. Количество неиспользуемых
               мест</label></div>
             <div class="col-6">
-              <b-input-group append="м2">
+              <b-input-group append="мест">
                 <b-form-input type="number" :disabled="blockPage" v-model="currentObject.area.cnt_neisp_mest"
                               id="object_area_ne_plosh_prig_proz9"/>
               </b-input-group>
@@ -336,7 +336,7 @@
             <div class="col-6"><label class="ml-2" for="object_area_neisp5">2. Количество непригодных к использованию
               мест</label></div>
             <div class="col-6">
-              <b-input-group append="м2">
+              <b-input-group append="мест">
                 <b-form-input type="number" :disabled="blockPage" v-model="currentObject.area.cnt_nepr_isp_mest"
                               id="object_area_neisp5"/>
               </b-input-group>
@@ -348,7 +348,7 @@
             <div class="col-6"><label for="object_area_ne_plosh_prig_proz21">Количество мест, оборудованных для лиц с
               ограниченными возможностями здоровья</label></div>
             <div class="col-6">
-              <b-input-group append="м2">
+              <b-input-group append="мест">
                 <b-form-input type="number" :disabled="blockPage" v-model="currentObject.area.cnt_mest_inv"
                               id="object_area_ne_plosh_prig_proz21"/>
               </b-input-group>
@@ -358,7 +358,7 @@
             <div class="col-6"><label for="object_area_ne_plosh_prig_proz88">Количество мест, возможных к вводу в
               эксплуатацию после проведения восстановительных работ</label></div>
             <div class="col-6">
-              <b-input-group append="м2">
+              <b-input-group append="мест">
                 <b-form-input type="number" disabled v-model="objArea.cnt_mest_vozm"
                               id="object_area_ne_plosh_prig_proz88"/>
               </b-input-group>
@@ -368,7 +368,7 @@
             <div class="col-6"><label class="ml-4" for="object_area_ne_plosh_prig_proz">1. Количество мест, возможных к
               вводу в эксплуатацию из числа неиспользуемых после проведения восстановительных работ</label></div>
             <div class="col-6">
-              <b-input-group append="м2">
+              <b-input-group append="мест">
                 <template v-slot:prepend>
                   <b-input-group-text>
                     <i id="huy_mest_tooltip" class="fas fa-question-circle"></i>
@@ -389,7 +389,7 @@
             <div class="col-6"><label class="ml-4" for="object_area_neisp">2. Количество мест, возможных к вводу в
               эксплуатацию из числа непригодных к использованию после проведения восстановительных работ</label></div>
             <div class="col-6">
-              <b-input-group append="м2">
+              <b-input-group append="мест">
                 <template v-slot:prepend>
                   <b-input-group-text>
                     <i id="huy_mest_tooltip2" class="fas fa-question-circle"></i>
@@ -507,8 +507,8 @@ export default {
 
         this.objArea.cnt_mest = this.objArea.kol_prig_mest + ~~parseFloat(this.currentObject.area.cnt_nepr_isp_mest)
         this.objArea.cnt_mest_vozm = ~~parseFloat(this.currentObject.area.cnt_mest_vozm_neisp_mest) + ~~parseFloat(this.currentObject.area.cnt_mest_vozm_neprig_mest)
-        this.objArea.cnt_mest_pl_na_odn = this.objArea.zhil_prig / (~~parseFloat(this.currentObject.area.cnt_mest_zan_obuch) + ~~parseFloat(this.currentObject.area.cnt_mest_zan_in_obuch))
-        this.objArea.cnt_mest_obsh_na_odn = this.objArea.obsh_prig / (~~parseFloat(this.currentObject.area.cnt_mest_zan_obuch) + ~~parseFloat(this.currentObject.area.cnt_mest_zan_in_obuch))
+        this.objArea.cnt_mest_pl_na_odn = ( this.objArea.zhil_prig / (~~parseFloat(this.currentObject.area.cnt_mest_zan_obuch) + ~~parseFloat(this.currentObject.area.cnt_mest_zan_in_obuch))).toFixed(2)
+        this.objArea.cnt_mest_obsh_na_odn = (this.objArea.obsh_prig / (~~parseFloat(this.currentObject.area.cnt_mest_zan_obuch) + ~~parseFloat(this.currentObject.area.cnt_mest_zan_in_obuch))).toFixed(2)
 
       },
       deep: true
