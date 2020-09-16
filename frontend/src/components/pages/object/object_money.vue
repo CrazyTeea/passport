@@ -26,7 +26,7 @@
 
           <div class="row">
             <div class="col">
-              <label class="font-weight-bold">Общий объём поступлений: </label> {{ money.obsh }}
+              <label class="font-weight-bold">Общий объём поступлений: </label> {{ money.obsh }} тыс. рублей
             </div>
           </div>
 
@@ -122,7 +122,7 @@
           <div class="row">
             <div class="col">
               <label class="font-weight-bold">Общий объем средств, направленных на расходы жилого объекта: </label>
-              {{ money.obsh_sred }}
+              {{ money.obsh_sred }} тыс. рублей
             </div>
 
 
@@ -134,7 +134,7 @@
                 1. Расходы на коммунальные услуги:
               </label>
 
-              {{ money.rask }}
+              {{ money.rask }} тыс. рублей
 
             </div>
           </div>
@@ -232,7 +232,7 @@
               <label class="ml-2 font-weight-bold">
                 2. Расходы, связанные с содержанием имущества:
               </label>
-              {{ money.rass }}
+              {{ money.rass }} тыс. рублей
 
             </div>
           </div>
@@ -444,7 +444,7 @@
               <label class="ml-2 font-weight-bold">
                 3. Расходы на обеспечение безопасности проживания:
               </label>
-              {{ money.rasb }}
+              {{ money.rasb }} тыс. рублей
 
             </div>
           </div>
@@ -517,7 +517,7 @@
                 4. Расходы на уплату налогов:
               </label>
 
-              {{ money.rasn }}
+              {{ money.rasn }} тыс. рублей
             </div>
           </div>
           <div class="row mt-2">
@@ -564,7 +564,7 @@
 
           <div class="row mt-2">
             <div class="col-6">
-              <label class="ml-2">
+              <label class="ml-2 font-weight-bold">
                 5. Расходы на услуги связи
               </label>
             </div>
@@ -585,7 +585,7 @@
 
           <div class="row mt-2">
             <div class="col-6">
-              <label class="ml-2">
+              <label class="ml-2 font-weight-bold">
                 6. Расходы на капитальный ремонт
               </label>
             </div>
@@ -605,7 +605,7 @@
           </div>
           <div class="row mt-2">
             <div class="col-6">
-              <label class="ml-2">
+              <label class="ml-2 font-weight-bold">
                 7. Расходы на текущий ремонт
               </label>
             </div>
@@ -626,7 +626,7 @@
           </div>
           <div class="row mt-2">
             <div class="col-6">
-              <label class="ml-2">
+              <label class="ml-2 font-weight-bold">
                 8. Расходы на приобретение мягкого инвентаря и других материальных запасов
               </label>
             </div>
@@ -647,7 +647,7 @@
 
           <div class="row">
             <div class="col-6">
-              <label class="ml-2">
+              <label class="ml-2 font-weight-bold">
                 9. Расходы на приобретение основных средств, в том числе мебели
               </label>
             </div>
@@ -665,7 +665,7 @@
               </b-input-group>
             </div>
           </div>
-          <div class="row mt-2">
+          <div class="row mt-4">
             <div class="col-6">
               <label>
                 Фонд оплаты труда
