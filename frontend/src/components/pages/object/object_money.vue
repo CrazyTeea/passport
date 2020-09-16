@@ -47,7 +47,8 @@
                     календарный год
                   </b-tooltip>
                 </template>
-                <b-form-input :formatter="fuckDecimals" type="number" v-model="currentObject.money.money_prozh_bez_dop"
+                <b-form-input step="0.001"
+                              type="number" v-model.number="currentObject.money.money_prozh_bez_dop"
                               :disabled="blockPage"/>
               </b-input-group>
             </div>
@@ -69,7 +70,7 @@
                     календарный год
                   </b-tooltip>
                 </template>
-                <b-form-input :formatter="fuckDecimals" type="number" v-model="currentObject.money.money_prozh_dop"
+                <b-form-input step="0.001" type="number" v-model.number="currentObject.money.money_prozh_dop"
                               :disabled="blockPage"/>
               </b-input-group>
             </div>
@@ -91,7 +92,7 @@
                     календарный год
                   </b-tooltip>
                 </template>
-                <b-form-input :formatter="fuckDecimals" type="number" v-model="currentObject.money.money_aren"
+                <b-form-input step="0.001" type="number" v-model.number="currentObject.money.money_aren"
                               :disabled="blockPage"/>
               </b-input-group>
             </div>
@@ -113,7 +114,7 @@
                     календарный год
                   </b-tooltip>
                 </template>
-                <b-form-input :formatter="fuckDecimals" type="number" v-model="currentObject.money.money_cel_sred"
+                <b-form-input step="0.001" type="number" v-model.number="currentObject.money.money_cel_sred"
                               :disabled="blockPage"/>
               </b-input-group>
             </div>
@@ -159,7 +160,7 @@
                     календарный год
                   </b-tooltip>
                 </template>
-                <b-form-input :formatter="fuckDecimals" type="number" v-model="currentObject.money.voda"
+                <b-form-input step="0.001" type="number" v-model.number="currentObject.money.voda"
                               :disabled="blockPage"/>
               </b-input-group>
             </div>
@@ -182,7 +183,7 @@
                     календарный год
                   </b-tooltip>
                 </template>
-                <b-form-input :formatter="fuckDecimals" type="number" v-model="currentObject.money.tep"
+                <b-form-input step="0.001" type="number" v-model.number="currentObject.money.tep"
                               :disabled="blockPage"/>
               </b-input-group>
             </div>
@@ -204,7 +205,7 @@
                     календарный год
                   </b-tooltip>
                 </template>
-                <b-form-input :formatter="fuckDecimals" type="number" v-model="currentObject.money.gaz"
+                <b-form-input step="0.001" type="number" v-model.number="currentObject.money.gaz"
                               :disabled="blockPage"/>
               </b-input-group>
             </div>
@@ -228,7 +229,7 @@
                     календарный год
                   </b-tooltip>
                 </template>
-                <b-form-input :formatter="fuckDecimals" type="number" v-model="currentObject.money.elect"
+                <b-form-input step="0.001" type="number" v-model.number="currentObject.money.elect"
                               :disabled="blockPage"/>
               </b-input-group>
             </div>
@@ -261,7 +262,7 @@
                     включая заработную плату с начислениями
                   </b-tooltip>
                 </template>
-                <b-form-input :formatter="fuckDecimals" type="number" v-model="currentObject.money.uborka_ter"
+                <b-form-input step="0.001" type="number" v-model.number="currentObject.money.uborka_ter"
                               :disabled="blockPage"/>
               </b-input-group>
             </div>
@@ -284,7 +285,7 @@
                     включая заработную плату с начислениями
                   </b-tooltip>
                 </template>
-                <b-form-input :formatter="fuckDecimals" type="number" v-model="currentObject.money.uborka_pom"
+                <b-form-input step="0.001" type="number" v-model.number="currentObject.money.uborka_pom"
                               :disabled="blockPage"/>
               </b-input-group>
             </div>
@@ -306,7 +307,7 @@
                     включая заработную плату с начислениями
                   </b-tooltip>
                 </template>
-                <b-form-input :formatter="fuckDecimals" type="number" v-model="currentObject.money.tech_obs"
+                <b-form-input step="0.001" type="number" v-model.number="currentObject.money.tech_obs"
                               :disabled="blockPage"/>
               </b-input-group>
             </div>
@@ -330,7 +331,7 @@
                     включая заработную плату с начислениями
                   </b-tooltip>
                 </template>
-                <b-form-input :formatter="fuckDecimals" type="number" v-model="currentObject.money.derivation"
+                <b-form-input step="0.001" type="number" v-model.number="currentObject.money.derivation"
                               :disabled="blockPage"/>
               </b-input-group>
             </div>
@@ -354,7 +355,7 @@
                     включая заработную плату с начислениями
                   </b-tooltip>
                 </template>
-                <b-form-input :formatter="fuckDecimals" type="number" v-model="currentObject.money.tbo"
+                <b-form-input step="0.001" type="number" v-model.number="currentObject.money.tbo"
                               :disabled="blockPage"/>
               </b-input-group>
             </div>
@@ -378,7 +379,7 @@
                     включая заработную плату с начислениями
                   </b-tooltip>
                 </template>
-                <b-form-input :formatter="fuckDecimals" type="number" v-model="currentObject.money.gos_prov"
+                <b-form-input step="0.001" type="number" v-model.number="currentObject.money.gos_prov"
                               :disabled="blockPage"/>
               </b-input-group>
             </div>
@@ -402,7 +403,7 @@
                     включая заработную плату с начислениями
                   </b-tooltip>
                 </template>
-                <b-form-input :formatter="fuckDecimals" type="number" v-model="currentObject.money.attest"
+                <b-form-input step="0.001" type="number" v-model.number="currentObject.money.attest"
                               :disabled="blockPage"/>
               </b-input-group>
             </div>
@@ -426,7 +427,7 @@
                     включая заработную плату с начислениями
                   </b-tooltip>
                 </template>
-                <b-form-input :formatter="fuckDecimals" type="number" v-model="currentObject.money.prot_pozhar"
+                <b-form-input step="0.001" type="number" v-model.number="currentObject.money.prot_pozhar"
                               :disabled="blockPage"/>
               </b-input-group>
             </div>
@@ -449,7 +450,7 @@
                     включая заработную плату с начислениями
                   </b-tooltip>
                 </template>
-                <b-form-input :formatter="fuckDecimals" type="number" v-model="currentObject.money.inie_rash"
+                <b-form-input step="0.001" type="number" v-model.number="currentObject.money.inie_rash"
                               :disabled="blockPage"/>
               </b-input-group>
             </div>
@@ -481,7 +482,7 @@
                     Начисленные за предыдущий календарный год
                   </b-tooltip>
                 </template>
-                <b-form-input :formatter="fuckDecimals" type="number" v-model="currentObject.money.ohrana"
+                <b-form-input step="0.001" type="number" v-model.number="currentObject.money.ohrana"
                               :disabled="blockPage"/>
               </b-input-group>
             </div>
@@ -503,7 +504,7 @@
                     Начисленные за предыдущий календарный год
                   </b-tooltip>
                 </template>
-                <b-form-input :formatter="fuckDecimals" type="number" v-model="currentObject.money.anti_ter"
+                <b-form-input step="0.001" type="number" v-model.number="currentObject.money.anti_ter"
                               :disabled="blockPage"/>
               </b-input-group>
             </div>
@@ -524,7 +525,7 @@
                     Начисленные за предыдущий календарный год
                   </b-tooltip>
                 </template>
-                <b-form-input :formatter="fuckDecimals" type="number" v-model="currentObject.money.inie_rash_ohrana"
+                <b-form-input step="0.001" type="number" v-model.number="currentObject.money.inie_rash_ohrana"
                               :disabled="blockPage"/>
               </b-input-group>
             </div>
@@ -556,7 +557,7 @@
                     Начисленные за предыдущий календарный год
                   </b-tooltip>
                 </template>
-                <b-form-input :formatter="fuckDecimals" type="number" v-model="currentObject.money.nalog_imush"
+                <b-form-input step="0.001" type="number" v-model.number="currentObject.money.nalog_imush"
                               :disabled="blockPage"/>
               </b-input-group>
             </div>
@@ -578,7 +579,7 @@
                     Начисленные за предыдущий календарный год
                   </b-tooltip>
                 </template>
-                <b-form-input :formatter="fuckDecimals" type="number" v-model="currentObject.money.zem_nalog"
+                <b-form-input step="0.001" type="number" v-model.number="currentObject.money.zem_nalog"
                               :disabled="blockPage"/>
               </b-input-group>
             </div>
@@ -600,7 +601,7 @@
                     Начисленные за предыдущий календарный год
                   </b-tooltip>
                 </template>
-                <b-form-input :formatter="fuckDecimals" type="number" v-model="currentObject.money.svaz"
+                <b-form-input step="0.001" type="number" v-model.number="currentObject.money.svaz"
                               :disabled="blockPage"/>
               </b-input-group>
             </div>
@@ -622,7 +623,7 @@
                     Начисленные за предыдущий календарный год
                   </b-tooltip>
                 </template>
-                <b-form-input :formatter="fuckDecimals" type="number" v-model="currentObject.money.kap_rem"
+                <b-form-input step="0.001" type="number" v-model.number="currentObject.money.kap_rem"
                               :disabled="blockPage"/>
               </b-input-group>
             </div>
@@ -644,7 +645,7 @@
                     включая заработную плату с начислениями
                   </b-tooltip>
                 </template>
-                <b-form-input :formatter="fuckDecimals" type="number" v-model="currentObject.money.tek_rem"
+                <b-form-input step="0.001" type="number" v-model.number="currentObject.money.tek_rem"
                               :disabled="blockPage"/>
               </b-input-group>
             </div>
@@ -665,7 +666,7 @@
                     Начисленные за предыдущий календарный год
                   </b-tooltip>
                 </template>
-                <b-form-input :formatter="fuckDecimals" type="number" v-model="currentObject.money.mygk_inv"
+                <b-form-input step="0.001" type="number" v-model.number="currentObject.money.mygk_inv"
                               :disabled="blockPage"/>
               </b-input-group>
             </div>
@@ -687,7 +688,7 @@
                     Начисленные за предыдущий календарный год
                   </b-tooltip>
                 </template>
-                <b-form-input :formatter="fuckDecimals" type="number" v-model="currentObject.money.osn_sred"
+                <b-form-input step="0.001" type="number" v-model.number="currentObject.money.osn_sred"
                               :disabled="blockPage"/>
               </b-input-group>
             </div>
@@ -710,7 +711,7 @@
                     жилой объект с начислениями
                   </b-tooltip>
                 </template>
-                <b-form-input :formatter="fuckDecimals" type="number" v-model="currentObject.money.opla_trud"
+                <b-form-input step="0.001" type="number" v-model.number="currentObject.money.opla_trud"
                               :disabled="blockPage"/>
               </b-input-group>
             </div>
