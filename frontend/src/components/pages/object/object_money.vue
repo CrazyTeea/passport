@@ -47,7 +47,8 @@
                     календарный год
                   </b-tooltip>
                 </template>
-                <b-form-input type="number" v-model="currentObject.money.money_prozh_bez_dop" :disabled="blockPage"/>
+                <b-form-input :formatter="fuckDecimals" type="number" v-model="currentObject.money.money_prozh_bez_dop"
+                              :disabled="blockPage"/>
               </b-input-group>
             </div>
           </div>
@@ -68,7 +69,8 @@
                     календарный год
                   </b-tooltip>
                 </template>
-                <b-form-input type="number" v-model="currentObject.money.money_prozh_dop" :disabled="blockPage"/>
+                <b-form-input :formatter="fuckDecimals" type="number" v-model="currentObject.money.money_prozh_dop"
+                              :disabled="blockPage"/>
               </b-input-group>
             </div>
           </div>
@@ -89,7 +91,8 @@
                     календарный год
                   </b-tooltip>
                 </template>
-                <b-form-input type="number" v-model="currentObject.money.money_aren" :disabled="blockPage"/>
+                <b-form-input :formatter="fuckDecimals" type="number" v-model="currentObject.money.money_aren"
+                              :disabled="blockPage"/>
               </b-input-group>
             </div>
           </div>
@@ -110,7 +113,8 @@
                     календарный год
                   </b-tooltip>
                 </template>
-                <b-form-input type="number" v-model="currentObject.money.money_cel_sred" :disabled="blockPage"/>
+                <b-form-input :formatter="fuckDecimals" type="number" v-model="currentObject.money.money_cel_sred"
+                              :disabled="blockPage"/>
               </b-input-group>
             </div>
           </div>
@@ -155,7 +159,8 @@
                     календарный год
                   </b-tooltip>
                 </template>
-                <b-form-input type="number" v-model="currentObject.money.voda" :disabled="blockPage"/>
+                <b-form-input :formatter="fuckDecimals" type="number" v-model="currentObject.money.voda"
+                              :disabled="blockPage"/>
               </b-input-group>
             </div>
           </div>
@@ -177,7 +182,8 @@
                     календарный год
                   </b-tooltip>
                 </template>
-                <b-form-input type="number" v-model="currentObject.money.tep" :disabled="blockPage"/>
+                <b-form-input :formatter="fuckDecimals" type="number" v-model="currentObject.money.tep"
+                              :disabled="blockPage"/>
               </b-input-group>
             </div>
           </div>
@@ -198,7 +204,8 @@
                     календарный год
                   </b-tooltip>
                 </template>
-                <b-form-input type="number" v-model="currentObject.money.gaz" :disabled="blockPage"/>
+                <b-form-input :formatter="fuckDecimals" type="number" v-model="currentObject.money.gaz"
+                              :disabled="blockPage"/>
               </b-input-group>
             </div>
           </div>
@@ -221,7 +228,8 @@
                     календарный год
                   </b-tooltip>
                 </template>
-                <b-form-input type="number" v-model="currentObject.money.elect" :disabled="blockPage"/>
+                <b-form-input :formatter="fuckDecimals" type="number" v-model="currentObject.money.elect"
+                              :disabled="blockPage"/>
               </b-input-group>
             </div>
           </div>
@@ -253,7 +261,8 @@
                     включая заработную плату с начислениями
                   </b-tooltip>
                 </template>
-                <b-form-input type="number" v-model="currentObject.money.uborka_ter" :disabled="blockPage"/>
+                <b-form-input :formatter="fuckDecimals" type="number" v-model="currentObject.money.uborka_ter"
+                              :disabled="blockPage"/>
               </b-input-group>
             </div>
           </div>
@@ -275,7 +284,8 @@
                     включая заработную плату с начислениями
                   </b-tooltip>
                 </template>
-                <b-form-input type="number" v-model="currentObject.money.uborka_pom" :disabled="blockPage"/>
+                <b-form-input :formatter="fuckDecimals" type="number" v-model="currentObject.money.uborka_pom"
+                              :disabled="blockPage"/>
               </b-input-group>
             </div>
           </div>
@@ -296,7 +306,8 @@
                     включая заработную плату с начислениями
                   </b-tooltip>
                 </template>
-                <b-form-input type="number" v-model="currentObject.money.tech_obs" :disabled="blockPage"/>
+                <b-form-input :formatter="fuckDecimals" type="number" v-model="currentObject.money.tech_obs"
+                              :disabled="blockPage"/>
               </b-input-group>
             </div>
           </div>
@@ -319,7 +330,8 @@
                     включая заработную плату с начислениями
                   </b-tooltip>
                 </template>
-                <b-form-input type="number" v-model="currentObject.money.derivation" :disabled="blockPage"/>
+                <b-form-input :formatter="fuckDecimals" type="number" v-model="currentObject.money.derivation"
+                              :disabled="blockPage"/>
               </b-input-group>
             </div>
           </div>
@@ -342,7 +354,8 @@
                     включая заработную плату с начислениями
                   </b-tooltip>
                 </template>
-                <b-form-input type="number" v-model="currentObject.money.tbo" :disabled="blockPage"/>
+                <b-form-input :formatter="fuckDecimals" type="number" v-model="currentObject.money.tbo"
+                              :disabled="blockPage"/>
               </b-input-group>
             </div>
           </div>
@@ -365,7 +378,8 @@
                     включая заработную плату с начислениями
                   </b-tooltip>
                 </template>
-                <b-form-input type="number" v-model="currentObject.money.gos_prov" :disabled="blockPage"/>
+                <b-form-input :formatter="fuckDecimals" type="number" v-model="currentObject.money.gos_prov"
+                              :disabled="blockPage"/>
               </b-input-group>
             </div>
           </div>
@@ -388,7 +402,8 @@
                     включая заработную плату с начислениями
                   </b-tooltip>
                 </template>
-                <b-form-input type="number" v-model="currentObject.money.attest" :disabled="blockPage"/>
+                <b-form-input :formatter="fuckDecimals" type="number" v-model="currentObject.money.attest"
+                              :disabled="blockPage"/>
               </b-input-group>
             </div>
           </div>
@@ -411,7 +426,8 @@
                     включая заработную плату с начислениями
                   </b-tooltip>
                 </template>
-                <b-form-input type="number" v-model="currentObject.money.prot_pozhar" :disabled="blockPage"/>
+                <b-form-input :formatter="fuckDecimals" type="number" v-model="currentObject.money.prot_pozhar"
+                              :disabled="blockPage"/>
               </b-input-group>
             </div>
           </div>
@@ -433,7 +449,8 @@
                     включая заработную плату с начислениями
                   </b-tooltip>
                 </template>
-                <b-form-input type="number" v-model="currentObject.money.inie_rash" :disabled="blockPage"/>
+                <b-form-input :formatter="fuckDecimals" type="number" v-model="currentObject.money.inie_rash"
+                              :disabled="blockPage"/>
               </b-input-group>
             </div>
           </div>
@@ -464,7 +481,8 @@
                     Начисленные за предыдущий календарный год
                   </b-tooltip>
                 </template>
-                <b-form-input type="number" v-model="currentObject.money.ohrana" :disabled="blockPage"/>
+                <b-form-input :formatter="fuckDecimals" type="number" v-model="currentObject.money.ohrana"
+                              :disabled="blockPage"/>
               </b-input-group>
             </div>
           </div>
@@ -485,7 +503,8 @@
                     Начисленные за предыдущий календарный год
                   </b-tooltip>
                 </template>
-                <b-form-input type="number" v-model="currentObject.money.anti_ter" :disabled="blockPage"/>
+                <b-form-input :formatter="fuckDecimals" type="number" v-model="currentObject.money.anti_ter"
+                              :disabled="blockPage"/>
               </b-input-group>
             </div>
           </div>
@@ -505,7 +524,8 @@
                     Начисленные за предыдущий календарный год
                   </b-tooltip>
                 </template>
-                <b-form-input type="number" v-model="currentObject.money.inie_rash_ohrana" :disabled="blockPage"/>
+                <b-form-input :formatter="fuckDecimals" type="number" v-model="currentObject.money.inie_rash_ohrana"
+                              :disabled="blockPage"/>
               </b-input-group>
             </div>
           </div>
@@ -536,7 +556,8 @@
                     Начисленные за предыдущий календарный год
                   </b-tooltip>
                 </template>
-                <b-form-input type="number" v-model="currentObject.money.nalog_imush" :disabled="blockPage"/>
+                <b-form-input :formatter="fuckDecimals" type="number" v-model="currentObject.money.nalog_imush"
+                              :disabled="blockPage"/>
               </b-input-group>
             </div>
           </div>
@@ -557,7 +578,8 @@
                     Начисленные за предыдущий календарный год
                   </b-tooltip>
                 </template>
-                <b-form-input type="number" v-model="currentObject.money.zem_nalog" :disabled="blockPage"/>
+                <b-form-input :formatter="fuckDecimals" type="number" v-model="currentObject.money.zem_nalog"
+                              :disabled="blockPage"/>
               </b-input-group>
             </div>
           </div>
@@ -578,7 +600,8 @@
                     Начисленные за предыдущий календарный год
                   </b-tooltip>
                 </template>
-                <b-form-input type="number" v-model="currentObject.money.svaz" :disabled="blockPage"/>
+                <b-form-input :formatter="fuckDecimals" type="number" v-model="currentObject.money.svaz"
+                              :disabled="blockPage"/>
               </b-input-group>
             </div>
           </div>
@@ -599,7 +622,8 @@
                     Начисленные за предыдущий календарный год
                   </b-tooltip>
                 </template>
-                <b-form-input type="number" v-model="currentObject.money.kap_rem" :disabled="blockPage"/>
+                <b-form-input :formatter="fuckDecimals" type="number" v-model="currentObject.money.kap_rem"
+                              :disabled="blockPage"/>
               </b-input-group>
             </div>
           </div>
@@ -620,7 +644,8 @@
                     включая заработную плату с начислениями
                   </b-tooltip>
                 </template>
-                <b-form-input type="number" v-model="currentObject.money.tek_rem" :disabled="blockPage"/>
+                <b-form-input :formatter="fuckDecimals" type="number" v-model="currentObject.money.tek_rem"
+                              :disabled="blockPage"/>
               </b-input-group>
             </div>
           </div>
@@ -640,7 +665,8 @@
                     Начисленные за предыдущий календарный год
                   </b-tooltip>
                 </template>
-                <b-form-input type="number" v-model="currentObject.money.mygk_inv" :disabled="blockPage"/>
+                <b-form-input :formatter="fuckDecimals" type="number" v-model="currentObject.money.mygk_inv"
+                              :disabled="blockPage"/>
               </b-input-group>
             </div>
           </div>
@@ -661,7 +687,8 @@
                     Начисленные за предыдущий календарный год
                   </b-tooltip>
                 </template>
-                <b-form-input type="number" v-model="currentObject.money.osn_sred" :disabled="blockPage"/>
+                <b-form-input :formatter="fuckDecimals" type="number" v-model="currentObject.money.osn_sred"
+                              :disabled="blockPage"/>
               </b-input-group>
             </div>
           </div>
@@ -683,7 +710,8 @@
                     жилой объект с начислениями
                   </b-tooltip>
                 </template>
-                <b-form-input type="number" v-model="currentObject.money.opla_trud" :disabled="blockPage"/>
+                <b-form-input :formatter="fuckDecimals" type="number" v-model="currentObject.money.opla_trud"
+                              :disabled="blockPage"/>
               </b-input-group>
             </div>
           </div>
@@ -703,6 +731,8 @@ import NavBar from "../../organisms/NavBar";
 import {BButton, BFormInput, BFormSelect, BInputGroup, BInputGroupText, BTooltip} from 'bootstrap-vue'
 import Axios from "axios";
 import scrollButton from "../../organisms/scrollButton";
+
+import Decimal from 'decimal.js'
 
 export default {
   name: "object_money",
@@ -728,50 +758,53 @@ export default {
     currentObject: {
       handler() {
         this.money.obsh =
-            ~~parseFloat(this.currentObject.money.money_prozh_bez_dop) +
-            ~~parseFloat(this.currentObject.money.money_prozh_dop) +
-            ~~parseFloat(this.currentObject.money.money_aren) +
-            ~~parseFloat(this.currentObject.money.money_cel_sred);
+            new Decimal(this.currentObject.money.money_prozh_bez_dop).plus(
+                new Decimal(this.currentObject.money.money_prozh_dop).plus(
+                    new Decimal(this.currentObject.money.money_aren).plus(
+                        new Decimal(this.currentObject.money.money_cel_sred)))).toString();
 
         this.money.rask =
-            ~~parseFloat(this.currentObject.money.voda) +
-            ~~parseFloat(this.currentObject.money.tep) +
-            ~~parseFloat(this.currentObject.money.gaz) +
-            ~~parseFloat(this.currentObject.money.elect);
+            new Decimal(this.currentObject.money.voda).plus(
+                new Decimal(this.currentObject.money.tep).plus(
+                    new Decimal(this.currentObject.money.gaz).plus(
+                        new Decimal(this.currentObject.money.elect)))).toString();
 
         this.money.rasb =
-            ~~parseFloat(this.currentObject.money.ohrana) +
-            ~~parseFloat(this.currentObject.money.anti_ter) +
-            ~~parseFloat(this.currentObject.money.inie_rash_ohrana);
+            new Decimal(this.currentObject.money.ohrana).plus(
+                new Decimal(this.currentObject.money.anti_ter).plus(
+                    new Decimal(this.currentObject.money.inie_rash_ohrana))).toString();
         this.money.rasn =
-            ~~parseFloat(this.currentObject.money.nalog_imush) +
-            ~~parseFloat(this.currentObject.money.zem_nalog);
+            new Decimal(this.currentObject.money.nalog_imush).plus(
+                new Decimal(this.currentObject.money.zem_nalog)).toString();
 
         this.money.rass =
-            ~~parseFloat(this.currentObject.money.uborka_ter) +
-            ~~parseFloat(this.currentObject.money.uborka_pom) +
-            ~~parseFloat(this.currentObject.money.tech_obs) +
-            ~~parseFloat(this.currentObject.money.derivation) +
-            ~~parseFloat(this.currentObject.money.tbo) +
-            ~~parseFloat(this.currentObject.money.gos_prov) +
-            ~~parseFloat(this.currentObject.money.attest) +
-            ~~parseFloat(this.currentObject.money.prot_pozhar) +
-            ~~parseFloat(this.currentObject.money.inie_rash);
+            new Decimal(this.currentObject.money.uborka_ter).plus(
+                new Decimal(this.currentObject.money.uborka_pom).plus(
+                    new Decimal(this.currentObject.money.tech_obs).plus(
+                        new Decimal(this.currentObject.money.derivation).plus(
+                            new Decimal(this.currentObject.money.tbo).plus(
+                                new Decimal(this.currentObject.money.gos_prov).plus(
+                                    new Decimal(this.currentObject.money.attest).plus(
+                                        new Decimal(this.currentObject.money.prot_pozhar).plus(
+                                            new Decimal(this.currentObject.money.inie_rash))))))))).toString();
         this.money.obsh_sred =
-            ~~parseFloat(this.money.rask) +
-            ~~parseFloat(this.money.rass) +
-            ~~parseFloat(this.money.rasb) +
-            ~~parseFloat(this.money.rasn) +
-            ~~parseFloat(this.currentObject.money.svaz) +
-            ~~parseFloat(this.currentObject.money.kap_rem) +
-            ~~parseFloat(this.currentObject.money.tek_rem) +
-            ~~parseFloat(this.currentObject.money.mygk_inv) +
-            ~~parseFloat(this.currentObject.money.osn_sred);
+            new Decimal(this.money.rask).plus(
+                new Decimal(this.money.rass).plus(
+                    new Decimal(this.money.rasb).plus(
+                        new Decimal(this.money.rasn).plus(
+                            new Decimal(this.currentObject.money.svaz).plus(
+                                new Decimal(this.currentObject.money.kap_rem).plus(
+                                    new Decimal(this.currentObject.money.tek_rem).plus(
+                                        new Decimal(this.currentObject.money.mygk_inv).plus(
+                                            new Decimal(this.currentObject.money.osn_sred))))))))).toString();
       },
       deep: true
     }
   },
   methods: {
+    fuckDecimals(value) {
+      return value.replace(',', '.')
+    },
     async getUser() {
       await Axios.get('/api/user/current').then(res => {
         this.user = res.data;

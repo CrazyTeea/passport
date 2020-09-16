@@ -90,33 +90,6 @@
                           <label class="mt-4 font-weight-bold" :for="`user_info_${index}_email`">email</label>
                           <b-form-input :disabled="blockSave" :id="`user_info_${index}_email`"
                                         v-model="user_info.email"/>
-
-                          <!--   <div v-else>
-                                 <div class="row">
-                                     <div class="col-12">
-                                         Фамилия Имя Отчество
-                                         <p>{{user_info.name}}</p>
-                                     </div>
-                                 </div>
-                                 <div class="row">
-                                     <div class="col-12">
-                                         Должность
-                                         <p> {{user_info.position}}</p>
-                                     </div>
-                                 </div>
-                                 <div class="row">
-                                     <div class="col-12">
-                                         Мобильный телефон
-                                         <p>{{user_info.phone}}</p>
-                                     </div>
-                                 </div>
-                                 <div class="row">
-                                     <div class="col-12">
-                                         email
-                                         <p> {{user_info.email}}</p>
-                                     </div>
-                                 </div>
-                             </div>-->
                         </b-card-body>
                         <template v-if="!blockSave" v-slot:footer>
                           <b-button @click="deleteUserInfo(index)" variant="outline-danger" block>Удалить</b-button>
