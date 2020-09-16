@@ -25,20 +25,14 @@
           </h4>
 
           <div class="row">
-            <div class="col-6"><label for="object_area">Общая площадь, пригодная для проживания</label></div>
-            <div class="col-6">
-              <b-input-group append="м2">
-                <b-form-input type="number" v-model="objArea.obsh_prig" disabled id="object_area"/>
-              </b-input-group>
+            <div class="col-6"><label class="font-weight-bold">Общая площадь, пригодная для проживания</label>
+                {{ objArea.obsh_prig }} м2
             </div>
           </div>
           <div class="row  mt-2">
-            <div class="col-6"><label class="ml-1" for="object_area_prig">1. Жилая площадь, пригодная для
-              проживания</label></div>
             <div class="col-6">
-              <b-input-group append="м2">
-                <b-form-input type="number" disabled v-model="objArea.zhil_prig" id="object_area_prig"/>
-              </b-input-group>
+              <label class="ml-1 font-weight-bold">1. Жилая площадь, пригодная для проживания</label>
+              {{ objArea.zhil_prig }} м2
             </div>
           </div>
           <div class="row  mt-2">
