@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="animate-height">
     <div class="custom-navbar">
       <div class="container">
         <div class="row justify-content-center">
@@ -39,7 +39,6 @@
 
             </b-dropdown>
 
-
           </div>
           <div class=" col m-auto"><span class="font-weight-bold">Количество объектов: 3</span></div>
           <div class=" col m-auto"><span class="font-weight-bold">Выгрузить в excel <i
@@ -59,15 +58,13 @@
         </div>
       </div>
     </div>
-    <transition
-        enter-active-class="animated fadeInDown"
-        leave-active-class="animated fadeOutUp">
+
       <b-alert  v-if="!blockSave" show>
         <div class="text-center">
           "После внесения данных на странице не забудьте нажать кнопку "Сохранить"
         </div>
       </b-alert>
-    </transition>
+
 
   </div>
 
@@ -114,7 +111,10 @@ export default {
 </script>
 
 <style lang="scss">
-
+.animate-height {
+  height: 100%;
+  transition: all .6s ease;
+}
 .dropdown-menu {
   border: 1px solid #ebeef5;
   box-shadow: 0 5px 25px 0 rgba(0, 0, 0, 0.25);

@@ -25,7 +25,7 @@ mix.webpackConfig({
     output: {
         publicPath: '/vue/',
     }
-});
+})
 mix.extract();
 mix.disableNotifications();
 // Full API

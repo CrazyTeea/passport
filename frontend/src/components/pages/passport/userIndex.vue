@@ -57,7 +57,7 @@
 
           <b-card style="margin-top: 10px;" no-body class="mb-1">
             <b-card-header header-tag="header" class="p-1" role="tab">
-              <label class="text-left font-weight-bold btn-block" v-b-toggle.news>Новости</label>
+              <label class="text-left mt-2 ml-2 font-weight-bold btn-block" v-b-toggle.news>Новости</label>
             </b-card-header>
             <b-collapse id="news" visible accordion="news" role="tabpanel">
               <b-card-body>
@@ -67,7 +67,7 @@
           </b-card>
           <b-card style="margin-top: 10px;" no-body class="mb-1">
             <b-card-header header-tag="header" class="p-1" role="tab">
-              <label class="text-left font-weight-bold btn-block" v-b-toggle.contact_info>Контактные данные
+              <label class="text-left ml-2 mt-2 font-weight-bold btn-block" v-b-toggle.contact_info>Контактные данные
                 заполняющих мониторинг сотрудников</label>
             </b-card-header>
             <b-collapse id="contact_info" visible accordion="contact_info" role="tabpanel">

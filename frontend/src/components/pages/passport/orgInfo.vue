@@ -67,7 +67,7 @@
               </b-td>
             </b-tr>
             <b-tr>
-              <b-th>Бакалавриат</b-th>
+              <b-td>Бакалавриат</b-td>
               <b-td>
                 <b-form-input type="number" v-model="organization.info[0].s_f_b_bak" :disabled="blockSave"/>
               </b-td>
@@ -87,7 +87,7 @@
               </b-td>
             </b-tr>
             <b-tr>
-              <b-th>Специалитет</b-th>
+              <b-td>Специалитет</b-td>
               <b-td>
                 <b-form-input type="number" v-model="organization.info[0].s_f_b_spec" :disabled="blockSave"/>
               </b-td>
@@ -107,7 +107,7 @@
               </b-td>
             </b-tr>
             <b-tr>
-              <b-th>Магистратура</b-th>
+              <b-td>Магистратура</b-td>
               <b-td>
                 <b-form-input type="number" v-model="organization.info[0].s_f_b_mag" :disabled="blockSave"/>
               </b-td>
@@ -127,7 +127,7 @@
               </b-td>
             </b-tr>
             <b-tr>
-              <b-th>Аспирантура</b-th>
+              <b-td>Аспирантура</b-td>
               <b-td>
                 <b-form-input type="number" v-model="organization.info[0].s_f_b_asp" :disabled="blockSave"/>
               </b-td>
@@ -147,7 +147,7 @@
               </b-td>
             </b-tr>
             <b-tr>
-              <b-th>Ординатура</b-th>
+              <b-td>Ординатура</b-td>
               <b-td>
                 <b-form-input type="number" v-model="organization.info[0].s_f_b_ord" :disabled="blockSave"/>
               </b-td>
@@ -167,7 +167,7 @@
               </b-td>
             </b-tr>
             <b-tr>
-              <b-th>По иным о.п.</b-th>
+              <b-td>По иным о.п.</b-td>
               <b-td>
                 <b-form-input type="number" v-model="organization.info[0].s_f_b_in" :disabled="blockSave"/>
               </b-td>
@@ -236,7 +236,7 @@
           </b-thead>
           <b-tbody>
             <b-tr>
-              <b-th>Спо</b-th>
+              <b-td>Спо</b-td>
               <b-td>
                 <b-form-input type="number" v-model="organization.info[1].s_f_b_spo" :disabled="blockSave"/>
               </b-td>
@@ -256,7 +256,7 @@
               </b-td>
             </b-tr>
             <b-tr>
-              <b-th>Бакалавриат</b-th>
+              <b-td>Бакалавриат</b-td>
               <b-td>
                 <b-form-input type="number" v-model="organization.info[1].s_f_b_bak" :disabled="blockSave"/>
               </b-td>
@@ -276,7 +276,7 @@
               </b-td>
             </b-tr>
             <b-tr>
-              <b-th>Специалитет</b-th>
+              <b-td>Специалитет</b-td>
               <b-td>
                 <b-form-input type="number" v-model="organization.info[1].s_f_b_spec" :disabled="blockSave"/>
               </b-td>
@@ -296,7 +296,7 @@
               </b-td>
             </b-tr>
             <b-tr>
-              <b-th>Магистратура</b-th>
+              <b-td>Магистратура</b-td>
               <b-td>
                 <b-form-input type="number" v-model="organization.info[1].s_f_b_mag" :disabled="blockSave"/>
               </b-td>
@@ -316,7 +316,7 @@
               </b-td>
             </b-tr>
             <b-tr>
-              <b-th>Аспирантура</b-th>
+              <b-td>Аспирантура</b-td>
               <b-td>
                 <b-form-input type="number" v-model="organization.info[1].s_f_b_asp" :disabled="blockSave"/>
               </b-td>
@@ -336,7 +336,7 @@
               </b-td>
             </b-tr>
             <b-tr>
-              <b-th>Ординатура</b-th>
+              <b-td>Ординатура</b-td>
               <b-td>
                 <b-form-input type="number" v-model="organization.info[1].s_f_b_ord" :disabled="blockSave"/>
               </b-td>
@@ -356,7 +356,7 @@
               </b-td>
             </b-tr>
             <b-tr>
-              <b-th>По иным о.п.</b-th>
+              <b-td>По иным о.п.</b-td>
               <b-td>
                 <b-form-input type="number" v-model="organization.info[1].s_f_b_in" :disabled="blockSave"/>
               </b-td>

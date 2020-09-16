@@ -23,7 +23,7 @@
         <hr>
 
         <transition enter-active-class="animated fadeIn">
-          <b-table-simple fixed v-if="currentObject" borderless>
+          <b-table-simple fixed v-if="currentObject" borderless style="line-height: 14px;">
             <b-thead>
               <b-tr>
                 <b-th>Размер платы в рублях</b-th>
@@ -50,7 +50,7 @@
                 </b-td>
               </b-tr>
               <b-tr>
-                <b-td >Для обучающиеся по договорам об оказании платных образовательных услуг</b-td>
+                <b-td >Для обучающиеся по договорам об оказании платных обр. услуг</b-td>
                 <b-td  >
                   <b-form-input type="number" v-model="currentObject.tariff.u_t_p" :disabled="blockSave"/>
                 </b-td>
