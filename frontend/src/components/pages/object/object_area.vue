@@ -25,13 +25,14 @@
           </h4>
 
           <div class="row">
-            <div class="col-6"><label class="font-weight-bold">Общая площадь, пригодная для проживания</label>
-                {{ objArea.obsh_prig }} м2
+            <div class="col-6">
+              <label class="font-weight-bold">Общая площадь, пригодная для проживания: </label>
+              {{ objArea.obsh_prig }} м2
             </div>
           </div>
           <div class="row  mt-2">
             <div class="col-6">
-              <label class="ml-1 font-weight-bold">1. Жилая площадь, пригодная для проживания</label>
+              <label class="ml-1 font-weight-bold">1. Жилая площадь, пригодная для проживания: </label>
               {{ objArea.zhil_prig }} м2
             </div>
           </div>
@@ -73,23 +74,18 @@
             </div>
           </div>
           <div class="row mt-2">
-            <div class="col-6"><label class="ml-1" for="object_area_ne_plosh_prig_proz1">2. Нежилая площадь в пригодных
-              для проживания объектах</label></div>
-            <div class="col-6">
-              <b-input-group append="м2">
-                <b-form-input type="number" disabled v-model="objArea.ne_zhil_v_prig"
-                              id="object_area_ne_plosh_prig_proz1"/>
-              </b-input-group>
+            <div class="col">
+              <label class="ml-1 font-weight-bold">2. Нежилая площадь в пригодных для проживания объектах:</label>
+              {{ objArea.ne_zhil_v_prig }}м2
             </div>
           </div>
 
 
           <div class="row mt-2">
-            <div class="col-6"><label class="ml-2" for="object_area_soc_inf">А. Социальная инфраструктура</label></div>
-            <div class="col-6">
-              <b-input-group append="м2">
-                <b-form-input type="number" disabled v-model="objArea.soc_inf" id="object_area_soc_inf"/>
-              </b-input-group>
+            <div class="col">
+              <label class="ml-2 font-weight-bold">А. Социальная инфраструктура: </label>
+              {{ objArea.soc_inf }}м2
+
             </div>
           </div>
           <div class="row  mt-2">
@@ -165,12 +161,9 @@
           <hr>
 
           <div class="row">
-            <div class="col-6"><label for="object_area_obsh_plosh_nep">Общая площадь, непригодная для проживания</label>
-            </div>
-            <div class="col-6">
-              <b-input-group append="м2">
-                <b-form-input type="number" disabled v-model="objArea.obsh_ne_prig" id="object_area_obsh_plosh_nep"/>
-              </b-input-group>
+            <div class="col"><label class="font-weight-bold">Общая площадь, непригодная для проживания: </label>
+              {{ objArea.obsh_ne_prig }}м2
+
             </div>
           </div>
           <b-table-simple borderless>
@@ -192,7 +185,7 @@
                   <b-form-input v-model="currentObject.area.nzhil_tkr" :disabled="blockPage" type="number"/>
                 </b-td>
                 <b-td>
-                  <b-form-input disabled v-model="objArea.all_tkr" type="number"/>
+                  {{ objArea.all_tkr }}
                 </b-td>
               </b-tr>
               <b-tr>
@@ -204,7 +197,7 @@
                   <b-form-input v-model="currentObject.area.nzhil_nas" :disabled="blockPage" type="number"/>
                 </b-td>
                 <b-td>
-                  <b-form-input disabled v-model="objArea.all_nas" type="number"/>
+                  {{ objArea.all_nas }}
                 </b-td>
               </b-tr>
               <b-tr>
@@ -216,7 +209,7 @@
                   <b-form-input v-model="currentObject.area.nzhil_np" :disabled="blockPage" type="number"/>
                 </b-td>
                 <b-td>
-                  <b-form-input disabled v-model="objArea.all_np" type="number"/>
+                  {{ objArea.all_np }}
                 </b-td>
               </b-tr>
             </b-tbody>
@@ -244,23 +237,20 @@
             </div>
           </div>
           <div class="row mt-2">
-            <div class="col-6"><label for="object_area_ne_plosh_prig_proz6">Количество квадратных метров жилой площади
-              на одного проживающего</label></div>
-            <div class="col-6">
-              <b-input-group append="м2">
-                <b-form-input type="number" disabled v-model="objArea.cnt_mest_pl_na_odn"
-                              id="object_area_ne_plosh_prig_proz6"/>
-              </b-input-group>
+            <div class="col">
+              <label class="font-weight-bold">Количество квадратных метров жилой площади на одного
+                проживающего: </label>
+
+              {{ objArea.cnt_mest_pl_na_odn }}м2
+
             </div>
           </div>
           <div class="row">
-            <div class="col-6"><label for="object_area_ne_plosh_prig_proz223">Количество квадратных метров общей площади
-              на одного проживающего</label></div>
-            <div class="col-6">
-              <b-input-group append="м2">
-                <b-form-input type="number" disabled v-model="objArea.cnt_mest_obsh_na_odn"
-                              id="object_area_ne_plosh_prig_proz223"/>
-              </b-input-group>
+            <div class="col">
+              <label class="font-weight-bold">Количество квадратных метров общей площади на одного
+                проживающего: </label>
+              {{ objArea.cnt_mest_obsh_na_odn }} м2
+
             </div>
           </div>
 
@@ -269,20 +259,16 @@
           <h3>Места</h3>
 
           <div class="row">
-            <div class="col-6"><label for="object_area_svod">Количество мест</label></div>
-            <div class="col-6">
-              <b-input-group append="мест">
-                <b-form-input type="number" disabled v-model="objArea.cnt_mest" id="object_area_svod"/>
-              </b-input-group>
+            <div class="col-6"><label class="font-weight-bold">Количество мест: </label>
+              {{ objArea.cnt_mest }}мест
+
             </div>
           </div>
           <div class="row mt-2">
-            <div class="col-6"><label class="ml-2" for="object_area_neisp6">1. Количество пригодных для проживания
-              мест</label></div>
-            <div class="col-6">
-              <b-input-group append="мест">
-                <b-form-input type="number" disabled v-model="objArea.kol_prig_mest" id="object_area_neisp6"/>
-              </b-input-group>
+            <div class="col">
+              <label class="ml-2 font-weight-bold">1. Количество пригодных для проживания мест:</label>
+              {{ objArea.kol_prig_mest }}мест
+
             </div>
           </div>
           <div class="row mt-2">
@@ -349,13 +335,9 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-6"><label for="object_area_ne_plosh_prig_proz88">Количество мест, возможных к вводу в
-              эксплуатацию после проведения восстановительных работ</label></div>
-            <div class="col-6">
-              <b-input-group append="мест">
-                <b-form-input type="number" disabled v-model="objArea.cnt_mest_vozm"
-                              id="object_area_ne_plosh_prig_proz88"/>
-              </b-input-group>
+            <div class="col"><label class="font-weight-bold">Количество мест, возможных к вводу в эксплуатацию после
+              проведения восстановительных работ: </label>
+              {{ objArea.cnt_mest_vozm }}мест
             </div>
           </div>
           <div class="row">
@@ -501,7 +483,7 @@ export default {
 
         this.objArea.cnt_mest = this.objArea.kol_prig_mest + ~~parseFloat(this.currentObject.area.cnt_nepr_isp_mest)
         this.objArea.cnt_mest_vozm = ~~parseFloat(this.currentObject.area.cnt_mest_vozm_neisp_mest) + ~~parseFloat(this.currentObject.area.cnt_mest_vozm_neprig_mest)
-        this.objArea.cnt_mest_pl_na_odn = ( this.objArea.zhil_prig / (~~parseFloat(this.currentObject.area.cnt_mest_zan_obuch) + ~~parseFloat(this.currentObject.area.cnt_mest_zan_in_obuch))).toFixed(2)
+        this.objArea.cnt_mest_pl_na_odn = (this.objArea.zhil_prig / (~~parseFloat(this.currentObject.area.cnt_mest_zan_obuch) + ~~parseFloat(this.currentObject.area.cnt_mest_zan_in_obuch))).toFixed(2)
         this.objArea.cnt_mest_obsh_na_odn = (this.objArea.obsh_prig / (~~parseFloat(this.currentObject.area.cnt_mest_zan_obuch) + ~~parseFloat(this.currentObject.area.cnt_mest_zan_in_obuch))).toFixed(2)
 
       },
