@@ -19,7 +19,6 @@
         <b-button v-if="!blockSave" :to="{name:'object',params:{modalShow:true}}" variant="outline-secondary">Добавить
           объект
         </b-button>
-
         <hr>
 
         <transition enter-active-class="animated fadeIn">
