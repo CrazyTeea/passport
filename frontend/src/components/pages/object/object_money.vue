@@ -762,21 +762,21 @@ export default {
             new Decimal(this.currentObject.money.money_prozh_bez_dop).plus(
                 new Decimal(this.currentObject.money.money_prozh_dop).plus(
                     new Decimal(this.currentObject.money.money_aren).plus(
-                        new Decimal(this.currentObject.money.money_cel_sred)))).toString();
+                        new Decimal(this.currentObject.money.money_cel_sred)))).toFixed(3);
 
         this.money.rask =
             new Decimal(this.currentObject.money.voda).plus(
                 new Decimal(this.currentObject.money.tep).plus(
                     new Decimal(this.currentObject.money.gaz).plus(
-                        new Decimal(this.currentObject.money.elect)))).toString();
+                        new Decimal(this.currentObject.money.elect)))).toFixed(3);
 
         this.money.rasb =
             new Decimal(this.currentObject.money.ohrana).plus(
                 new Decimal(this.currentObject.money.anti_ter).plus(
-                    new Decimal(this.currentObject.money.inie_rash_ohrana))).toString();
+                    new Decimal(this.currentObject.money.inie_rash_ohrana))).toFixed(3);
         this.money.rasn =
             new Decimal(this.currentObject.money.nalog_imush).plus(
-                new Decimal(this.currentObject.money.zem_nalog)).toString();
+                new Decimal(this.currentObject.money.zem_nalog)).toFixed(3);
 
         this.money.rass =
             new Decimal(this.currentObject.money.uborka_ter).plus(
@@ -787,7 +787,7 @@ export default {
                                 new Decimal(this.currentObject.money.gos_prov).plus(
                                     new Decimal(this.currentObject.money.attest).plus(
                                         new Decimal(this.currentObject.money.prot_pozhar).plus(
-                                            new Decimal(this.currentObject.money.inie_rash))))))))).toString();
+                                            new Decimal(this.currentObject.money.inie_rash))))))))).toFixed(3);
         this.money.obsh_sred =
             new Decimal(this.money.rask).plus(
                 new Decimal(this.money.rass).plus(
@@ -797,7 +797,7 @@ export default {
                                 new Decimal(this.currentObject.money.kap_rem).plus(
                                     new Decimal(this.currentObject.money.tek_rem).plus(
                                         new Decimal(this.currentObject.money.mygk_inv).plus(
-                                            new Decimal(this.currentObject.money.osn_sred))))))))).toString();
+                                            new Decimal(this.currentObject.money.osn_sred))))))))).toFixed(3);
       },
       deep: true
     }

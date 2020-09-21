@@ -467,10 +467,10 @@ export default {
 
       this.organization.objects?.forEach(item => {
         if (item.area) {
-          zil.area_zan_obuch = new Decimal(item.area.zan_obuch).plus(zil.area_zan_obuch);
-          zil.area_in_kat_nan = new Decimal(item.area.zan_inie).plus(zil.area_in_kat_nan);
-          zil.svobod = new Decimal(item.area.svobod).plus(zil.svobod);
-          zil.ne_isp = new Decimal(item.area.neisp).plus(zil.ne_isp);
+          zil.area_zan_obuch = new Decimal(item.area.zan_obuch).plus(zil.area_zan_obuch).toFixed(3);
+          zil.area_in_kat_nan = new Decimal(item.area.zan_inie).plus(zil.area_in_kat_nan).toFixed(3);
+          zil.svobod = new Decimal(item.area.svobod).plus(zil.svobod).toFixed(3);
+          zil.ne_isp = new Decimal(item.area.neisp).plus(zil.ne_isp).toFixed(3);
 
           nezil = (new Decimal(item.area.punkt_pit).plus(
               new Decimal(item.area.pom_dlya_uch).plus(
@@ -478,7 +478,7 @@ export default {
                       new Decimal(item.area.pom_dlya_sport).plus(
                           new Decimal(item.area.pom_dlya_soc).plus(
                               new Decimal(item.area.pom_dlya_kult).plus(
-                                  new Decimal(item.area.in_nezh_plosh)))))))).plus(nezil);
+                                  new Decimal(item.area.in_nezh_plosh)))))))).plus(nezil).toFixed(3);
         }
 
       })
@@ -487,15 +487,15 @@ export default {
 
       this.area.all_t_k_r =
           new Decimal(this.area.area_zhil_t_k_r ?? 0).plus(
-              new Decimal(this.area.area_ne_zhil_t_k_r ?? 0));
+              new Decimal(this.area.area_ne_zhil_t_k_r ?? 0)).toFixed(3);
 
       this.area.all_n_a_s =
           new Decimal(this.area.area_zhil_n_a_s ?? 0).plus(
-              new Decimal(this.area.area_ne_zhil_n_a_s ?? 0));
+              new Decimal(this.area.area_ne_zhil_n_a_s ?? 0)).toFixed(3);
 
       this.area.all_n_p =
           new Decimal(this.area.area_zhil_n_p ?? 0).plus(
-              new Decimal(this.area.area_ne_zhil_n_p ?? 0));
+              new Decimal(this.area.area_ne_zhil_n_p ?? 0)).toFixed(3);
 
       this.area.area_obsh_ne_prig_dlya_prozh =
           this.area.all_n_p.plus(
