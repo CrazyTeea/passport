@@ -185,7 +185,10 @@
                   <b-form-input v-model="currentObject.area.nzhil_tkr" :disabled="blockPage" type="number"/>
                 </b-td>
                 <b-td>
-                  {{ objArea.all_tkr.toFixed(3) }}
+                  <div class="font-weight-bold mt-1">
+                    {{ objArea.all_tkr.toFixed(3) }}
+                  </div>
+
                 </b-td>
               </b-tr>
               <b-tr>
@@ -197,7 +200,9 @@
                   <b-form-input v-model="currentObject.area.nzhil_nas" :disabled="blockPage" type="number"/>
                 </b-td>
                 <b-td>
-                  {{ objArea.all_nas.toFixed(3) }}
+                  <div class="font-weight-bold mt-1">
+                    {{ objArea.all_nas.toFixed(3) }}
+                  </div>
                 </b-td>
               </b-tr>
               <b-tr>
@@ -209,7 +214,9 @@
                   <b-form-input v-model="currentObject.area.nzhil_np" :disabled="blockPage" type="number"/>
                 </b-td>
                 <b-td>
-                  {{ objArea.all_np.toFixed(3) }}
+                  <div class="font-weight-bold mt-1">
+                    {{ objArea.all_np.toFixed(3) }}
+                  </div>
                 </b-td>
               </b-tr>
             </b-tbody>
@@ -238,7 +245,8 @@
           </div>
           <div class="row mt-2">
             <div class="col">
-              <label class="font-weight-bold">Количество квадратных метров жилой площади на одного проживающего: </label>
+              <label class="font-weight-bold">Количество квадратных метров жилой площади на одного
+                проживающего: </label>
 
               {{ objArea.cnt_mest_pl_na_odn.toFixed(3) }} м2
 
@@ -246,7 +254,8 @@
           </div>
           <div class="row">
             <div class="col">
-              <label class="font-weight-bold">Количество квадратных метров общей площади на одного проживающего: </label>
+              <label class="font-weight-bold">Количество квадратных метров общей площади на одного
+                проживающего: </label>
               {{ objArea.cnt_mest_obsh_na_odn.toFixed(3) }} м2
 
             </div>
