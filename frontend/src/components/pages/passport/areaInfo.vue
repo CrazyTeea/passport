@@ -177,7 +177,7 @@
                 {{ area.c6m2_spo }}
               </b-td>
               <b-td>
-                <b-form-input disabled/>
+                {{area.all_c6m2_spo}}
               </b-td>
             </b-tr>
             <b-tr>
@@ -191,7 +191,7 @@
                 {{ area.c6m2_bak }}
               </b-td>
               <b-td>
-                <b-form-input disabled/>
+                {{area.all_c6m2_bak}}
               </b-td>
             </b-tr>
             <b-tr>
@@ -205,7 +205,7 @@
                 {{ area.c6m2_spec }}
               </b-td>
               <b-td>
-                <b-form-input disabled/>
+                {{area.all_c6m2_spec}}
               </b-td>
             </b-tr>
             <b-tr>
@@ -219,7 +219,7 @@
                 {{ area.c6m2_mag }}
               </b-td>
               <b-td>
-                <b-form-input disabled/>
+                {{area.all_c6m2_mag}}
               </b-td>
             </b-tr>
             <b-tr>
@@ -233,7 +233,7 @@
                 {{ area.c6m2_asp }}
               </b-td>
               <b-td>
-                <b-form-input disabled/>
+                {{area.all_c6m2_asp}}
               </b-td>
             </b-tr>
             <b-tr>
@@ -247,7 +247,7 @@
                 {{ area.c6m2_ord }}
               </b-td>
               <b-td>
-                <b-form-input disabled/>
+                {{area.all_c6m2_ord}}
               </b-td>
             </b-tr>
             <b-tr>
@@ -261,7 +261,7 @@
                 {{ area.c6m2_in }}
               </b-td>
               <b-td>
-                <b-form-input disabled/>
+                {{area.all_c6m2_in}}
               </b-td>
             </b-tr>
             <b-tr>
@@ -269,13 +269,13 @@
                 Всего
               </b-th>
               <b-td>
-                <b-form-input disabled/>
+                {{area.all_m2}}
               </b-td>
               <b-td>
-                <b-form-input disabled/>
+                {{area.all_6m2}}
               </b-td>
               <b-td>
-                <b-form-input disabled/>
+                {{area.all_all}}
               </b-td>
             </b-tr>
           </b-tbody>
@@ -341,7 +341,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-6">
+          <div class="col">
             <label class="font-weight-bold">Количество мест, возможных к вводу в эксплуатацию после проведения
               восстановительных работ: </label>
             {{ area.area_cnt_mest_vozm_k_vvodu_v_esk }} мест
@@ -349,49 +349,41 @@
         </div>
 
         <div class="row">
-          <div class="col-6">
-            <label class="ml-2 font-weight-bold" for="org_area_cnt_vozmozh_mest_prig">1. Количество мест, возможных к
-              вводу в эксплуатацию из числа неиспользуемых после проведения восстановительных работ</label>
-          </div>
-          <div class="col-6">
-            <b-input-group append="мест">
-              <template v-slot:prepend>
-                <b-input-group-text>
-                  <i id="bitch_tooltip" class="fas fa-question-circle"></i>
-                </b-input-group-text>
-                <b-tooltip custom-class="tooltip_width" target="bitch_tooltip">
-                  Восстановительные работы - проведение капитального ремонта/приведения
-                  объекта в соответствие с установленными санитарными и техническими
-                  правилами и нормами, иными требованиями законодательства
-                </b-tooltip>
-              </template>
-              <b-form-input v-model="area.area_cnt_mest_vozm_mest_is_neisp" id="org_area_cnt_vozmozh_mest_prig"
-                            disabled/>
-            </b-input-group>
+          <div class="col">
+            <label class="ml-2 font-weight-bold">
+              1. <i id="bitch_tooltip" class="fas fa-question-circle"></i> Количество мест, возможных к вводу в
+              эксплуатацию из числа неиспользуемых после проведения восстановительных работ:
+              <div class="text-black-50">
+                {{ area.area_cnt_mest_vozm_mest_is_neisp }} мест
+              </div>
+
+            </label>
+            <b-tooltip custom-class="tooltip_width" target="bitch_tooltip">
+              Восстановительные работы - проведение капитального ремонта/приведения
+              объекта в соответствие с установленными санитарными и техническими
+              правилами и нормами, иными требованиями законодательства
+            </b-tooltip>
+
           </div>
         </div>
 
         <div class="row">
-          <div class="col-6">
-            <label class="ml-2 font-weight-bold" for="org_area_cnt_vozmozh_mest_ne_prig">
-              2. Количество мест, возможных к вводу в эксплуатацию из числа непригодных к использованию после проведения
-              восстановительных работ</label>
-          </div>
-          <div class="col-6">
-            <b-input-group append="мест">
-              <template v-slot:prepend>
-                <b-input-group-text>
-                  <i id="bitch_tooltip2" class="fas fa-question-circle"></i>
-                </b-input-group-text>
-                <b-tooltip custom-class="tooltip_width" target="bitch_tooltip2">
-                  Восстановительные работы - проведение капитального ремонта/приведения
-                  объекта в соответствие с установленными санитарными и техническими
-                  правилами и нормами, иными требованиями законодательства
-                </b-tooltip>
-              </template>
-              <b-form-input v-model="area.area_cnt_mest_vozm_mest_is_neprig" id="org_area_cnt_vozmozh_mest_ne_prig"
-                            disabled/>
-            </b-input-group>
+          <div class="col">
+            <label class="ml-2 font-weight-bold">
+              2. <i id="bitch_tooltip2" class="fas fa-question-circle"></i> Количество мест, возможных к вводу в
+              эксплуатацию из числа непригодных к использованию после проведения
+              восстановительных работ:
+              <div class="text-black-50">
+                {{ area.area_cnt_mest_vozm_mest_is_neprig }} мест
+              </div>
+            </label>
+
+            <b-tooltip custom-class="tooltip_width" target="bitch_tooltip2">
+              Восстановительные работы - проведение капитального ремонта/приведения
+              объекта в соответствие с установленными санитарными и техническими
+              правилами и нормами, иными требованиями законодательства
+            </b-tooltip>
+
           </div>
         </div>
 
@@ -448,18 +440,21 @@ export default {
       user: {}
     }
   },
+  computed: {
+    objArea() {
+      return this.organization?.area;
+    }
+  },
   watch: {
-    organization: {
-      handler() {
-        if (this.componentReady)
-          this.countArea()
-      },
-      deep: true
+    objArea() {
+      if (this.componentReady)
+        this.countArea()
+
     }
   },
   methods: {
     countArea() {
-
+      console.log('kek');
 
       let zil = {
         area_zan_obuch: 0,

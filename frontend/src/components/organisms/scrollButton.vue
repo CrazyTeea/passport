@@ -1,6 +1,6 @@
 <template>
-  <div class="scroll" @click="click">
-    <div v-if="showChevron" >
+  <div v-if="showChevron" class="scroll" @click="click">
+    <div  >
       <div class="chevron"></div>
       <div class="chevron"></div>
       <div class="chevron"></div>
