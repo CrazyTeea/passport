@@ -27,13 +27,13 @@
           <div class="row">
             <div class="col">
               <label class="font-weight-bold">Общая площадь, пригодная для проживания: </label>
-              {{ objArea.obsh_prig }} м2
+              {{ objArea.obsh_prig.toFixed(3) }} м2
             </div>
           </div>
           <div class="row  mt-2">
             <div class="col">
               <label class="ml-1 font-weight-bold">1. Жилая площадь, пригодная для проживания: </label>
-              {{ objArea.zhil_prig }} м2
+              {{ objArea.zhil_prig.toFixed(3) }} м2
             </div>
           </div>
           <div class="row  mt-2">
@@ -76,7 +76,7 @@
           <div class="row mt-2">
             <div class="col">
               <label class="ml-1 font-weight-bold">2. Нежилая площадь в пригодных для проживания объектах:</label>
-              {{ objArea.ne_zhil_v_prig }} м2
+              {{ objArea.ne_zhil_v_prig.toFixed(3) }} м2
             </div>
           </div>
 
@@ -84,7 +84,7 @@
           <div class="row mt-2">
             <div class="col">
               <label class="ml-2 font-weight-bold">А. Социальная инфраструктура: </label>
-              {{ objArea.soc_inf }} м2
+              {{ objArea.soc_inf.toFixed(3) }} м2
 
             </div>
           </div>
@@ -162,7 +162,7 @@
 
           <div class="row">
             <div class="col"><label class="font-weight-bold">Общая площадь, непригодная для проживания: </label>
-              {{ objArea.obsh_ne_prig }} м2
+              {{ objArea.obsh_ne_prig.toFixed(3) }} м2
 
             </div>
           </div>
@@ -185,7 +185,7 @@
                   <b-form-input v-model="currentObject.area.nzhil_tkr" :disabled="blockPage" type="number"/>
                 </b-td>
                 <b-td>
-                  {{ objArea.all_tkr }}
+                  {{ objArea.all_tkr.toFixed(3) }}
                 </b-td>
               </b-tr>
               <b-tr>
@@ -197,7 +197,7 @@
                   <b-form-input v-model="currentObject.area.nzhil_nas" :disabled="blockPage" type="number"/>
                 </b-td>
                 <b-td>
-                  {{ objArea.all_nas }}
+                  {{ objArea.all_nas.toFixed(3) }}
                 </b-td>
               </b-tr>
               <b-tr>
@@ -209,7 +209,7 @@
                   <b-form-input v-model="currentObject.area.nzhil_np" :disabled="blockPage" type="number"/>
                 </b-td>
                 <b-td>
-                  {{ objArea.all_np }}
+                  {{ objArea.all_np.toFixed(3) }}
                 </b-td>
               </b-tr>
             </b-tbody>
@@ -258,14 +258,14 @@
 
           <div class="row">
             <div class="col-6"><label class="font-weight-bold">Количество мест: </label>
-              {{ objArea.cnt_mest }} мест
+              {{ objArea.cnt_mest.toFixed(3) }} мест
 
             </div>
           </div>
           <div class="row mt-2">
             <div class="col">
               <label class="ml-2 font-weight-bold">1. Количество пригодных для проживания мест:</label>
-              {{ objArea.kol_prig_mest }} мест
+              {{ objArea.kol_prig_mest.toFixed(3) }} мест
 
             </div>
           </div>
@@ -335,7 +335,7 @@
           <div class="row">
             <div class="col"><label class="font-weight-bold">Количество мест, возможных к вводу в эксплуатацию после
               проведения восстановительных работ: </label>
-              {{ objArea.cnt_mest_vozm }} мест
+              {{ objArea.cnt_mest_vozm.toFixed(3) }} мест
             </div>
           </div>
           <div class="row">
@@ -478,9 +478,9 @@ export default {
                         new Decimal(this.currentObject.area.cnt_neisp_mest))));
 
 
-        this.objArea.obsh_prig = this.objArea.zhil_prig.plus(this.objArea.ne_zhil_v_prig)
+        this.objArea.obsh_prig = this.objArea.zhil_prig.plus(this.objArea.ne_zhil_v_prig);
 
-        this.objArea.cnt_mest = this.objArea.kol_prig_mest.plus(this.currentObject.area.cnt_nepr_isp_mest);
+        this.objArea.cnt_mest = this.objArea.kol_prig_mest.plus(this.currentObject.area.cnt_nepr_isp_mest)
         this.objArea.cnt_mest_vozm = new Decimal(this.currentObject.area.cnt_mest_vozm_neisp_mest).plus(new Decimal(this.currentObject.area.cnt_mest_vozm_neprig_mest));
         this.objArea.cnt_mest_pl_na_odn = this.objArea.zhil_prig.dividedBy(new Decimal(this.currentObject.area.cnt_mest_zan_obuch).plus(new Decimal(this.currentObject.area.cnt_mest_zan_in_obuch)));
         this.objArea.cnt_mest_obsh_na_odn = this.objArea.obsh_prig.dividedBy(new Decimal(this.currentObject.area.cnt_mest_zan_obuch).plus(new Decimal(this.currentObject.area.cnt_mest_zan_in_obuch)));
