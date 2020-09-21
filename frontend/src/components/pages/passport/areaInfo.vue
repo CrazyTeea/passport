@@ -17,47 +17,47 @@
         <div class="row">
           <div class="col">
             <label class="font-weight-bold">Общая площадь, пригодная для проживания:</label>
-            {{ area.area_prig_prozh }} м<sup>2</sup>
+            {{ area.area_prig_prozh.toFixed(3) }} м<sup>2</sup>
           </div>
         </div>
         <div class="row">
           <div class="col "><label class="ml-2  font-weight-bold">1. Жилая площадь, пригодная для проживания:</label>
-            {{ area.area_zhil_prig_prozh }}м<sup>2</sup>
+            {{ area.area_zhil_prig_prozh.toFixed(3) }}м<sup>2</sup>
 
           </div>
         </div>
         <div class="row">
           <div class="col"><label class="ml-4 font-weight-bold">А. Занятая обучающимися:</label>
-            {{ area.area_zan_obuch }}м<sup>2</sup>
+            {{ area.area_zan_obuch.toFixed(3) }}м<sup>2</sup>
           </div>
         </div>
         <div class="row">
           <div class="col"><label class=" ml-4 font-weight-bold">Б. Занятая иными категориями нанимателей:</label>
-            {{ area.area_in_kat_nan }}м<sup>2</sup>
+            {{ area.area_in_kat_nan.toFixed(3) }}м<sup>2</sup>
           </div>
         </div>
         <div class="row">
           <div class="col"><label class="ml-4 font-weight-bold">В. Свободная:</label>
-            {{ area.svobod }} м<sup>2</sup>
+            {{ area.svobod.toFixed(3) }} м<sup>2</sup>
           </div>
         </div>
         <div class="row">
           <div class="col"><label class="ml-4 font-weight-bold">Г. Неиспользуемая:</label>
-            {{ area.ne_isp }} м<sup>2</sup>
+            {{ area.ne_isp.toFixed(3) }} м<sup>2</sup>
 
           </div>
         </div>
         <div class="row">
           <div class="col "><label class="ml-2 font-weight-bold">2. Нежилая площадь в пригодных для проживания
             объектах:</label>
-            {{ area.ne_zhil_plosh_v_prig_dlya_prozh }}м<sup>2</sup>
+            {{ area.ne_zhil_plosh_v_prig_dlya_prozh.toFixed(3) }}м<sup>2</sup>
           </div>
         </div>
         <hr>
 
         <div class="row">
           <div class="col"><label class="font-weight-bold">Общая площадь, непригодная для проживания:</label>
-            {{ area.area_obsh_ne_prig_dlya_prozh }}м<sup>2</sup>
+            {{ area.area_obsh_ne_prig_dlya_prozh.toFixed(3) }}м<sup>2</sup>
           </div>
         </div>
 
@@ -115,20 +115,20 @@
         <div class="row">
           <div class="col"><label class="font-weight-bold">Количество квадратных метров жилой площади на одного
             проживающего: </label>
-            {{ area.area_kv_metr_zhil }} м<sup>2</sup>
+            {{ area.area_kv_metr_zhil.toFixed(3) }} м<sup>2</sup>
           </div>
         </div>
         <div class="row">
           <div class="col"><label class="font-weight-bold">Количество квадратных метров общей площади на одного
             проживающего: </label>
-            {{ area.area_kv_metr_obsh }}м <sup>2</sup>
+            {{ area.area_kv_metr_obsh.toFixed(3) }}м <sup>2</sup>
           </div>
         </div>
         <hr>
         <div class="row">
           <div class="col"><label class="font-weight-bold">Площадь объектов, не используемых в уставной
             деятельности: </label>
-            {{ area.area_obj_ne_isp_v_ust_dey }} м<sup>2</sup>
+            {{ area.area_obj_ne_isp_v_ust_dey.toFixed(3) }} м<sup>2</sup>
           </div>
         </div>
         <hr>
@@ -140,13 +140,13 @@
         <div class="row">
           <div class="col">
             <label class="font-weight-bold">Количество мест: </label>
-            {{ area.area_cnt_mest }} мест
+            {{ area.area_cnt_mest.toFixed(3) }} мест
           </div>
         </div>
         <div class="row">
           <div class="col">
             <label class="ml-2 font-weight-bold">1. Количество пригодных для проживания мест: </label>
-            {{ area.area_cnt_mest_prig_prozh }} мест
+            {{ area.area_cnt_mest_prig_prozh.toFixed(3) }} мест
           </div>
         </div>
         <div class="row">
@@ -177,7 +177,7 @@
                 {{ area.c6m2_spo }}
               </b-td>
               <b-td>
-                {{area.all_c6m2_spo}}
+                {{ area.all_c6m2_spo }}
               </b-td>
             </b-tr>
             <b-tr>
@@ -191,7 +191,7 @@
                 {{ area.c6m2_bak }}
               </b-td>
               <b-td>
-                {{area.all_c6m2_bak}}
+                {{ area.all_c6m2_bak }}
               </b-td>
             </b-tr>
             <b-tr>
@@ -205,7 +205,7 @@
                 {{ area.c6m2_spec }}
               </b-td>
               <b-td>
-                {{area.all_c6m2_spec}}
+                {{ area.all_c6m2_spec }}
               </b-td>
             </b-tr>
             <b-tr>
@@ -219,7 +219,7 @@
                 {{ area.c6m2_mag }}
               </b-td>
               <b-td>
-                {{area.all_c6m2_mag}}
+                {{ area.all_c6m2_mag }}
               </b-td>
             </b-tr>
             <b-tr>
@@ -233,7 +233,7 @@
                 {{ area.c6m2_asp }}
               </b-td>
               <b-td>
-                {{area.all_c6m2_asp}}
+                {{ area.all_c6m2_asp }}
               </b-td>
             </b-tr>
             <b-tr>
@@ -247,7 +247,7 @@
                 {{ area.c6m2_ord }}
               </b-td>
               <b-td>
-                {{area.all_c6m2_ord}}
+                {{ area.all_c6m2_ord }}
               </b-td>
             </b-tr>
             <b-tr>
@@ -261,7 +261,7 @@
                 {{ area.c6m2_in }}
               </b-td>
               <b-td>
-                {{area.all_c6m2_in}}
+                {{ area.all_c6m2_in }}
               </b-td>
             </b-tr>
             <b-tr>
@@ -269,13 +269,13 @@
                 Всего
               </b-th>
               <b-td>
-                {{area.all_m2}}
+                {{ area.all_m2 }}
               </b-td>
               <b-td>
-                {{area.all_6m2}}
+                {{ area.all_6m2 }}
               </b-td>
               <b-td>
-                {{area.all_all}}
+                {{ area.all_all }}
               </b-td>
             </b-tr>
           </b-tbody>
@@ -323,7 +323,9 @@
           </div>
           <div class="col-6">
             <b-input-group append="человек">
-              <b-form-input id="org_area_cnt_mest_nuzd" v-model="organization.area.area_cnt_nuzhd_zhil"
+              <b-form-input step="1" type="number"
+                            id="org_area_cnt_mest_nuzd"
+                            v-model="organization.area.area_cnt_nuzhd_zhil"
                             :disabled="blockSave"/>
             </b-input-group>
           </div>
@@ -335,7 +337,8 @@
           </div>
           <div class="col-6">
             <b-input-group append="человек">
-              <b-form-input id="org_area_cnt_live_in_other" v-model="organization.area.area_cnt_prozh_u_drugih"
+              <b-form-input step="1" type="number" id="org_area_cnt_live_in_other"
+                            v-model="organization.area.area_cnt_prozh_u_drugih"
                             :disabled="blockSave"/>
             </b-input-group>
           </div>
@@ -454,7 +457,7 @@ export default {
   },
   methods: {
     countArea() {
-      console.log('kek');
+
 
       let zil = {
         area_zan_obuch: 0,
@@ -467,10 +470,10 @@ export default {
 
       this.organization.objects?.forEach(item => {
         if (item.area) {
-          zil.area_zan_obuch = new Decimal(item.area.zan_obuch).plus(zil.area_zan_obuch).toFixed(3);
-          zil.area_in_kat_nan = new Decimal(item.area.zan_inie).plus(zil.area_in_kat_nan).toFixed(3);
-          zil.svobod = new Decimal(item.area.svobod).plus(zil.svobod).toFixed(3);
-          zil.ne_isp = new Decimal(item.area.neisp).plus(zil.ne_isp).toFixed(3);
+          zil.area_zan_obuch = new Decimal(item.area.zan_obuch).plus(zil.area_zan_obuch);
+          zil.area_in_kat_nan = new Decimal(item.area.zan_inie).plus(zil.area_in_kat_nan);
+          zil.svobod = new Decimal(item.area.svobod).plus(zil.svobod);
+          zil.ne_isp = new Decimal(item.area.neisp).plus(zil.ne_isp);
 
           nezil = (new Decimal(item.area.punkt_pit).plus(
               new Decimal(item.area.pom_dlya_uch).plus(
@@ -478,24 +481,22 @@ export default {
                       new Decimal(item.area.pom_dlya_sport).plus(
                           new Decimal(item.area.pom_dlya_soc).plus(
                               new Decimal(item.area.pom_dlya_kult).plus(
-                                  new Decimal(item.area.in_nezh_plosh)))))))).plus(nezil).toFixed(3);
+                                  new Decimal(item.area.in_nezh_plosh)))))))).plus(nezil);
         }
 
       })
 
-      console.log(this.area.area_zhil_t_k_r);
-
       this.area.all_t_k_r =
-          new Decimal(this.area.area_zhil_t_k_r ?? 0).plus(
-              new Decimal(this.area.area_ne_zhil_t_k_r ?? 0)).toFixed(3);
+          new Decimal(this.area.area_zhil_t_k_r || 0).plus(
+              new Decimal(this.area.area_ne_zhil_t_k_r ?? 0));
 
       this.area.all_n_a_s =
           new Decimal(this.area.area_zhil_n_a_s ?? 0).plus(
-              new Decimal(this.area.area_ne_zhil_n_a_s ?? 0)).toFixed(3);
+              new Decimal(this.area.area_ne_zhil_n_a_s ?? 0))
 
       this.area.all_n_p =
           new Decimal(this.area.area_zhil_n_p ?? 0).plus(
-              new Decimal(this.area.area_ne_zhil_n_p ?? 0)).toFixed(3);
+              new Decimal(this.area.area_ne_zhil_n_p ?? 0));
 
       this.area.area_obsh_ne_prig_dlya_prozh =
           this.area.all_n_p.plus(
@@ -537,19 +538,18 @@ export default {
       this.area.area_cnt_mest_vozm_mest_is_neisp = this.organization.objects?.reduce((a, b) => a + +(b.area ? b.area.cnt_mest_vozm_neisp_mest : 0), 0);
       this.area.area_cnt_mest_vozm_mest_is_neprig = this.organization.objects?.reduce((a, b) => a + +(b.area ? b.area.cnt_mest_vozm_neprig_mest : 0), 0);
 
-
       this.area.area_cnt_mest_prig_prozh =
-          new Decimal(this.area.area_cnt_mest_zan_obuch).plus(
-              new Decimal(this.area.area_cnt_mest_zan_in_obuch).plus(
-                  new Decimal(this.area.area_cnt_svob_mest).plus(
-                      new Decimal(this.area.area_cnt_ne_mest))));
+          new Decimal(this.area.area_cnt_mest_zan_obuch || 0).plus(
+              new Decimal(this.area.area_cnt_mest_zan_in_obuch || 0).plus(
+                  new Decimal(this.area.area_cnt_svob_mest || 0).plus(
+                      new Decimal(this.area.area_cnt_ne_mest || 0))));
 
       this.area.area_cnt_mest = new Decimal(this.area.area_cnt_mest_prig_prozh).plus(
-          new Decimal(this.area.area_cnt_mest_ne_prig_k_prozh));
+          new Decimal(this.area.area_cnt_mest_ne_prig_k_prozh || 0));
 
 
-      this.area.area_cnt_mest_vozm_k_vvodu_v_esk = new Decimal(this.area.area_cnt_mest_vozm_mest_is_neisp).plus(
-          new Decimal(this.area.area_cnt_mest_vozm_mest_is_neprig));
+      this.area.area_cnt_mest_vozm_k_vvodu_v_esk = new Decimal(this.area.area_cnt_mest_vozm_mest_is_neisp || 0).plus(
+          new Decimal(this.area.area_cnt_mest_vozm_mest_is_neprig || 0));
 
 
     },

@@ -31,7 +31,6 @@ export default {
       setTimeout(()=>{
         let el_h = document.getElementById('wrap').scrollHeight;
         let w_h = window.outerHeight;
-        console.log(el_h,w_h)
         this.showChevron = el_h > w_h;
       },500)
     },
