@@ -279,8 +279,9 @@
             </div>
           </div>
           <div class="row mt-2">
-            <div class="col-6"><label class="ml-4" for="object_area_ne_plosh_prig_proz7">А. Количество мест, занятых
-              обучающимися</label></div>
+            <div class="col-6">
+              <label class="ml-4" for="object_area_ne_plosh_prig_proz7">А. Количество мест, занятых обучающимися</label>
+            </div>
             <div class="col-6">
               <b-input-group append="мест">
                 <b-form-input type="number" :disabled="blockPage" v-model="currentObject.area.cnt_mest_zan_obuch"
