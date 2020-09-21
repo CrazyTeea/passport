@@ -15,101 +15,49 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-6"><label class="font-weight-bold" for="org_area">Общая площадь, пригодная для
-            проживания</label></div>
-          <div class="col-6">
-            <b-input-group>
-              <template v-slot:append>
-                <b-input-group-text>м<sup>2</sup></b-input-group-text>
-              </template>
-              <b-form-input id="org_area" v-model="area.area_prig_prozh" disabled/>
-            </b-input-group>
+          <div class="col">
+            <label class="font-weight-bold">Общая площадь, пригодная для проживания:</label>
+            {{ area.area_prig_prozh }} м<sup>2</sup>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col "><label class="ml-2  font-weight-bold">1. Жилая площадь, пригодная для проживания:</label>
+            {{ area.area_zhil_prig_prozh }}м<sup>2</sup>
 
           </div>
         </div>
         <div class="row">
-          <div class="col-6 "><label class="ml-2  font-weight-bold" for="org_area_live">1. Жилая площадь, пригодная для
-            проживания</label></div>
-          <div class="col-6">
-            <b-input-group>
-              <template v-slot:append>
-                <b-input-group-text>м<sup>2</sup></b-input-group-text>
-              </template>
-              <b-form-input id="org_area_live" v-model="area.area_zhil_prig_prozh" disabled/>
-            </b-input-group>
+          <div class="col"><label class="ml-4 font-weight-bold">А. Занятая обучающимися:</label>
+            {{ area.area_zan_obuch }}м<sup>2</sup>
           </div>
         </div>
         <div class="row">
-          <div class="col-6 "><label class="ml-4 font-weight-bold" for="org_area_students">А. Занятая
-            обучающимися</label></div>
-          <div class="col-6">
-            <b-input-group>
-              <template v-slot:append>
-                <b-input-group-text>м<sup>2</sup></b-input-group-text>
-              </template>
-              <b-form-input id="org_area_students" v-model="area.area_zan_obuch" disabled/>
-            </b-input-group>
+          <div class="col"><label class=" ml-4 font-weight-bold">Б. Занятая иными категориями нанимателей:</label>
+            {{ area.area_in_kat_nan }}м<sup>2</sup>
           </div>
         </div>
         <div class="row">
-          <div class="col-6"><label class=" ml-4 font-weight-bold" for="org_area_foreign">Б. Занятая иными категориями
-            нанимателей</label></div>
-          <div class="col-6">
-            <b-input-group>
-              <template v-slot:append>
-                <b-input-group-text>м<sup>2</sup></b-input-group-text>
-              </template>
-              <b-form-input id="org_area_foreign" v-model="area.area_in_kat_nan" disabled/>
-            </b-input-group>
+          <div class="col"><label class="ml-4 font-weight-bold">В. Свободная:</label>
+            {{ area.svobod }} м<sup>2</sup>
           </div>
         </div>
         <div class="row">
-          <div class="col-6 "><label class="ml-4 font-weight-bold" for="org_area_svod">В. Свободная</label></div>
-          <div class="col-6 ">
-            <b-input-group>
-              <template v-slot:append>
-                <b-input-group-text>м<sup>2</sup></b-input-group-text>
-              </template>
-              <b-form-input id="org_area_svod" v-model="area.svobod" disabled/>
-            </b-input-group>
+          <div class="col"><label class="ml-4 font-weight-bold">Г. Неиспользуемая:</label>
+            {{ area.ne_isp }} м<sup>2</sup>
+
           </div>
         </div>
         <div class="row">
-          <div class="col-6"><label class="ml-4 font-weight-bold" for="org_area_not_used">Г. Неиспользуемая</label>
-          </div>
-          <div class="col-6 ">
-            <b-input-group>
-              <template v-slot:append>
-                <b-input-group-text>м<sup>2</sup></b-input-group-text>
-              </template>
-              <b-form-input id="org_area_not_used" v-model="area.ne_isp" disabled/>
-            </b-input-group>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-6 "><label class="ml-2 font-weight-bold" for="org_area_not_live_prigod">2. Нежилая площадь в
-            пригодных для проживания объектах</label></div>
-          <div class="col-6 ">
-            <b-input-group>
-              <template v-slot:append>
-                <b-input-group-text>м<sup>2</sup></b-input-group-text>
-              </template>
-              <b-form-input id="org_area_not_live_prigod" v-model="area.ne_zhil_plosh_v_prig_dlya_prozh" disabled/>
-            </b-input-group>
+          <div class="col "><label class="ml-2 font-weight-bold">2. Нежилая площадь в пригодных для проживания
+            объектах:</label>
+            {{ area.ne_zhil_plosh_v_prig_dlya_prozh }}м<sup>2</sup>
           </div>
         </div>
         <hr>
 
         <div class="row">
-          <div class="col-6"><label class="font-weight-bold" for="org_area_not_prigod">Общая площадь, непригодная для
-            проживания</label></div>
-          <div class="col-6">
-            <b-input-group>
-              <template v-slot:append>
-                <b-input-group-text>м<sup>2</sup></b-input-group-text>
-              </template>
-              <b-form-input id="org_area_not_prigod" v-model="area.area_obsh_ne_prig_dlya_prozh" disabled/>
-            </b-input-group>
+          <div class="col"><label class="font-weight-bold">Общая площадь, непригодная для проживания:</label>
+            {{ area.area_obsh_ne_prig_dlya_prozh }}м<sup>2</sup>
           </div>
         </div>
 
@@ -124,39 +72,39 @@
           </b-thead>
           <b-tbody>
             <b-tr>
-              <b-td>Требует капитального ремонта</b-td>
+              <b-th>Требует капитального ремонта</b-th>
               <b-td>
-                <b-form-input v-model="area.area_zhil_t_k_r" disabled/>
+                {{ area.area_zhil_t_k_r }}
               </b-td>
               <b-td>
-                <b-form-input v-model="area.area_ne_zhil_t_k_r" disabled/>
+                {{ area.area_ne_zhil_t_k_r }}
               </b-td>
               <b-td>
-                <b-form-input v-model="area.all_t_k_r" disabled/>
-              </b-td>
-            </b-tr>
-            <b-tr>
-              <b-td>Находится в аварийном состоянии</b-td>
-              <b-td>
-                <b-form-input v-model="area.area_zhil_n_a_s" disabled/>
-              </b-td>
-              <b-td>
-                <b-form-input v-model="area.area_ne_zhil_n_a_s" disabled/>
-              </b-td>
-              <b-td>
-                <b-form-input v-model="area.all_n_a_s" disabled/>
+                {{ area.all_t_k_r }}
               </b-td>
             </b-tr>
             <b-tr>
-              <b-td>Непригодна для проживания</b-td>
+              <b-th>Находится в аварийном состоянии</b-th>
               <b-td>
-                <b-form-input v-model="area.area_zhil_n_p" disabled/>
+                {{ area.area_zhil_n_a_s }}
               </b-td>
               <b-td>
-                <b-form-input v-model="area.area_ne_zhil_n_p" disabled/>
+                {{ area.area_ne_zhil_n_a_s }}
               </b-td>
               <b-td>
-                <b-form-input v-model="area.all_n_p" disabled/>
+                {{ area.all_n_a_s }}
+              </b-td>
+            </b-tr>
+            <b-tr>
+              <b-th>Непригодна для проживания</b-th>
+              <b-td>
+                {{ area.area_zhil_n_p }}
+              </b-td>
+              <b-td>
+                {{ area.area_ne_zhil_n_p }}
+              </b-td>
+              <b-td>
+                {{ area.all_n_p }}
               </b-td>
             </b-tr>
           </b-tbody>
@@ -165,72 +113,46 @@
         <hr>
 
         <div class="row">
-          <div class="col-6"><label class="font-weight-bold" for="org_area_metres">Количество квадратных метров жилой
-            площади на одного проживающего</label></div>
-          <div class="col-6">
-            <b-input-group>
-              <template v-slot:append>
-                <b-input-group-text>м<sup>2</sup></b-input-group-text>
-              </template>
-              <b-form-input id="org_area_metres" v-model="area.area_kv_metr_zhil" disabled/>
-            </b-input-group>
+          <div class="col"><label class="font-weight-bold">Количество квадратных метров жилой площади на одного
+            проживающего: </label>
+            {{ area.area_kv_metr_zhil }} м<sup>2</sup>
           </div>
         </div>
         <div class="row">
-          <div class="col-6"><label class="font-weight-bold" for="org_area_metres_2">Количество квадратных метров общей
-            площади на одного проживающего</label></div>
-          <div class="col-6">
-            <b-input-group>
-              <template v-slot:append>
-                <b-input-group-text>м<sup>2</sup></b-input-group-text>
-              </template>
-              <b-form-input id="org_area_metres_2" v-model="area.area_kv_metr_obsh" disabled/>
-            </b-input-group>
+          <div class="col"><label class="font-weight-bold">Количество квадратных метров общей площади на одного
+            проживающего: </label>
+            {{ area.area_kv_metr_obsh }}м <sup>2</sup>
           </div>
         </div>
         <hr>
         <div class="row">
-          <div class="col-6"><label class="font-weight-bold" for="org_area_not_used_ustav">Площадь объектов, не
-            используемых в уставной деятельности</label></div>
-          <div class="col-6">
-            <b-input-group>
-              <template v-slot:append>
-                <b-input-group-text>м<sup>2</sup></b-input-group-text>
-              </template>
-              <b-form-input id="org_area_not_used_ustav" v-model="area.area_obj_ne_isp_v_ust_dey" disabled/>
-            </b-input-group>
+          <div class="col"><label class="font-weight-bold">Площадь объектов, не используемых в уставной
+            деятельности: </label>
+            {{ area.area_obj_ne_isp_v_ust_dey }} м<sup>2</sup>
           </div>
         </div>
         <hr>
         <div class="row">
-          <div class="col-12">
+          <div class="col">
             <h4>Места</h4>
           </div>
         </div>
         <div class="row">
-          <div class="col-6"><label class="font-weight-bold" for="org_area_cnt_mest">Количество мест</label></div>
-          <div class="col-6">
-            <b-input-group append="мест">
-              <b-form-input id="org_area_cnt_mest" v-model="area.area_cnt_mest" disabled/>
-            </b-input-group>
+          <div class="col">
+            <label class="font-weight-bold">Количество мест: </label>
+            {{ area.area_cnt_mest }} мест
           </div>
         </div>
         <div class="row">
-          <div class="col-6 "><label class="ml-2 font-weight-bold" for="org_area_cnt_mest_prig">1. Количество пригодных
-            для проживания мест</label></div>
-          <div class="col-6 ">
-            <b-input-group append="мест">
-              <b-form-input id="org_area_cnt_mest_prig" v-model="area.area_cnt_mest_prig_prozh" disabled/>
-            </b-input-group>
+          <div class="col">
+            <label class="ml-2 font-weight-bold">1. Количество пригодных для проживания мест: </label>
+            {{ area.area_cnt_mest_prig_prozh }} мест
           </div>
         </div>
         <div class="row">
-          <div class="col-6"><label class="ml-4 font-weight-bold" for="org_area_cnt_mest_zan">А. Количество мест,
-            занятых обучающимися</label></div>
-          <div class="col-6 ">
-            <b-input-group append="мест">
-              <b-form-input id="org_area_cnt_mest_zan" v-model="area.area_cnt_mest_zan_obuch" disabled/>
-            </b-input-group>
+          <div class="col">
+            <label class="ml-4 font-weight-bold">А. Количество мест, занятых обучающимися: </label>
+            {{ area.area_cnt_mest_zan_obuch }} мест
           </div>
         </div>
 
@@ -238,114 +160,114 @@
           <b-thead>
             <b-tr>
               <b-th>А. Количество мест, занятых обучающимися</b-th>
-              <b-th>м2 на одного проживающего</b-th>
-              <b-th>6 м2 и более на одного проживающего</b-th>
+              <b-th>м<sup>2</sup> на одного проживающего</b-th>
+              <b-th>6 м<sup>2</sup> и более на одного проживающего</b-th>
               <b-th>Всего</b-th>
             </b-tr>
           </b-thead>
           <b-tbody>
             <b-tr>
-              <b-td>
+              <b-th>
                 Среднее профессиональное образование
+              </b-th>
+              <b-td>
+                {{ area.m2_spo }}
               </b-td>
               <b-td>
-                <b-form-input v-model="area.m2_spo" disabled/>
-              </b-td>
-              <b-td>
-                <b-form-input v-model="area.c6m2_spo" disabled/>
+                {{ area.c6m2_spo }}
               </b-td>
               <b-td>
                 <b-form-input disabled/>
               </b-td>
             </b-tr>
             <b-tr>
-              <b-td>
+              <b-th>
                 Бакалавриат
+              </b-th>
+              <b-td>
+                {{ area.m2_bak }}
               </b-td>
               <b-td>
-                <b-form-input v-model="area.m2_bak" disabled/>
-              </b-td>
-              <b-td>
-                <b-form-input v-model="area.c6m2_bak" disabled/>
+                {{ area.c6m2_bak }}
               </b-td>
               <b-td>
                 <b-form-input disabled/>
               </b-td>
             </b-tr>
             <b-tr>
-              <b-td>
+              <b-th>
                 Специалитет
+              </b-th>
+              <b-td>
+                {{ area.m2_spec }}
               </b-td>
               <b-td>
-                <b-form-input v-model="area.m2_spec" disabled/>
-              </b-td>
-              <b-td>
-                <b-form-input v-model="area.c6m2_spec" disabled/>
+                {{ area.c6m2_spec }}
               </b-td>
               <b-td>
                 <b-form-input disabled/>
               </b-td>
             </b-tr>
             <b-tr>
-              <b-td>
+              <b-th>
                 Магистратура
+              </b-th>
+              <b-td>
+                {{ area.m2_mag }}
               </b-td>
               <b-td>
-                <b-form-input v-model="area.m2_mag" disabled/>
-              </b-td>
-              <b-td>
-                <b-form-input v-model="area.c6m2_mag" disabled/>
+                {{ area.c6m2_mag }}
               </b-td>
               <b-td>
                 <b-form-input disabled/>
               </b-td>
             </b-tr>
             <b-tr>
-              <b-td>
+              <b-th>
                 Аспирантура
+              </b-th>
+              <b-td>
+                {{ area.m2_asp }}
               </b-td>
               <b-td>
-                <b-form-input v-model="area.m2_asp" disabled/>
-              </b-td>
-              <b-td>
-                <b-form-input v-model="area.c6m2_asp" disabled/>
+                {{ area.c6m2_asp }}
               </b-td>
               <b-td>
                 <b-form-input disabled/>
               </b-td>
             </b-tr>
             <b-tr>
-              <b-td>
+              <b-th>
                 Ординатрура
+              </b-th>
+              <b-td>
+                {{ area.m2_ord }}
               </b-td>
               <b-td>
-                <b-form-input v-model="area.m2_ord" disabled/>
-              </b-td>
-              <b-td>
-                <b-form-input v-model="area.c6m2_ord" disabled/>
+                {{ area.c6m2_ord }}
               </b-td>
               <b-td>
                 <b-form-input disabled/>
               </b-td>
             </b-tr>
             <b-tr>
-              <b-td>
+              <b-th>
                 Иные обучающиеся
+              </b-th>
+              <b-td>
+                {{ area.m2_in }}
               </b-td>
               <b-td>
-                <b-form-input v-model="area.m2_in" disabled/>
-              </b-td>
-              <b-td>
-                <b-form-input v-model="area.c6m2_in" disabled/>
+                {{ area.c6m2_in }}
               </b-td>
               <b-td>
                 <b-form-input disabled/>
               </b-td>
             </b-tr>
             <b-tr>
-              <b-td>
+              <b-th>
                 Всего
-              </b-td>
+              </b-th>
               <b-td>
                 <b-form-input disabled/>
               </b-td>
@@ -360,56 +282,45 @@
         </b-table-simple>
 
         <div class="row">
-          <div class="col-6 "><label class="ml-4 font-weight-bold" for="org_area_cnt_mest_zan_inie">Б. Количество мест,
-            занятых иными категориями проживающих</label></div>
-          <div class="col-6">
-            <b-input-group append="мест">
-              <b-form-input v-model="area.area_cnt_mest_zan_in_obuch" id="org_area_cnt_mest_zan_inie" disabled/>
-            </b-input-group>
+          <div class="col">
+            <label class="ml-4 font-weight-bold">Б. Количество мест, занятых иными категориями проживающих: </label>
+            {{ area.area_cnt_mest_zan_in_obuch }} мест
           </div>
         </div>
         <div class="row">
-          <div class="col-6 "><label class="ml-4 font-weight-bold" for="org_area_cnt_svod_mest">В. Количество свободных
-            мест</label></div>
-          <div class="col-6 ">
-            <b-input-group append="мест">
-              <b-form-input v-model="area.area_cnt_svob_mest" id="org_area_cnt_svod_mest" disabled/>
-            </b-input-group>
+          <div class="col">
+            <label class="ml-4 font-weight-bold">В. Количество свободных мест: </label>
+            {{ area.area_cnt_svob_mest }} мест
+
           </div>
         </div>
         <div class="row">
-          <div class="col-6 "><label class="ml-4 font-weight-bold" for="org_area_cnt_neisp_mest">Г. Количество
-            неиспользуемых мест</label></div>
-          <div class="col-6 ">
-            <b-input-group append="мест">
-              <b-form-input v-model="area.area_cnt_ne_mest" id="org_area_cnt_neisp_mest" disabled/>
-            </b-input-group>
+          <div class="col">
+            <label class="ml-4 font-weight-bold">Г. Количество неиспользуемых мест: </label>
+            {{ area.area_cnt_ne_mest }} мест
           </div>
         </div>
 
         <div class="row">
-          <div class="col-6"><label class=" ml-2 font-weight-bold" for="org_area_cnt_neprig_mest">2. Количество
-            непригодных к использованию мест</label></div>
-          <div class="col-6">
-            <b-input-group append="мест">
-              <b-form-input v-model="area.area_cnt_mest_ne_prig_k_prozh" id="org_area_cnt_neprig_mest" disabled/>
-            </b-input-group>
+          <div class="col">
+            <label class=" ml-2 font-weight-bold">2. Количество непригодных к использованию мест: </label>
+            {{ area.area_cnt_mest_ne_prig_k_prozh }} мест
           </div>
         </div>
         <hr>
 
         <div class="row">
-          <div class="col-6"><label class="font-weight-bold" for="org_area_cnt_mest_invalid">Количество мест,
-            оборудованных для лиц с ограниченными возможностями здоровья</label></div>
-          <div class="col-6">
-            <b-input-group append="мест">
-              <b-form-input v-model="area.area_cnt_mest_invalid" id="org_area_cnt_mest_invalid" disabled/>
-            </b-input-group>
+          <div class="col">
+            <label class="font-weight-bold">Количество мест, оборудованных для лиц с ограниченными возможностями
+              здоровья: </label>
+            {{ area.area_cnt_mest_invalid }} мест
           </div>
         </div>
         <div class="row">
-          <div class="col-6"><label class="font-weight-bold" for="org_area_cnt_mest_nuzd">Количество обучающихся,
-            нуждающихся в жилье</label></div>
+          <div class="col-6">
+            <label class="font-weight-bold" for="org_area_cnt_mest_nuzd">Количество обучающихся, нуждающихся в
+              жилье: </label>
+          </div>
           <div class="col-6">
             <b-input-group append="человек">
               <b-form-input id="org_area_cnt_mest_nuzd" v-model="organization.area.area_cnt_nuzhd_zhil"
@@ -418,8 +329,10 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-6"><label class="font-weight-bold" for="org_area_cnt_live_in_other">Количество обучающихся,
-            проживающих в жилом фонде других организаций</label></div>
+          <div class="col-6">
+            <label class="font-weight-bold" for="org_area_cnt_live_in_other">Количество обучающихся, проживающих в жилом
+              фонде других организаций</label>
+          </div>
           <div class="col-6">
             <b-input-group append="человек">
               <b-form-input id="org_area_cnt_live_in_other" v-model="organization.area.area_cnt_prozh_u_drugih"
@@ -428,19 +341,18 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-6"><label class="font-weight-bold" for="org_area_cnt_mest_vost_rab">Количество мест, возможных
-            к вводу в эксплуатацию после проведения восстановительных работ</label></div>
           <div class="col-6">
-            <b-input-group append="мест">
-              <b-form-input v-model="area.area_cnt_mest_vozm_k_vvodu_v_esk" id="org_area_cnt_mest_vost_rab" disabled/>
-            </b-input-group>
+            <label class="font-weight-bold">Количество мест, возможных к вводу в эксплуатацию после проведения
+              восстановительных работ: </label>
+            {{ area.area_cnt_mest_vozm_k_vvodu_v_esk }} мест
           </div>
         </div>
 
         <div class="row">
-          <div class="col-6"><label class="ml-2 font-weight-bold" for="org_area_cnt_vozmozh_mest_prig">1. Количество
-            мест, возможных к вводу в эксплуатацию из числа неиспользуемых после проведения восстановительных
-            работ</label></div>
+          <div class="col-6">
+            <label class="ml-2 font-weight-bold" for="org_area_cnt_vozmozh_mest_prig">1. Количество мест, возможных к
+              вводу в эксплуатацию из числа неиспользуемых после проведения восстановительных работ</label>
+          </div>
           <div class="col-6">
             <b-input-group append="мест">
               <template v-slot:prepend>
@@ -460,9 +372,11 @@
         </div>
 
         <div class="row">
-          <div class="col-6"><label class="ml-2 font-weight-bold" for="org_area_cnt_vozmozh_mest_ne_prig">2. Количество
-            мест, возможных к вводу в эксплуатацию из числа непригодных к использованию после проведения
-            восстановительных работ</label></div>
+          <div class="col-6">
+            <label class="ml-2 font-weight-bold" for="org_area_cnt_vozmozh_mest_ne_prig">
+              2. Количество мест, возможных к вводу в эксплуатацию из числа непригодных к использованию после проведения
+              восстановительных работ</label>
+          </div>
           <div class="col-6">
             <b-input-group append="мест">
               <template v-slot:prepend>
@@ -503,6 +417,7 @@ import {
   BTooltip,
   BTr
 } from 'bootstrap-vue'
+import Decimal from 'decimal.js'
 import scrollButton from "../../organisms/scrollButton";
 
 export default {
@@ -523,7 +438,9 @@ export default {
   data() {
     return {
       componentReady: false,
-      area: null,
+      area: {
+        area_zhil_t_k_r: 0
+      },
       csrf: document.getElementsByName("csrf-token")[0].content,
       blockSave: false,
       id_org: null,
@@ -555,38 +472,40 @@ export default {
 
       this.organization.objects?.forEach(item => {
         if (item.area) {
-          zil.area_zan_obuch += ~~parseFloat(item.area.zan_obuch);
-          zil.area_in_kat_nan += ~~parseFloat(item.area.zan_inie);
-          zil.svobod += ~~parseFloat(item.area.svobod);
-          zil.ne_isp += ~~parseFloat(item.area.neisp);
+          zil.area_zan_obuch = new Decimal(item.area.zan_obuch).plus(zil.area_zan_obuch);
+          zil.area_in_kat_nan = new Decimal(item.area.zan_inie).plus(zil.area_in_kat_nan);
+          zil.svobod = new Decimal(item.area.svobod).plus(zil.svobod);
+          zil.ne_isp = new Decimal(item.area.neisp).plus(zil.ne_isp);
 
-          nezil += (~~parseFloat(item.area.punkt_pit)
-              + ~~parseFloat(item.area.pom_dlya_uch)
-              + ~~parseFloat(item.area.pom_dlya_med)
-              + ~~parseFloat(item.area.pom_dlya_sport)
-              + ~~parseFloat(item.area.pom_dlya_soc)
-              + ~~parseFloat(item.area.pom_dlya_kult)
-              + ~~parseFloat(item.area.in_nezh_plosh));
+          nezil = (new Decimal(item.area.punkt_pit).plus(
+              new Decimal(item.area.pom_dlya_uch).plus(
+                  new Decimal(item.area.pom_dlya_med).plus(
+                      new Decimal(item.area.pom_dlya_sport).plus(
+                          new Decimal(item.area.pom_dlya_soc).plus(
+                              new Decimal(item.area.pom_dlya_kult).plus(
+                                  new Decimal(item.area.in_nezh_plosh)))))))).plus(nezil);
         }
 
       })
 
+      console.log(this.area.area_zhil_t_k_r);
+
       this.area.all_t_k_r =
-          ~~parseFloat(this.area.area_zhil_t_k_r) +
-          ~~parseFloat(this.area.area_ne_zhil_t_k_r);
+          new Decimal(this.area.area_zhil_t_k_r ?? 0).plus(
+              new Decimal(this.area.area_ne_zhil_t_k_r ?? 0));
 
       this.area.all_n_a_s =
-          ~~parseFloat(this.area.area_zhil_n_a_s) +
-          ~~parseFloat(this.area.area_ne_zhil_n_a_s);
+          new Decimal(this.area.area_zhil_n_a_s ?? 0).plus(
+              new Decimal(this.area.area_ne_zhil_n_a_s ?? 0));
 
       this.area.all_n_p =
-          ~~parseFloat(this.area.area_zhil_n_p) +
-          ~~parseFloat(this.area.area_ne_zhil_n_p);
+          new Decimal(this.area.area_zhil_n_p ?? 0).plus(
+              new Decimal(this.area.area_ne_zhil_n_p ?? 0));
 
       this.area.area_obsh_ne_prig_dlya_prozh =
-          this.area.all_n_p +
-          this.area.all_n_a_s +
-          this.area.all_t_k_r;
+          this.area.all_n_p.plus(
+              this.area.all_n_a_s.plus(
+                  this.area.all_t_k_r));
 
 
       this.area.area_zan_obuch = zil.area_zan_obuch;
@@ -597,45 +516,45 @@ export default {
 
 
       this.area.area_zhil_prig_prozh =
-          ~~parseFloat(this.area.area_zan_obuch) +
-          ~~parseFloat(this.area.area_in_kat_nan) +
-          ~~parseFloat(this.area.svobod) +
-          ~~parseFloat(this.area.ne_isp);
+          new Decimal(this.area.area_zan_obuch).plus(
+              new Decimal(this.area.area_in_kat_nan).plus(
+                  new Decimal(this.area.svobod).plus(
+                      new Decimal(this.area.ne_isp))));
       this.area.area_prig_prozh =
-          ~~parseFloat(this.area.area_zhil_prig_prozh) +
-          ~~parseFloat(this.area.ne_zhil_plosh_v_prig_dlya_prozh);
+          new Decimal(this.area.area_zhil_prig_prozh).plus(
+              new Decimal(this.area.ne_zhil_plosh_v_prig_dlya_prozh));
 
 
-      let b = ~~parseFloat(this.area.area_zan_obuch) + ~~parseFloat(this.area.area_in_kat_nan);
+      let b = new Decimal(this.area.area_zan_obuch).plus(new Decimal(this.area.area_in_kat_nan)).toNumber();
       this.area.area_kv_metr_zhil = b > 0 ? (this.area.area_zhil_prig_prozh / (b)) : 0;
       this.area.area_kv_metr_obsh = b > 0 ? (this.area.area_prig_prozh / (b)) : 0;
 
       this.area.area_obj_ne_isp_v_ust_dey =
-          this.area.area_obsh_ne_prig_dlya_prozh +
-          this.area.area_prig_prozh;
+          new Decimal(this.area.area_obsh_ne_prig_dlya_prozh).plus(
+              new Decimal(this.area.area_prig_prozh));
 
-      this.area.area_cnt_mest_zan_obuch = this.organization.objects?.reduce((a, b) => a + ((b.area) ? b.area.cnt_mest_zan_obuch : 0), 0);
-      this.area.area_cnt_mest_zan_in_obuch = this.organization.objects?.reduce((a, b) => a + (b.area ? b.area.cnt_mest_zan_in_obuch : 0), 0);
-      this.area.area_cnt_svob_mest = this.organization.objects?.reduce((a, b) => a + (b.area ? b.area.cnt_svobod_mest : 0), 0);
-      this.area.area_cnt_ne_mest = this.organization.objects?.reduce((a, b) => a + (b.area ? b.area.cnt_neisp_mest : 0), 0);
-      this.area.area_cnt_mest_ne_prig_k_prozh = this.organization.objects?.reduce((a, b) => a + (b.area ? b.area.cnt_nepr_isp_mest : 0), 0);
-      this.area.area_cnt_mest_invalid = this.organization.objects?.reduce((a, b) => a + (b.area ? b.area.cnt_mest_inv : 0), 0);
-      this.area.area_cnt_mest_vozm_mest_is_neisp = this.organization.objects?.reduce((a, b) => a + (b.area ? b.area.cnt_mest_vozm_neisp_mest : 0), 0);
-      this.area.area_cnt_mest_vozm_mest_is_neprig = this.organization.objects?.reduce((a, b) => a + (b.area ? b.area.cnt_mest_vozm_neprig_mest : 0), 0);
+      this.area.area_cnt_mest_zan_obuch = this.organization.objects?.reduce((a, b) => a + +((b.area) ? b.area.cnt_mest_zan_obuch : 0), 0);
+      this.area.area_cnt_mest_zan_in_obuch = this.organization.objects?.reduce((a, b) => a + +(b.area ? b.area.cnt_mest_zan_in_obuch : 0), 0);
+      this.area.area_cnt_svob_mest = this.organization.objects?.reduce((a, b) => a + +(b.area ? b.area.cnt_svobod_mest : 0), 0);
+      this.area.area_cnt_ne_mest = this.organization.objects?.reduce((a, b) => a + +(b.area ? b.area.cnt_neisp_mest : 0), 0);
+      this.area.area_cnt_mest_ne_prig_k_prozh = this.organization.objects?.reduce((a, b) => a + +(b.area ? b.area.cnt_nepr_isp_mest : 0), 0);
+      this.area.area_cnt_mest_invalid = this.organization.objects?.reduce((a, b) => a + +(b.area ? b.area.cnt_mest_inv : 0), 0);
+      this.area.area_cnt_mest_vozm_mest_is_neisp = this.organization.objects?.reduce((a, b) => a + +(b.area ? b.area.cnt_mest_vozm_neisp_mest : 0), 0);
+      this.area.area_cnt_mest_vozm_mest_is_neprig = this.organization.objects?.reduce((a, b) => a + +(b.area ? b.area.cnt_mest_vozm_neprig_mest : 0), 0);
 
 
       this.area.area_cnt_mest_prig_prozh =
-          ~~parseFloat(this.area.area_cnt_mest_zan_obuch) +
-          ~~parseFloat(this.area.area_cnt_mest_zan_in_obuch) +
-          ~~parseFloat(this.area.area_cnt_svob_mest) +
-          ~~parseFloat(this.area.area_cnt_ne_mest);
+          new Decimal(this.area.area_cnt_mest_zan_obuch).plus(
+              new Decimal(this.area.area_cnt_mest_zan_in_obuch).plus(
+                  new Decimal(this.area.area_cnt_svob_mest).plus(
+                      new Decimal(this.area.area_cnt_ne_mest))));
 
-      this.area.area_cnt_mest = ~~parseFloat(this.area.area_cnt_mest_prig_prozh) +
-          ~~parseFloat(this.area.area_cnt_mest_ne_prig_k_prozh);
+      this.area.area_cnt_mest = new Decimal(this.area.area_cnt_mest_prig_prozh).plus(
+          new Decimal(this.area.area_cnt_mest_ne_prig_k_prozh));
 
 
-      this.area.area_cnt_mest_vozm_k_vvodu_v_esk = ~~parseFloat(this.area.area_cnt_mest_vozm_mest_is_neisp) +
-          ~~parseFloat(this.area.area_cnt_mest_vozm_mest_is_neprig);
+      this.area.area_cnt_mest_vozm_k_vvodu_v_esk = new Decimal(this.area.area_cnt_mest_vozm_mest_is_neisp).plus(
+          new Decimal(this.area.area_cnt_mest_vozm_mest_is_neprig));
 
 
     },
@@ -655,6 +574,7 @@ export default {
       })
       this.countArea()
 
+
     },
     async savePage() {
       let data = new FormData();
@@ -663,7 +583,7 @@ export default {
         headers: {
           "X-CSRF-Token": this.csrf
         }
-      }).then(res => {
+      }).then(() => {
         this.getOrg();
       }).finally(() => {
         this.blockSave = true;
