@@ -25,13 +25,13 @@
           </h4>
 
           <div class="row">
-            <div class="col-6">
+            <div class="col">
               <label class="font-weight-bold">Общая площадь, пригодная для проживания: </label>
               {{ objArea.obsh_prig }} м2
             </div>
           </div>
           <div class="row  mt-2">
-            <div class="col-6">
+            <div class="col">
               <label class="ml-1 font-weight-bold">1. Жилая площадь, пригодная для проживания: </label>
               {{ objArea.zhil_prig }} м2
             </div>
@@ -76,7 +76,7 @@
           <div class="row mt-2">
             <div class="col">
               <label class="ml-1 font-weight-bold">2. Нежилая площадь в пригодных для проживания объектах:</label>
-              {{ objArea.ne_zhil_v_prig }}м2
+              {{ objArea.ne_zhil_v_prig }} м2
             </div>
           </div>
 
@@ -84,7 +84,7 @@
           <div class="row mt-2">
             <div class="col">
               <label class="ml-2 font-weight-bold">А. Социальная инфраструктура: </label>
-              {{ objArea.soc_inf }}м2
+              {{ objArea.soc_inf }} м2
 
             </div>
           </div>
@@ -162,7 +162,7 @@
 
           <div class="row">
             <div class="col"><label class="font-weight-bold">Общая площадь, непригодная для проживания: </label>
-              {{ objArea.obsh_ne_prig }}м2
+              {{ objArea.obsh_ne_prig }} м2
 
             </div>
           </div>
@@ -238,18 +238,16 @@
           </div>
           <div class="row mt-2">
             <div class="col">
-              <label class="font-weight-bold">Количество квадратных метров жилой площади на одного
-                проживающего: </label>
+              <label class="font-weight-bold">Количество квадратных метров жилой площади на одного проживающего: </label>
 
-              {{ objArea.cnt_mest_pl_na_odn }}м2
+              {{ objArea.cnt_mest_pl_na_odn.toFixed(3) }} м2
 
             </div>
           </div>
           <div class="row">
             <div class="col">
-              <label class="font-weight-bold">Количество квадратных метров общей площади на одного
-                проживающего: </label>
-              {{ objArea.cnt_mest_obsh_na_odn }} м2
+              <label class="font-weight-bold">Количество квадратных метров общей площади на одного проживающего: </label>
+              {{ objArea.cnt_mest_obsh_na_odn.toFixed(3) }} м2
 
             </div>
           </div>
@@ -260,14 +258,14 @@
 
           <div class="row">
             <div class="col-6"><label class="font-weight-bold">Количество мест: </label>
-              {{ objArea.cnt_mest }}мест
+              {{ objArea.cnt_mest }} мест
 
             </div>
           </div>
           <div class="row mt-2">
             <div class="col">
               <label class="ml-2 font-weight-bold">1. Количество пригодных для проживания мест:</label>
-              {{ objArea.kol_prig_mest }}мест
+              {{ objArea.kol_prig_mest }} мест
 
             </div>
           </div>
@@ -337,7 +335,7 @@
           <div class="row">
             <div class="col"><label class="font-weight-bold">Количество мест, возможных к вводу в эксплуатацию после
               проведения восстановительных работ: </label>
-              {{ objArea.cnt_mest_vozm }}мест
+              {{ objArea.cnt_mest_vozm }} мест
             </div>
           </div>
           <div class="row">
@@ -407,6 +405,7 @@ import {
   BTr
 } from 'bootstrap-vue'
 import Axios from "axios";
+import {Decimal} from 'decimal.js'
 import ScrollButton from "../../organisms/scrollButton";
 
 export default {
@@ -443,48 +442,48 @@ export default {
     currentObject: {
       handler() {
         this.objArea.zhil_prig =
-            ~~parseFloat(this.currentObject.area.zan_obuch) +
-            ~~parseFloat(this.currentObject.area.zan_inie) +
-            ~~parseFloat(this.currentObject.area.svobod) +
-            ~~parseFloat(this.currentObject.area.neisp);
+            new Decimal(this.currentObject.area.zan_obuch).plus(
+                new Decimal(this.currentObject.area.zan_inie).plus(
+                    new Decimal(this.currentObject.area.svobod).plus(
+                        new Decimal(this.currentObject.area.neisp))));
 
         this.objArea.all_tkr =
-            ~~parseFloat(this.currentObject.area.zhil_tkr) +
-            ~~parseFloat(this.currentObject.area.nzhil_tkr);
+            new Decimal(this.currentObject.area.zhil_tkr).plus(
+                new Decimal(this.currentObject.area.nzhil_tkr));
         this.objArea.all_nas =
-            ~~parseFloat(this.currentObject.area.zhil_nas) +
-            ~~parseFloat(this.currentObject.area.nzhil_nas);
+            new Decimal(this.currentObject.area.zhil_nas).plus(
+                new Decimal(this.currentObject.area.nzhil_nas));
         this.objArea.all_np =
-            ~~parseFloat(this.currentObject.area.zhil_np) +
-            ~~parseFloat(this.currentObject.area.nzhil_np);
-        this.objArea.obsh_ne_prig = this.objArea.all_tkr + this.objArea.all_nas + this.objArea.all_np
+            new Decimal(this.currentObject.area.zhil_np).plus(
+                new Decimal(this.currentObject.area.nzhil_np));
+        this.objArea.obsh_ne_prig = this.objArea.all_tkr.plus(this.objArea.all_nas).plus(this.objArea.all_np);
 
 
         this.objArea.soc_inf =
-            ~~parseFloat(this.currentObject.area.punkt_pit) +
-            ~~parseFloat(this.currentObject.area.pom_dlya_uch) +
-            ~~parseFloat(this.currentObject.area.pom_dlya_med) +
-            ~~parseFloat(this.currentObject.area.pom_dlya_sport) +
-            ~~parseFloat(this.currentObject.area.pom_dlya_kult) +
-            ~~parseFloat(this.currentObject.area.pom_dlya_soc);
+            new Decimal(this.currentObject.area.punkt_pit).plus(
+                new Decimal(this.currentObject.area.pom_dlya_uch).plus(
+                    new Decimal(this.currentObject.area.pom_dlya_med).plus(
+                        new Decimal(this.currentObject.area.pom_dlya_sport).plus(
+                            new Decimal(this.currentObject.area.pom_dlya_kult).plus(
+                                new Decimal(this.currentObject.area.pom_dlya_soc))))));
 
         this.objArea.ne_zhil_v_prig =
-            ~~parseFloat(this.objArea.soc_inf) +
-            ~~parseFloat(this.currentObject.area.in_nezh_plosh);
+            this.objArea.soc_inf.plus(
+                new Decimal(this.currentObject.area.in_nezh_plosh));
 
         this.objArea.kol_prig_mest =
-            ~~parseFloat(this.currentObject.area.cnt_mest_zan_obuch) +
-            ~~parseFloat(this.currentObject.area.cnt_mest_zan_in_obuch) +
-            ~~parseFloat(this.currentObject.area.cnt_svobod_mest) +
-            ~~parseFloat(this.currentObject.area.cnt_neisp_mest);
+            new Decimal(this.currentObject.area.cnt_mest_zan_obuch).plus(
+                new Decimal(this.currentObject.area.cnt_mest_zan_in_obuch).plus(
+                    new Decimal(this.currentObject.area.cnt_svobod_mest).plus(
+                        new Decimal(this.currentObject.area.cnt_neisp_mest))));
 
 
-        this.objArea.obsh_prig = ~~parseFloat(this.objArea.zhil_prig) + ~~parseFloat(this.objArea.ne_zhil_v_prig)
+        this.objArea.obsh_prig = this.objArea.zhil_prig.plus(this.objArea.ne_zhil_v_prig)
 
-        this.objArea.cnt_mest = this.objArea.kol_prig_mest + ~~parseFloat(this.currentObject.area.cnt_nepr_isp_mest)
-        this.objArea.cnt_mest_vozm = ~~parseFloat(this.currentObject.area.cnt_mest_vozm_neisp_mest) + ~~parseFloat(this.currentObject.area.cnt_mest_vozm_neprig_mest)
-        this.objArea.cnt_mest_pl_na_odn = (this.objArea.zhil_prig / (~~parseFloat(this.currentObject.area.cnt_mest_zan_obuch) + ~~parseFloat(this.currentObject.area.cnt_mest_zan_in_obuch))).toFixed(2)
-        this.objArea.cnt_mest_obsh_na_odn = (this.objArea.obsh_prig / (~~parseFloat(this.currentObject.area.cnt_mest_zan_obuch) + ~~parseFloat(this.currentObject.area.cnt_mest_zan_in_obuch))).toFixed(2)
+        this.objArea.cnt_mest = this.objArea.kol_prig_mest.plus(this.currentObject.area.cnt_nepr_isp_mest);
+        this.objArea.cnt_mest_vozm = new Decimal(this.currentObject.area.cnt_mest_vozm_neisp_mest).plus(new Decimal(this.currentObject.area.cnt_mest_vozm_neprig_mest));
+        this.objArea.cnt_mest_pl_na_odn = this.objArea.zhil_prig.dividedBy(new Decimal(this.currentObject.area.cnt_mest_zan_obuch).plus(new Decimal(this.currentObject.area.cnt_mest_zan_in_obuch)));
+        this.objArea.cnt_mest_obsh_na_odn = this.objArea.obsh_prig.dividedBy(new Decimal(this.currentObject.area.cnt_mest_zan_obuch).plus(new Decimal(this.currentObject.area.cnt_mest_zan_in_obuch)));
 
       },
       deep: true
