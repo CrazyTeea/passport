@@ -243,12 +243,11 @@
             </div>
           </div>
           <div class="row mt-2">
-            <div class="col-6"><label for="obj_sum_fins">Объемы финансирования строительства</label></div>
-            <div class="col-6">
-              <b-input-group append="Тысяч рублей">
-                <b-form-input :disabled="disablePage" type="number" v-model="currentObject.ob_fin_stroy"
-                              id="obj_sum_fins"/>
-              </b-input-group>
+            <div class="col">
+              <label class="font-weight-bold">Объемы финансирования строительства: </label>
+
+              {{cntVal.ob_fin_stroy.toFixed(3) }} Тысяч рублей
+
             </div>
           </div>
           <div class="row mt-2">
@@ -301,11 +300,8 @@
                              id="obj_ustav_goal"/>
             </div>
           </div>
-
           <hr>
-
         </div>
-
       </div>
     </transition>
     <scroll-button/>
@@ -359,6 +355,9 @@ export default {
       componentReady: false,
       obj_index: null,
       currentObject: null,
+      cntVal: {
+        ob_fin_stroy: 0,
+      },
       regions: [],
       id_org: null,
       user: {},
@@ -370,13 +369,18 @@ export default {
   },
   watch: {
     objects() {
-      this.objectsTitle = [];
-      this.objects.forEach((item, index) => {
-        this.objectsTitle.push({
+      if (this.objects.length) {
+        this.objectsTitle = this.objects.map((item, index) => ({
           value: index,
           text: item.name,
-        });
-      });
+        }));
+      }
+    },
+    currentObject: {
+      handler() {
+        if (this.componentReady) this.cntObject();
+      },
+      deep: true,
     },
   },
   async mounted() {
@@ -388,6 +392,11 @@ export default {
     this.componentReady = true;
   },
   methods: {
+    cntObject() {
+      this.cntVal.ob_fin_stroy = new Decimal(this.currentObject.money_faip).plus(
+        new Decimal(this.currentObject.money_bud_sub).plus(new Decimal(this.currentObject.money_vneb)),
+      );
+    },
     async getUser() {
       await Axios.get('/api/user/current').then((res) => {
         this.user = res.data;
