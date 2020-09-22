@@ -11,18 +11,18 @@
           </div>
         </div>
       </div>
-
     </div>
 </template>
 
 <script>
-import {BButton} from 'bootstrap-vue'
+import { BButton } from 'bootstrap-vue';
+
 export default {
-  name: "manual",
-  components:{
-    BButton
-  }
-}
+  name: 'manual',
+  components: {
+    BButton,
+  },
+};
 </script>
 
 <style scoped>

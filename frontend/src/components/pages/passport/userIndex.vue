@@ -30,7 +30,7 @@
           </div>
           <div style="margin-top: 10px;" class="row">
             <div class="col-4">
-              <label class="font-weight-bold" for="contact_check">Контактные данные заполнены</label>
+              <label class="font-weight-bold">Контактные данные заполнены</label>
             </div>
             <div class="col">
               <div v-if="cont_dan">
@@ -43,7 +43,7 @@
           </div>
           <div style="margin-top: 10px;" class="row">
             <div class="col-4">
-              <label class="font-weight-bold" for="file_check">Документы загружены</label>
+              <label class="font-weight-bold">Документы загружены</label>
             </div>
             <div class="col">
               <!--<div v-if="cont_dan">
@@ -119,7 +119,6 @@
 </template>
 
 <script>
-import NavBar from "../../organisms/NavBar.vue";
 import {
   BButton,
   BCard,
@@ -127,21 +126,18 @@ import {
   BCardHeader,
   BCardText,
   BCollapse,
-  BFormCheckbox,
   BFormInput,
   BJumbotron,
-  VBToggle
+  VBToggle,
 } from 'bootstrap-vue';
 import Axios from 'axios';
-import ScrollButton from "../../organisms/scrollButton";
+import NavBar from '../../organisms/NavBar.vue';
 
 export default {
   components: {
-    ScrollButton,
     NavBar,
     BJumbotron,
     BButton,
-    BFormCheckbox,
     BCard,
     BCardBody,
     BFormInput,
@@ -150,90 +146,91 @@ export default {
     BCollapse,
   },
   directives: {
-    BToggle: VBToggle
+    BToggle: VBToggle,
   },
   data() {
     return {
-      csrf: document.getElementsByName("csrf-token")[0].content,
+      csrf: document.getElementsByName('csrf-token')[0].content,
       blockSave: false,
       user: {},
       cont_dan: false,
       componentReady: false,
       organization: {
         region: {
-          region: ''
-        }
+          region: '',
+        },
       },
       users_info: [{
         id: null,
         name: '',
         position: '',
         phone: '',
-        email: ''
-      }]
-    }
+        email: '',
+
+      }],
+    };
   },
   async mounted() {
     await this.getUser();
     if (this.user.id_org) {
       await this.getOrg(this.user.id_org);
-      await this.getUserInfo()
+      await this.getUserInfo();
     }
     this.componentReady = true;
   },
   methods: {
     async savePage() {
-      let data = new FormData();
+      const data = new FormData();
 
-      data.append('users', JSON.stringify(this.users_info))
+      data.append('users', JSON.stringify(this.users_info));
 
       await Axios.post(`/organization/users-info/${this.user.id_org}`, data, {
         headers: {
-          "X-CSRF-Token": this.csrf
-        }
-      }).then(res => {
-        this.getUserInfo();
+          'X-CSRF-Token': this.csrf,
+        },
+      }).then((res) => {
+        if (res.data.success) this.getUserInfo();
       }).finally(() => {
         this.blockSave = true;
-      })
+      });
     },
     addUserInfo() {
-      if (this.users_info.length < 3)
+      if (this.users_info.length < 3) {
         this.users_info.push({
           id: null,
           name: null,
           position: null,
           phone: null,
-          email: null
+          email: null,
         });
+      }
     },
     async deleteUserInfo(index) {
-      let id = this.users_info[index].id;
+      const { id } = this.users_info[index];
       if (id) {
         await Axios.post(`/organization/users-info/${id}/delete`, {}, {
           headers: {
-            "X-CSRF-Token": this.csrf
-          }
-        }).then(res => {
-          if (res.data.success)
-            this.users_info.splice(index, 1);
-        })
+            'X-CSRF-Token': this.csrf,
+          },
+        }).then((res) => {
+          if (res.data.success) { this.users_info.splice(index, 1); }
+        });
       } else this.users_info.splice(index, 1);
     },
     async getUser() {
-      await Axios.get('/api/user/current').then(res => {
+      await Axios.get('/api/user/current').then((res) => {
         this.user = res.data;
       });
     },
     async getOrg() {
-      await Axios.get(`/api/organization/by-id/${this.user.id_org}`).then(res => {
-        this.organization = {...res.data, ...res.data.organization}
+      await Axios.get(`/api/organization/by-id/${this.user.id_org}`).then((res) => {
+        this.organization = { ...res.data, ...res.data.organization };
       });
     },
     async getUserInfo() {
-      await Axios.get(`/api/organization/users/${this.user.id_org}`).then(res => {
+      await Axios.get(`/api/organization/users/${this.user.id_org}`).then((res) => {
         this.users_info = [];
-        res.data.forEach((item, index) => {
+        res.data.forEach((item) => {
           this.users_info.push({
             id: item.id,
             name: item.name,
@@ -241,28 +238,20 @@ export default {
             email: item.email,
             phone: item.phone,
 
-          })
-        })
-        if (res.data.length){
-          res.data.forEach(item=>{
-            Object.keys(item).forEach(key=>{
-              if (!item[key]) {
-                this.cont_dan = false;
-                return;
-              }
-              else this.cont_dan = true;
-
-            })
-          })
-
-
+          });
+        });
+        if (res.data.length) {
+          res.data.forEach((item) => {
+            Object.keys(item).forEach((key) => {
+              this.cont_dan = !!item[key];
+            });
+          });
         }
+      });
+    },
+  },
 
-      })
-    }
-  }
-
-}
+};
 </script>
 
 <style scoped>

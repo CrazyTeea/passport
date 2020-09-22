@@ -10,25 +10,25 @@
 </template>
 
 <script>
-import {BAlert} from 'bootstrap-vue'
+import { BAlert } from 'bootstrap-vue';
+
 export default {
   components: {
-    BAlert
+    BAlert,
   },
   props: ['dirtyObjects'],
   data() {
     return {
-      objectsToShow:[],
-      showAlert:true
-    }
+      objectsToShow: [],
+      showAlert: true,
+    };
   },
   mounted() {
-    this.objectsToShow = this.dirtyObjects.map(item=> {
-      if (!item.area)
-        return item
-    })
-  }
-}
+    this.objectsToShow = this.dirtyObjects.map((item) => {
+      if (!item.area) { return item; }
+    });
+  },
+};
 </script>
 
 <style scoped>

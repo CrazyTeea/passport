@@ -3,7 +3,6 @@
     <nav-bar :id_org="id_org" :save-button="false" />
     <div class="container">
 
-
       <b-modal no-close-on-esc
                no-close-on-backdrop
                centered
@@ -13,6 +12,7 @@
           <div class="text-center  d-block w-100">
             <span class="font-weight-bold">Ошибка!</span>
           </div>
+
         </template>
         <div class="justify-content-center d-block text-center text-danger">
           <h3>Размер файла должен быть меньше 20 мб!</h3>
@@ -54,7 +54,6 @@
                   <i v-if="docType.delButton"  @click="deleteFile(docType)" class="ml-2 fas fa-trash-alt trash-icon"></i>
                 </div>
 
-
               </div>
             </div>
           </transition>
@@ -65,125 +64,125 @@
 </template>
 
 <script>
-import NavBar from "../../organisms/NavBar";
-import Axios from 'axios'
-import {BButton, BCard, BCardText,
-  BFormFile, BProgress,BModal,
-  BFormGroup, BInputGroup, BInputGroupText} from 'bootstrap-vue'
+import Axios from 'axios';
+import {
+  BButton, BCard, BCardText,
+  BFormFile, BProgress, BModal,
+  BFormGroup, BInputGroup,
+} from 'bootstrap-vue';
+import NavBar from '../../organisms/NavBar';
 
 export default {
-  name: "uploadPage",
+  name: 'uploadPage',
   components: {
-    NavBar,BCard,BProgress,
-    BCardText,BButton,BModal,
-    BFormFile,BFormGroup,
-    BInputGroup,BInputGroupText
+    NavBar,
+    BCard,
+    BProgress,
+    BCardText,
+    BButton,
+    BModal,
+    BFormFile,
+    BFormGroup,
+    BInputGroup,
   },
   async mounted() {
     await this.getUser();
-    this.id_org = this.user.id_org
-    await this.getDocTypes()
+    this.id_org = this.user.id_org;
+    await this.getDocTypes();
   },
-  watch:{
+  watch: {
     docTypes: {
-      handler(){
-        //console.log(this.docTypes)
+      handler() {
+        // console.log(this.docTypes)
       },
-      deep:true
-    }
+      deep: true,
+    },
   },
   methods: {
     showModal() {
-      this.$refs['error-modal'].show()
+      this.$refs['error-modal'].show();
     },
     hideModal() {
-      this.$refs['error-modal'].hide()
+      this.$refs['error-modal'].hide();
     },
     async getUser() {
-      await Axios.get('/api/user/current').then(res => {
+      await Axios.get('/api/user/current').then((res) => {
         this.user = res.data;
-        this.id_org = this.user.id_org
+        this.id_org = this.user.id_org;
       });
     },
     async getDocTypes() {
-      await Axios.get(`/api/get-doc-types/${this.id_org}`).then(res => {
-        this.docTypes = res.data
-        this.docTypes = this.docTypes.map(item=>{
-          return {...item,...{progress:0,fileName:null,delButton:true}}
-        })
-      })
+      await Axios.get(`/api/get-doc-types/${this.id_org}`).then((res) => {
+        this.docTypes = res.data;
+        this.docTypes = this.docTypes.map((item) => ({ ...item, ...{ progress: 0, fileName: null, delButton: true } }));
+      });
     },
     async deleteFile(item) {
       if (item.file) {
-        let data = new FormData();
-        data.append('desc', item.descriptor.desc)
+        const data = new FormData();
+        data.append('desc', item.descriptor.desc);
         await Axios.post(`/organization/del-file/${this.id_org}`, data, {
           headers: {
-            "X-CSRF-Token": this.csrf
-          }
-        }).then(res => {
-          console.log(res.data)
+            'X-CSRF-Token': this.csrf,
+          },
+        }).then((res) => {
+          console.log(res.data);
           item.file = null;
           item.progress = 0;
-          item.fileName = null
-        })
+          item.fileName = null;
+        });
       }
 
       item.server_file = null;
     },
-    async saveFile(item,index) {
+    async saveFile(item, index) {
       if (item.server_file) {
+        const size = (item.server_file.size / 1024) / 1024;
 
-        let size = (item.server_file.size / 1024) / 1024;
-
-        if (size > 20){
+        if (size > 20) {
           item.server_file = null;
-          this.showModal()
-          let n = ('fileInput'+index);
-          if (this.$refs[n].length)
-            this.$refs[n][0].reset();
-          else this.$refs[n].reset();
+          this.showModal();
+          const n = (`fileInput${index}`);
+          if (this.$refs[n].length) { this.$refs[n][0].reset(); } else this.$refs[n].reset();
         }
-        if (item.server_file){
-          let data = new FormData();
+        if (item.server_file) {
+          const data = new FormData();
           data.append('desc', item.descriptor.desc);
           data.append(item.descriptor.desc, item.server_file);
           item.fileName = item.server_file.name;
           item.delButton = false;
           await Axios.post(`/organization/set-org-files/${this.id_org}`, data, {
-            onUploadProgress: e => {
+            onUploadProgress: (e) => {
               item.progress = Math.round((e.loaded * 100) / e.total);
             },
             headers: {
-              "X-CSRF-Token": this.csrf
-            }
-          }).then(res=>{
-            let i = this.docTypes.findIndex(item2=>item2.descriptor.desc === item.descriptor.desc)
-            if (i!==-1){
+              'X-CSRF-Token': this.csrf,
+            },
+          }).then(() => {
+            const i = this.docTypes.findIndex((item2) => item2.descriptor.desc === item.descriptor.desc);
+            if (i !== -1) {
               this.docTypes[i].file = item.server_file;
-              item.server_file = null
-              setTimeout(()=>{
-                item.fileName = null
-                item.delButton = true
-              },2000)
-
+              item.server_file = null;
+              setTimeout(() => {
+                item.fileName = null;
+                item.delButton = true;
+              }, 2000);
             }
-          })
+          });
         }
-
       }
     },
   },
-  data(){
+  data() {
     return {
-      csrf: document.getElementsByName("csrf-token")[0].content,
-      blockPage:true,
-      docTypes:[],
-      user:{},
-      id_org:{},
-    }
-  }
-}
+      csrf: document.getElementsByName('csrf-token')[0].content,
+      blockPage: true,
+      docTypes: [],
+      user: {},
+      id_org: {},
+    };
+  },
+};
 </script>
 
 <style scoped>

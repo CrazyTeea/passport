@@ -280,7 +280,6 @@
             </b-tr>
           </b-tbody>
         </b-table-simple>
-
         <div class="row">
           <div class="col">
             <label class="ml-4 font-weight-bold">Б. Количество мест, занятых иными категориями проживающих: </label>
@@ -391,7 +390,6 @@
           </div>
         </div>
 
-
       </div>
     </transition>
     <scroll-button/>
@@ -400,28 +398,26 @@
 
 <script>
 import Axios from 'axios';
-import NavBar from "../../organisms/NavBar";
 import {
   BFormInput,
   BInputGroup,
-  BInputGroupText,
   BTableSimple,
   BTbody,
   BTd,
   BTh,
   BThead,
   BTooltip,
-  BTr
-} from 'bootstrap-vue'
-import Decimal from 'decimal.js'
-import scrollButton from "../../organisms/scrollButton";
+  BTr,
+} from 'bootstrap-vue';
+import Decimal from 'decimal.js';
+import NavBar from '../../organisms/NavBar';
+import scrollButton from '../../organisms/scrollButton';
 
 export default {
   components: {
     scrollButton,
     NavBar,
     BTooltip,
-    BInputGroupText,
     BInputGroup,
     BFormInput,
     BTableSimple,
@@ -429,47 +425,42 @@ export default {
     BTbody,
     BTh,
     BTd,
-    BTr
+    BTr,
   },
   data() {
     return {
       componentReady: false,
       area: {
-        area_zhil_t_k_r: 0
+        area_zhil_t_k_r: 0,
       },
-      csrf: document.getElementsByName("csrf-token")[0].content,
+      csrf: document.getElementsByName('csrf-token')[0].content,
       blockSave: false,
       id_org: null,
       organization: null,
-      user: {}
-    }
+      user: {},
+    };
   },
   computed: {
     objArea() {
       return this.organization?.area;
-    }
+    },
   },
   watch: {
     objArea() {
-      if (this.componentReady)
-        this.countArea()
-
-    }
+      if (this.componentReady) { this.countArea(); }
+    },
   },
   methods: {
     countArea() {
-
-
-      let zil = {
+      const zil = {
         area_zan_obuch: 0,
         area_in_kat_nan: 0,
         svobod: 0,
-        ne_isp: 0
-      }
+        ne_isp: 0,
+      };
       let nezil = 0;
 
-
-      this.organization.objects?.forEach(item => {
+      this.organization.objects?.forEach((item) => {
         if (item.area) {
           zil.area_zan_obuch = new Decimal(item.area.zan_obuch).plus(zil.area_zan_obuch);
           zil.area_in_kat_nan = new Decimal(item.area.zan_inie).plus(zil.area_in_kat_nan);
@@ -477,33 +468,38 @@ export default {
           zil.ne_isp = new Decimal(item.area.neisp).plus(zil.ne_isp);
 
           nezil = (new Decimal(item.area.punkt_pit).plus(
-              new Decimal(item.area.pom_dlya_uch).plus(
-                  new Decimal(item.area.pom_dlya_med).plus(
-                      new Decimal(item.area.pom_dlya_sport).plus(
-                          new Decimal(item.area.pom_dlya_soc).plus(
-                              new Decimal(item.area.pom_dlya_kult).plus(
-                                  new Decimal(item.area.in_nezh_plosh)))))))).plus(nezil);
+            new Decimal(item.area.pom_dlya_uch).plus(
+              new Decimal(item.area.pom_dlya_med).plus(
+                new Decimal(item.area.pom_dlya_sport).plus(
+                  new Decimal(item.area.pom_dlya_soc).plus(
+                    new Decimal(item.area.pom_dlya_kult).plus(
+                      new Decimal(item.area.in_nezh_plosh),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          )).plus(nezil);
         }
+      });
 
-      })
+      this.area.all_t_k_r = new Decimal(this.area.area_zhil_t_k_r || 0).plus(
+        new Decimal(this.area.area_ne_zhil_t_k_r ?? 0),
+      );
 
-      this.area.all_t_k_r =
-          new Decimal(this.area.area_zhil_t_k_r || 0).plus(
-              new Decimal(this.area.area_ne_zhil_t_k_r ?? 0));
+      this.area.all_n_a_s = new Decimal(this.area.area_zhil_n_a_s ?? 0).plus(
+        new Decimal(this.area.area_ne_zhil_n_a_s ?? 0),
+      );
 
-      this.area.all_n_a_s =
-          new Decimal(this.area.area_zhil_n_a_s ?? 0).plus(
-              new Decimal(this.area.area_ne_zhil_n_a_s ?? 0))
+      this.area.all_n_p = new Decimal(this.area.area_zhil_n_p ?? 0).plus(
+        new Decimal(this.area.area_ne_zhil_n_p ?? 0),
+      );
 
-      this.area.all_n_p =
-          new Decimal(this.area.area_zhil_n_p ?? 0).plus(
-              new Decimal(this.area.area_ne_zhil_n_p ?? 0));
-
-      this.area.area_obsh_ne_prig_dlya_prozh =
-          this.area.all_n_p.plus(
-              this.area.all_n_a_s.plus(
-                  this.area.all_t_k_r));
-
+      this.area.area_obsh_ne_prig_dlya_prozh = this.area.all_n_p.plus(
+        this.area.all_n_a_s.plus(
+          this.area.all_t_k_r,
+        ),
+      );
 
       this.area.area_zan_obuch = zil.area_zan_obuch;
       this.area.area_in_kat_nan = zil.area_in_kat_nan;
@@ -511,24 +507,24 @@ export default {
       this.area.ne_isp = zil.ne_isp;
       this.area.ne_zhil_plosh_v_prig_dlya_prozh = nezil;
 
+      this.area.area_zhil_prig_prozh = new Decimal(this.area.area_zan_obuch).plus(
+        new Decimal(this.area.area_in_kat_nan).plus(
+          new Decimal(this.area.svobod).plus(
+            new Decimal(this.area.ne_isp),
+          ),
+        ),
+      );
+      this.area.area_prig_prozh = new Decimal(this.area.area_zhil_prig_prozh).plus(
+        new Decimal(this.area.ne_zhil_plosh_v_prig_dlya_prozh),
+      );
 
-      this.area.area_zhil_prig_prozh =
-          new Decimal(this.area.area_zan_obuch).plus(
-              new Decimal(this.area.area_in_kat_nan).plus(
-                  new Decimal(this.area.svobod).plus(
-                      new Decimal(this.area.ne_isp))));
-      this.area.area_prig_prozh =
-          new Decimal(this.area.area_zhil_prig_prozh).plus(
-              new Decimal(this.area.ne_zhil_plosh_v_prig_dlya_prozh));
-
-
-      let b = new Decimal(this.area.area_zan_obuch).plus(new Decimal(this.area.area_in_kat_nan)).toNumber();
+      const b = new Decimal(this.area.area_zan_obuch).plus(new Decimal(this.area.area_in_kat_nan)).toNumber();
       this.area.area_kv_metr_zhil = b > 0 ? (this.area.area_zhil_prig_prozh / (b)) : 0;
       this.area.area_kv_metr_obsh = b > 0 ? (this.area.area_prig_prozh / (b)) : 0;
 
-      this.area.area_obj_ne_isp_v_ust_dey =
-          new Decimal(this.area.area_obsh_ne_prig_dlya_prozh).plus(
-              new Decimal(this.area.area_prig_prozh));
+      this.area.area_obj_ne_isp_v_ust_dey = new Decimal(this.area.area_obsh_ne_prig_dlya_prozh).plus(
+        new Decimal(this.area.area_prig_prozh),
+      );
 
       this.area.area_cnt_mest_zan_obuch = this.organization.objects?.reduce((a, b) => a + +((b.area) ? b.area.cnt_mest_zan_obuch : 0), 0);
       this.area.area_cnt_mest_zan_in_obuch = this.organization.objects?.reduce((a, b) => a + +(b.area ? b.area.cnt_mest_zan_in_obuch : 0), 0);
@@ -539,60 +535,58 @@ export default {
       this.area.area_cnt_mest_vozm_mest_is_neisp = this.organization.objects?.reduce((a, b) => a + +(b.area ? b.area.cnt_mest_vozm_neisp_mest : 0), 0);
       this.area.area_cnt_mest_vozm_mest_is_neprig = this.organization.objects?.reduce((a, b) => a + +(b.area ? b.area.cnt_mest_vozm_neprig_mest : 0), 0);
 
-      this.area.area_cnt_mest_prig_prozh =
-          new Decimal(this.area.area_cnt_mest_zan_obuch || 0).plus(
-              new Decimal(this.area.area_cnt_mest_zan_in_obuch || 0).plus(
-                  new Decimal(this.area.area_cnt_svob_mest || 0).plus(
-                      new Decimal(this.area.area_cnt_ne_mest || 0))));
+      this.area.area_cnt_mest_prig_prozh = new Decimal(this.area.area_cnt_mest_zan_obuch || 0).plus(
+        new Decimal(this.area.area_cnt_mest_zan_in_obuch || 0).plus(
+          new Decimal(this.area.area_cnt_svob_mest || 0).plus(
+            new Decimal(this.area.area_cnt_ne_mest || 0),
+          ),
+        ),
+      );
 
       this.area.area_cnt_mest = new Decimal(this.area.area_cnt_mest_prig_prozh).plus(
-          new Decimal(this.area.area_cnt_mest_ne_prig_k_prozh || 0));
-
+        new Decimal(this.area.area_cnt_mest_ne_prig_k_prozh || 0),
+      );
 
       this.area.area_cnt_mest_vozm_k_vvodu_v_esk = new Decimal(this.area.area_cnt_mest_vozm_mest_is_neisp || 0).plus(
-          new Decimal(this.area.area_cnt_mest_vozm_mest_is_neprig || 0));
-
-
+        new Decimal(this.area.area_cnt_mest_vozm_mest_is_neprig || 0),
+      );
     },
     async getUser() {
-      await Axios.get('/api/user/current').then(res => {
+      await Axios.get('/api/user/current').then((res) => {
         this.user = res.data;
       });
     },
     async getOrg() {
-      await Axios.get(`/api/organization/by-id/${this.id_org}`).then(res => {
-            this.organization = res.data;
-            this.organization.area = this.area = res.data.area ?? {}
-          }
-      );
-      await Axios.get(`/api/objects/org/${this.id_org}`).then(res => {
-        this.organization.objects = res.data
-      })
-      this.countArea()
-
-
+      await Axios.get(`/api/organization/by-id/${this.id_org}`).then((res) => {
+        this.organization = res.data;
+        this.organization.area = this.area = res.data.area ?? {};
+      });
+      await Axios.get(`/api/objects/org/${this.id_org}`).then((res) => {
+        this.organization.objects = res.data;
+      });
+      this.countArea();
     },
     async savePage() {
-      let data = new FormData();
+      const data = new FormData();
       data.append('org_area', JSON.stringify(this.organization.area));
       await Axios.post(`/organization/set-org-area/${this.id_org}`, data, {
         headers: {
-          "X-CSRF-Token": this.csrf
-        }
+          'X-CSRF-Token': this.csrf,
+        },
       }).then(() => {
         this.getOrg();
       }).finally(() => {
         this.blockSave = true;
-      })
-    }
+      });
+    },
   },
   async mounted() {
     await this.getUser();
     this.id_org = this.user.id_org;
     await this.getOrg();
     this.componentReady = true;
-  }
-}
+  },
+};
 </script>
 
 <style scoped>
