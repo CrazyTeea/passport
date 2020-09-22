@@ -185,10 +185,10 @@
                 Бакалавриат
               </b-th>
               <b-td>
-                {{ area.m2_bak }}
+                {{ organization.area.m2_bak }}
               </b-td>
               <b-td>
-                {{ area.c6m2_bak }}
+                {{ organization.area.c6m2_bak }}
               </b-td>
               <b-td>
                 {{ area.all_c6m2_bak }}
@@ -199,10 +199,10 @@
                 Специалитет
               </b-th>
               <b-td>
-                {{ area.m2_spec }}
+                {{ organization.area.m2_spec }}
               </b-td>
               <b-td>
-                {{ area.c6m2_spec }}
+                {{ organization.area.c6m2_spec }}
               </b-td>
               <b-td>
                 {{ area.all_c6m2_spec }}
@@ -213,10 +213,10 @@
                 Магистратура
               </b-th>
               <b-td>
-                {{ area.m2_mag }}
+                {{organization. area.m2_mag }}
               </b-td>
               <b-td>
-                {{ area.c6m2_mag }}
+                {{ organization.area.c6m2_mag }}
               </b-td>
               <b-td>
                 {{ area.all_c6m2_mag }}
@@ -227,10 +227,10 @@
                 Аспирантура
               </b-th>
               <b-td>
-                {{ area.m2_asp }}
+                {{ organization.area.m2_asp }}
               </b-td>
               <b-td>
-                {{ area.c6m2_asp }}
+                {{ organization.area.c6m2_asp }}
               </b-td>
               <b-td>
                 {{ area.all_c6m2_asp }}
@@ -241,10 +241,10 @@
                 Ординатрура
               </b-th>
               <b-td>
-                {{ area.m2_ord }}
+                {{organization. area.m2_ord }}
               </b-td>
               <b-td>
-                {{ area.c6m2_ord }}
+                {{organization. area.c6m2_ord }}
               </b-td>
               <b-td>
                 {{ area.all_c6m2_ord }}
@@ -255,10 +255,10 @@
                 Иные обучающиеся
               </b-th>
               <b-td>
-                {{ area.m2_in }}
+                {{organization. area.m2_in }}
               </b-td>
               <b-td>
-                {{ area.c6m2_in }}
+                {{organization. area.c6m2_in }}
               </b-td>
               <b-td>
                 {{ area.all_c6m2_in }}
@@ -269,10 +269,10 @@
                 Всего
               </b-th>
               <b-td>
-                {{ area.all_m2 }}
+                {{organization.area.all_m2 }}
               </b-td>
               <b-td>
-                {{ area.all_6m2 }}
+                {{ organization.area.all_6m2 }}
               </b-td>
               <b-td>
                 {{ area.all_all }}
@@ -300,6 +300,7 @@
             {{ area.area_cnt_ne_mest }} мест
           </div>
         </div>
+        <div></div>
 
         <div class="row">
           <div class="col">

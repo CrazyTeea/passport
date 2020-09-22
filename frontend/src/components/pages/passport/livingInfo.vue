@@ -13,26 +13,21 @@
         <hr>
 
         <div class="row">
-          <div class="col-6">
-            <label for="living_cnt">Всего проживающих</label>
-          </div>
-          <div class="col-6">
-            <b-input-group append="Человек">
-              <b-form-input id="living_cnt" v-model="living.cnt_stud" disabled/>
-            </b-input-group>
+          <div class="col">
+            <label class="font-weight-bold">Всего проживающих: </label>
+
+            {{ living.cnt_stud }} Человек
           </div>
         </div>
 
         <hr>
 
         <div class="row ">
-          <div class="col-6">
-            <label for="living_cnt">Проживающие из числа обучающихся</label>
-          </div>
-          <div class="col-6">
-            <b-input-group append="Человек">
-              <b-form-input id="living_cnt_students" v-model="living.cnt_stud_obuch" disabled/>
-            </b-input-group>
+          <div class="col">
+            <label class="font-weight-bold">Проживающие из числа обучающихся: </label>
+
+            {{ living.cnt_stud_obuch }} Человек
+
           </div>
         </div>
 
@@ -43,6 +38,13 @@
                         За счёт федерального бюджета
                         </span>
             </template>
+            <div class="row">
+              <div class="col-6 offset-6">
+                <span class="font-weight-bold small">
+                 Проживающие из числа обучающихся за счёт федерального бюджета
+                </span>
+              </div>
+            </div>
             <living-table :deletedItems="itemsToDelete.items_b" :items="items_b.items"
                           title="Проживающие из числа обучающихся за счёт федерального бюджета" :is-invalid="false"
                           :block-save="blockPage" v-bind:can-save="items_b.canSave"/>
@@ -54,8 +56,15 @@
                         За счёт бюджета субъекта
                         </span>
             </template>
+            <div class="row">
+              <div class="col-6 offset-6">
+                <span class="font-weight-bold small">
+                 Проживающие из числа обучающихся За счёт бюджета субъекта
+                </span>
+              </div>
+            </div>
             <living-table :deletedItems="itemsToDelete.items_s" :items="items_s.items"
-                          title="Проживающие из числа обучающихся за счёт федерального бюджета" :is-invalid="false"
+                          title="Проживающие из числа обучающихся за счёт бюджета субъекта" :is-invalid="false"
                           :block-save="blockPage" v-bind:can-save="items_s.canSave"/>
 
           </b-tab>
@@ -65,8 +74,15 @@
                         За счёт местного бюджета
                         </span>
             </template>
+            <div class="row">
+              <div class="col-6 offset-6">
+                <span class="font-weight-bold small">
+                  Проживающие из числа обучающихся за счёт местного бюджета
+                </span>
+              </div>
+            </div>
             <living-table :deletedItems="itemsToDelete.items_m" :items="items_m.items"
-                          title="Проживающие из числа обучающихся за счёт федерального бюджета" :is-invalid="false"
+                          title="Проживающие из числа обучающихся за счёт местного бюджета" :is-invalid="false"
                           :block-save="blockPage" v-bind:can-save="items_m.canSave"/>
 
           </b-tab>
@@ -77,8 +93,17 @@
                         платных образовательных услуг
                         </span>
             </template>
+            <div class="row">
+              <div class="col-6 offset-6">
+                <span class="font-weight-bold small">
+                  Проживающие из числа обучающихся по договорам об оказании
+                        платных образовательных услуг
+                </span>
+              </div>
+            </div>
             <living-table :deletedItems="itemsToDelete.items_p" :items="items_p.items"
-                          title="Проживающие из числа обучающихся за счёт федерального бюджета" :is-invalid="false"
+                          title="Проживающие из числа обучающихся по договорам об оказании платных образовательных услуг"
+                          :is-invalid="false"
                           :block-save="blockPage" v-bind:can-save="items_p.canSave"/>
 
           </b-tab>
@@ -109,13 +134,9 @@
         <hr>
 
         <div class="row">
-          <div class="col-6">
-            <label for="live_proz_person">Проживающие из числа персонала и их семей</label>
-          </div>
-          <div class="col-6">
-            <b-input-group append="Человек">
-              <b-form-input v-model="living.prozh_is_person" id="live_proz_person" disabled/>
-            </b-input-group>
+          <div class="col">
+            <label class="font-weight-bold">Проживающие из числа персонала и их семей: </label>
+            {{ living.prozh_is_person }}Человек
           </div>
         </div>
         <br>

@@ -267,14 +267,14 @@
 
           <div class="row">
             <div class="col-6"><label class="font-weight-bold">Количество мест: </label>
-              {{ objArea.cnt_mest.toFixed(3) }} мест
+              {{ objArea.cnt_mest }} мест
 
             </div>
           </div>
           <div class="row mt-2">
             <div class="col">
               <label class="ml-2 font-weight-bold">1. Количество пригодных для проживания мест:</label>
-              {{ objArea.kol_prig_mest.toFixed(3) }} мест
+              {{ objArea.kol_prig_mest }} мест
 
             </div>
           </div>
@@ -345,7 +345,7 @@
           <div class="row">
             <div class="col"><label class="font-weight-bold">Количество мест, возможных к вводу в эксплуатацию после
               проведения восстановительных работ: </label>
-              {{ objArea.cnt_mest_vozm.toFixed(3) }} мест
+              {{ objArea.cnt_mest_vozm }} мест
             </div>
           </div>
           <div class="row">
