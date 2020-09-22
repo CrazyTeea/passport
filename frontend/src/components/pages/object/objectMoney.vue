@@ -740,13 +740,10 @@ export default {
   },
   watch: {
     objects() {
-      this.objectsTitle = [];
-      this.objects.forEach((item, index) => {
-        this.objectsTitle.push({
-          value: index,
-          text: item.name,
-        });
-      });
+      this.objectsTitle = this.objects.map((item, index) => ({
+        value: index,
+        text: item.name,
+      }));
     },
     currentObject: {
       handler() {
