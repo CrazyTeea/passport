@@ -393,8 +393,8 @@ export default {
   },
   methods: {
     cntObject() {
-      this.cntVal.ob_fin_stroy = new Decimal(this.currentObject.money_faip).plus(
-        new Decimal(this.currentObject.money_bud_sub).plus(new Decimal(this.currentObject.money_vneb)),
+      this.cntVal.ob_fin_stroy = new Decimal(this.currentObject.money_faip || 0).plus(
+        new Decimal(this.currentObject.money_bud_sub || 0).plus(new Decimal(this.currentObject.money_vneb || 0)),
       );
     },
     async getUser() {
