@@ -18,6 +18,7 @@
                 <b-td>
                     <div class="row">
                         <div class="col-8">
+
                             <b-form-input v-model="item.label" :disabled="checkCanSave(index)" v-if="item.editableLabel"/>
                             <span class="font-weight-bold" v-else>{{item.label}}</span>
                         </div>
@@ -45,87 +46,85 @@
     </b-table-simple>
 </template>
 <script>
-    import {BButton, BFormInput, BTableSimple, BTbody, BTd, BTh, BThead, BTr} from 'bootstrap-vue'
+import {
+  BButton, BFormInput, BTableSimple, BTbody, BTd, BTh, BThead, BTr,
+} from 'bootstrap-vue';
 
-    export default {
-        name: "livingTable",
-        props:{
-            blockSave:false,
-            canSave:Array,
-            isInvalid:false,
-            title:String,
-            items:Array,
-            deletedItems:null
-        },
+export default {
+  name: 'livingTable',
+  props: {
+    blockSave: {
+      default: false,
+    },
+    canSave: Array,
+    isInvalid: {
+      default: false,
+    },
+    title: String,
+    items: Array,
+    deletedItems: null,
+  },
 
-        methods:{
-            cntRow(item2){
+  methods: {
+    cntRow(item2) {
+      Object.keys(this.items[this.items.length - 1]).forEach((item) => {
+        if (!(item === 'label' || item === 'visible' || item === 'editableLabel' || item === 'button' || item === 'all' || item === 'id' || item === 'budjet_type')) { this.items[this.items.length - 1][item] = 0; }
+      });
+      let kek = 0;
+      for (let i = 0; i < this.items.length - 1; i++) {
+        Object.keys(this.items[this.items.length - 1]).forEach((item) => {
+          if (!(item === 'label' || item === 'visible' || item === 'editableLabel' || item === 'button' || item === 'all' || item === 'id' || item === 'budjet_type')) {
+            kek += ~~parseInt(this.items[i][item]);
+            this.items[this.items.length - 1][item] += ~~parseInt(this.items[i][item]);
+            this.items[this.items.length - 1].all = kek;
+          }
+        });
+      }
 
+      item2.all = ~~parseInt(item2.spo)
+                    + ~~parseInt(item2.bak)
+                    + ~~parseInt(item2.spec)
+                    + ~~parseInt(item2.mag)
+                    + ~~parseInt(item2.asp)
+                    + ~~parseInt(item2.ord);
+    },
+    deleteRow(index) {
+      if (this.items[index].id) {
+        this.deletedItems.push(this.items[index].id);
+      }
+      this.items.splice(index, 1);
+    },
+    checkCanSave(index) {
+      if (!this.blockSave && this.canSave && !this.items[index].disabled) {
+        return !this.canSave.includes(index);
+      }
+      return true;
+    },
+    addRow(index) {
+      this.items.splice(index, 0, { visible: true, editableLabel: true });
+      this.canSave.push(index);
+    },
+  },
+  mounted() {
+    this.canSave.forEach((item) => {
+      this.items[item].disabled = false;
+    });
 
-                Object.keys(this.items[this.items.length-1]).forEach(item=>{
-                    if (!(item === 'label' || item === 'visible' || item === 'editableLabel' || item === 'button' || item === 'all' || item === 'id'|| item === 'budjet_type'))
-                        this.items[this.items.length-1][item] = 0
-                })
-                let kek = 0;
-                for (let i=0; i < this.items.length-1;i++){
-                    Object.keys(this.items[this.items.length-1]).forEach(item=>{
-                        if (!(item === 'label' || item === 'visible' || item === 'editableLabel' || item === 'button' || item === 'all' || item === 'id'|| item === 'budjet_type')) {
-                            kek+= ~~parseInt(this.items[i][item]);
-                            this.items[this.items.length - 1][item] += ~~parseInt(this.items[i][item])
-                            this.items[this.items.length - 1].all = kek;
-                        }
-                    })
-                }
-
-                item2.all =
-                    ~~parseInt(item2.spo) +
-                    ~~parseInt(item2.bak) +
-                    ~~parseInt(item2.spec) +
-                    ~~parseInt(item2.mag) +
-                    ~~parseInt(item2.asp) +
-                    ~~parseInt(item2.ord);
-
-            },
-            deleteRow(index){
-                if (this.items[index].id){
-                    this.deletedItems.push(this.items[index].id)
-                }
-                this.items.splice(index,1)
-            },
-            checkCanSave(index){
-
-                if (!this.blockSave && this.canSave && !this.items[index].disabled) {
-                    return !this.canSave.includes(index);
-                }
-                return true;
-
-            },
-            addRow(index){
-                this.items.splice(index,0,{visible:true,editableLabel:true})
-                this.canSave.push(index);
-            }
-        },
-        mounted() {
-            this.canSave.forEach(item=>{
-                this.items[item].disabled=false;
-            })
-
-            let kek = 0;
-            for (let i=0; i < this.items.length-1;i++){
-                Object.keys(this.items[this.items.length-1]).forEach(item=>{
-                    if (!(item === 'label' || item === 'visible' || item === 'editableLabel' || item === 'button' || item === 'all'  || item === 'id'|| item === 'budjet_type')) {
-                        kek+= ~~parseInt(this.items[i][item]);
-                        this.items[this.items.length - 1][item] += ~~parseInt(this.items[i][item])
-                        this.items[this.items.length - 1].all = kek;
-                    }
-                })
-            }
-
-        },
-        components:{
-            BTableSimple,BTbody,BTr,BTd,BThead,BTh,BFormInput,BButton
+    let kek = 0;
+    for (let i = 0; i < this.items.length - 1; i++) {
+      Object.keys(this.items[this.items.length - 1]).forEach((item) => {
+        if (!(item === 'label' || item === 'visible' || item === 'editableLabel' || item === 'button' || item === 'all' || item === 'id' || item === 'budjet_type')) {
+          kek += ~~parseInt(this.items[i][item]);
+          this.items[this.items.length - 1][item] += ~~parseInt(this.items[i][item]);
+          this.items[this.items.length - 1].all = kek;
         }
+      });
     }
+  },
+  components: {
+    BTableSimple, BTbody, BTr, BTd, BThead, BTh, BFormInput, BButton,
+  },
+};
 </script>
 
 <style scoped>

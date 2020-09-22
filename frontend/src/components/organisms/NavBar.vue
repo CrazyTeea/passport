@@ -21,6 +21,7 @@
               <b-dropdown-item href="/living-info-inv">Сведения о проживающих лицах <br> с ограниченными возможностями
               </b-dropdown-item>
               <b-dropdown-text>
+
                 <i>
                   Данные о жилом объекте
                 </i>
@@ -45,7 +46,6 @@
               class="fas text-success fa-file-excel"></i></span></div>
           <div v-if="saveButton" class=" col mt-2 mb-2">
 
-
             <transition
                 mode="out-in"
                 name="banner-apper">
@@ -65,32 +65,32 @@
         </div>
       </b-alert>
 
-
   </div>
-
 
 </template>
 
 <script>
-import {BAlert, BButton, BDropdown, BDropdownItem, BDropdownText, BFormCheckbox} from 'bootstrap-vue';
+import {
+  BAlert, BButton, BDropdown, BDropdownItem, BDropdownText,
+} from 'bootstrap-vue';
 
 export default {
   components: {
-    BFormCheckbox,
     BDropdown,
     BDropdownItem,
     BDropdownText,
-    BButton, BAlert
+    BButton,
+    BAlert,
   },
   props: {
     saveButton: {
-      default: true
-    }
+      default: true,
+    },
   },
   data() {
     return {
       blockSave: false,
-    }
+    };
   },
   methods: {
     click() {
@@ -104,10 +104,10 @@ export default {
     save() {
       this.blockSave = true;
       this.$emit('save-page');
-    }
+    },
   },
-  name: "navBar"
-}
+  name: 'navBar',
+};
 </script>
 
 <style lang="scss">
@@ -179,7 +179,6 @@ export default {
   }
 }
 
-
 .custom-navbar {
   background: rgba(0, 0, 0, .1);
 
@@ -225,6 +224,5 @@ a {
   }
 
 }
-
 
 </style>

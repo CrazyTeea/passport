@@ -7,38 +7,37 @@
     </div>
 
   </div>
-
 </template>
 
 <script>
 export default {
-  name: "scrollButton",
+  name: 'scrollButton',
   data() {
     return {
       height: document.getElementsByClassName('wrap')[0].scrollHeight,
-      showChevron: false
-    }
+      showChevron: false,
+    };
   },
   watch: {
   },
   mounted() {
-    let el = document.getElementsByClassName('wrap')[0];
-    el.addEventListener('change',this.sh)
+    const el = document.getElementsByClassName('wrap')[0];
+    el.addEventListener('change', this.sh);
     this.sh();
   },
   methods: {
     sh() {
-      setTimeout(()=>{
-        let el_h = document.getElementById('wrap').scrollHeight;
-        let w_h = window.outerHeight;
-        this.showChevron = el_h > w_h;
-      },500)
+      setTimeout(() => {
+        const elH = document.getElementById('wrap').scrollHeight;
+        const wH = window.outerHeight;
+        this.showChevron = elH > wH;
+      }, 500);
     },
-    click(){
-      document.getElementsByClassName('custom-navbar')[0].scrollIntoView({behavior:'smooth'});
-    }
-  }
-}
+    click() {
+      document.getElementsByClassName('custom-navbar')[0].scrollIntoView({ behavior: 'smooth' });
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -58,7 +57,6 @@ export default {
   opacity: 1;
   transition: opacity 1s, visibility 0.3s;
 }
-
 
 $base: 0.6rem;
 

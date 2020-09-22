@@ -28,6 +28,7 @@
               id="fieldset-obj_name"
               label="Наименование добавляемого жилого объекта"
               label-for="obj_name"
+
           >
             <b-form-input v-model="objName" id="obj_name"/>
           </b-form-group>
@@ -46,7 +47,10 @@
         <div v-if="currentObject">
           <b-form-group id="fieldset-obj_name2"
                         label="Наименование жилого объекта"
-                        label-for="obj_name2">
+                        label-for="obj_name2"
+                        label-class="font-weight-bold"
+          >
+
             <b-input-group>
               <template v-slot:prepend>
                 <b-input-group-text>
@@ -62,7 +66,10 @@
 
           <b-form-group id="fieldset-obj_address"
                         label="Адрес жилого объекта"
-                        label-for="obj_address">
+                        label-for="obj_address"
+                        label-class="font-weight-bold"
+          >
+
             <b-input-group>
               <template v-slot:prepend>
                 <b-input-group-text>
@@ -77,7 +84,9 @@
           </b-form-group>
 
           <div class="row">
-            <div class="col-6"><label for="obj_region">Регион расположения жилого объекта</label></div>
+            <div class="col-6">
+              <label class="font-weight-bold" for="obj_region">Регион расположения жилого объекта</label>
+            </div>
             <div class="col-6">
               <v-select :reduce="region=>region.value" label="text" :disabled="disablePage"
                         v-model="currentObject.id_region" :options="regions" id="obj_region"/>
@@ -86,7 +95,9 @@
           </div>
 
           <div class="row mt-2">
-            <div class="col-6"><label for="obj_kad_number">Кадастровый номер</label></div>
+            <div class="col-6">
+              <label class="font-weight-bold" for="obj_kad_number">Кадастровый номер</label>
+            </div>
             <div class="col-6">
               <b-form-input :disabled="disablePage" v-model="currentObject.kad_number" :options="regions"
                             id="obj_kad_number"/>
@@ -122,17 +133,17 @@
           </div>
 
           <div class="row mt-2">
-            <div class="col-6"><label class="ml-2" for="obj_reg_zap">1. Регистрационная запись</label></div>
-            <div class="col-6">
-              <b-form-input :disabled="disablePage" v-model="currentObject.reg_zap" :options="regions"
-                            id="obj_reg_zap"/>
-            </div>
-          </div>
-          <div class="row mt-2">
-            <div class="col-6"><label class="ml-2" for="obj_doc_number">2. Номер документа</label></div>
+            <div class="col-6"><label class="ml-2" for="obj_doc_number">1. Номер документа</label></div>
             <div class="col-6">
               <b-form-input :disabled="disablePage" v-model="currentObject.doc_number" :options="regions"
                             id="obj_doc_number"/>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-6"><label class="ml-2" for="obj_reg_zap">2. Дата документа</label></div>
+            <div class="col-6">
+              <b-form-input :disabled="disablePage" v-model="currentObject.reg_zap" :options="regions"
+                            id="obj_reg_zap"/>
             </div>
           </div>
 
@@ -235,7 +246,7 @@
             <div class="col-6"><label for="obj_sum_fins">Объемы финансирования строительства</label></div>
             <div class="col-6">
               <b-input-group append="Тысяч рублей">
-                <b-form-input :disabled="disablePage" type="number" v-model="currentObject.ob_fin_stroy" disabled
+                <b-form-input :disabled="disablePage" type="number" v-model="currentObject.ob_fin_stroy"
                               id="obj_sum_fins"/>
               </b-input-group>
             </div>
@@ -293,9 +304,7 @@
 
           <hr>
 
-
         </div>
-
 
       </div>
     </transition>
@@ -303,11 +312,9 @@
 
   </div>
 
-
 </template>
 
 <script>
-import NavBar from "../../organisms/NavBar";
 import {
   BAlert,
   BButton,
@@ -319,27 +326,35 @@ import {
   BModal,
   BTooltip,
 } from 'bootstrap-vue';
-import {Decimal} from 'decimal.js'
+import { Decimal } from 'decimal.js';
 import Axios from 'axios';
-import vSelect from 'vue-select'
-import scrollButton from "../../organisms/scrollButton";
+import vSelect from 'vue-select';
+import NavBar from '../../organisms/NavBar';
+import scrollButton from '../../organisms/scrollButton';
 
 export default {
   components: {
     NavBar,
     BFormInput,
     BFormSelect,
-    BButton, BModal,
-    BFormGroup, BTooltip,
-    BInputGroup, BInputGroupText,
+    BButton,
+    BModal,
+    BFormGroup,
+    BTooltip,
+    BInputGroup,
+    BInputGroupText,
     vSelect,
     BAlert,
-    scrollButton
+    scrollButton,
   },
-  props: {modalShow: false},
+  props: {
+    modalShow: {
+      default: false,
+    },
+  },
   data() {
     return {
-      csrf: document.getElementsByName("csrf-token")[0].content,
+      csrf: document.getElementsByName('csrf-token')[0].content,
       objName: '',
       componentReady: false,
       obj_index: null,
@@ -350,69 +365,66 @@ export default {
       modal_show: false,
       disablePage: false,
       objectsTitle: [],
-      objects: []
-    }
+      objects: [],
+    };
   },
   watch: {
     objects() {
       this.objectsTitle = [];
       this.objects.forEach((item, index) => {
-        console.log(index)
         this.objectsTitle.push({
-
           value: index,
-          text: item.name
-        })
-      })
-    }
+          text: item.name,
+        });
+      });
+    },
   },
   async mounted() {
-    console.log(this.modalShow)
     await this.getRegions();
     await this.getUser();
     this.id_org = this.user.id_org;
-    await this.getObject()
+    await this.getObject();
     this.modal_show = this.modalShow;
-    this.componentReady = true
-
+    this.componentReady = true;
   },
   methods: {
     async getUser() {
-      await Axios.get('/api/user/current').then(res => {
+      await Axios.get('/api/user/current').then((res) => {
         this.user = res.data;
       });
     },
     async getRegions() {
-      await Axios.get('/api/regions').then(response => {
-        response.data.forEach(item => {
+      await Axios.get('/api/regions').then((response) => {
+        response.data.forEach((item) => {
           this.regions.push({
             value: item.id,
-            text: item.region
-          })
-        })
-      })
+            text: item.region,
+          });
+        });
+      });
     },
     setObject(index) {
       this.currentObject = this.objects.find((item, i) => i === index);
     },
-    getObject: async function () {
-      await Axios.get(`/api/objects/org/${this.id_org}`).then(res => {
+    async getObject() {
+      await Axios.get(`/api/objects/org/${this.id_org}`).then((res) => {
         this.objects = res.data;
-        this.objects.forEach(item => {
-          Object.keys(item).forEach(key => {
+        this.objects.forEach((item) => {
+          Object.keys(item).forEach((key) => {
             if (typeof item[key] === 'string') {
               if (isNaN(+item[key])) {
                 try {
-                  item[key] = (new Decimal(item[key])).toNumber()
+                  item[key] = (new Decimal(item[key])).toNumber();
                 } catch {
+                  console.log('kek');
                 }
               } else {
                 item[key] = +item[key];
               }
             }
-          })
-        })
-      })
+          });
+        });
+      });
     },
     addObject() {
       this.objects.push({
@@ -445,22 +457,22 @@ export default {
     },
     async savePage() {
       if (Object.keys(this.currentObject).length) {
-        let data = new FormData();
+        const data = new FormData();
         data.append('object', JSON.stringify(this.currentObject));
         await Axios.post((!this.currentObject.id) ? `object/create/${this.id_org}` : `object/update/${this.currentObject.id}`,
-            data, {
-              headers: {
-                "X-CSRF-Token": this.csrf
-              }
-            }).then(res => {
-              if (res.data.success){
-                this.getObject()
-              }
-        }).finally(()=>this.disablePage = true)
+          data, {
+            headers: {
+              'X-CSRF-Token': this.csrf,
+            },
+          }).then((res) => {
+          if (res.data.success) {
+            this.getObject();
+          }
+        }).finally(() => this.disablePage = true);
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style scoped>
