@@ -22,7 +22,7 @@
         <b-button variant="outline-secondary" v-if="!disablePage" @click="modal_show = !modal_show">Добавить объект
         </b-button>
 
-        <b-modal hide-header v-model="modal_show">
+        <b-modal centered hide-header v-model="modal_show">
 
           <b-form-group
               id="fieldset-obj_name"
@@ -33,6 +33,11 @@
           </b-form-group>
 
           <template v-slot:modal-footer>
+            <b-alert show variant="primary">
+              Если у организации появился новый жилой объект, то лучше сначала его добавить в подсистему "Управление
+              имуществом", тогда в выпадающем списке объектов он появится автоматически.
+            </b-alert>
+            <b-button @click="modal_show = !modal_show" variant="outline-danger">Отмена</b-button>
             <b-button @click="addObject" variant="outline-success">Сохранить</b-button>
           </template>
         </b-modal>
@@ -199,7 +204,8 @@
             <div class="col-6"><label for="obj_smet_sum">Сметная стоимость</label></div>
             <div class="col-6">
               <b-input-group append="Тысяч рублей">
-                <b-form-input :disabled="disablePage" type="number" v-model="currentObject.smet" id="obj_smet_sum"/>
+                <b-form-input :disabled="disablePage" type="number" v-model.number="currentObject.smet"
+                              id="obj_smet_sum"/>
               </b-input-group>
             </div>
           </div>
@@ -303,6 +309,7 @@
 <script>
 import NavBar from "../../organisms/NavBar";
 import {
+  BAlert,
   BButton,
   BFormGroup,
   BFormInput,
@@ -310,8 +317,9 @@ import {
   BInputGroup,
   BInputGroupText,
   BModal,
-  BTooltip
+  BTooltip,
 } from 'bootstrap-vue';
+import {Decimal} from 'decimal.js'
 import Axios from 'axios';
 import vSelect from 'vue-select'
 import scrollButton from "../../organisms/scrollButton";
@@ -325,6 +333,7 @@ export default {
     BFormGroup, BTooltip,
     BInputGroup, BInputGroupText,
     vSelect,
+    BAlert,
     scrollButton
   },
   props: {modalShow: false},
@@ -386,10 +395,23 @@ export default {
     setObject(index) {
       this.currentObject = this.objects.find((item, i) => i === index);
     },
-    async getObject() {
+    getObject: async function () {
       await Axios.get(`/api/objects/org/${this.id_org}`).then(res => {
-        console.log(res.data)
-        this.objects = res.data
+        this.objects = res.data;
+        this.objects.forEach(item => {
+          Object.keys(item).forEach(key => {
+            if (typeof item[key] === 'string') {
+              if (isNaN(+item[key])) {
+                try {
+                  item[key] = (new Decimal(item[key])).toNumber()
+                } catch {
+                }
+              } else {
+                item[key] = +item[key];
+              }
+            }
+          })
+        })
       })
     },
     addObject() {
@@ -431,9 +453,10 @@ export default {
                 "X-CSRF-Token": this.csrf
               }
             }).then(res => {
-          this.getObject()
-          this.disablePage = true
-        })
+              if (res.data.success){
+                this.getObject()
+              }
+        }).finally(()=>this.disablePage = true)
       }
     }
   }

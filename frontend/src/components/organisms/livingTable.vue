@@ -2,15 +2,15 @@
     <b-table-simple small borderless responsive>
         <b-thead>
             <b-tr>
-                <b-th class="vert-text"><div><span>{{title}}</span></div></b-th>
-                <b-th class="vert-text"><div><span>Среднее профессиональное образование</span></div></b-th>
-                <b-th class="vert-text"><div><span>Бакалавриат</span></div></b-th>
-                <b-th class="vert-text"><div><span>Специалитет</span></div></b-th>
-                <b-th class="vert-text"><div><span>Магистратура много </span></div></b-th>
-                <b-th class="vert-text"><div><span>Аспирантура</span></div></b-th>
-                <b-th class="vert-text"><div><span>Ординатура</span></div></b-th>
-                <b-th class="vert-text"><div><span>Иные программы образования</span></div></b-th>
-                <b-th class="vert-text"><div><span>Всего</span></div></b-th>
+                <b-th class="vert-text">{{title}}</b-th>
+                <b-th class="vert-text">С.П.О</b-th>
+                <b-th class="vert-text">Бакалавриат</b-th>
+                <b-th class="vert-text">Специалитет</b-th>
+                <b-th class="vert-text">Магистратура</b-th>
+                <b-th class="vert-text">Аспирантура</b-th>
+                <b-th class="vert-text">Ординатура</b-th>
+                <b-th class="vert-text">Иные прог. обр.</b-th>
+                <b-th class="vert-text">Всего</b-th>
             </b-tr>
         </b-thead>
         <b-tbody>
@@ -19,7 +19,7 @@
                     <div class="row">
                         <div class="col-8">
                             <b-form-input v-model="item.label" :disabled="checkCanSave(index)" v-if="item.editableLabel"/>
-                            <span v-else>{{item.label}}</span>
+                            <span class="font-weight-bold" v-else>{{item.label}}</span>
                         </div>
                         <div class="col" v-if="!isInvalid">
                             <b-button pill class="align-items-center" @click="addRow(index)" v-if="item.button" variant="outline-secondary" >
