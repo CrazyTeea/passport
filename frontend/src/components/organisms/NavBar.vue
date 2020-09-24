@@ -41,7 +41,7 @@
             </b-dropdown>
 
           </div>
-          <div class=" col m-auto"><span class="font-weight-bold">Количество объектов: 3</span></div>
+          <div class=" col m-auto"><span class="font-weight-bold">Количество объектов: {{objCnt}}</span></div>
           <div class=" col m-auto"><span class="font-weight-bold">Выгрузить в excel <i
               class="fas text-success fa-file-excel"></i></span></div>
           <div v-if="saveButton" class=" col mt-2 mb-2">
@@ -74,6 +74,8 @@ import {
   BAlert, BButton, BDropdown, BDropdownItem, BDropdownText,
 } from 'bootstrap-vue';
 
+import Axios from 'axios';
+
 export default {
   components: {
     BDropdown,
@@ -83,6 +85,7 @@ export default {
     BAlert,
   },
   props: {
+    id_org: null,
     saveButton: {
       default: true,
     },
@@ -90,9 +93,20 @@ export default {
   data() {
     return {
       blockSave: false,
+      objCnt: 0,
     };
   },
+  watch: {
+    async id_org() {
+      await this.getObjCnt();
+    },
+  },
   methods: {
+    async getObjCnt() {
+      if (this.id_org) {
+        await Axios.get(`/api/cnt-objects/org/${this.id_org}`).then((res) => this.objCnt = res.data);
+      }
+    },
     click() {
       if (this.blockSave) this.change();
       else this.save();

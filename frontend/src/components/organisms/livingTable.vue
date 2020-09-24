@@ -22,7 +22,7 @@
                             <b-form-input v-model="item.label" :disabled="checkCanSave(index)" v-if="item.editableLabel"/>
                             <span class="font-weight-bold" v-else>{{item.label}}</span>
                         </div>
-                        <div class="col" v-if="!isInvalid">
+                        <div class="col" v-if="!isInvalid && !blockSave">
                             <b-button pill class="align-items-center" @click="addRow(index)" v-if="item.button" variant="outline-secondary" >
                                 <i class="fas fa-plus rotate-button"></i>
                             </b-button>

@@ -1,5 +1,6 @@
 const mix = require('laravel-mix');
-
+require('laravel-mix-eslint-config');
+require('laravel-mix-polyfill');
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -12,6 +13,8 @@ const mix = require('laravel-mix');
  */
 
 mix.js('src/app.js', '../web/vue/')
+  .eslint()
+  .polyfill()
   .sass('src/app.scss', '../web/vue/')
   .setPublicPath('../web/vue')
   .browserSync(

@@ -2,7 +2,7 @@
 
 namespace app\models;
 
-use Yii;
+use yii\httpclient\Client;
 
 /**
  * This is the model class for table "objects".
@@ -52,7 +52,7 @@ class Objects extends \yii\db\ActiveRecord
         return [
             [['id_org', 'id_region'], 'required'],
             [['id_org', 'id_region', 'reconstruct', 'ustav_dey', 'system_status'], 'integer'],
-            [['name', 'address', 'kad_number', 'osn_isp', 'flat_plan', 'flat_type', 'prib_type'], 'string'],
+            [['name', 'address', 'kad_number', 'osn_isp', 'flat_plan', 'flat_type', 'prib_type'], 'safe'],
             [['smet', 'money_faip', 'money_bud_sub', 'money_vneb'], 'number'],
             [['stroy_date_start', 'stroy_date_end', 'exp_date', 'ob_fin_stroy'], 'safe'],
             [['reg_zap', 'doc_number'], 'string', 'max' => 255],
@@ -101,7 +101,7 @@ class Objects extends \yii\db\ActiveRecord
      */
     public function getOrg()
     {
-        return $this->hasOne(Organizations::className(), ['id' => 'id_org']);
+        return $this->hasOne(Organizations::class, ['id' => 'id_org']);
     }
 
     /**
@@ -111,18 +111,43 @@ class Objects extends \yii\db\ActiveRecord
      */
     public function getRegion()
     {
-        return $this->hasOne(Regions::className(), ['id' => 'id_region']);
+        return $this->hasOne(Regions::class, ['id' => 'id_region']);
     }
+
     public function getArea()
     {
-        return $this->hasOne(ObjectsArea::className(), ['id_object' => 'id']);
+        return $this->hasOne(ObjectsArea::class, ['id_object' => 'id']);
     }
+
     public function getMoney()
     {
-        return $this->hasOne(ObjectsMoney::className(), ['id_object' => 'id']);
+        return $this->hasOne(ObjectsMoney::class, ['id_object' => 'id']);
     }
+
     public function getTariff()
     {
-        return $this->hasOne(ObjectsTariff::className(), ['id_object' => 'id']);
+        return $this->hasOne(ObjectsTariff::class, ['id_object' => 'id']);
+    }
+
+    public static function getRealEstateObjects(int $id_org,int $idEgrnAssignment = 1) : array
+    {
+        $client = new Client();
+        $response = $client->createRequest()
+            ->setUrl('https://xn--b1adcgjb2abq4al4j.xn--80apneeq.xn--p1ai/api/graph?access-token=23498jfskduespq0')
+            ->setMethod('POST')
+            ->setData(['query' => "{
+            realEstates(id_org:{$id_org},id_egrn_assignment:{$idEgrnAssignment}){              
+                cadastral_number
+                egrn_id_region
+                id
+                object_name
+                objectEgrnAddress   
+                registration_right_number     
+                registration_right_date
+                id_right_type
+            }
+        }"])->send();
+
+        return $response->getData()['data']['realEstates'];
     }
 }
