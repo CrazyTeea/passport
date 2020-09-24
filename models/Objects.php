@@ -60,9 +60,9 @@ class Objects extends \yii\db\ActiveRecord
             [['name', 'address', 'kad_number', 'osn_isp', 'flat_plan', 'flat_type', 'prib_type'], 'safe'],
             [['smet', 'money_faip', 'money_bud_sub', 'money_vneb','rec_money_faip','rec_money_bud_sub','rec_money_vneb'], 'number'],
             [['stroy_date_start', 'stroy_date_end', 'exp_date', 'ob_fin_stroy','date_start_reconstruct','date_end_reconstruct'], 'safe'],
-            [['reg_zap', 'doc_number'], 'string', 'max' => 255],
-            [['id_org'], 'exist', 'skipOnError' => true, 'targetClass' => Organizations::className(), 'targetAttribute' => ['id_org' => 'id']],
-            [['id_region'], 'exist', 'skipOnError' => true, 'targetClass' => Regions::className(), 'targetAttribute' => ['id_region' => 'id']],
+            [['reg_zap', 'doc_number','reason','uslovie','nevos_reason'], 'string', 'max' => 255],
+            [['id_org'], 'exist', 'skipOnError' => true, 'targetClass' => Organizations::class, 'targetAttribute' => ['id_org' => 'id']],
+            [['id_region'], 'exist', 'skipOnError' => true, 'targetClass' => Regions::class, 'targetAttribute' => ['id_region' => 'id']],
         ];
     }
 

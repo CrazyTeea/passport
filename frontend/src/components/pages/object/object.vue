@@ -255,7 +255,8 @@
               объект включен в ФАИП)</label></div>
             <div class="col-6">
               <b-input-group append="Тысяч рублей">
-                <b-form-input :disabled="disablePage" step="0.001" type="number" v-model.number="currentObject.money_faip"
+                <b-form-input :disabled="disablePage" step="0.001" type="number"
+                              v-model.number="currentObject.money_faip"
                               id="obj_schet_fed_bud"/>
               </b-input-group>
             </div>
@@ -265,7 +266,8 @@
               РФ</label></div>
             <div class="col-6">
               <b-input-group append="Тысяч рублей">
-                <b-form-input :disabled="disablePage" step="0.001" type="number" v-model.number="currentObject.money_bud_sub"
+                <b-form-input :disabled="disablePage" step="0.001" type="number"
+                              v-model.number="currentObject.money_bud_sub"
                               id="obj_schet_bud_subj"/>
               </b-input-group>
             </div>
@@ -274,7 +276,8 @@
             <div class="col-6"><label class="ml-2" for="obj_schet_vnebud">3. За счёт внебюджетных средств</label></div>
             <div class="col-6">
               <b-input-group append="Тысяч рублей">
-                <b-form-input :disabled="disablePage" step="0.001" type="number" v-model.number="currentObject.money_vneb"
+                <b-form-input :disabled="disablePage" step="0.001" type="number"
+                              v-model.number="currentObject.money_vneb"
                               id="obj_schet_vnebud"/>
               </b-input-group>
             </div>
@@ -289,7 +292,7 @@
                              :options="[{value:1,text:'Да'},{value:0,text:'Нет'}]" id="obj_rek_kap_rem"/>
             </div>
           </div>
-          <div v-if="currentObject.reconstruct === 1 || currentObject.reconstruct === '1'">
+          <div class="ml-2" v-if="currentObject.reconstruct === 1 || currentObject.reconstruct === '1'">
             <div class="row">
               <div class="col"><label>Месяц и год начала реконструкции или капитального ремонта</label></div>
               <div class="col">
@@ -375,6 +378,52 @@
                              id="obj_ustav_goal"/>
             </div>
           </div>
+
+          <div class="ml-2" v-if="currentObject.ustav_dey === 0 || currentObject.ustav_dey === '0'">
+            <div class="row mt-2">
+              <div class="col-6"><label class="ml-2" for="obj_schet_fed_bud">
+                1. Причина не использования в уставной деятельности
+              </label>
+              </div>
+              <div class="col-6">
+
+                  <b-form-textarea :disabled="disablePage"
+                                   v-model="currentObject.reason"
+                  />
+
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-6">
+                <label class="ml-2" for="obj_schet_bud_subj">
+                  2. Использование объекта возможно при условии
+                </label>
+              </div>
+              <div class="col-6">
+
+                <b-form-textarea
+                    :disabled="disablePage"
+                    v-model="currentObject.uslovie"/>
+
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-6">
+                <label class="ml-2" for="obj_schet_vnebud">
+                  3. Использование объекта невозможно по причине
+                </label>
+              </div>
+              <div class="col-6">
+
+                <b-form-textarea
+                    :disabled="disablePage"
+                    v-model="currentObject.nevos_reason"
+                />
+
+              </div>
+            </div>
+          </div>
+
           <hr>
         </div>
       </div>
@@ -396,6 +445,7 @@ import {
   BInputGroupText,
   BModal,
   BTooltip,
+  BFormTextarea,
 } from 'bootstrap-vue';
 import { Decimal } from 'decimal.js';
 import Axios from 'axios';
@@ -417,6 +467,7 @@ export default {
     vSelect,
     BAlert,
     scrollButton,
+    BFormTextarea,
   },
   props: {
     modalShow: {
