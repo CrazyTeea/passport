@@ -38,13 +38,7 @@
                         За счёт федерального бюджета
                         </span>
             </template>
-            <div class="row">
-              <div class="col-6 offset-6">
-                <span class="font-weight-bold small">
-                 Проживающие из числа обучающихся за счёт федерального бюджета
-                </span>
-              </div>
-            </div>
+
             <living-table :deletedItems="itemsToDelete.items_b" :items="items_b.items"
                           title="Проживающие из числа обучающихся за счёт федерального бюджета" :is-invalid="false"
                           :block-save="blockPage" v-bind:can-save="items_b.canSave"/>
@@ -56,13 +50,7 @@
                         За счёт бюджета субъекта
                         </span>
             </template>
-            <div class="row">
-              <div class="col-6 offset-6">
-                <span class="font-weight-bold small">
-                 Проживающие из числа обучающихся За счёт бюджета субъекта
-                </span>
-              </div>
-            </div>
+
             <living-table :deletedItems="itemsToDelete.items_s" :items="items_s.items"
                           title="Проживающие из числа обучающихся за счёт бюджета субъекта" :is-invalid="false"
                           :block-save="blockPage" v-bind:can-save="items_s.canSave"/>
@@ -74,13 +62,7 @@
                         За счёт местного бюджета
                         </span>
             </template>
-            <div class="row">
-              <div class="col-6 offset-6">
-                <span class="font-weight-bold small">
-                  Проживающие из числа обучающихся за счёт местного бюджета
-                </span>
-              </div>
-            </div>
+
             <living-table :deletedItems="itemsToDelete.items_m" :items="items_m.items"
                           title="Проживающие из числа обучающихся за счёт местного бюджета" :is-invalid="false"
                           :block-save="blockPage" v-bind:can-save="items_m.canSave"/>
@@ -93,14 +75,7 @@
                         платных образовательных услуг
                         </span>
             </template>
-            <div class="row">
-              <div class="col-6 offset-6">
-                <span class="font-weight-bold small">
-                  Проживающие из числа обучающихся по договорам об оказании
-                        платных образовательных услуг
-                </span>
-              </div>
-            </div>
+
             <living-table :deletedItems="itemsToDelete.items_p" :items="items_p.items"
                           title="Проживающие из числа обучающихся по договорам об оказании платных образовательных услуг"
                           :is-invalid="false"

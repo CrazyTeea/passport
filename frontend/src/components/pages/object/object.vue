@@ -246,7 +246,7 @@
             <div class="col">
               <label class="font-weight-bold">Объемы финансирования строительства: </label>
 
-              {{cntVal.ob_fin_stroy.toFixed(3) }} Тысяч рублей
+              {{ cntVal.ob_fin_stroy.toFixed(3) }} Тысяч рублей
 
             </div>
           </div>
@@ -255,7 +255,7 @@
               объект включен в ФАИП)</label></div>
             <div class="col-6">
               <b-input-group append="Тысяч рублей">
-                <b-form-input :disabled="disablePage" type="number" v-model="currentObject.money_faip"
+                <b-form-input :disabled="disablePage" step="0.001" type="number" v-model.number="currentObject.money_faip"
                               id="obj_schet_fed_bud"/>
               </b-input-group>
             </div>
@@ -265,7 +265,7 @@
               РФ</label></div>
             <div class="col-6">
               <b-input-group append="Тысяч рублей">
-                <b-form-input :disabled="disablePage" type="number" v-model="currentObject.money_bud_sub"
+                <b-form-input :disabled="disablePage" step="0.001" type="number" v-model.number="currentObject.money_bud_sub"
                               id="obj_schet_bud_subj"/>
               </b-input-group>
             </div>
@@ -274,7 +274,7 @@
             <div class="col-6"><label class="ml-2" for="obj_schet_vnebud">3. За счёт внебюджетных средств</label></div>
             <div class="col-6">
               <b-input-group append="Тысяч рублей">
-                <b-form-input :disabled="disablePage" type="number" v-model="currentObject.money_vneb"
+                <b-form-input :disabled="disablePage" step="0.001" type="number" v-model.number="currentObject.money_vneb"
                               id="obj_schet_vnebud"/>
               </b-input-group>
             </div>
@@ -287,6 +287,81 @@
             <div class="col-6">
               <b-form-select :disabled="disablePage" v-model="currentObject.reconstruct"
                              :options="[{value:1,text:'Да'},{value:0,text:'Нет'}]" id="obj_rek_kap_rem"/>
+            </div>
+          </div>
+          <div v-if="currentObject.reconstruct === 1 || currentObject.reconstruct === '1'">
+            <div class="row">
+              <div class="col"><label>Месяц и год начала реконструкции или капитального ремонта</label></div>
+              <div class="col">
+                <b-form-input
+                    type="date"
+                    :disabled="disablePage"
+                    v-model="currentObject.date_start_reconstruct"/>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col"><label>Сроки ввода (месяц и год) в эксплуатацию после реконструкции или капитального
+                ремонта</label></div>
+              <div class="col">
+                <b-form-input
+                    type="date"
+                    :disabled="disablePage"
+                    v-model="currentObject.date_end_reconstruct"/>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col">
+                <label class="font-weight-bold">Объемы финансирования реконструкции или капитального ремонта: </label>
+
+                {{ cntVal.rec_ob_fin_stroy.toFixed(3) }} Тысяч рублей
+
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-6"><label class="ml-2" for="obj_schet_fed_bud">
+                1. За счёт средств федерального бюджета (если объект включен в ФАИП)
+              </label>
+              </div>
+              <div class="col-6">
+                <b-input-group append="Тысяч рублей">
+                  <b-form-input :disabled="disablePage" step="0.001" type="number"
+                                v-model.number="currentObject.rec_money_faip"
+                  />
+                </b-input-group>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-6">
+                <label class="ml-2" for="obj_schet_bud_subj">
+                  2.За счёт средств бюджета субъекта РФ
+                </label>
+              </div>
+              <div class="col-6">
+                <b-input-group append="Тысяч рублей">
+                  <b-form-input
+                      :disabled="disablePage"
+                      type="number"
+                      step="0.001"
+                      v-model.number="currentObject.rec_money_bud_sub"/>
+                </b-input-group>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-6">
+                <label class="ml-2" for="obj_schet_vnebud">
+                  3. За счёт внебюджетных средств
+                </label>
+              </div>
+              <div class="col-6">
+                <b-input-group append="Тысяч рублей">
+                  <b-form-input
+                      :disabled="disablePage"
+                      type="number"
+                      step="0.001"
+                      v-model.number="currentObject.rec_money_vneb"
+                  />
+                </b-input-group>
+              </div>
             </div>
           </div>
 
@@ -362,6 +437,7 @@ export default {
       currentObject: null,
       cntVal: {
         ob_fin_stroy: 0,
+        rec_ob_fin_stroy: 0,
       },
       regions: [],
       id_org: null,
@@ -400,6 +476,9 @@ export default {
     cntObject() {
       this.cntVal.ob_fin_stroy = new Decimal(this.currentObject.money_faip || 0).plus(
         new Decimal(this.currentObject.money_bud_sub || 0).plus(new Decimal(this.currentObject.money_vneb || 0)),
+      );
+      this.cntVal.rec_ob_fin_stroy = new Decimal(this.currentObject.rec_money_faip || 0).plus(
+        new Decimal(this.currentObject.rec_money_bud_sub || 0).plus(new Decimal(this.currentObject.rec_money_vneb || 0)),
       );
     },
     async getUser() {
@@ -454,6 +533,9 @@ export default {
         money_bud_sub: null,
         money_faip: null,
         money_vneb: null,
+        rec_money_bud_sub: null,
+        rec_money_faip: null,
+        rec_money_vneb: null,
         ob_fin_stroy: null,
         osn_isp: null,
         prib_type: null,
