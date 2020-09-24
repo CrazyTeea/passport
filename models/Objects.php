@@ -35,9 +35,20 @@ use yii\httpclient\Client;
  * @property int|null $rec_money_vneb
  * @property int|null $date_start_reconstruct
  * @property int|null $date_end_reconstruct
+ * @property int|null $pandus
+ * @property int|null $mech_por
+ * @property int|null $sanusel
+ * @property int|null $signal
+ * @property int|null $pokr
+ * @property int|null $vives
+ * @property int|null $min_per
+ * @property int|null $max_per
  *
  * @property Organizations $org
  * @property Regions $region
+ * @property ObjectsArea $area
+ * @property ObjectsMoney $money
+ * @property ObjectsTariff $tariff
  */
 class Objects extends \yii\db\ActiveRecord
 {
@@ -56,11 +67,12 @@ class Objects extends \yii\db\ActiveRecord
     {
         return [
             [['id_org', 'id_region'], 'required'],
-            [['id_org', 'id_region', 'reconstruct', 'ustav_dey', 'system_status'], 'integer'],
+            [['id_org', 'id_region', 'reconstruct', 'ustav_dey', 'pandus', 'mech_por', 'sanusel',
+                'signal', 'pokr', 'vives', 'min_per', 'max_per', 'system_status'], 'integer'],
             [['name', 'address', 'kad_number', 'osn_isp', 'flat_plan', 'flat_type', 'prib_type'], 'safe'],
-            [['smet', 'money_faip', 'money_bud_sub', 'money_vneb','rec_money_faip','rec_money_bud_sub','rec_money_vneb'], 'number'],
-            [['stroy_date_start', 'stroy_date_end', 'exp_date', 'ob_fin_stroy','date_start_reconstruct','date_end_reconstruct'], 'safe'],
-            [['reg_zap', 'doc_number','reason','uslovie','nevos_reason'], 'string', 'max' => 255],
+            [['smet', 'money_faip', 'money_bud_sub', 'money_vneb', 'rec_money_faip', 'rec_money_bud_sub', 'rec_money_vneb'], 'number'],
+            [['stroy_date_start', 'stroy_date_end', 'exp_date', 'ob_fin_stroy', 'date_start_reconstruct', 'date_end_reconstruct'], 'safe'],
+            [['reg_zap', 'doc_number', 'reason', 'uslovie', 'nevos_reason'], 'string', 'max' => 255],
             [['id_org'], 'exist', 'skipOnError' => true, 'targetClass' => Organizations::class, 'targetAttribute' => ['id_org' => 'id']],
             [['id_region'], 'exist', 'skipOnError' => true, 'targetClass' => Regions::class, 'targetAttribute' => ['id_region' => 'id']],
         ];
@@ -134,7 +146,7 @@ class Objects extends \yii\db\ActiveRecord
         return $this->hasOne(ObjectsTariff::class, ['id_object' => 'id']);
     }
 
-    public static function getRealEstateObjects(int $id_org,int $idEgrnAssignment = 1) : array
+    public static function getRealEstateObjects(int $id_org, int $idEgrnAssignment = 1): array
     {
         $client = new Client();
         $response = $client->createRequest()
