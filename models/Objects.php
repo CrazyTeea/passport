@@ -30,6 +30,11 @@ use yii\httpclient\Client;
  * @property int|null $reconstruct
  * @property int|null $ustav_dey
  * @property int|null $system_status
+ * @property int|null $rec_money_faip
+ * @property int|null $rec_money_bud_sub
+ * @property int|null $rec_money_vneb
+ * @property int|null $date_start_reconstruct
+ * @property int|null $date_end_reconstruct
  *
  * @property Organizations $org
  * @property Regions $region
@@ -53,8 +58,8 @@ class Objects extends \yii\db\ActiveRecord
             [['id_org', 'id_region'], 'required'],
             [['id_org', 'id_region', 'reconstruct', 'ustav_dey', 'system_status'], 'integer'],
             [['name', 'address', 'kad_number', 'osn_isp', 'flat_plan', 'flat_type', 'prib_type'], 'safe'],
-            [['smet', 'money_faip', 'money_bud_sub', 'money_vneb'], 'number'],
-            [['stroy_date_start', 'stroy_date_end', 'exp_date', 'ob_fin_stroy'], 'safe'],
+            [['smet', 'money_faip', 'money_bud_sub', 'money_vneb','rec_money_faip','rec_money_bud_sub','rec_money_vneb'], 'number'],
+            [['stroy_date_start', 'stroy_date_end', 'exp_date', 'ob_fin_stroy','date_start_reconstruct','date_end_reconstruct'], 'safe'],
             [['reg_zap', 'doc_number'], 'string', 'max' => 255],
             [['id_org'], 'exist', 'skipOnError' => true, 'targetClass' => Organizations::className(), 'targetAttribute' => ['id_org' => 'id']],
             [['id_region'], 'exist', 'skipOnError' => true, 'targetClass' => Regions::className(), 'targetAttribute' => ['id_region' => 'id']],

@@ -3,7 +3,7 @@
         <b-thead>
             <b-tr>
                 <b-th class="vert-text">{{title}}</b-th>
-                <b-th class="vert-text">С.П.О</b-th>
+                <b-th class="vert-text">С.П.О.</b-th>
                 <b-th class="vert-text">Бакалавриат</b-th>
                 <b-th class="vert-text">Специалитет</b-th>
                 <b-th class="vert-text">Магистратура</b-th>
