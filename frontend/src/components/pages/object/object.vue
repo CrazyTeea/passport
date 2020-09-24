@@ -387,9 +387,9 @@
               </div>
               <div class="col-6">
 
-                  <b-form-textarea :disabled="disablePage"
-                                   v-model="currentObject.reason"
-                  />
+                <b-form-textarea :disabled="disablePage"
+                                 v-model="currentObject.reason"
+                />
 
               </div>
             </div>
@@ -423,8 +423,134 @@
               </div>
             </div>
           </div>
+          <hr>
+          <span
+              class="font-weight-bold">Доступность зданий для использования лицами с ограниченными возможностями</span>
+
+          <div class="row mt-2">
+            <div class="col">
+              <label>
+                Наличие пандуса
+              </label>
+            </div>
+            <div class="col">
+              <b-input-group append="единиц">
+                <b-form-input
+                    :disabled="disablePage"
+                    v-model.number="currentObject.pandus"
+                />
+              </b-input-group>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col">
+              <label>
+                Наличие специализированных подъемных механизмов и поручней
+              </label>
+            </div>
+            <div class="col">
+              <b-input-group append="единиц">
+                <b-form-input
+                    :disabled="disablePage"
+                    v-model.number="currentObject.mech_por"
+                />
+              </b-input-group>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col">
+              <label>
+                Оборудование специализированными санузлами
+              </label>
+            </div>
+            <div class="col">
+              <b-input-group append="единиц">
+                <b-form-input
+                    :disabled="disablePage"
+                    v-model.number="currentObject.sanusel"
+                />
+              </b-input-group>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col">
+              <label>
+                Наличие систем сигнализации и оповещения
+              </label>
+            </div>
+            <div class="col">
+              <b-input-group append="единиц">
+                <b-form-input
+                    :disabled="disablePage"
+                    v-model.number="currentObject.signal"
+                />
+              </b-input-group>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col">
+              <label>
+                Наличие тактильных покрытий
+              </label>
+            </div>
+            <div class="col">
+              <b-input-group append="единиц">
+                <b-form-input
+                    :disabled="disablePage"
+                    v-model.number="currentObject.pokr"
+                />
+              </b-input-group>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col">
+              <label>
+                Наличие тактильных вывесок со шрифтом Брайля
+              </label>
+            </div>
+            <div class="col">
+              <b-input-group append="единиц">
+                <b-form-input
+                    :disabled="disablePage"
+                    v-model.number="currentObject.vives"
+                />
+              </b-input-group>
+            </div>
+          </div>
 
           <hr>
+
+          <div class="row mt-2">
+            <div class="col">
+              <label>
+                Минимальный период заключения договора аренды жилого помещения в общежитии
+              </label>
+            </div>
+            <div class="col">
+              <b-input-group append="месяцев">
+                <b-form-input
+                    :disabled="disablePage"
+                    v-model.number="currentObject.min_per"
+                />
+              </b-input-group>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col">
+              <label>
+                Максимальный период заключения договора аренды жилого помещения в общежитии
+              </label>
+            </div>
+            <div class="col">
+              <b-input-group append="месяцев">
+                <b-form-input
+                    :disabled="disablePage"
+                    v-model.number="currentObject.max_per"
+                />
+              </b-input-group>
+            </div>
+          </div>
+
         </div>
       </div>
     </transition>
@@ -441,11 +567,11 @@ import {
   BFormGroup,
   BFormInput,
   BFormSelect,
+  BFormTextarea,
   BInputGroup,
   BInputGroupText,
   BModal,
   BTooltip,
-  BFormTextarea,
 } from 'bootstrap-vue';
 import { Decimal } from 'decimal.js';
 import Axios from 'axios';
@@ -596,6 +722,20 @@ export default {
         stroy_date_end: null,
         stroy_date_start: null,
         ustav_dey: null,
+        id_realEstate: null,
+        date_start_reconstruct: null,
+        date_end_reconstruct: null,
+        reason: null,
+        uslovie: null,
+        nevos_reason: null,
+        pandus: null,
+        mech_por: null,
+        sanusel: null,
+        signal: null,
+        pokr: null,
+        vives: null,
+        min_per: null,
+        max_per: null,
       });
       this.objName = null;
       this.obj_index = this.objects.length - 1;
