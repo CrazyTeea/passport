@@ -30,5 +30,6 @@ module.exports = {
     'array-callback-return': 'off',
     'no-shadow': 'off',
     'consistent-return': 'off',
+    'import/no-extraneous-dependencies': 'off',
   },
 };

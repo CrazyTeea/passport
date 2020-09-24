@@ -12,6 +12,7 @@ const api = [
     'api/organization/count-obj/<id:\d+>'=>'api/organizations/obj-count',
 
     'api/objects/org/<id_org:\d+>'=>'api/objects/by-org',
+    'api/cnt-objects/org/<id_org:\d+>'=>'api/objects/by-org-count',
 ];
 
 const app = [

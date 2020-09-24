@@ -559,7 +559,8 @@ export default {
     async getOrg() {
       await Axios.get(`/api/organization/by-id/${this.id_org}`).then((res) => {
         this.organization = res.data;
-        this.organization.area = this.area = res.data.area ?? {};
+        this.organization.area = res.data.area ?? {};
+        this.area = this.organization.area;
       });
       await Axios.get(`/api/objects/org/${this.id_org}`).then((res) => {
         this.organization.objects = res.data;

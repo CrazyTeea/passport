@@ -1,6 +1,6 @@
 <template>
   <div class="page-obj">
-    <nav-bar v-on:save-page="savePage" v-on:block-save="disablePage = !disablePage"/>
+    <nav-bar :id_org="id_org" v-on:save-page="savePage" v-on:block-save="disablePage = !disablePage"/>
     <transition enter-active-class="animated fadeInUp">
       <div v-if="componentReady" class="container">
         <div class="row">
@@ -60,7 +60,7 @@
                   Полное наименование жилого объекта (общежития)
                 </b-tooltip>
               </template>
-              <b-form-input :disabled="disablePage" v-model="currentObject.name" id="obj_name2"/>
+              <b-form-input :disabled="ifRealEstate" v-model="currentObject.name" id="obj_name2"/>
             </b-input-group>
           </b-form-group>
 
@@ -79,7 +79,7 @@
                   Страна, индекс, ФО, Субъект, Район, Населённый пункт, Улица, Дом.
                 </b-tooltip>
               </template>
-              <b-form-input :disabled="disablePage" v-model="currentObject.address" id="obj_address"/>
+              <b-form-input :disabled="ifRealEstate" v-model="currentObject.address" id="obj_address"/>
             </b-input-group>
           </b-form-group>
 
@@ -88,7 +88,7 @@
               <label class="font-weight-bold" for="obj_region">Регион расположения жилого объекта</label>
             </div>
             <div class="col-6">
-              <v-select :reduce="region=>region.value" label="text" :disabled="disablePage"
+              <v-select :reduce="region=>region.value" label="text" :disabled="ifRealEstate"
                         v-model="currentObject.id_region" :options="regions" id="obj_region"/>
               <!--<b-form-select :disabled="disablePage" v-model="currentObject.id_region" :options="regions" id="obj_region"/>-->
             </div>
@@ -99,7 +99,7 @@
               <label class="font-weight-bold" for="obj_kad_number">Кадастровый номер</label>
             </div>
             <div class="col-6">
-              <b-form-input :disabled="disablePage" v-model="currentObject.kad_number" :options="regions"
+              <b-form-input :disabled="ifRealEstate" v-model="currentObject.kad_number" :options="regions"
                             id="obj_kad_number"/>
             </div>
           </div>
@@ -109,40 +109,40 @@
           <div class="row">
             <div class="col-6"><label for="obj_osnov_isp">Основание для использования здания</label></div>
             <div class="col-6">
-              <b-form-select :disabled="disablePage" v-model="currentObject.osn_isp" :options="[{
-                    value:'pou',
+              <b-form-select :disabled="ifRealEstate" v-model="currentObject.osn_isp" :options="[{
+                    value:1,
                     text:'Право оперативного управления'
                 },
                 {
-                    value:'da',
+                    value:3,
                     text:'Договор аренды'
                 },
                 {
-                    value:'dbp',
+                    value:4,
                     text:'Договор о безвоздмездом пользовании'
                 },
                 {
-                    value:'sob',
+                    value:5,
                     text:'Собственность'
                 },
                 {
-                    value:'inoe',
+                    value:9,
                     text:'Иное'
                 }]" id="obj_osnov_isp"/>
             </div>
           </div>
 
           <div class="row mt-2">
-            <div class="col-6"><label class="ml-2" for="obj_doc_number">1. Номер документа</label></div>
+            <div class="col-6"><label class="ml-2" for="obj_doc_number">1. Номер регистрации права</label></div>
             <div class="col-6">
-              <b-form-input :disabled="disablePage" v-model="currentObject.doc_number" :options="regions"
+              <b-form-input :disabled="ifRealEstate" v-model="currentObject.doc_number" :options="regions"
                             id="obj_doc_number"/>
             </div>
           </div>
           <div class="row mt-2">
-            <div class="col-6"><label class="ml-2" for="obj_reg_zap">2. Дата документа</label></div>
+            <div class="col-6"><label class="ml-2" for="obj_reg_zap">2. Дата регистрации права</label></div>
             <div class="col-6">
-              <b-form-input :disabled="disablePage" v-model="currentObject.reg_zap" :options="regions"
+              <b-form-input :disabled="ifRealEstate" type="date" v-model="currentObject.reg_zap" :options="regions"
                             id="obj_reg_zap"/>
             </div>
           </div>
@@ -348,6 +348,11 @@ export default {
       default: false,
     },
   },
+  computed: {
+    ifRealEstate() {
+      return !!(this.disablePage || this.currentObject.id_realEstate);
+    },
+  },
   data() {
     return {
       csrf: document.getElementsByName('csrf-token')[0].content,
@@ -372,7 +377,7 @@ export default {
       if (this.objects.length) {
         this.objectsTitle = this.objects.map((item, index) => ({
           value: index,
-          text: item.name,
+          text: `${item.name} [${item.kad_number}]`,
         }));
       }
     },
