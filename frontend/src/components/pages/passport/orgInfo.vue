@@ -46,7 +46,7 @@
           </b-thead>
           <b-tbody>
             <b-tr>
-              <b-th>Спо</b-th>
+              <b-td>С.П.О.</b-td>
               <b-td>
                 <b-form-input type="number" v-model="organization.info[0].s_f_b_spo" :disabled="blockSave"/>
               </b-td>
@@ -235,7 +235,7 @@
           </b-thead>
           <b-tbody>
             <b-tr>
-              <b-td>Спо</b-td>
+              <b-td>С.П.О.</b-td>
               <b-td>
                 <b-form-input type="number" v-model="organization.info[1].s_f_b_spo" :disabled="blockSave"/>
               </b-td>
