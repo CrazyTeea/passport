@@ -72,40 +72,40 @@
           </b-thead>
           <b-tbody>
             <b-tr>
-              <b-th>Требует капитального ремонта</b-th>
+              <b-td>Требует капитального ремонта</b-td>
               <b-td>
-                {{ area.area_zhil_t_k_r }}
+                {{ area.area_zhil_t_k_r || 0 }}
               </b-td>
               <b-td>
-                {{ area.area_ne_zhil_t_k_r }}
+                {{ area.area_ne_zhil_t_k_r || 0 }}
               </b-td>
-              <b-td>
+              <b-th>
                 {{ area.all_t_k_r }}
-              </b-td>
+              </b-th>
             </b-tr>
             <b-tr>
-              <b-th>Находится в аварийном состоянии</b-th>
+              <b-td>Находится в аварийном состоянии</b-td>
               <b-td>
-                {{ area.area_zhil_n_a_s }}
+                {{ area.area_zhil_n_a_s || 0 }}
               </b-td>
               <b-td>
-                {{ area.area_ne_zhil_n_a_s }}
+                {{ area.area_ne_zhil_n_a_s || 0 }}
               </b-td>
-              <b-td>
+              <b-th>
                 {{ area.all_n_a_s }}
-              </b-td>
+              </b-th>
             </b-tr>
             <b-tr>
-              <b-th>Непригодна для проживания</b-th>
+              <b-td>Непригодна для проживания</b-td>
               <b-td>
-                {{ area.area_zhil_n_p }}
+                {{ area.area_zhil_n_p || 0 }}
               </b-td>
               <b-td>
-                {{ area.area_ne_zhil_n_p }}
+                {{ area.area_ne_zhil_n_p || 0 }}
               </b-td>
-              <b-td>
+              <b-th>
                 {{ area.all_n_p }}
-              </b-td>
+              </b-th>
             </b-tr>
           </b-tbody>
         </b-table-simple>
@@ -140,13 +140,13 @@
         <div class="row">
           <div class="col">
             <label class="font-weight-bold">Количество мест: </label>
-            {{ area.area_cnt_mest.toFixed(3) }} мест
+            {{ area.area_cnt_mest }} мест
           </div>
         </div>
         <div class="row">
           <div class="col">
             <label class="ml-2 font-weight-bold">1. Количество пригодных для проживания мест: </label>
-            {{ area.area_cnt_mest_prig_prozh.toFixed(3) }} мест
+            {{ area.area_cnt_mest_prig_prozh }} мест
           </div>
         </div>
         <div class="row">
@@ -167,116 +167,116 @@
           </b-thead>
           <b-tbody>
             <b-tr>
-              <b-th>
+              <b-td>
                 Среднее профессиональное образование
+              </b-td>
+              <b-td>
+                {{ area.m2_spo || 0 }}
+              </b-td>
+              <b-td>
+                {{ area.c6m2_spo || 0 }}
+              </b-td>
+              <b-th>
+                {{ area.all_c6m2_spo || 0 }}
               </b-th>
-              <b-td>
-                {{ area.m2_spo }}
-              </b-td>
-              <b-td>
-                {{ area.c6m2_spo }}
-              </b-td>
-              <b-td>
-                {{ area.all_c6m2_spo }}
-              </b-td>
             </b-tr>
             <b-tr>
-              <b-th>
+              <b-td>
                 Бакалавриат
+              </b-td>
+              <b-td>
+                {{ organization.area.m2_bak || 0 }}
+              </b-td>
+              <b-td>
+                {{ organization.area.c6m2_bak || 0 }}
+              </b-td>
+              <b-th>
+                {{ area.all_c6m2_bak || 0 }}
               </b-th>
-              <b-td>
-                {{ organization.area.m2_bak }}
-              </b-td>
-              <b-td>
-                {{ organization.area.c6m2_bak }}
-              </b-td>
-              <b-td>
-                {{ area.all_c6m2_bak }}
-              </b-td>
             </b-tr>
             <b-tr>
-              <b-th>
+              <b-td>
                 Специалитет
+              </b-td>
+              <b-td>
+                {{ organization.area.m2_spec || 0 }}
+              </b-td>
+              <b-td>
+                {{ organization.area.c6m2_spec || 0 }}
+              </b-td>
+              <b-th>
+                {{ area.all_c6m2_spec || 0 }}
               </b-th>
-              <b-td>
-                {{ organization.area.m2_spec }}
-              </b-td>
-              <b-td>
-                {{ organization.area.c6m2_spec }}
-              </b-td>
-              <b-td>
-                {{ area.all_c6m2_spec }}
-              </b-td>
             </b-tr>
             <b-tr>
-              <b-th>
+              <b-td>
                 Магистратура
+              </b-td>
+              <b-td>
+                {{ organization.area.m2_mag || 0 }}
+              </b-td>
+              <b-td>
+                {{ organization.area.c6m2_mag || 0 }}
+              </b-td>
+              <b-th>
+                {{ area.all_c6m2_mag || 0 }}
               </b-th>
-              <b-td>
-                {{organization. area.m2_mag }}
-              </b-td>
-              <b-td>
-                {{ organization.area.c6m2_mag }}
-              </b-td>
-              <b-td>
-                {{ area.all_c6m2_mag }}
-              </b-td>
             </b-tr>
             <b-tr>
-              <b-th>
+              <b-td>
                 Аспирантура
+              </b-td>
+              <b-td>
+                {{ organization.area.m2_asp || 0 }}
+              </b-td>
+              <b-td>
+                {{ organization.area.c6m2_asp || 0 }}
+              </b-td>
+              <b-th>
+                {{ area.all_c6m2_asp || 0 }}
               </b-th>
-              <b-td>
-                {{ organization.area.m2_asp }}
-              </b-td>
-              <b-td>
-                {{ organization.area.c6m2_asp }}
-              </b-td>
-              <b-td>
-                {{ area.all_c6m2_asp }}
-              </b-td>
             </b-tr>
             <b-tr>
-              <b-th>
+              <b-td>
                 Ординатрура
+              </b-td>
+              <b-td>
+                {{ organization.area.m2_ord || 0 }}
+              </b-td>
+              <b-td>
+                {{ organization.area.c6m2_ord || 0 }}
+              </b-td>
+              <b-th>
+                {{ area.all_c6m2_ord || 0 }}
               </b-th>
-              <b-td>
-                {{organization. area.m2_ord }}
-              </b-td>
-              <b-td>
-                {{organization. area.c6m2_ord }}
-              </b-td>
-              <b-td>
-                {{ area.all_c6m2_ord }}
-              </b-td>
             </b-tr>
             <b-tr>
-              <b-th>
+              <b-td>
                 Иные обучающиеся
+              </b-td>
+              <b-td>
+                {{ organization.area.m2_in || 0 }}
+              </b-td>
+              <b-td>
+                {{ organization.area.c6m2_in || 0 }}
+              </b-td>
+              <b-th>
+                {{ area.all_c6m2_in || 0 }}
               </b-th>
-              <b-td>
-                {{organization. area.m2_in }}
-              </b-td>
-              <b-td>
-                {{organization. area.c6m2_in }}
-              </b-td>
-              <b-td>
-                {{ area.all_c6m2_in }}
-              </b-td>
             </b-tr>
             <b-tr>
               <b-th>
                 Всего
               </b-th>
-              <b-td>
-                {{organization.area.all_m2 }}
-              </b-td>
-              <b-td>
-                {{ organization.area.all_6m2 }}
-              </b-td>
-              <b-td>
-                {{ area.all_all }}
-              </b-td>
+              <b-th>
+                {{ organization.area.all_m2 || 0 }}
+              </b-th>
+              <b-th>
+                {{ organization.area.all_6m2 || 0 }}
+              </b-th>
+              <b-th>
+                {{ area.all_all || 0 }}
+              </b-th>
             </b-tr>
           </b-tbody>
         </b-table-simple>
@@ -447,7 +447,9 @@ export default {
   },
   watch: {
     objArea() {
-      if (this.componentReady) { this.countArea(); }
+      if (this.componentReady) {
+        this.countArea();
+      }
     },
   },
   methods: {
@@ -468,37 +470,37 @@ export default {
           zil.ne_isp = new Decimal(item.area.neisp).plus(zil.ne_isp);
 
           nezil = (new Decimal(item.area.punkt_pit).plus(
-            new Decimal(item.area.pom_dlya_uch).plus(
-              new Decimal(item.area.pom_dlya_med).plus(
-                new Decimal(item.area.pom_dlya_sport).plus(
-                  new Decimal(item.area.pom_dlya_soc).plus(
-                    new Decimal(item.area.pom_dlya_kult).plus(
-                      new Decimal(item.area.in_nezh_plosh),
-                    ),
+              new Decimal(item.area.pom_dlya_uch).plus(
+                  new Decimal(item.area.pom_dlya_med).plus(
+                      new Decimal(item.area.pom_dlya_sport).plus(
+                          new Decimal(item.area.pom_dlya_soc).plus(
+                              new Decimal(item.area.pom_dlya_kult).plus(
+                                  new Decimal(item.area.in_nezh_plosh),
+                              ),
+                          ),
+                      ),
                   ),
-                ),
               ),
-            ),
           )).plus(nezil);
         }
       });
 
       this.area.all_t_k_r = new Decimal(this.area.area_zhil_t_k_r || 0).plus(
-        new Decimal(this.area.area_ne_zhil_t_k_r ?? 0),
+          new Decimal(this.area.area_ne_zhil_t_k_r ?? 0),
       );
 
       this.area.all_n_a_s = new Decimal(this.area.area_zhil_n_a_s ?? 0).plus(
-        new Decimal(this.area.area_ne_zhil_n_a_s ?? 0),
+          new Decimal(this.area.area_ne_zhil_n_a_s ?? 0),
       );
 
       this.area.all_n_p = new Decimal(this.area.area_zhil_n_p ?? 0).plus(
-        new Decimal(this.area.area_ne_zhil_n_p ?? 0),
+          new Decimal(this.area.area_ne_zhil_n_p ?? 0),
       );
 
       this.area.area_obsh_ne_prig_dlya_prozh = this.area.all_n_p.plus(
-        this.area.all_n_a_s.plus(
-          this.area.all_t_k_r,
-        ),
+          this.area.all_n_a_s.plus(
+              this.area.all_t_k_r,
+          ),
       );
 
       this.area.area_zan_obuch = zil.area_zan_obuch;
@@ -508,14 +510,14 @@ export default {
       this.area.ne_zhil_plosh_v_prig_dlya_prozh = nezil;
 
       this.area.area_zhil_prig_prozh = new Decimal(this.area.area_zan_obuch).plus(
-        new Decimal(this.area.area_in_kat_nan).plus(
-          new Decimal(this.area.svobod).plus(
-            new Decimal(this.area.ne_isp),
+          new Decimal(this.area.area_in_kat_nan).plus(
+              new Decimal(this.area.svobod).plus(
+                  new Decimal(this.area.ne_isp),
+              ),
           ),
-        ),
       );
       this.area.area_prig_prozh = new Decimal(this.area.area_zhil_prig_prozh).plus(
-        new Decimal(this.area.ne_zhil_plosh_v_prig_dlya_prozh),
+          new Decimal(this.area.ne_zhil_plosh_v_prig_dlya_prozh),
       );
 
       const b = new Decimal(this.area.area_zan_obuch).plus(new Decimal(this.area.area_in_kat_nan)).toNumber();
@@ -523,7 +525,7 @@ export default {
       this.area.area_kv_metr_obsh = b > 0 ? (this.area.area_prig_prozh / (b)) : 0;
 
       this.area.area_obj_ne_isp_v_ust_dey = new Decimal(this.area.area_obsh_ne_prig_dlya_prozh).plus(
-        new Decimal(this.area.area_prig_prozh),
+          new Decimal(this.area.area_prig_prozh),
       );
 
       this.area.area_cnt_mest_zan_obuch = this.organization.objects?.reduce((a, b) => a + +((b.area) ? b.area.cnt_mest_zan_obuch : 0), 0);
@@ -536,19 +538,19 @@ export default {
       this.area.area_cnt_mest_vozm_mest_is_neprig = this.organization.objects?.reduce((a, b) => a + +(b.area ? b.area.cnt_mest_vozm_neprig_mest : 0), 0);
 
       this.area.area_cnt_mest_prig_prozh = new Decimal(this.area.area_cnt_mest_zan_obuch || 0).plus(
-        new Decimal(this.area.area_cnt_mest_zan_in_obuch || 0).plus(
-          new Decimal(this.area.area_cnt_svob_mest || 0).plus(
-            new Decimal(this.area.area_cnt_ne_mest || 0),
+          new Decimal(this.area.area_cnt_mest_zan_in_obuch || 0).plus(
+              new Decimal(this.area.area_cnt_svob_mest || 0).plus(
+                  new Decimal(this.area.area_cnt_ne_mest || 0),
+              ),
           ),
-        ),
       );
 
       this.area.area_cnt_mest = new Decimal(this.area.area_cnt_mest_prig_prozh).plus(
-        new Decimal(this.area.area_cnt_mest_ne_prig_k_prozh || 0),
+          new Decimal(this.area.area_cnt_mest_ne_prig_k_prozh || 0),
       );
 
       this.area.area_cnt_mest_vozm_k_vvodu_v_esk = new Decimal(this.area.area_cnt_mest_vozm_mest_is_neisp || 0).plus(
-        new Decimal(this.area.area_cnt_mest_vozm_mest_is_neprig || 0),
+          new Decimal(this.area.area_cnt_mest_vozm_mest_is_neprig || 0),
       );
     },
     async getUser() {
