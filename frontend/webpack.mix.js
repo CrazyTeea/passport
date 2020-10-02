@@ -1,5 +1,4 @@
 const mix = require('laravel-mix');
-require('laravel-mix-eslint-config');
 require('laravel-mix-polyfill');
 /*
  |--------------------------------------------------------------------------
@@ -13,7 +12,6 @@ require('laravel-mix-polyfill');
  */
 
 mix.js('src/app.js', '../web/vue/')
-  .eslint()
   .polyfill()
   .sass('src/app.scss', '../web/vue/')
   .setPublicPath('../web/vue')
