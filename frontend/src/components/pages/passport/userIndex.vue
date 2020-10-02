@@ -98,10 +98,11 @@
                     </div>
                   </transition-group>
                   <div v-if="users_info.length < 2" class="col-6" style="margin-left: -10px; min-width: 51% !important;">
-                    <b-card v-if="!blockSave" class="contact-card">
-                      <b-card-body @click="addUserInfo">
-                        <img class="center" style="width: 25%"
-                             src="http://peterhanne.de/site/assets/files/4699/plus_schwarz.png" alt="Добавить">
+                    <b-card no-body v-if="!blockSave" class="contact-card">
+                      <b-card-body class="justify-content-center align-items-center d-flex" @click="addUserInfo">
+                        <i class="fa fa-plus fa-10x "></i>
+                        <!--<img class="center" style="width: 25%"
+                             src="http://peterhanne.de/site/assets/files/4699/plus_schwarz.png" alt="Добавить">-->
                       </b-card-body>
                     </b-card>
                   </div>
