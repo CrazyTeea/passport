@@ -22,18 +22,18 @@
         </div>
         <div class="row">
           <div class="col "><label class="ml-2  font-weight-bold">1. Жилая площадь, пригодная для проживания:</label>
-            {{ area.area_zhil_prig_prozh.toFixed(3) }}м<sup>2</sup>
+            {{ area.area_zhil_prig_prozh.toFixed(3) }} м<sup>2</sup>
 
           </div>
         </div>
         <div class="row">
           <div class="col"><label class="ml-4 font-weight-bold">А. Занятая обучающимися:</label>
-            {{ area.area_zan_obuch.toFixed(3) }}м<sup>2</sup>
+            {{ area.area_zan_obuch.toFixed(3) }} м<sup>2</sup>
           </div>
         </div>
         <div class="row">
           <div class="col"><label class=" ml-4 font-weight-bold">Б. Занятая иными категориями нанимателей:</label>
-            {{ area.area_in_kat_nan.toFixed(3) }}м<sup>2</sup>
+            {{ area.area_in_kat_nan.toFixed(3) }} м<sup>2</sup>
           </div>
         </div>
         <div class="row">
@@ -50,14 +50,14 @@
         <div class="row">
           <div class="col "><label class="ml-2 font-weight-bold">2. Нежилая площадь в пригодных для проживания
             объектах:</label>
-            {{ area.ne_zhil_plosh_v_prig_dlya_prozh.toFixed(3) }}м<sup>2</sup>
+            {{ area.ne_zhil_plosh_v_prig_dlya_prozh.toFixed(3) }} м<sup>2</sup>
           </div>
         </div>
         <hr>
 
         <div class="row">
           <div class="col"><label class="font-weight-bold">Общая площадь, непригодная для проживания:</label>
-            {{ area.area_obsh_ne_prig_dlya_prozh.toFixed(3) }}м<sup>2</sup>
+            {{ area.area_obsh_ne_prig_dlya_prozh.toFixed(3) }} м<sup>2</sup>
           </div>
         </div>
 
@@ -121,7 +121,7 @@
         <div class="row">
           <div class="col"><label class="font-weight-bold">Количество квадратных метров общей площади на одного
             проживающего: </label>
-            {{ area.area_kv_metr_obsh.toFixed(3) }}м <sup>2</sup>
+            {{ area.area_kv_metr_obsh.toFixed(3) }} м <sup>2</sup>
           </div>
         </div>
         <hr>
