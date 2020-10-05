@@ -17,47 +17,47 @@
         <div class="row">
           <div class="col">
             <label class="font-weight-bold">Общая площадь, пригодная для проживания:</label>
-            {{ area.area_prig_prozh.toFixed(3) }} м<sup>2</sup>
+            {{ organization.area.area_prig_prozh }} м<sup>2</sup>
           </div>
         </div>
         <div class="row">
           <div class="col "><label class="ml-2  font-weight-bold">1. Жилая площадь, пригодная для проживания:</label>
-            {{ area.area_zhil_prig_prozh.toFixed(3) }} м<sup>2</sup>
+            {{ organization.area.area_zhil_prig_prozh }} м<sup>2</sup>
 
           </div>
         </div>
         <div class="row">
           <div class="col"><label class="ml-4 font-weight-bold">А. Занятая обучающимися:</label>
-            {{ area.area_zan_obuch.toFixed(3) }} м<sup>2</sup>
+            {{ organization.area.area_zan_obuch }} м<sup>2</sup>
           </div>
         </div>
         <div class="row">
           <div class="col"><label class=" ml-4 font-weight-bold">Б. Занятая иными категориями нанимателей:</label>
-            {{ area.area_in_kat_nan.toFixed(3) }} м<sup>2</sup>
+            {{ organization.area.area_in_kat_nan }} м<sup>2</sup>
           </div>
         </div>
         <div class="row">
           <div class="col"><label class="ml-4 font-weight-bold">В. Свободная:</label>
-            {{ area.svobod.toFixed(3) }} м<sup>2</sup>
+            {{ organization.area.svobod }} м<sup>2</sup>
           </div>
         </div>
         <div class="row">
           <div class="col"><label class="ml-4 font-weight-bold">Г. Неиспользуемая:</label>
-            {{ area.ne_isp.toFixed(3) }} м<sup>2</sup>
+            {{ organization.area.ne_isp }} м<sup>2</sup>
 
           </div>
         </div>
         <div class="row">
           <div class="col "><label class="ml-2 font-weight-bold">2. Нежилая площадь в пригодных для проживания
             объектах:</label>
-            {{ area.ne_zhil_plosh_v_prig_dlya_prozh.toFixed(3) }} м<sup>2</sup>
+            {{ organization.area.ne_zhil_plosh_v_prig_dlya_prozh }} м<sup>2</sup>
           </div>
         </div>
         <hr>
 
         <div class="row">
           <div class="col"><label class="font-weight-bold">Общая площадь, непригодная для проживания:</label>
-            {{ area.area_obsh_ne_prig_dlya_prozh.toFixed(3) }} м<sup>2</sup>
+            {{ organization.area.area_obsh_ne_prig_dlya_prozh }} м<sup>2</sup>
           </div>
         </div>
 
@@ -74,37 +74,37 @@
             <b-tr>
               <b-td>Требует капитального ремонта</b-td>
               <b-td>
-                {{ area.area_zhil_t_k_r || 0 }}
+                {{ organization.area.area_zhil_t_k_r || 0 }}
               </b-td>
               <b-td>
-                {{ area.area_ne_zhil_t_k_r || 0 }}
+                {{ organization.area.area_ne_zhil_t_k_r || 0 }}
               </b-td>
               <b-th>
-                {{ area.all_t_k_r }}
+                {{ organization.area.all_t_k_r }}
               </b-th>
             </b-tr>
             <b-tr>
               <b-td>Находится в аварийном состоянии</b-td>
               <b-td>
-                {{ area.area_zhil_n_a_s || 0 }}
+                {{ organization.area.area_zhil_n_a_s || 0 }}
               </b-td>
               <b-td>
-                {{ area.area_ne_zhil_n_a_s || 0 }}
+                {{ organization.area.area_ne_zhil_n_a_s || 0 }}
               </b-td>
               <b-th>
-                {{ area.all_n_a_s }}
+                {{ organization.area.all_n_a_s }}
               </b-th>
             </b-tr>
             <b-tr>
               <b-td>Непригодна для проживания</b-td>
               <b-td>
-                {{ area.area_zhil_n_p || 0 }}
+                {{ organization.area.area_zhil_n_p || 0 }}
               </b-td>
               <b-td>
-                {{ area.area_ne_zhil_n_p || 0 }}
+                {{ organization.area.area_ne_zhil_n_p || 0 }}
               </b-td>
               <b-th>
-                {{ area.all_n_p }}
+                {{ organization.area.all_n_p }}
               </b-th>
             </b-tr>
           </b-tbody>
@@ -115,20 +115,20 @@
         <div class="row">
           <div class="col"><label class="font-weight-bold">Количество квадратных метров жилой площади на одного
             проживающего: </label>
-            {{ area.area_kv_metr_zhil.toFixed(3) }} м<sup>2</sup>
+            {{ organization.area.area_kv_metr_zhil }} м<sup>2</sup>
           </div>
         </div>
         <div class="row">
           <div class="col"><label class="font-weight-bold">Количество квадратных метров общей площади на одного
             проживающего: </label>
-            {{ area.area_kv_metr_obsh.toFixed(3) }} м <sup>2</sup>
+            {{ organization.area.area_kv_metr_obsh }} м <sup>2</sup>
           </div>
         </div>
         <hr>
         <div class="row">
           <div class="col"><label class="font-weight-bold">Площадь объектов, не используемых в уставной
             деятельности: </label>
-            {{ area.area_obj_ne_isp_v_ust_dey.toFixed(3) }} м<sup>2</sup>
+            {{ organization.area.area_obj_ne_isp_v_ust_dey }} м<sup>2</sup>
           </div>
         </div>
         <hr>
@@ -140,19 +140,23 @@
         <div class="row">
           <div class="col">
             <label class="font-weight-bold">Количество мест: </label>
-            {{ area.area_cnt_mest }} мест
+            {{ organization.area.area_cnt_mest }} мест
           </div>
         </div>
         <div class="row">
           <div class="col">
             <label class="ml-2 font-weight-bold">1. Количество пригодных для проживания мест: </label>
-            {{ area.area_cnt_mest_prig_prozh }} мест
+            {{ organization.area.area_cnt_mest_prig_prozh }} мест
           </div>
         </div>
+        <b-alert v-if="temp.area_cnt_mest_zan_obuch !== organization.area.area_cnt_mest_zan_obuch" show variant="info">
+          Обратите внимание, что сумма мест, внесённых в объекты жилищного фонда равна {{organization.area.area_cnt_mest_zan_obuch}}.
+          Эта сумма должна быть равна значению данных в таблице ниже  «количество мест, занятых обучающимися».
+        </b-alert>
         <div class="row">
           <div class="col">
             <label class="ml-4 font-weight-bold">А. Количество мест, занятых обучающимися: </label>
-            {{ area.area_cnt_mest_zan_obuch }} мест
+            {{ temp.area_cnt_mest_zan_obuch }} мест
           </div>
         </div>
 
@@ -171,13 +175,15 @@
                 Среднее профессиональное образование
               </b-td>
               <b-td>
-                {{ area.m2_spo || 0 }}
+                <b-form-input v-model="area.m2_spo"/>
+                {{ area.m2_spo }}
               </b-td>
               <b-td>
-                {{ area.c6m2_spo || 0 }}
+                <b-form-input v-model="area.c6m2_spo"/>
+                {{ area.c6m2_spo }}
               </b-td>
               <b-th>
-                {{ area.all_c6m2_spo || 0 }}
+                {{ organization.area.all_c6m2_spo }}
               </b-th>
             </b-tr>
             <b-tr>
@@ -185,13 +191,13 @@
                 Бакалавриат
               </b-td>
               <b-td>
-                {{ organization.area.m2_bak || 0 }}
+                <b-form-input v-model="area.m2_bak"/>
               </b-td>
               <b-td>
-                {{ organization.area.c6m2_bak || 0 }}
+                <b-form-input v-model="area.c6m2_bak"/>
               </b-td>
               <b-th>
-                {{ area.all_c6m2_bak || 0 }}
+                {{ organization.area.all_c6m2_bak || 0 }}
               </b-th>
             </b-tr>
             <b-tr>
@@ -199,13 +205,13 @@
                 Специалитет
               </b-td>
               <b-td>
-                {{ organization.area.m2_spec || 0 }}
+                <b-form-input v-model="area.m2_spec"/>
               </b-td>
               <b-td>
-                {{ organization.area.c6m2_spec || 0 }}
+                <b-form-input v-model="area.c6m2_spec"/>
               </b-td>
               <b-th>
-                {{ area.all_c6m2_spec || 0 }}
+                {{ organization.area.all_c6m2_spec || 0 }}
               </b-th>
             </b-tr>
             <b-tr>
@@ -213,13 +219,13 @@
                 Магистратура
               </b-td>
               <b-td>
-                {{ organization.area.m2_mag || 0 }}
+                <b-form-input v-model="area.m2_mag"/>
               </b-td>
               <b-td>
-                {{ organization.area.c6m2_mag || 0 }}
+                <b-form-input v-model="area.c6m2_mag"/>
               </b-td>
               <b-th>
-                {{ area.all_c6m2_mag || 0 }}
+                {{ organization.area.all_c6m2_mag || 0 }}
               </b-th>
             </b-tr>
             <b-tr>
@@ -227,13 +233,13 @@
                 Аспирантура
               </b-td>
               <b-td>
-                {{ organization.area.m2_asp || 0 }}
+                <b-form-input v-model="area.m2_asp"/>
               </b-td>
               <b-td>
-                {{ organization.area.c6m2_asp || 0 }}
+                <b-form-input v-model="area.c6m2_asp"/>
               </b-td>
               <b-th>
-                {{ area.all_c6m2_asp || 0 }}
+                {{ organization.area.all_c6m2_asp || 0 }}
               </b-th>
             </b-tr>
             <b-tr>
@@ -241,13 +247,13 @@
                 Ординатрура
               </b-td>
               <b-td>
-                {{ organization.area.m2_ord || 0 }}
+                <b-form-input v-model="area.m2_ord"/>
               </b-td>
               <b-td>
-                {{ organization.area.c6m2_ord || 0 }}
+                <b-form-input v-model="area.c6m2_ord"/>
               </b-td>
               <b-th>
-                {{ area.all_c6m2_ord || 0 }}
+                {{ organization.area.all_c6m2_ord || 0 }}
               </b-th>
             </b-tr>
             <b-tr>
@@ -255,13 +261,13 @@
                 Иные обучающиеся
               </b-td>
               <b-td>
-                {{ organization.area.m2_in || 0 }}
+                <b-form-input v-model="area.m2_in"/>
               </b-td>
               <b-td>
-                {{ organization.area.c6m2_in || 0 }}
+                <b-form-input v-model="area.c6m2_in"/>
               </b-td>
               <b-th>
-                {{ area.all_c6m2_in || 0 }}
+                {{ organization.area.all_c6m2_in || 0 }}
               </b-th>
             </b-tr>
             <b-tr>
@@ -269,13 +275,13 @@
                 Всего
               </b-th>
               <b-th>
-                {{ organization.area.all_m2 || 0 }}
+                {{ organization.area.all_m2 }}
               </b-th>
               <b-th>
-                {{ organization.area.all_6m2 || 0 }}
+                {{ organization.area.all_6m2 }}
               </b-th>
               <b-th>
-                {{ area.all_all || 0 }}
+                {{ organization.area.all_all }}
               </b-th>
             </b-tr>
           </b-tbody>
@@ -283,20 +289,20 @@
         <div class="row">
           <div class="col">
             <label class="ml-4 font-weight-bold">Б. Количество мест, занятых иными категориями проживающих: </label>
-            {{ area.area_cnt_mest_zan_in_obuch }} мест
+            {{ organization.area.area_cnt_mest_zan_in_obuch }} мест
           </div>
         </div>
         <div class="row">
           <div class="col">
             <label class="ml-4 font-weight-bold">В. Количество свободных мест: </label>
-            {{ area.area_cnt_svob_mest }} мест
+            {{ organization.area.area_cnt_svob_mest }} мест
 
           </div>
         </div>
         <div class="row">
           <div class="col">
             <label class="ml-4 font-weight-bold">Г. Количество неиспользуемых мест: </label>
-            {{ area.area_cnt_ne_mest }} мест
+            {{ organization.area.area_cnt_ne_mest }} мест
           </div>
         </div>
         <div></div>
@@ -304,7 +310,7 @@
         <div class="row">
           <div class="col">
             <label class=" ml-2 font-weight-bold">2. Количество непригодных к использованию мест: </label>
-            {{ area.area_cnt_mest_ne_prig_k_prozh }} мест
+            {{ organization.area.area_cnt_mest_ne_prig_k_prozh }} мест
           </div>
         </div>
         <hr>
@@ -313,7 +319,7 @@
           <div class="col">
             <label class="font-weight-bold">Количество мест, оборудованных для лиц с ограниченными возможностями
               здоровья: </label>
-            {{ area.area_cnt_mest_invalid }} мест
+            {{ organization.area.area_cnt_mest_invalid }} мест
           </div>
         </div>
         <div class="row">
@@ -325,7 +331,7 @@
             <b-input-group append="человек">
               <b-form-input step="1" type="number"
                             id="org_area_cnt_mest_nuzd"
-                            v-model="organization.area.area_cnt_nuzhd_zhil"
+                            v-model="area.area_cnt_nuzhd_zhil"
                             :disabled="blockSave"/>
             </b-input-group>
           </div>
@@ -338,7 +344,7 @@
           <div class="col-6">
             <b-input-group append="человек">
               <b-form-input step="1" type="number" id="org_area_cnt_live_in_other"
-                            v-model="organization.area.area_cnt_prozh_u_drugih"
+                            v-model="area.area_cnt_prozh_u_drugih"
                             :disabled="blockSave"/>
             </b-input-group>
           </div>
@@ -347,7 +353,7 @@
           <div class="col">
             <label class="font-weight-bold">Количество мест, возможных к вводу в эксплуатацию после проведения
               восстановительных работ: </label>
-            {{ area.area_cnt_mest_vozm_k_vvodu_v_esk }} мест
+            {{ organization.area.area_cnt_mest_vozm_k_vvodu_v_esk }} мест
           </div>
         </div>
 
@@ -357,7 +363,7 @@
               1. <i id="bitch_tooltip" class="fas fa-question-circle"></i> Количество мест, возможных к вводу в
               эксплуатацию из числа неиспользуемых после проведения восстановительных работ:
               <div class="text-black-50">
-                {{ area.area_cnt_mest_vozm_mest_is_neisp }} мест
+                {{ organization.area.area_cnt_mest_vozm_mest_is_neisp }} мест
               </div>
 
             </label>
@@ -377,7 +383,7 @@
               эксплуатацию из числа непригодных к использованию после проведения
               восстановительных работ:
               <div class="text-black-50">
-                {{ area.area_cnt_mest_vozm_mest_is_neprig }} мест
+                {{ organization.area.area_cnt_mest_vozm_mest_is_neprig }} мест
               </div>
             </label>
 
@@ -399,6 +405,7 @@
 <script>
 import Axios from 'axios';
 import {
+  BAlert,
   BFormInput,
   BInputGroup,
   BTableSimple,
@@ -415,6 +422,7 @@ import scrollButton from '../../organisms/scrollButton';
 
 export default {
   components: {
+    BAlert,
     scrollButton,
     NavBar,
     BTooltip,
@@ -430,8 +438,27 @@ export default {
   data() {
     return {
       componentReady: false,
+      temp: {
+        area_cnt_mest_zan_obuch: null
+      },
       area: {
-        area_zhil_t_k_r: 0,
+        area_cnt_nuzhd_zhil: null,
+        area_cnt_prozh_u_drugih: null,
+        c6m2_asp: null,
+        c6m2_bak: null,
+        c6m2_in: null,
+        c6m2_mag: null,
+        c6m2_ord: null,
+        c6m2_spec: null,
+        c6m2_spo: null,
+        m2_asp: null,
+        m2_bak: null,
+        m2_in: null,
+        m2_mag: null,
+        m2_ord: null,
+        m2_spec: null,
+        m2_spo: null,
+        ne_isp: null,
       },
       csrf: document.getElementsByName('csrf-token')[0].content,
       blockSave: false,
@@ -440,20 +467,21 @@ export default {
       user: {},
     };
   },
-  computed: {
-    objArea() {
-      return this.organization?.area;
-    },
-  },
+  computed: {},
   watch: {
-    objArea() {
-      if (this.componentReady) {
-        this.countArea();
-      }
-    },
+    area: {
+      handler() {
+        if (this.componentReady) {
+          this.countArea();
+        }
+      },
+      deep: true
+    }
+
   },
   methods: {
     countArea() {
+
       const zil = {
         area_zan_obuch: 0,
         area_in_kat_nan: 0,
@@ -464,94 +492,95 @@ export default {
 
       this.organization.objects?.forEach((item) => {
         if (item.area) {
-          zil.area_zan_obuch = new Decimal(item.area.zan_obuch).plus(zil.area_zan_obuch);
-          zil.area_in_kat_nan = new Decimal(item.area.zan_inie).plus(zil.area_in_kat_nan);
-          zil.svobod = new Decimal(item.area.svobod).plus(zil.svobod);
-          zil.ne_isp = new Decimal(item.area.neisp).plus(zil.ne_isp);
+          zil.area_zan_obuch += item.area.zan_obuch.toNumber();
+          zil.area_in_kat_nan += item.area.zan_inie.toNumber();
+          zil.svobod = item.area.svobod.toNumber();
+          zil.ne_isp = item.area.neisp.toNumber();
 
-          nezil = (new Decimal(item.area.punkt_pit).plus(
-              new Decimal(item.area.pom_dlya_uch).plus(
-                  new Decimal(item.area.pom_dlya_med).plus(
-                      new Decimal(item.area.pom_dlya_sport).plus(
-                          new Decimal(item.area.pom_dlya_soc).plus(
-                              new Decimal(item.area.pom_dlya_kult).plus(
-                                  new Decimal(item.area.in_nezh_plosh),
-                              ),
-                          ),
-                      ),
-                  ),
-              ),
-          )).plus(nezil);
+          nezil += (item.area.punkt_pit.toNumber() +
+              item.area.pom_dlya_uch.toNumber() +
+              item.area.pom_dlya_med.toNumber() +
+              item.area.pom_dlya_sport.toNumber() +
+              item.area.pom_dlya_soc.toNumber() +
+              item.area.pom_dlya_kult.toNumber() +
+              item.area.in_nezh_plosh.toNumber()
+          );
         }
       });
 
-      this.area.all_t_k_r = new Decimal(this.area.area_zhil_t_k_r || 0).plus(
-          new Decimal(this.area.area_ne_zhil_t_k_r ?? 0),
-      );
+      this.organization.area.all_t_k_r = (this.organization.area.area_zhil_t_k_r || '').toNumber() +
+          (this.organization.area.area_ne_zhil_t_k_r || '').toNumber();
 
-      this.area.all_n_a_s = new Decimal(this.area.area_zhil_n_a_s ?? 0).plus(
-          new Decimal(this.area.area_ne_zhil_n_a_s ?? 0),
-      );
+      this.organization.area.all_n_a_s = (this.organization.area.area_zhil_n_a_s || '').toNumber() +
+          (this.organization.area.area_ne_zhil_n_a_s || '').toNumber();
 
-      this.area.all_n_p = new Decimal(this.area.area_zhil_n_p ?? 0).plus(
-          new Decimal(this.area.area_ne_zhil_n_p ?? 0),
-      );
+      this.organization.area.all_n_p = (this.organization.area.area_zhil_n_p || '').toNumber() +
+          (this.organization.area.area_ne_zhil_n_p || '').toNumber();
 
-      this.area.area_obsh_ne_prig_dlya_prozh = this.area.all_n_p.plus(
-          this.area.all_n_a_s.plus(
-              this.area.all_t_k_r,
-          ),
-      );
 
-      this.area.area_zan_obuch = zil.area_zan_obuch;
-      this.area.area_in_kat_nan = zil.area_in_kat_nan;
-      this.area.svobod = zil.svobod;
-      this.area.ne_isp = zil.ne_isp;
-      this.area.ne_zhil_plosh_v_prig_dlya_prozh = nezil;
+      this.organization.area.area_obsh_ne_prig_dlya_prozh =
+          this.organization.area.all_n_p +
+          this.organization.area.all_n_a_s +
+          this.organization.area.all_t_k_r;
 
-      this.area.area_zhil_prig_prozh = new Decimal(this.area.area_zan_obuch).plus(
-          new Decimal(this.area.area_in_kat_nan).plus(
-              new Decimal(this.area.svobod).plus(
-                  new Decimal(this.area.ne_isp),
-              ),
-          ),
-      );
-      this.area.area_prig_prozh = new Decimal(this.area.area_zhil_prig_prozh).plus(
-          new Decimal(this.area.ne_zhil_plosh_v_prig_dlya_prozh),
-      );
 
-      const b = new Decimal(this.area.area_zan_obuch).plus(new Decimal(this.area.area_in_kat_nan)).toNumber();
-      this.area.area_kv_metr_zhil = b > 0 ? (this.area.area_zhil_prig_prozh / (b)) : 0;
-      this.area.area_kv_metr_obsh = b > 0 ? (this.area.area_prig_prozh / (b)) : 0;
+      this.organization.area.area_zan_obuch = zil.area_zan_obuch;
+      this.organization.area.area_in_kat_nan = zil.area_in_kat_nan;
+      this.organization.area.svobod = zil.svobod;
+      this.organization.area.ne_isp = zil.ne_isp;
+      this.organization.area.ne_zhil_plosh_v_prig_dlya_prozh = nezil;
 
-      this.area.area_obj_ne_isp_v_ust_dey = new Decimal(this.area.area_obsh_ne_prig_dlya_prozh).plus(
-          new Decimal(this.area.area_prig_prozh),
-      );
+      this.organization.area.area_zhil_prig_prozh = this.organization.area.area_zan_obuch +
+          this.organization.area.area_in_kat_nan +
+          this.organization.area.svobod +
+          this.organization.area.ne_isp;
 
-      this.area.area_cnt_mest_zan_obuch = this.organization.objects?.reduce((a, b) => a + +((b.area) ? b.area.cnt_mest_zan_obuch : 0), 0);
-      this.area.area_cnt_mest_zan_in_obuch = this.organization.objects?.reduce((a, b) => a + +(b.area ? b.area.cnt_mest_zan_in_obuch : 0), 0);
-      this.area.area_cnt_svob_mest = this.organization.objects?.reduce((a, b) => a + +(b.area ? b.area.cnt_svobod_mest : 0), 0);
-      this.area.area_cnt_ne_mest = this.organization.objects?.reduce((a, b) => a + +(b.area ? b.area.cnt_neisp_mest : 0), 0);
-      this.area.area_cnt_mest_ne_prig_k_prozh = this.organization.objects?.reduce((a, b) => a + +(b.area ? b.area.cnt_nepr_isp_mest : 0), 0);
-      this.area.area_cnt_mest_invalid = this.organization.objects?.reduce((a, b) => a + +(b.area ? b.area.cnt_mest_inv : 0), 0);
-      this.area.area_cnt_mest_vozm_mest_is_neisp = this.organization.objects?.reduce((a, b) => a + +(b.area ? b.area.cnt_mest_vozm_neisp_mest : 0), 0);
-      this.area.area_cnt_mest_vozm_mest_is_neprig = this.organization.objects?.reduce((a, b) => a + +(b.area ? b.area.cnt_mest_vozm_neprig_mest : 0), 0);
+      this.organization.area.area_prig_prozh = this.organization.area.area_zhil_prig_prozh +
+          this.organization.area.ne_zhil_plosh_v_prig_dlya_prozh;
 
-      this.area.area_cnt_mest_prig_prozh = new Decimal(this.area.area_cnt_mest_zan_obuch || 0).plus(
-          new Decimal(this.area.area_cnt_mest_zan_in_obuch || 0).plus(
-              new Decimal(this.area.area_cnt_svob_mest || 0).plus(
-                  new Decimal(this.area.area_cnt_ne_mest || 0),
-              ),
-          ),
-      );
+      const b = this.organization.area.area_zan_obuch + this.organization.area.area_in_kat_nan;
+      this.organization.area.area_kv_metr_zhil = b > 0 ? (this.organization.area.area_zhil_prig_prozh / (b)) : 0;
+      this.organization.area.area_kv_metr_obsh = b > 0 ? (this.organization.area.area_prig_prozh / (b)) : 0;
 
-      this.area.area_cnt_mest = new Decimal(this.area.area_cnt_mest_prig_prozh).plus(
-          new Decimal(this.area.area_cnt_mest_ne_prig_k_prozh || 0),
-      );
+      this.organization.area.area_obj_ne_isp_v_ust_dey = this.organization.area.area_obsh_ne_prig_dlya_prozh +
+          this.organization.area.area_prig_prozh;
 
-      this.area.area_cnt_mest_vozm_k_vvodu_v_esk = new Decimal(this.area.area_cnt_mest_vozm_mest_is_neisp || 0).plus(
-          new Decimal(this.area.area_cnt_mest_vozm_mest_is_neprig || 0),
-      );
+
+      this.organization.area.all_c6m2_spo = (this.area.c6m2_spo || '').toNumber() + (this.area.m2_spo || '0').toNumber();
+      this.organization.area.all_c6m2_spec = (this.area.c6m2_spec || '').toNumber() + (this.area.m2_spec || '0').toNumber();
+      this.organization.area.all_c6m2_bak = (this.area.c6m2_bak || '0').toNumber() + (this.area.m2_bak || '0').toNumber();
+      this.organization.area.all_c6m2_asp = (this.area.c6m2_asp || '0').toNumber() + (this.area.m2_asp || '0').toNumber();
+      this.organization.area.all_c6m2_mag = (this.area.c6m2_mag || '0').toNumber() + (this.area.m2_mag || '0').toNumber();
+      this.organization.area.all_c6m2_ord = (this.area.c6m2_ord || '0').toNumber() + (this.area.m2_ord || '0').toNumber();
+      this.organization.area.all_c6m2_in = (this.area.c6m2_in || '0').toNumber() + (this.area.m2_in || '0').toNumber();
+
+      this.temp.area_cnt_mest_zan_obuch = this.organization.area.all_c6m2_spo +
+          this.organization.area.all_c6m2_spec +
+          this.organization.area.all_c6m2_bak +
+          this.organization.area.all_c6m2_asp +
+          this.organization.area.all_c6m2_mag +
+          this.organization.area.all_c6m2_ord +
+          this.organization.area.all_c6m2_in
+      this.organization.area.area_cnt_mest_zan_obuch = this.organization.objects?.reduce((a, b) => a + +((b.area) ? b.area.cnt_mest_zan_obuch : 0), 0);
+      this.organization.area.area_cnt_mest_zan_in_obuch = this.organization.objects?.reduce((a, b) => a + +(b.area ? b.area.cnt_mest_zan_in_obuch : 0), 0);
+      this.organization.area.area_cnt_svob_mest = this.organization.objects?.reduce((a, b) => a + +(b.area ? b.area.cnt_svobod_mest : 0), 0);
+      this.organization.area.area_cnt_ne_mest = this.organization.objects?.reduce((a, b) => a + +(b.area ? b.area.cnt_neisp_mest : 0), 0);
+      this.organization.area.area_cnt_mest_ne_prig_k_prozh = this.organization.objects?.reduce((a, b) => a + +(b.area ? b.area.cnt_nepr_isp_mest : 0), 0);
+      this.organization.area.area_cnt_mest_invalid = this.organization.objects?.reduce((a, b) => a + +(b.area ? b.area.cnt_mest_inv : 0), 0);
+      this.organization.area.area_cnt_mest_vozm_mest_is_neisp = this.organization.objects?.reduce((a, b) => a + +(b.area ? b.area.cnt_mest_vozm_neisp_mest : 0), 0);
+      this.organization.area.area_cnt_mest_vozm_mest_is_neprig = this.organization.objects?.reduce((a, b) => a + +(b.area ? b.area.cnt_mest_vozm_neprig_mest : 0), 0);
+
+      this.organization.area.area_cnt_mest_prig_prozh = this.organization.area.area_cnt_mest_zan_obuch +
+          this.organization.area.area_cnt_mest_zan_in_obuch +
+          this.organization.area.area_cnt_svob_mest +
+          this.organization.area.area_cnt_ne_mest;
+
+      this.organization.area.area_cnt_mest = this.organization.area.area_cnt_mest_prig_prozh +
+          this.organization.area.area_cnt_mest_ne_prig_k_prozh;
+
+      this.organization.area.area_cnt_mest_vozm_k_vvodu_v_esk = this.organization.area.area_cnt_mest_vozm_mest_is_neisp +
+          this.organization.area.area_cnt_mest_vozm_mest_is_neprig;
+
     },
     async getUser() {
       await Axios.get('/api/user/current').then((res) => {
@@ -571,7 +600,7 @@ export default {
     },
     async savePage() {
       const data = new FormData();
-      data.append('org_area', JSON.stringify(this.organization.area));
+      data.append('org_area', JSON.stringify(this.area));
       await Axios.post(`/organization/set-org-area/${this.id_org}`, data, {
         headers: {
           'X-CSRF-Token': this.csrf,
@@ -588,6 +617,14 @@ export default {
     this.id_org = this.user.id_org;
     await this.getOrg();
     this.componentReady = true;
+
+    let v = 'asdas';
+
+    v.toNumber();
+
+    //console.log('22,222'.toNumber(), '22.222'.toNumber(), 'a,a,a'.toNumber(), 'adasdas'.toNumber(), '22,2,2'.toNumber());
+
+
   },
 };
 </script>
