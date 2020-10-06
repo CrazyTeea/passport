@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav-bar v-on:save-page="savePage" v-on:block-save="blockSave =!blockSave"/>
+    <nav-bar :id_org="id_org" v-on:save-page="savePage" v-on:block-save="blockSave =!blockSave"/>
     <transition enter-active-class="animated fadeInUp">
       <div v-if="componentReady" class="container">
         <div class="row">
@@ -149,16 +149,18 @@
             {{ organization.area.area_cnt_mest_prig_prozh }} мест
           </div>
         </div>
-        <b-alert v-if="temp.area_cnt_mest_zan_obuch !== organization.area.area_cnt_mest_zan_obuch" show variant="info">
-          Обратите внимание, что сумма мест, внесённых в объекты жилищного фонда равна {{organization.area.area_cnt_mest_zan_obuch}}.
-          Эта сумма должна быть равна значению данных в таблице ниже  «количество мест, занятых обучающимися».
-        </b-alert>
+
         <div class="row">
           <div class="col">
             <label class="ml-4 font-weight-bold">А. Количество мест, занятых обучающимися: </label>
-            {{ temp.area_cnt_mest_zan_obuch }} мест
+            {{ organization.area.area_cnt_mest_zan_obuch }} мест
           </div>
         </div>
+        <b-alert v-if="temp.area_cnt_mest_zan_obuch !== organization.area.area_cnt_mest_zan_obuch" show variant="info">
+          В поле выше суммируется значение количества мест, занятых обучающимися в каждом объекте.
+          Сумма количества мест, внесённых в таблице ниже, равна {{ temp.area_cnt_mest_zan_obuch }}.
+          Обратите внимание, что эти значения должны совпадать!
+        </b-alert>
 
         <b-table-simple fixed borderless>
           <b-thead>
@@ -175,12 +177,10 @@
                 Среднее профессиональное образование
               </b-td>
               <b-td>
-                <b-form-input v-model="area.m2_spo"/>
-                {{ area.m2_spo }}
+                <b-form-input :disabled="blockSave" v-model="area.m2_spo"/>
               </b-td>
               <b-td>
-                <b-form-input v-model="area.c6m2_spo"/>
-                {{ area.c6m2_spo }}
+                <b-form-input :disabled="blockSave" v-model="area.c6m2_spo"/>
               </b-td>
               <b-th>
                 {{ organization.area.all_c6m2_spo }}
@@ -191,10 +191,10 @@
                 Бакалавриат
               </b-td>
               <b-td>
-                <b-form-input v-model="area.m2_bak"/>
+                <b-form-input :disabled="blockSave" v-model="area.m2_bak"/>
               </b-td>
               <b-td>
-                <b-form-input v-model="area.c6m2_bak"/>
+                <b-form-input :disabled="blockSave" v-model="area.c6m2_bak"/>
               </b-td>
               <b-th>
                 {{ organization.area.all_c6m2_bak || 0 }}
@@ -205,10 +205,10 @@
                 Специалитет
               </b-td>
               <b-td>
-                <b-form-input v-model="area.m2_spec"/>
+                <b-form-input :disabled="blockSave" v-model="area.m2_spec"/>
               </b-td>
               <b-td>
-                <b-form-input v-model="area.c6m2_spec"/>
+                <b-form-input :disabled="blockSave" v-model="area.c6m2_spec"/>
               </b-td>
               <b-th>
                 {{ organization.area.all_c6m2_spec || 0 }}
@@ -219,10 +219,10 @@
                 Магистратура
               </b-td>
               <b-td>
-                <b-form-input v-model="area.m2_mag"/>
+                <b-form-input :disabled="blockSave" v-model="area.m2_mag"/>
               </b-td>
               <b-td>
-                <b-form-input v-model="area.c6m2_mag"/>
+                <b-form-input :disabled="blockSave" v-model="area.c6m2_mag"/>
               </b-td>
               <b-th>
                 {{ organization.area.all_c6m2_mag || 0 }}
@@ -233,10 +233,10 @@
                 Аспирантура
               </b-td>
               <b-td>
-                <b-form-input v-model="area.m2_asp"/>
+                <b-form-input :disabled="blockSave" v-model="area.m2_asp"/>
               </b-td>
               <b-td>
-                <b-form-input v-model="area.c6m2_asp"/>
+                <b-form-input :disabled="blockSave" v-model="area.c6m2_asp"/>
               </b-td>
               <b-th>
                 {{ organization.area.all_c6m2_asp || 0 }}
@@ -247,10 +247,10 @@
                 Ординатрура
               </b-td>
               <b-td>
-                <b-form-input v-model="area.m2_ord"/>
+                <b-form-input :disabled="blockSave" v-model="area.m2_ord"/>
               </b-td>
               <b-td>
-                <b-form-input v-model="area.c6m2_ord"/>
+                <b-form-input :disabled="blockSave" v-model="area.c6m2_ord"/>
               </b-td>
               <b-th>
                 {{ organization.area.all_c6m2_ord || 0 }}
@@ -261,10 +261,10 @@
                 Иные обучающиеся
               </b-td>
               <b-td>
-                <b-form-input v-model="area.m2_in"/>
+                <b-form-input :disabled="blockSave" v-model="area.m2_in"/>
               </b-td>
               <b-td>
-                <b-form-input v-model="area.c6m2_in"/>
+                <b-form-input :disabled="blockSave" v-model="area.c6m2_in"/>
               </b-td>
               <b-th>
                 {{ organization.area.all_c6m2_in || 0 }}
@@ -546,21 +546,37 @@ export default {
           this.organization.area.area_prig_prozh;
 
 
-      this.organization.area.all_c6m2_spo = (this.area.c6m2_spo || '').toNumber() + (this.area.m2_spo || '0').toNumber();
-      this.organization.area.all_c6m2_spec = (this.area.c6m2_spec || '').toNumber() + (this.area.m2_spec || '0').toNumber();
-      this.organization.area.all_c6m2_bak = (this.area.c6m2_bak || '0').toNumber() + (this.area.m2_bak || '0').toNumber();
-      this.organization.area.all_c6m2_asp = (this.area.c6m2_asp || '0').toNumber() + (this.area.m2_asp || '0').toNumber();
-      this.organization.area.all_c6m2_mag = (this.area.c6m2_mag || '0').toNumber() + (this.area.m2_mag || '0').toNumber();
-      this.organization.area.all_c6m2_ord = (this.area.c6m2_ord || '0').toNumber() + (this.area.m2_ord || '0').toNumber();
-      this.organization.area.all_c6m2_in = (this.area.c6m2_in || '0').toNumber() + (this.area.m2_in || '0').toNumber();
+      this.organization.area.all_c6m2_spo = +(this.area.c6m2_spo || 0) + +(this.area.m2_spo || 0);
+      this.organization.area.all_c6m2_spec = +(this.area.c6m2_spec || 0) + +(this.area.m2_spec || 0);
+      this.organization.area.all_c6m2_bak = +(this.area.c6m2_bak || 0) + +(this.area.m2_bak || 0);
+      this.organization.area.all_c6m2_asp = +(this.area.c6m2_asp || 0) + +(this.area.m2_asp || 0);
+      this.organization.area.all_c6m2_mag = +(this.area.c6m2_mag || 0) + +(this.area.m2_mag || 0);
+      this.organization.area.all_c6m2_ord = +(this.area.c6m2_ord || 0) + +(this.area.m2_ord || 0);
+      this.organization.area.all_c6m2_in = +(this.area.c6m2_in || 0) + +(this.area.m2_in || 0);
 
-      this.temp.area_cnt_mest_zan_obuch = this.organization.area.all_c6m2_spo +
-          this.organization.area.all_c6m2_spec +
-          this.organization.area.all_c6m2_bak +
-          this.organization.area.all_c6m2_asp +
-          this.organization.area.all_c6m2_mag +
-          this.organization.area.all_c6m2_ord +
-          this.organization.area.all_c6m2_in
+      this.organization.area.all_m2 =
+          +(this.area.m2_spo || 0) +
+          +(this.area.m2_spec || 0) +
+          +(this.area.m2_bak || 0) +
+          +(this.area.m2_asp || 0) +
+          +(this.area.m2_mag || 0) +
+          +(this.area.m2_ord || 0) +
+          +(this.area.m2_in || 0)
+      this.organization.area.all_6m2 =
+          +(this.area.c6m2_spo || 0) +
+          +(this.area.c6m2_spec || 0) +
+          +(this.area.c6m2_bak || 0) +
+          +(this.area.c6m2_asp || 0) +
+          +(this.area.c6m2_mag || 0) +
+          +(this.area.c6m2_ord || 0) +
+          +(this.area.c6m2_in || 0)
+      this.temp.area_cnt_mest_zan_obuch = +this.organization.area.all_c6m2_spo +
+          +this.organization.area.all_c6m2_spec +
+          +this.organization.area.all_c6m2_bak +
+          +this.organization.area.all_c6m2_asp +
+          +this.organization.area.all_c6m2_mag +
+          +this.organization.area.all_c6m2_ord +
+          +this.organization.area.all_c6m2_in
       this.organization.area.area_cnt_mest_zan_obuch = this.organization.objects?.reduce((a, b) => a + +((b.area) ? b.area.cnt_mest_zan_obuch : 0), 0);
       this.organization.area.area_cnt_mest_zan_in_obuch = this.organization.objects?.reduce((a, b) => a + +(b.area ? b.area.cnt_mest_zan_in_obuch : 0), 0);
       this.organization.area.area_cnt_svob_mest = this.organization.objects?.reduce((a, b) => a + +(b.area ? b.area.cnt_svobod_mest : 0), 0);
