@@ -162,7 +162,7 @@ class OrganizationsController extends Controller
             $area->id_org = $id;
             foreach ($post as $key => $item) {
                 if (!in_array($key, ['all_t_k_r', 'all_n_a_s', 'all_n_p', 'all_c6m2_spo', 'all_c6m2_spec', 'all_c6m2_bak',
-                    'all_c6m2_asp', 'all_c6m2_mag', 'all_c6m2_ord', 'all_c6m2_in']))
+                    'all_c6m2_asp', 'all_c6m2_mag', 'all_c6m2_ord', 'all_c6m2_in','all_m2','all_6m2']))
                     $area->$key = $item;
             }
             $ret = ['org_area' => ['success' => $area->save(), 'errors' => $area->getErrors()]];
