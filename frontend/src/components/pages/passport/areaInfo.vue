@@ -416,7 +416,6 @@ import {
   BTooltip,
   BTr,
 } from 'bootstrap-vue';
-import Decimal from 'decimal.js';
 import NavBar from '../../organisms/NavBar';
 import scrollButton from '../../organisms/scrollButton';
 
