@@ -1,14 +1,12 @@
 <template>
-    <router-view/>
+    <router-view />
 </template>
 
 <script>
 export default {
-    name: 'app',
-}
+  name: 'app',
+};
 </script>
-
-
 
 <style>
 #app {
@@ -18,5 +16,6 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+
 }
 </style>

@@ -43,10 +43,10 @@ class MenuHelper
     /**
      * Use to get assigned menu of user.
      * @param mixed $userId
-     * @param integer $root
-     * @param \Closure $callback use to reformat output.
+     * @param null $root
+     * @param null $callback use to reformat output.
      * callback should have format like
-     * 
+     *
      * ```
      * function ($menu) {
      *    return [
@@ -58,7 +58,7 @@ class MenuHelper
      *    ]
      * }
      * ```
-     * @param boolean  $refresh
+     * @param boolean $refresh
      * @return array
      */
     public static function getAssignedMenu($userId, $root = null, $callback = null, $refresh = false)

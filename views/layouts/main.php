@@ -1,14 +1,15 @@
 <?php
 
 /* @var $this \yii\web\View */
+
 /* @var $content string */
 
 use app\assets\AppAsset;
 use app\widgets\Alert;
+use app\widgets\NavBar;
 use yii\bootstrap4\Breadcrumbs;
 use yii\bootstrap4\Html;
 use yii\bootstrap4\Nav;
-use yii\bootstrap4\NavBar;
 
 AppAsset::register($this);
 
@@ -30,7 +31,9 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => '<img src="/img/light-logo.svg"> &nbsp;'.Yii::$app->name,
+        'brandLabel' => Yii::$app->name,
+        'brandUrl' => 'https://xn--80apneeq.xn--p1ai/',
+        'brandImage' => '/img/light-logo.svg',
         'options' => [
             'class' => 'navbar-expand-lg navbar-dark bg-dark',
         ],
@@ -38,13 +41,20 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav ml-auto'],
         'items' => [
+            Yii::$app->user->can('root') ? (['label' => 'Адммин панель', 'url' => ['/admin']]) : (''),
+            ['label' => 'Инструкция', 'url' => ['/manual']]
+        ]
+    ]);
+    echo Nav::widget([
+        'options' => ['class' => 'navbar-nav '],
+        'items' => [
             Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
+            ['label' => 'Login', 'url' => ['/site/login']]
             ) : (
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
                 . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
+                    'Выйти (' . Yii::$app->user->identity->username . ')',
                     ['class' => 'btn nav-link']
                 )
                 . Html::endForm()
@@ -55,7 +65,7 @@ AppAsset::register($this);
     NavBar::end();
     ?>
 
-    <div class="container-fluid">
+    <div id="wrap" class="container-fluid">
         <div class="container">
             <?= Breadcrumbs::widget([
                 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
@@ -67,10 +77,8 @@ AppAsset::register($this);
 </div>
 
 <footer class="footer">
-    <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
-
-        <p class="pull-right"><?= Yii::powered() ?></p>
+    <div class="container mt-2">
+        <p class="text-center">ИАС "Мониторинг"</p>
     </div>
 </footer>
 

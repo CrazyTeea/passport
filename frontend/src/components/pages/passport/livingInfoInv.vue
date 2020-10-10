@@ -1,4 +1,5 @@
 <template>
+
   <div>
     <nav-bar v-on:save-page="savePage" v-on:block-save="blockPage = !blockPage"/>
     <transition enter-active-class="animated fadeInUp">
@@ -6,42 +7,33 @@
         <div class="row">
           <div class="col-8">
             <h3>
-              Сведения о проживающих в жилищном фонде, используемом в уставной деятельности
+              Сведения о проживающих лицах с ограниченными возможностями в жилищном фонде, используемом в уставной
+              деятельности
             </h3>
           </div>
         </div>
         <hr>
-
         <div class="row">
-          <div class="col">
-            <label class="font-weight-bold">Всего проживающих: </label>
-
-            {{ living.cnt_stud }} Человек
+          <div class="col-6"><label for="living_cnt_inv">Проживающие из числа обучающихся с ограниченными возможностями
+            здоровья</label></div>
+          <div class="col-6">
+            <b-input-group append="Человек">
+              <b-form-input id="living_cnt_inv" v-model="living.cnt_inv" disabled/>
+            </b-input-group>
           </div>
         </div>
-
         <hr>
 
-        <div class="row ">
-          <div class="col">
-            <label class="font-weight-bold">Проживающие из числа обучающихся: </label>
-
-            {{ living.cnt_stud_obuch }} Человек
-
-          </div>
-        </div>
-
-        <b-tabs lazy content-class="mt-3" nav-class="font-weigh-bold" small justified>
+        <b-tabs content-class="mt-3" nav-class="font-weigh-bold" small justified>
           <b-tab no-body>
             <template v-slot:title>
                         <span class="text-secondary">
                         За счёт федерального бюджета
                         </span>
             </template>
-
-            <living-table :deletedItems="itemsToDelete.items_b" :items="items_b.items"
-                          title="Проживающие из числа обучающихся за счёт федерального бюджета" :is-invalid="false"
-                          :block-save="blockPage" v-bind:can-save="items_b.canSave"/>
+            <living-table :items="items_b.items"
+                          title="Проживающие из числа обучающихся с ограниченными возможностями здоровья за счёт федерального бюджета"
+                          :is-invalid="true" :block-save="blockPage" v-bind:can-save="items_b.canSave"/>
 
           </b-tab>
           <b-tab no-body>
@@ -50,10 +42,9 @@
                         За счёт бюджета субъекта
                         </span>
             </template>
-
-            <living-table :deletedItems="itemsToDelete.items_s" :items="items_s.items"
-                          title="Проживающие из числа обучающихся за счёт бюджета субъекта" :is-invalid="false"
-                          :block-save="blockPage" v-bind:can-save="items_s.canSave"/>
+            <living-table :items="items_s.items"
+                          title="Проживающие из числа обучающихся с ограниченными возможностями здоровья за счёт федерального бюджета"
+                          :is-invalid="true" :block-save="blockPage" v-bind:can-save="items_s.canSave"/>
 
           </b-tab>
           <b-tab no-body>
@@ -62,10 +53,9 @@
                         За счёт местного бюджета
                         </span>
             </template>
-
-            <living-table :deletedItems="itemsToDelete.items_m" :items="items_m.items"
-                          title="Проживающие из числа обучающихся за счёт местного бюджета" :is-invalid="false"
-                          :block-save="blockPage" v-bind:can-save="items_m.canSave"/>
+            <living-table :items="items_m.items"
+                          title="Проживающие из числа обучающихся с ограниченными возможностями здоровья за счёт федерального бюджета"
+                          :is-invalid="true" :block-save="blockPage" v-bind:can-save="items_m.canSave"/>
 
           </b-tab>
           <b-tab no-body>
@@ -75,182 +65,40 @@
                         платных образовательных услуг
                         </span>
             </template>
-
-            <living-table :deletedItems="itemsToDelete.items_p" :items="items_p.items"
-                          title="Проживающие из числа обучающихся по договорам об оказании платных образовательных услуг"
-                          :is-invalid="false"
-                          :block-save="blockPage" v-bind:can-save="items_p.canSave"/>
+            <living-table :items="items_p.items"
+                          title="Проживающие из числа обучающихся с ограниченными возможностями здоровья за счёт федерального бюджета"
+                          :is-invalid="true" :block-save="blockPage" v-bind:can-save="items_p.canSave"/>
 
           </b-tab>
         </b-tabs>
-        <div class="row">
-          <div class="col-6">
-            <label for="live_proz_poluch_step">Проживающие из числа обучающихся, получающие государственную соц.
-              стипендию</label>
-          </div>
-          <div class="col-6">
-            <b-input-group append="Человек">
-              <template v-slot:prepend>
-                <b-input-group-text>
-                  <i id="bitch_tooltip" class="fas fa-question-circle"></i>
-                </b-input-group-text>
-                <b-tooltip custom-class="tooltip_width" target="bitch_tooltip">
-                  Количество проживающих, указанных в ч.5 ст.36 от 29.12.2012
-                  № 273-ФЗ «Об образовании в Российской Федерации»
-                </b-tooltip>
-              </template>
-              <b-form-input :disabled="blockPage" v-model="organization.living.cnt_stug_step"
-                            id="live_proz_poluch_step"/>
-            </b-input-group>
-
-          </div>
-        </div>
-
-        <hr>
-
-        <div class="row">
-          <div class="col">
-            <label class="font-weight-bold">Проживающие из числа персонала и их семей: </label>
-            {{ living.prozh_is_person }}Человек
-          </div>
-        </div>
-        <br>
-
-        <b-table-simple fixed borderless small>
-          <b-thead>
-            <b-tr>
-              <b-th>Текст</b-th>
-              <b-th>Персонал</b-th>
-              <b-th>Члены семей</b-th>
-            </b-tr>
-          </b-thead>
-          <b-tbody>
-            <b-tr>
-              <b-td>Работники</b-td>
-              <b-td>
-                <b-form-input v-model="organization.living.rab_p" :disabled="blockPage"/>
-              </b-td>
-              <b-td>
-                <b-form-input v-model="organization.living.rab_s" :disabled="blockPage"/>
-              </b-td>
-            </b-tr>
-            <b-tr>
-              <b-td>Научные сотрудники</b-td>
-              <b-td>
-                <b-form-input v-model="organization.living.nauch_p" :disabled="blockPage"/>
-              </b-td>
-              <b-td>
-                <b-form-input v-model="organization.living.nauch_s" :disabled="blockPage"/>
-              </b-td>
-            </b-tr>
-            <b-tr>
-              <b-td>Профессорско-преподавательский состав</b-td>
-              <b-td>
-                <b-form-input v-model="organization.living.prof_p" :disabled="blockPage"/>
-              </b-td>
-              <b-td>
-                <b-form-input v-model="organization.living.prof_s" :disabled="blockPage"/>
-              </b-td>
-            </b-tr>
-            <b-tr>
-              <b-td>Иные категории сотрудников организации</b-td>
-              <b-td>
-                <b-form-input v-model="organization.living.in_p" :disabled="blockPage"/>
-              </b-td>
-              <b-td>
-                <b-form-input v-model="organization.living.in_s" :disabled="blockPage"/>
-              </b-td>
-            </b-tr>
-            <b-tr>
-              <b-td>Всего</b-td>
-              <b-td>
-                <b-form-input v-model="living.all_p" disabled/>
-              </b-td>
-              <b-td>
-                <b-form-input v-model="living.all_s" disabled/>
-              </b-td>
-            </b-tr>
-          </b-tbody>
-        </b-table-simple>
-        <hr>
-
-        <div class="row mb-2">
-          <div class="col-6">
-            <label for="live_inie_prozh">Иные проживающие</label>
-          </div>
-          <div class="col-6">
-            <b-input-group append="Человек">
-              <b-form-input :disabled="blockPage" v-model="organization.living.inie_pr" id="live_inie_prozh"/>
-            </b-input-group>
-          </div>
-        </div>
 
       </div>
     </transition>
     <scroll-button/>
   </div>
-
 </template>
 
 <script>
 import {
-  BFormInput,
-  BInputGroup,
-  BInputGroupText,
-  BTab,
-  BTableSimple,
-  BTabs,
-  BTbody,
-  BTd,
-  BTh,
-  BThead,
-  BTooltip,
-  BTr,
+  BFormInput, BInputGroup, BTab, BTabs,
 } from 'bootstrap-vue';
 import Axios from 'axios';
 import NavBar from '../../organisms/NavBar';
 import livingTable from '../../organisms/livingTable';
-import scrollButton from '../../organisms/scrollButton';
+import ScrollButton from '../../organisms/scrollButton';
 
 export default {
-  name: 'livingInfo',
-  components: {
-    scrollButton,
-    NavBar,
-    livingTable,
-    BFormInput,
-    BInputGroup,
-    BTabs,
-    BTab,
-    BTableSimple,
-    BThead,
-    BTbody,
-    BTh,
-    BTd,
-    BTr,
-    BInputGroupText,
-    BTooltip,
-  },
+  name: 'livingInfoInv',
   data() {
     return {
       csrf: document.getElementsByName('csrf-token')[0].content,
+      componentReady: false,
       blockPage: false,
       user: {},
       organization: {},
-      living: {
-        cnt_stud_obuch: 0,
-        cnt_stud: 0,
-        all_p: 0,
-        all_s: 0,
-        prozh_is_person: 0,
-      },
       id_org: null,
-      componentReady: false,
-      itemsToDelete: {
-        items_b: [],
-        items_s: [],
-        items_m: [],
-        items_p: [],
+      living: {
+        cnt_inv: 0,
       },
       items_b: {
         items: [
@@ -288,7 +136,7 @@ export default {
             type: 'in_och',
             ipo: 0,
             all: 0,
-            disabled: true,
+            disabled: false,
           },
           {
             label: 'Граждане РФ, обучающиеся по заочной форме',
@@ -322,7 +170,7 @@ export default {
             ipo: 0,
             all: 0,
             budjet_type: 0,
-            disabled: true,
+            disabled: false,
           },
           {
             label: 'Граждане РФ, обучающиеся по очно-заочной форме',
@@ -356,7 +204,7 @@ export default {
             ord: 0,
             ipo: 0,
             all: 0,
-            disabled: true,
+            disabled: false,
           },
           {
             label: 'Всего',
@@ -413,7 +261,7 @@ export default {
             type: 'in_och',
             ipo: 0,
             all: 0,
-            disabled: true,
+            disabled: false,
           },
           {
             label: 'Граждане РФ, обучающиеся по заочной форме',
@@ -446,8 +294,8 @@ export default {
             ord: 0,
             ipo: 0,
             all: 0,
-            budjet_type: 1,
-            disabled: true,
+            budjet_type: 0,
+            disabled: false,
           },
           {
             label: 'Граждане РФ, обучающиеся по очно-заочной форме',
@@ -481,7 +329,7 @@ export default {
             ord: 0,
             ipo: 0,
             all: 0,
-            disabled: true,
+            disabled: false,
           },
           {
             label: 'Всего',
@@ -538,7 +386,7 @@ export default {
             type: 'in_och',
             ipo: 0,
             all: 0,
-            disabled: true,
+            disabled: false,
           },
           {
             label: 'Граждане РФ, обучающиеся по заочной форме',
@@ -572,7 +420,7 @@ export default {
             ipo: 0,
             all: 0,
             budjet_type: 2,
-            disabled: true,
+            disabled: false,
           },
           {
             label: 'Граждане РФ, обучающиеся по очно-заочной форме',
@@ -606,7 +454,7 @@ export default {
             ord: 0,
             ipo: 0,
             all: 0,
-            disabled: true,
+            disabled: false,
           },
           {
             label: 'Всего',
@@ -663,7 +511,7 @@ export default {
             type: 'in_och',
             ipo: 0,
             all: 0,
-            disabled: true,
+            disabled: false,
           },
           {
             label: 'Граждане РФ, обучающиеся по заочной форме',
@@ -697,7 +545,7 @@ export default {
             ipo: 0,
             all: 0,
             budjet_type: 3,
-            disabled: true,
+            disabled: false,
           },
           {
             label: 'Граждане РФ, обучающиеся по очно-заочной форме',
@@ -731,7 +579,7 @@ export default {
             ord: 0,
             ipo: 0,
             all: 0,
-            disabled: true,
+            disabled: false,
           },
           {
             label: 'Всего',
@@ -752,16 +600,9 @@ export default {
         ],
         canSave: [],
       },
-
     };
   },
   watch: {
-    itemsToDelete: {
-      handler() {
-        console.log(this.itemsToDelete);
-      },
-      deep: true,
-    },
     organization: {
       handler() {
         this.cntLiving();
@@ -796,24 +637,10 @@ export default {
   },
   methods: {
     cntLiving() {
-      this.living.cnt_stud = ~~parseInt(this.living.inie_pr)
-          + ~~parseInt(this.living.cnt_stud_obuch)
-          + ~~parseInt(this.living.prozh_is_person);
-      this.living.all_p = ~~parseInt(this.organization.living.rab_p)
-          + ~~parseInt(this.organization.living.nauch_p)
-          + ~~parseInt(this.organization.living.prof_p)
-          + ~~parseInt(this.organization.living.in_p);
-      this.living.all_s = ~~parseInt(this.organization.living.rab_s)
-          + ~~parseInt(this.organization.living.nauch_s)
-          + ~~parseInt(this.organization.living.prof_s)
-          + ~~parseInt(this.organization.living.in_s);
-
-      this.living.cnt_stud_obuch = ~~parseInt(this.items_b.items[this.items_b.items.length - 1].all)
+      this.living.cnt_inv = ~~parseInt(this.items_b.items[this.items_b.items.length - 1].all)
           + ~~parseInt(this.items_m.items[this.items_m.items.length - 1].all)
           + ~~parseInt(this.items_s.items[this.items_s.items.length - 1].all)
           + ~~parseInt(this.items_p.items[this.items_p.items.length - 1].all);
-
-      this.living.prozh_is_person = this.living.all_s + this.living.all_p;
     },
     async getUser() {
       await Axios.get('/api/user/current').then((res) => {
@@ -823,11 +650,10 @@ export default {
     async getOrg() {
       await Axios.get(`/api/organization/by-id/${this.id_org}`, {
         params: {
-          living_st_inv: 0,
+          living_st_inv: 1,
         },
       }).then((res) => {
         this.organization = res.data;
-
         if (this.organization) {
           this.items_b = {
             items: [
@@ -865,7 +691,7 @@ export default {
                 type: 'in_och',
                 ipo: 0,
                 all: 0,
-                disabled: true,
+                disabled: false,
               },
               {
                 label: 'Граждане РФ, обучающиеся по заочной форме',
@@ -899,7 +725,7 @@ export default {
                 ipo: 0,
                 all: 0,
                 budjet_type: 0,
-                disabled: true,
+                disabled: false,
               },
               {
                 label: 'Граждане РФ, обучающиеся по очно-заочной форме',
@@ -933,7 +759,7 @@ export default {
                 ord: 0,
                 ipo: 0,
                 all: 0,
-                disabled: true,
+                disabled: false,
               },
               {
                 label: 'Всего',
@@ -990,7 +816,7 @@ export default {
                 type: 'in_och',
                 ipo: 0,
                 all: 0,
-                disabled: true,
+                disabled: false,
               },
               {
                 label: 'Граждане РФ, обучающиеся по заочной форме',
@@ -1023,8 +849,8 @@ export default {
                 ord: 0,
                 ipo: 0,
                 all: 0,
-                budjet_type: 1,
-                disabled: true,
+                budjet_type: 0,
+                disabled: false,
               },
               {
                 label: 'Граждане РФ, обучающиеся по очно-заочной форме',
@@ -1058,7 +884,7 @@ export default {
                 ord: 0,
                 ipo: 0,
                 all: 0,
-                disabled: true,
+                disabled: false,
               },
               {
                 label: 'Всего',
@@ -1115,7 +941,7 @@ export default {
                 type: 'in_och',
                 ipo: 0,
                 all: 0,
-                disabled: true,
+                disabled: false,
               },
               {
                 label: 'Граждане РФ, обучающиеся по заочной форме',
@@ -1149,7 +975,7 @@ export default {
                 ipo: 0,
                 all: 0,
                 budjet_type: 2,
-                disabled: true,
+                disabled: false,
               },
               {
                 label: 'Граждане РФ, обучающиеся по очно-заочной форме',
@@ -1183,7 +1009,7 @@ export default {
                 ord: 0,
                 ipo: 0,
                 all: 0,
-                disabled: true,
+                disabled: false,
               },
               {
                 label: 'Всего',
@@ -1240,7 +1066,7 @@ export default {
                 type: 'in_och',
                 ipo: 0,
                 all: 0,
-                disabled: true,
+                disabled: false,
               },
               {
                 label: 'Граждане РФ, обучающиеся по заочной форме',
@@ -1274,7 +1100,7 @@ export default {
                 ipo: 0,
                 all: 0,
                 budjet_type: 3,
-                disabled: true,
+                disabled: false,
               },
               {
                 label: 'Граждане РФ, обучающиеся по очно-заочной форме',
@@ -1308,7 +1134,7 @@ export default {
                 ord: 0,
                 ipo: 0,
                 all: 0,
-                disabled: true,
+                disabled: false,
               },
               {
                 label: 'Всего',
@@ -1378,6 +1204,7 @@ export default {
                 break;
               }
               case 1: {
+                console.log(item.budjet_type);
                 type = 'items_s';
                 break;
               }
@@ -1396,8 +1223,7 @@ export default {
             switch (item.type) {
               case 'rf_och': {
                 if (!numbers[item.budjet_type].rf_och) {
-                  const index = this[type].items.findIndex((i) => i.label === 'Граждане РФ, обучающиеся по очной форме');
-                  this[type].items[index] = {
+                  this[type].items[0] = {
                     id: item.id,
                     label: 'Граждане РФ, обучающиеся по очной форме',
                     editableLabel: false,
@@ -1462,7 +1288,7 @@ export default {
                     editableLabel: false,
                     visible: true,
                     button: true,
-                    disabled: true,
+                    disabled: false,
                   };
                 } else {
                   const index = this[type].items.findIndex((i) => i.type === 'in_och');
@@ -1483,7 +1309,7 @@ export default {
                     ord: item.ord,
                     ipo: item.ipo,
                     all: item.all,
-                    disabled: true,
+                    disabled: false,
                   });
                 }
                 numbers[item.budjet_type].in_och++;
@@ -1557,7 +1383,7 @@ export default {
                     editableLabel: false,
                     visible: true,
                     button: true,
-                    disabled: true,
+                    disabled: false,
                   };
                 } else {
                   const index = this[type].items.findIndex((i) => i.type === 'in_zaoch');
@@ -1578,7 +1404,7 @@ export default {
                     ord: item.ord,
                     ipo: item.ipo,
                     all: item.all,
-                    disabled: true,
+                    disabled: false,
                   });
                 }
                 numbers[item.budjet_type].in_zaoch++;
@@ -1604,7 +1430,7 @@ export default {
                     label: 'Граждане РФ, обучающиеся по очно-заочной форме',
                     editableLabel: false,
                     visible: true,
-                    button: false,
+                    button: true,
                     disabled: false,
                   };
                 } else {
@@ -1652,7 +1478,7 @@ export default {
                     editableLabel: false,
                     visible: true,
                     button: true,
-                    disabled: true,
+                    disabled: false,
                   };
                 } else {
                   const index = this[type].items.findIndex((i) => i.type === 'in_ochzaoch');
@@ -1673,7 +1499,7 @@ export default {
                     ord: item.ord,
                     ipo: item.ipo,
                     all: item.all,
-                    disabled: true,
+                    disabled: false,
                   });
                 }
                 numbers[item.budjet_type].in_ochzaoch++;
@@ -1684,36 +1510,28 @@ export default {
               }
             }
           });
-          this.cntLiving();
         }
       });
       this.items_b.items.forEach((item, index) => {
-        if (item.type === 'rf_ochzaoch' || item.type === 'rf_zaoch' || item.type === 'rf_och') {
-          this.items_b.canSave.push(index);
-        }
+        this.items_b.canSave.push(index);
       });
       this.items_s.items.forEach((item, index) => {
-        if (item.type === 'rf_ochzaoch' || item.type === 'rf_zaoch' || item.type === 'rf_och') {
-          this.items_s.canSave.push(index);
-        }
+        this.items_s.canSave.push(index);
       });
       this.items_m.items.forEach((item, index) => {
-        if (item.type === 'rf_ochzaoch' || item.type === 'rf_zaoch' || item.type === 'rf_och') {
-          this.items_m.canSave.push(index);
-        }
+        this.items_m.canSave.push(index);
       });
       this.items_p.items.forEach((item, index) => {
-        if (item.type === 'rf_ochzaoch' || item.type === 'rf_zaoch' || item.type === 'rf_och') {
-          this.items_p.canSave.push(index);
-        }
+        this.items_p.canSave.push(index);
       });
+      console.log(this.items_b);
     },
     async savePage() {
       const data = new FormData();
+      this.organization = this.organization ?? {};
       this.organization.living_studs = [...this.items_b.items, this.items_s.items, ...this.items_m.items, ...this.items_p.items];
-      this.organization.invalid = 0;
+      this.organization.invalid = 1;
       data.append('org_living', JSON.stringify(this.organization));
-
       await Axios.post(`/organization/set-org-living/${this.id_org}`, data, {
         headers: {
           'X-CSRF-Token': this.csrf,
@@ -1724,12 +1542,24 @@ export default {
         this.blockPage = true;
       });
     },
+
   },
   async mounted() {
     await this.getUser();
     this.id_org = this.user.id_org;
     await this.getOrg();
+    // document.addEventListener("pagehide", this.unloadEvent(event));
+    //  document.addEventListener("pageshow", this.loadEvent());
     this.componentReady = true;
+  },
+  components: {
+    ScrollButton,
+    NavBar,
+    livingTable,
+    BFormInput,
+    BInputGroup,
+    BTabs,
+    BTab,
   },
 };
 </script>

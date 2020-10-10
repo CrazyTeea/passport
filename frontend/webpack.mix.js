@@ -1,5 +1,5 @@
-let mix = require('laravel-mix');
-
+const mix = require('laravel-mix');
+require('laravel-mix-polyfill');
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -12,19 +12,22 @@ let mix = require('laravel-mix');
  */
 
 mix.js('src/app.js', '../web/vue/')
-    .sass('src/app.scss', '../web/vue/')
-    .setPublicPath('../web/vue')
-    .browserSync(
-        {
-            proxy: 'http://localhost:8080',
-            open:false
-        })
-    .sourceMaps(false);
+  .polyfill()
+  .sass('src/app.scss', '../web/vue/')
+  .setPublicPath('../web/vue')
+  .browserSync(
+
+    {
+      proxy: 'http://localhost:8080',
+      open: false,
+    },
+  )
+  .sourceMaps(false);
 mix.copy('../web/vue/fonts', '../web/fonts');
 mix.webpackConfig({
-    output: {
-        publicPath: '/vue/',
-    }
+  output: {
+    publicPath: '/vue/',
+  },
 });
 mix.extract();
 mix.disableNotifications();
