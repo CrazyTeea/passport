@@ -255,24 +255,36 @@ export default {
       items_b: {
         items: {
           rf: [],
+          in_och: [],
+          in_ochzaoch: [],
+          in_zaoch: []
         },
         canSave: [],
       },
       items_s: {
         items: {
           rf: [],
+          in_och: [],
+          in_ochzaoch: [],
+          in_zaoch: []
         },
         canSave: [],
       },
       items_m: {
         items: {
           rf: [],
+          in_och: [],
+          in_ochzaoch: [],
+          in_zaoch: []
         },
         canSave: [],
       },
       items_p: {
         items: {
           rf: [],
+          in_och: [],
+          in_ochzaoch: [],
+          in_zaoch: []
         },
         canSave: [],
       },
@@ -383,26 +395,26 @@ export default {
           });
 
           [0, 1, 2, 3].forEach(budjet_type => {
-            ['rf_och', 'in_och', 'rf_zaoch', 'in_zaoch', 'rf_ochzaoch', 'in_ochzaoch', 'inv'].forEach(type => {
-              if (type.split('_')[0] === 'rf') {
-                if (!this[bud[budjet_type]].items.rf.find(item => item.type === type && item.budjet_type === budjet_type)) {
-                  this[bud[budjet_type]].items.rf.push({
-                    label: this.getLabel(type),
-                    asp: null,
-                    bak: null,
-                    budjet_type: budjet_type,
-                    in: null,
-                    invalid: null,
-                    mag: null,
-                    name: null,
-                    ord: null,
-                    spec: null,
-                    spo: null,
-                    type: type,
-                    all:0
-                  })
-                }
-              } else {
+            ['rf_och', 'rf_zaoch', 'rf_ochzaoch'].forEach(type => {
+
+              if (!this[bud[budjet_type]].items.rf.find(item => item.type === type && item.budjet_type === budjet_type)) {
+                this[bud[budjet_type]].items.rf.push({
+                  label: this.getLabel(type),
+                  asp: null,
+                  bak: null,
+                  budjet_type: budjet_type,
+                  in: null,
+                  invalid: null,
+                  mag: null,
+                  name: null,
+                  ord: null,
+                  spec: null,
+                  spo: null,
+                  type: type,
+                  all: 0
+                });
+              }
+              /*} else {
                 this[bud[budjet_type]].items[type] = this[bud[budjet_type]].items[type] || [];
                 if (!this[bud[budjet_type]].items[type].find(item => item.type === type && item.budjet_type === budjet_type)) {
                   this[bud[budjet_type]].items[type].push({
@@ -422,14 +434,16 @@ export default {
                   })
                 }
               }
+            })*/
+
             })
-
-          })
-
-
-          this.cntLiving();
+          });
         }
+
+
+        this.cntLiving();
       });
+
     },
     async savePage() {
       const data = new FormData();
