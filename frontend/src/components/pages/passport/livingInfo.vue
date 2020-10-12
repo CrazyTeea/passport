@@ -124,7 +124,7 @@
         <b-table-simple fixed borderless small>
           <b-thead>
             <b-tr>
-              <b-th>Текст</b-th>
+              <b-th></b-th>
               <b-th>Персонал</b-th>
               <b-th>Члены семей</b-th>
             </b-tr>
@@ -181,7 +181,7 @@
 
         <div class="row mb-2">
           <div class="col-6">
-            <label for="live_inie_prozh">Иные проживающие</label>
+            <label for="live_inie_prozh" class="font-weight-bold">Иные проживающие</label>
           </div>
           <div class="col-6">
             <b-input-group append="Человек">
