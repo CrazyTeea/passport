@@ -5,17 +5,17 @@
         <b-tr>
           <b-th class="vert-text">{{ title }}</b-th>
           <b-th class="vert-text">С.П.О.</b-th>
-          <b-th class="vert-text">Бакалавриат</b-th>
-          <b-th class="vert-text">Специалитет</b-th>
-          <b-th class="vert-text">Магистратура</b-th>
-          <b-th class="vert-text">Аспирантура</b-th>
-          <b-th class="vert-text">Ординатура</b-th>
+          <b-th class="vert-text">Бакалавр</b-th>
+          <b-th class="vert-text">Специалист</b-th>
+          <b-th class="vert-text">Магистр</b-th>
+          <b-th class="vert-text">Аспирант</b-th>
+          <b-th class="vert-text">Ординатор</b-th>
           <b-th class="vert-text">Иные прог. обр.</b-th>
           <b-th class="vert-text">Всего</b-th>
         </b-tr>
       </b-thead>
       <b-tbody>
-        <b-tr class="border-r" v-for="(item,index) in items.rf" :key="`rf-${index}-${item.type}`">
+        <b-tr :class=" !isInvalid ? 'border-r' : ''" v-for="(item,index) in items.rf" :key="`rf-${index}-${item.type}`">
           <b-td class="w-25">{{ item.label }}</b-td>
           <b-td>
             <b-form-input :disabled="blockSave" @change="cntRow(item,'rf',index)" min="0" type="number"
@@ -65,7 +65,7 @@
         </b-tr>
       </b-thead>
       <b-tbody>
-        <b-tr class="border-r" v-for="(item,index) in items.in" :key="`in-${index}-${item.type}`">
+        <b-tr  v-for="(item,index) in items.in" :key="`in-${index}-${item.type}`">
           <b-td class="w-25">{{ item.label }}</b-td>
           <b-td>
             <b-form-input :disabled="blockSave" @change="cntRow(item,'in',index)" min="0" type="number"
