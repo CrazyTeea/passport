@@ -2,6 +2,9 @@ import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
 
+Array.prototype.findByValue = function (value){
+  //
+};
 
 String.prototype.toNumber = function () {
     if (this.split(',').length - 1 > 1) {
