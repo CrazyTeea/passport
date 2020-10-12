@@ -14,12 +14,10 @@
         </div>
         <hr>
         <div class="row">
-          <div class="col-6"><label for="living_cnt_inv">Проживающие из числа обучающихся с ограниченными возможностями
-            здоровья</label></div>
-          <div class="col-6">
-            <b-input-group append="Человек">
-              <b-form-input id="living_cnt_inv" v-model="living.cnt_inv" disabled/>
-            </b-input-group>
+          <div class="col">
+            <label class="font-weight-bold">Проживающие из числа обучающихся с ограниченными возможностями
+            здоровья:</label>
+            {{ living.cnt_inv }} Человек
           </div>
         </div>
         <hr>
