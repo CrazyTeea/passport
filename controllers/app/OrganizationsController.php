@@ -187,6 +187,12 @@ class OrganizationsController extends Controller
 
             $ret = ['org_living' => ['success' => $liv->save(), 'errors' => $liv->getErrors()]];
             $living_studs = [];
+
+            $del = Json::decode(Yii::$app->request->post('toDelete')) ?? null;
+
+            if ($del)
+                OrgLivingStudents::deleteAll(['id'=>$del]);
+
             foreach ($post->living_studs as $item) {
 
                 $stud_item = Json::decode(Json::encode($item), false);
