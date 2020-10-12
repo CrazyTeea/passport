@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-table-simple class="mb-0" small borderless responsive>
+    <b-table-simple class="mb-0" small borderless >
       <b-thead>
         <b-tr>
           <b-th class="vert-text">{{ title }}</b-th>
@@ -45,12 +45,12 @@
             <b-form-input :disabled="blockSave" @change="cntRow(item,'rf',index)" min="0" type="number"
                           v-model="item.in"/>
           </b-td>
-          <b-th>{{ item.all }}</b-th>
+          <b-th><div class="mt-2">{{ item.all }}</div></b-th>
         </b-tr>
       </b-tbody>
     </b-table-simple>
 
-    <b-table-simple v-if="isInvalid" class="mb-0" small borderless responsive>
+    <b-table-simple v-if="isInvalid" class="mb-0" small borderless >
       <b-thead>
         <b-tr>
           <b-th class="vert-text"></b-th>
@@ -95,23 +95,23 @@
             <b-form-input :disabled="blockSave" @change="cntRow(item,'in',index)" min="0" type="number"
                           v-model="item.in"/>
           </b-td>
-          <b-th>{{ item.all }}</b-th>
+          <b-th><div class="mt-2">{{ item.all }}</div></b-th>
         </b-tr>
         <b-tr>
           <b-th>Всего</b-th>
-          <b-th>{{ sums.spo }}</b-th>
-          <b-th>{{ sums.bak }}</b-th>
-          <b-th>{{ sums.spec }}</b-th>
-          <b-th>{{ sums.mag }}</b-th>
-          <b-th>{{ sums.asp }}</b-th>
-          <b-th>{{ sums.ord }}</b-th>
-          <b-th>{{ sums.in1 }}</b-th>
-          <b-th>{{ sums.all }}</b-th>
+          <b-th><div class="ml-3">{{ sums.spo }}</div></b-th>
+          <b-th><div class="ml-3">{{ sums.bak }}</div></b-th>
+          <b-th><div class="ml-3">{{ sums.spec }}</div></b-th>
+          <b-th><div class="ml-3">{{ sums.mag }}</div></b-th>
+          <b-th><div class="ml-3">{{ sums.asp }}</div></b-th>
+          <b-th><div class="ml-3">{{ sums.ord }}</div></b-th>
+          <b-th><div class="ml-3">{{ sums.in1 }}</div></b-th>
+          <b-th><div class="">{{ sums.all }}</div></b-th>
         </b-tr>
       </b-tbody>
     </b-table-simple>
 
-    <b-table-simple v-if="!isInvalid" class="mb-0" small borderless responsive>
+    <b-table-simple v-if="!isInvalid" class="mb-0" small borderless >
       <b-thead>
         <b-tr>
           <b-th class="vert-text"></b-th>
@@ -179,12 +179,12 @@
             <b-form-input :disabled="blockSave" @change="cntRow(item,'in_och',index)" min="0" type="number"
                           v-model="item.in"/>
           </b-td>
-          <b-th>{{ item.all }}</b-th>
+          <b-th><div class="mt-2">{{ item.all }}</div></b-th>
         </b-tr>
         <b-tr class="border-r">
           <b-td>
             <div class="row">
-              <div class="col">
+              <div class="col-3">
                 <div class="rotate-button text-secondary" @click="addRow('in_och')">
                   <i class="fas fa-plus-circle fa-2x"></i>
                 </div>
@@ -204,7 +204,7 @@
       </b-tbody>
     </b-table-simple>
 
-    <b-table-simple v-if="!isInvalid" class="mb-0" small borderless responsive>
+    <b-table-simple v-if="!isInvalid" class="mb-0" small borderless >
       <b-thead>
         <b-tr>
           <b-th class="vert-text"></b-th>
@@ -240,7 +240,7 @@
                 </a>
               </div>
               <div class="col">
-                здесь выбор страны
+                <s-select @on-item-selected="item.name = $event" @on-item-reset="item.name = {}" />
               </div>
             </div>
           </b-td>
@@ -272,13 +272,13 @@
             <b-form-input :disabled="blockSave" @change="cntRow(item,'in_zaoch',index)" min="0" type="number"
                           v-model="item.in"/>
           </b-td>
-          <b-th>{{ item.all }}</b-th>
+          <b-th><div class="mt-2">{{ item.all }}</div></b-th>
         </b-tr>
         <b-tr class="border-r">
           <b-td>
             <div class="row">
 
-              <div class="col">
+              <div class="col-3">
                 <div class="rotate-button text-secondary" @click="addRow('in_zaoch')">
                   <i class="fas fa-plus-circle fa-2x"></i>
                 </div>
@@ -297,7 +297,7 @@
         </b-tr>
       </b-tbody>
     </b-table-simple>
-    <b-table-simple v-if="!isInvalid" small borderless responsive>
+    <b-table-simple v-if="!isInvalid" small borderless >
       <b-thead>
         <b-tr>
           <b-th class="vert-text"></b-th>
@@ -365,13 +365,13 @@
             <b-form-input :disabled="blockSave" @change="cntRow(item,'in_ochzaoch',index)" min="0" type="number"
                           v-model="item.in"/>
           </b-td>
-          <b-th>{{ item.all }}</b-th>
+          <b-th><div class="mt-2">{{ item.all }}</div></b-th>
         </b-tr>
         <b-tr class="border-r">
           <b-td>
             <div class="row">
 
-              <div class="col">
+              <div class="col-3">
                 <div class="rotate-button text-secondary" @click="addRow('in_ochzaoch')">
                   <i class="fas fa-plus-circle fa-2x"></i>
                 </div>
@@ -407,6 +407,7 @@
   </div>
 </template>
 <script>
+import Select from "./Select";
 import {BButton, BFormInput, BTableSimple, BTbody, BTd, BTh, BThead, BTr,} from 'bootstrap-vue';
 
 export default {
@@ -604,7 +605,7 @@ export default {
     this.cntRow(null, null, null, true)
   },
   components: {
-    BTableSimple, BTbody, BTr, BTd, BThead, BTh, BFormInput, BButton,
+    BTableSimple, BTbody, BTr, BTd, BThead, BTh, BFormInput, BButton,'SSelect':Select
   },
 };
 </script>
