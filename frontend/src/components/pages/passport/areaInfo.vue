@@ -633,10 +633,6 @@ export default {
     await this.getOrg();
     this.componentReady = true;
 
-    let v = 'asdas';
-
-    v.toNumber();
-
     //console.log('22,222'.toNumber(), '22.222'.toNumber(), 'a,a,a'.toNumber(), 'adasdas'.toNumber(), '22,2,2'.toNumber());
 
 

@@ -1,7 +1,7 @@
 <template>
 
   <div id="org-info-page">
-    <nav-bar v-on:save-page="savePage" v-on:block-save="blockSave = !blockSave"/>
+    <nav-bar :id_org="organization.id" v-on:save-page="savePage" v-on:block-save="blockSave = !blockSave"/>
     <transition enter-active-class="animated fadeInUp">
       <div v-if="componentReady && organization" class="container">
         <h3>Сведения об организации</h3>

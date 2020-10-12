@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav-bar v-on:save-page="saveObject" v-on:block-save="blockSave = !blockSave"/>
+    <nav-bar :id_org="id_org" v-on:save-page="saveObject" v-on:block-save="blockSave = !blockSave"/>
     <transition enter-active-class="animated fadeInUp">
       <div v-if="componentReady" class="container">
         <div class="rov">
@@ -193,6 +193,7 @@ export default {
       csrf: document.getElementsByName('csrf-token')[0].content,
       componentReady: false,
       currentObject: null,
+      id_org: 0,
       objectsTitle: [],
       objects: [],
       user: {},

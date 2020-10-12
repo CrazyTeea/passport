@@ -1,7 +1,7 @@
 <template>
   <div>
 
-    <nav-bar v-on:save-page="savePage" v-on:block-save="blockSave = !blockSave"></nav-bar>
+    <nav-bar :id_org="id_org" v-on:save-page="savePage" v-on:block-save="blockSave = !blockSave"></nav-bar>
     <transition enter-active-class="animated fadeInUp">
       <div v-if="componentReady">
         <b-jumbotron v-if="!user.id_org">
@@ -156,6 +156,7 @@ export default {
       user: {},
       cont_dan: false,
       componentReady: false,
+      id_org:0,
       organization: {
         region: {
           region: '',
@@ -173,6 +174,7 @@ export default {
   },
   async mounted() {
     await this.getUser();
+    this.id_org = this.user.id_org;
     if (this.user.id_org) {
       await this.getOrg(this.user.id_org);
       await this.getUserInfo();
