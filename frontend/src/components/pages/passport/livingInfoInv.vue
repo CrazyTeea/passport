@@ -137,7 +137,6 @@ export default {
     },
     items_b: {
       handler() {
-        console.log('ke');
         this.cntLiving();
       },
       deep: true,

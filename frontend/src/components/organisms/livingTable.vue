@@ -45,7 +45,7 @@
             <b-form-input :disabled="blockSave" @change="cntRow(item,'rf',index)" min="0" type="number"
                           v-model="item.in"/>
           </b-td>
-          <b-td>{{ item.all }}</b-td>
+          <b-th>{{ item.all }}</b-th>
         </b-tr>
       </b-tbody>
     </b-table-simple>
@@ -95,18 +95,18 @@
             <b-form-input :disabled="blockSave" @change="cntRow(item,'in',index)" min="0" type="number"
                           v-model="item.in"/>
           </b-td>
-          <b-td>{{ item.all }}</b-td>
+          <b-th>{{ item.all }}</b-th>
         </b-tr>
         <b-tr>
-          <b-td>Всего</b-td>
-          <b-td>{{ sums.spo }}</b-td>
-          <b-td>{{ sums.bak }}</b-td>
-          <b-td>{{ sums.spec }}</b-td>
-          <b-td>{{ sums.mag }}</b-td>
-          <b-td>{{ sums.asp }}</b-td>
-          <b-td>{{ sums.ord }}</b-td>
-          <b-td>{{ sums.in1 }}</b-td>
-          <b-td>{{ sums.all }}</b-td>
+          <b-th>Всего</b-th>
+          <b-th>{{ sums.spo }}</b-th>
+          <b-th>{{ sums.bak }}</b-th>
+          <b-th>{{ sums.spec }}</b-th>
+          <b-th>{{ sums.mag }}</b-th>
+          <b-th>{{ sums.asp }}</b-th>
+          <b-th>{{ sums.ord }}</b-th>
+          <b-th>{{ sums.in1 }}</b-th>
+          <b-th>{{ sums.all }}</b-th>
         </b-tr>
       </b-tbody>
     </b-table-simple>
@@ -137,7 +137,7 @@
           <b-td></b-td>
           <b-td></b-td>
         </b-tr>
-        <b-tr :class=" items.in_och.length -1 > index ? 'border-r' : ''" v-for="(item,index) in items.in_och"
+        <b-tr  v-for="(item,index) in items.in_och"
               :key="`in_och-${index}-${item.type}`">
           <b-td class="w-25">
             <div class="row">
@@ -179,7 +179,7 @@
             <b-form-input :disabled="blockSave" @change="cntRow(item,'in_och',index)" min="0" type="number"
                           v-model="item.in"/>
           </b-td>
-          <b-td>{{ item.all }}</b-td>
+          <b-th>{{ item.all }}</b-th>
         </b-tr>
         <b-tr class="border-r">
           <b-td>
@@ -199,7 +199,7 @@
           <b-td>{{ sums.in_och.asp }}</b-td>
           <b-td>{{ sums.in_och.ord }}</b-td>
           <b-td>{{ sums.in_och.in }}</b-td>
-          <b-td></b-td>
+          <b-th>{{ sums.in_och.all }}</b-th>
         </b-tr>
       </b-tbody>
     </b-table-simple>
@@ -230,7 +230,7 @@
           <b-td></b-td>
           <b-td></b-td>
         </b-tr>
-        <b-tr :class=" items.in_zaoch.length -1 > index ? 'border-r' : ''" v-for="(item,index) in items.in_zaoch"
+        <b-tr  v-for="(item,index) in items.in_zaoch"
               :key="`in_zaoch-${index}-${item.type}`">
           <b-td class="w-25">
             <div class="row">
@@ -272,7 +272,7 @@
             <b-form-input :disabled="blockSave" @change="cntRow(item,'in_zaoch',index)" min="0" type="number"
                           v-model="item.in"/>
           </b-td>
-          <b-td>{{ item.all }}</b-td>
+          <b-th>{{ item.all }}</b-th>
         </b-tr>
         <b-tr class="border-r">
           <b-td>
@@ -293,7 +293,7 @@
           <b-td>{{ sums.in_zaoch.asp }}</b-td>
           <b-td>{{ sums.in_zaoch.ord }}</b-td>
           <b-td>{{ sums.in_zaoch.in }}</b-td>
-          <b-td></b-td>
+          <b-th>{{ sums.in_zaoch.all }}</b-th>
         </b-tr>
       </b-tbody>
     </b-table-simple>
@@ -323,7 +323,7 @@
           <b-td></b-td>
           <b-td></b-td>
         </b-tr>
-        <b-tr :class=" items.in_ochzaoch.length -1 > index ? 'border-r' : ''" v-for="(item,index) in items.in_ochzaoch"
+        <b-tr  v-for="(item,index) in items.in_ochzaoch"
               :key="`in_ochzaoch-${index}-${item.type}`">
           <b-td class="w-25">
             <div class="row">
@@ -365,9 +365,9 @@
             <b-form-input :disabled="blockSave" @change="cntRow(item,'in_ochzaoch',index)" min="0" type="number"
                           v-model="item.in"/>
           </b-td>
-          <b-td>{{ item.all }}</b-td>
+          <b-th>{{ item.all }}</b-th>
         </b-tr>
-        <b-tr>
+        <b-tr class="border-r">
           <b-td>
             <div class="row">
 
@@ -386,19 +386,19 @@
           <b-td>{{ sums.in_ochzaoch.asp }}</b-td>
           <b-td>{{ sums.in_ochzaoch.ord }}</b-td>
           <b-td>{{ sums.in_ochzaoch.in }}</b-td>
-          <b-td></b-td>
+          <b-th>{{ sums.in_ochzaoch.all }}</b-th>
 
         </b-tr>
         <b-tr>
-          <b-td>Всего</b-td>
-          <b-td>{{ sums.spo }}</b-td>
-          <b-td>{{ sums.bak }}</b-td>
-          <b-td>{{ sums.spec }}</b-td>
-          <b-td>{{ sums.mag }}</b-td>
-          <b-td>{{ sums.asp }}</b-td>
-          <b-td>{{ sums.ord }}</b-td>
-          <b-td>{{ sums.in1 }}</b-td>
-          <b-td>{{ sums.all }}</b-td>
+          <b-th>Всего</b-th>
+          <b-th>{{ sums.spo }}</b-th>
+          <b-th>{{ sums.bak }}</b-th>
+          <b-th>{{ sums.spec }}</b-th>
+          <b-th>{{ sums.mag }}</b-th>
+          <b-th>{{ sums.asp }}</b-th>
+          <b-th>{{ sums.ord }}</b-th>
+          <b-th>{{ sums.in1 }}</b-th>
+          <b-th>{{ sums.all }}</b-th>
         </b-tr>
 
 
@@ -510,6 +510,7 @@ export default {
       this.sums.asp = 0;
       this.sums.ord = 0;
       this.sums.in1 = 0;
+      this.sums.all = 0;
 
       let cntItem = item => item.all = toNum(item.spo)
           + toNum(item.bak)
@@ -529,6 +530,7 @@ export default {
           this.sums[arr].asp = this.items[arr].reduce((a, b) => a + toNum(b.asp), 0);
           this.sums[arr].ord = this.items[arr].reduce((a, b) => a + toNum(b.ord), 0);
           this.sums[arr].in = this.items[arr].reduce((a, b) => a + toNum(b.in), 0);
+          this.sums[arr].all = this.items[arr].reduce((a, b) => a + toNum(b.all), 0);
 
         }
 
@@ -558,6 +560,7 @@ export default {
         this.sums.asp += this.items[i].reduce((a, b) => a + toNum(b.asp), 0);
         this.sums.ord += this.items[i].reduce((a, b) => a + toNum(b.ord), 0);
         this.sums.in1 += this.items[i].reduce((a, b) => a + toNum(b.in), 0);
+        this.sums.all += this.items[i].reduce((a, b) => a + toNum(b.all), 0);
       })
 
 
@@ -570,6 +573,7 @@ export default {
         this.deletedItems.push(this.items[arr][index].id);
       }
       this.items[arr].splice(index, 1);
+      this.cntRow(null,null,null,true);
     },
     checkCanSave(index) {
       if (!this.blockSave && this.canSave && !this.items[index].disabled) {
@@ -593,6 +597,7 @@ export default {
             type: array,
             all: 0
           });
+
     },
   },
   mounted() {

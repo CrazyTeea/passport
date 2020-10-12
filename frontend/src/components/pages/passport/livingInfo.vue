@@ -87,7 +87,8 @@
 
           </b-tab>
         </b-tabs>
-        <div class="row">
+        <hr class="mt-2">
+        <div class="row mt-3">
           <div class="col-6">
             <label for="live_proz_poluch_step">Проживающие из числа обучающихся, получающие государственную соц.
               стипендию</label>
@@ -166,13 +167,13 @@
               </b-td>
             </b-tr>
             <b-tr>
-              <b-td>Всего</b-td>
-              <b-td>
-                <b-form-input v-model="living.all_p" disabled/>
-              </b-td>
-              <b-td>
-                <b-form-input v-model="living.all_s" disabled/>
-              </b-td>
+              <b-th>Всего</b-th>
+              <b-th>
+                {{ living.all_p }}
+              </b-th>
+              <b-th>
+                {{ living.all_s }}
+              </b-th>
             </b-tr>
           </b-tbody>
         </b-table-simple>
@@ -341,52 +342,54 @@ export default {
       let toNum = num => typeof num === 'string' ? num.toNumber() : num;
       Object.keys(this.items_b.items).forEach(i => {
         this.living.cnt_stud_obuch +=
-            this.items_b.items[i].reduce((a, b) => {
-              return a + toNum(b.spo)
-                  + toNum(b.bak)
-                  + toNum(b.spec)
-                  + toNum(b.mag)
-                  + toNum(b.asp)
-                  + toNum(b.ord)
-                  + toNum(b.in)
-            }, 0)
+            this.items_b.items[i].reduce((a, b) =>
+                a + toNum(b.spo)
+                + toNum(b.bak)
+                + toNum(b.spec)
+                + toNum(b.mag)
+                + toNum(b.asp)
+                + toNum(b.ord)
+                + toNum(b.in)
+                , 0)
             + this.items_s.items[i].reduce((a, b) => a + toNum(b.spo)
-                  + toNum(b.bak)
-                  + toNum(b.spec)
-                  + toNum(b.mag)
-                  + toNum(b.asp)
-                  + toNum(b.ord)
-                  + toNum(b.in), 0)
+            + toNum(b.bak)
+            + toNum(b.spec)
+            + toNum(b.mag)
+            + toNum(b.asp)
+            + toNum(b.ord)
+            + toNum(b.in), 0)
             + this.items_m.items[i].reduce((a, b) => a + toNum(b.spo)
-                  + toNum(b.bak)
-                  + toNum(b.spec)
-                  + toNum(b.mag)
-                  + toNum(b.asp)
-                  + toNum(b.ord)
-                  + toNum(b.in), 0)
+            + toNum(b.bak)
+            + toNum(b.spec)
+            + toNum(b.mag)
+            + toNum(b.asp)
+            + toNum(b.ord)
+            + toNum(b.in), 0)
             + this.items_p.items[i].reduce((a, b) => a + toNum(b.spo)
-                  + toNum(b.bak)
-                  + toNum(b.spec)
-                  + toNum(b.mag)
-                  + toNum(b.asp)
-                  + toNum(b.ord)
-                  + toNum(b.in), 0)
+            + toNum(b.bak)
+            + toNum(b.spec)
+            + toNum(b.mag)
+            + toNum(b.asp)
+            + toNum(b.ord)
+            + toNum(b.in), 0)
       });
 
-      this.living.cnt_stud = ~~parseInt(this.living.inie_pr)
-          + ~~parseInt(this.living.cnt_stud_obuch)
-          + ~~parseInt(this.living.prozh_is_person);
-      this.living.all_p = ~~parseInt(this.organization.living.rab_p)
-          + ~~parseInt(this.organization.living.nauch_p)
-          + ~~parseInt(this.organization.living.prof_p)
-          + ~~parseInt(this.organization.living.in_p);
-      this.living.all_s = ~~parseInt(this.organization.living.rab_s)
-          + ~~parseInt(this.organization.living.nauch_s)
-          + ~~parseInt(this.organization.living.prof_s)
-          + ~~parseInt(this.organization.living.in_s);
 
+      this.living.all_p = toNum(this.organization.living.rab_p)
+          + toNum(this.organization.living.nauch_p)
+          + toNum(this.organization.living.prof_p)
+          + toNum(this.organization.living.in_p)
+      this.living.all_s =
+          toNum(this.organization.living.rab_s)
+          + toNum(this.organization.living.nauch_s)
+          + toNum(this.organization.living.prof_s)
+          + toNum(this.organization.living.in_s);
 
       this.living.prozh_is_person = this.living.all_s + this.living.all_p;
+
+      this.living.cnt_stud = toNum(this.organization.living.inie_pr)
+          + toNum(this.living.cnt_stud_obuch)
+          + toNum(this.living.prozh_is_person);
     },
     async getUser() {
       await Axios.get('/api/user/current').then((res) => {
