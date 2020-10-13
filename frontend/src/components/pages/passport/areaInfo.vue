@@ -183,7 +183,10 @@
                 <b-form-input :disabled="blockSave" v-model="area.c6m2_spo"/>
               </b-td>
               <b-th>
-                {{ organization.area.all_c6m2_spo }}
+                <div class="mt-2">
+                  {{ organization.area.all_c6m2_spo }}
+                </div>
+
               </b-th>
             </b-tr>
             <b-tr>
@@ -197,7 +200,9 @@
                 <b-form-input :disabled="blockSave" v-model="area.c6m2_bak"/>
               </b-td>
               <b-th>
+                <div class="mt-2">
                 {{ organization.area.all_c6m2_bak || 0 }}
+                </div>
               </b-th>
             </b-tr>
             <b-tr>
@@ -211,7 +216,9 @@
                 <b-form-input :disabled="blockSave" v-model="area.c6m2_spec"/>
               </b-td>
               <b-th>
+                <div class="mt-2">
                 {{ organization.area.all_c6m2_spec || 0 }}
+                </div>
               </b-th>
             </b-tr>
             <b-tr>
@@ -225,7 +232,9 @@
                 <b-form-input :disabled="blockSave" v-model="area.c6m2_mag"/>
               </b-td>
               <b-th>
+                <div class="mt-2">
                 {{ organization.area.all_c6m2_mag || 0 }}
+                </div>
               </b-th>
             </b-tr>
             <b-tr>
@@ -239,7 +248,9 @@
                 <b-form-input :disabled="blockSave" v-model="area.c6m2_asp"/>
               </b-td>
               <b-th>
+                <div class="mt-2">
                 {{ organization.area.all_c6m2_asp || 0 }}
+                </div>
               </b-th>
             </b-tr>
             <b-tr>
@@ -253,7 +264,9 @@
                 <b-form-input :disabled="blockSave" v-model="area.c6m2_ord"/>
               </b-td>
               <b-th>
+                <div class="mt-2">
                 {{ organization.area.all_c6m2_ord || 0 }}
+                </div>
               </b-th>
             </b-tr>
             <b-tr>
@@ -267,7 +280,9 @@
                 <b-form-input :disabled="blockSave" v-model="area.c6m2_in"/>
               </b-td>
               <b-th>
+                <div class="mt-2">
                 {{ organization.area.all_c6m2_in || 0 }}
+                </div>
               </b-th>
             </b-tr>
             <b-tr>
@@ -275,13 +290,19 @@
                 Всего
               </b-th>
               <b-th>
+                <div class="ml-3">
                 {{ organization.area.all_m2 }}
+                </div>
               </b-th>
               <b-th>
+                <div class="ml-3">
                 {{ organization.area.all_6m2 }}
+                </div>
               </b-th>
               <b-th>
+                <div class="ml-3">
                 {{ organization.area.all_all }}
+                </div>
               </b-th>
             </b-tr>
           </b-tbody>

@@ -5,13 +5,13 @@
            class="dropdown-input" type="text" placeholder="Страна..."/>
     <div v-else @click="resetSelection" class="dropdown-selected">
       <img :src="selectedItem.flag" class="dropdown-item-flag" alt=""/>
-      {{ selectedItem.name }}
+      {{ selectedItem.ru }}
     </div>
     <div @mouseleave="clicked=false" v-show="clicked && apiLoaded" class="dropdown-list">
-      <div @click="selectItem(item)" v-show="itemVisible(item)" v-for="item in itemList" :key="item.name"
+      <div @click="selectItem(item)" v-show="itemVisible(item)" v-for="item in itemList" :key="item.code"
            class="dropdown-item">
         <img :src="item.flag" class="dropdown-item-flag" alt="item.flag"/>
-        {{ item.name }}
+        {{ item.ru }}
       </div>
     </div>
   </div>
@@ -32,14 +32,14 @@ export default {
       clicked: false,
       itemList: [],
       apiLoaded: false,
-      apiFlag: 'https://restcountries.eu/rest/v2/all?fields=name;flag;alpha2Code',
+      apiFlag: '/api/get-countries',
     }
   },
   async mounted() {
     await this.getList();
 
     if (this.modelVal) {
-      this.selectedItem = this.itemList.find(item => item.alpha2Code === this.modelVal) || {}
+      this.selectedItem = this.itemList.find(item => item.code === this.modelVal) || {}
     }
 
   },
@@ -62,7 +62,7 @@ export default {
       }
     },
     itemVisible(item) {
-      let currentName = item.name.toLowerCase();
+      let currentName = item.ru.toLowerCase();
       let currentInput = this.inputValue.toLowerCase();
       return currentName.includes(currentInput);
     },

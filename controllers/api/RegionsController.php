@@ -4,6 +4,7 @@
 namespace app\controllers\api;
 
 
+use app\models\Countries;
 use app\models\Regions;
 use yii\rest\Controller;
 
@@ -14,5 +15,8 @@ class RegionsController extends Controller
     }
     public function actionById($id){
         return Regions::findOne($id);
+    }
+    public function actionCountries(){
+        return Countries::find()->all();
     }
 }

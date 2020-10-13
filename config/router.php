@@ -13,6 +13,7 @@ const api = [
 
     'api/objects/org/<id_org:\d+>'=>'api/objects/by-org',
     'api/cnt-objects/org/<id_org:\d+>'=>'api/objects/by-org-count',
+    'api/get-countries/'=>'api/regions/countries',
 ];
 
 const app = [
