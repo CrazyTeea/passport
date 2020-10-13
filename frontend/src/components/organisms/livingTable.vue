@@ -147,7 +147,7 @@
                 </a>
               </div>
               <div class="col">
-                здесь выбор страны
+                <s-select :disabled="blockSave" :model-val="item.name" @on-item-selected="item.name = $event.alpha2Code" @on-item-reset="item.name = null" />
               </div>
             </div>
           </b-td>
@@ -240,7 +240,7 @@
                 </a>
               </div>
               <div class="col">
-                <s-select @on-item-selected="item.name = $event" @on-item-reset="item.name = {}" />
+                <s-select :disabled="blockSave" :model-val="item.name" @on-item-selected="item.name = $event.alpha2Code" @on-item-reset="item.name = null" />
               </div>
             </div>
           </b-td>
@@ -333,7 +333,7 @@
                 </a>
               </div>
               <div class="col">
-                здесь выбор страны
+                <s-select :disabled="blockSave" :model-val="item.name" @on-item-selected="item.name = $event.alpha2Code" @on-item-reset="item.name = null" />
               </div>
             </div>
           </b-td>
