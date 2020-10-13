@@ -98,7 +98,7 @@
           <b-th><div class="mt-2">{{ item.all }}</div></b-th>
         </b-tr>
         <b-tr>
-          <b-th>Всего</b-th>
+          <b-th><div class="mt-2">Всего</div></b-th>
           <b-th><div class="ml-3">{{ sums.spo }}</div></b-th>
           <b-th><div class="ml-3">{{ sums.bak }}</div></b-th>
           <b-th><div class="ml-3">{{ sums.spec }}</div></b-th>
@@ -147,7 +147,7 @@
                 </a>
               </div>
               <div class="col">
-                <s-select :disabled="blockSave" :model-val="item.name" @on-item-selected="item.name = $event.alpha2Code" @on-item-reset="item.name = null" />
+                <s-select :disabled="blockSave" :model-val="item.name" @on-item-selected="item.name = $event.code" @on-item-reset="item.name = null" />
               </div>
             </div>
           </b-td>
@@ -189,17 +189,17 @@
                   <i class="fas fa-plus-circle fa-2x"></i>
                 </div>
               </div>
-              <div class="col">Всего</div>
+              <div class="col"><div class="mt-1">Всего</div></div>
             </div>
           </b-td>
-          <b-td>{{ sums.in_och.spo }}</b-td>
-          <b-td>{{ sums.in_och.bak }}</b-td>
-          <b-td>{{ sums.in_och.spec }}</b-td>
-          <b-td>{{ sums.in_och.mag }}</b-td>
-          <b-td>{{ sums.in_och.asp }}</b-td>
-          <b-td>{{ sums.in_och.ord }}</b-td>
-          <b-td>{{ sums.in_och.in }}</b-td>
-          <b-th>{{ sums.in_och.all }}</b-th>
+          <b-td><div class="ml-3">{{ sums.in_och.spo }}</div></b-td>
+          <b-td><div class="ml-3">{{ sums.in_och.bak }}</div></b-td>
+          <b-td><div class="ml-3">{{ sums.in_och.spec }}</div></b-td>
+          <b-td><div class="ml-3">{{ sums.in_och.mag }}</div></b-td>
+          <b-td><div class="ml-3">{{ sums.in_och.asp }}</div></b-td>
+          <b-td><div class="ml-3">{{ sums.in_och.ord }}</div></b-td>
+          <b-td><div class="ml-3">{{ sums.in_och.in }}</div></b-td>
+          <b-th><div class="">{{ sums.in_och.all }}</div></b-th>
         </b-tr>
       </b-tbody>
     </b-table-simple>
@@ -240,7 +240,7 @@
                 </a>
               </div>
               <div class="col">
-                <s-select :disabled="blockSave" :model-val="item.name" @on-item-selected="item.name = $event.alpha2Code" @on-item-reset="item.name = null" />
+                <s-select :disabled="blockSave" :model-val="item.name" @on-item-selected="item.name = $event.code" @on-item-reset="item.name = null" />
               </div>
             </div>
           </b-td>
@@ -283,17 +283,17 @@
                   <i class="fas fa-plus-circle fa-2x"></i>
                 </div>
               </div>
-              <div class="col">Всего</div>
+              <div class="col"><div class="mt-1">Всего</div></div>
             </div>
           </b-td>
-          <b-td>{{ sums.in_zaoch.spo }}</b-td>
-          <b-td>{{ sums.in_zaoch.bak }}</b-td>
-          <b-td>{{ sums.in_zaoch.spec }}</b-td>
-          <b-td>{{ sums.in_zaoch.mag }}</b-td>
-          <b-td>{{ sums.in_zaoch.asp }}</b-td>
-          <b-td>{{ sums.in_zaoch.ord }}</b-td>
-          <b-td>{{ sums.in_zaoch.in }}</b-td>
-          <b-th>{{ sums.in_zaoch.all }}</b-th>
+          <b-td><div class="ml-3">{{ sums.in_zaoch.spo }}</div></b-td>
+          <b-td><div class="ml-3">{{ sums.in_zaoch.bak }}</div></b-td>
+          <b-td><div class="ml-3">{{ sums.in_zaoch.spec }}</div></b-td>
+          <b-td><div class="ml-3">{{ sums.in_zaoch.mag }}</div></b-td>
+          <b-td><div class="ml-3">{{ sums.in_zaoch.asp }}</div></b-td>
+          <b-td><div class="ml-3">{{ sums.in_zaoch.ord }}</div></b-td>
+          <b-td><div class="ml-3">{{ sums.in_zaoch.in }}</div></b-td>
+          <b-th><div class="">{{ sums.in_zaoch.all }}</div></b-th>
         </b-tr>
       </b-tbody>
     </b-table-simple>
@@ -333,7 +333,7 @@
                 </a>
               </div>
               <div class="col">
-                <s-select :disabled="blockSave" :model-val="item.name" @on-item-selected="item.name = $event.alpha2Code" @on-item-reset="item.name = null" />
+                <s-select :disabled="blockSave" :model-val="item.name" @on-item-selected="item.name = $event.code" @on-item-reset="item.name = null" />
               </div>
             </div>
           </b-td>
@@ -376,29 +376,29 @@
                   <i class="fas fa-plus-circle fa-2x"></i>
                 </div>
               </div>
-              <div class="col">Всего</div>
+              <div class="col"><div class="">Всего</div></div>
             </div>
           </b-td>
-          <b-td>{{ sums.in_ochzaoch.spo }}</b-td>
-          <b-td>{{ sums.in_ochzaoch.bak }}</b-td>
-          <b-td>{{ sums.in_ochzaoch.spec }}</b-td>
-          <b-td>{{ sums.in_ochzaoch.mag }}</b-td>
-          <b-td>{{ sums.in_ochzaoch.asp }}</b-td>
-          <b-td>{{ sums.in_ochzaoch.ord }}</b-td>
-          <b-td>{{ sums.in_ochzaoch.in }}</b-td>
-          <b-th>{{ sums.in_ochzaoch.all }}</b-th>
+          <b-td><div class="ml-3">{{ sums.in_ochzaoch.spo }}</div></b-td>
+          <b-td><div class="ml-3">{{ sums.in_ochzaoch.bak }}</div></b-td>
+          <b-td><div class="ml-3">{{ sums.in_ochzaoch.spec }}</div></b-td>
+          <b-td><div class="ml-3">{{ sums.in_ochzaoch.mag }}</div></b-td>
+          <b-td><div class="ml-3">{{ sums.in_ochzaoch.asp }}</div></b-td>
+          <b-td><div class="ml-3">{{ sums.in_ochzaoch.ord }}</div></b-td>
+          <b-td><div class="ml-3">{{ sums.in_ochzaoch.in }}</div></b-td>
+          <b-th><div class="">{{ sums.in_ochzaoch.all }}</div></b-th>
 
         </b-tr>
         <b-tr>
           <b-th>Всего</b-th>
-          <b-th>{{ sums.spo }}</b-th>
-          <b-th>{{ sums.bak }}</b-th>
-          <b-th>{{ sums.spec }}</b-th>
-          <b-th>{{ sums.mag }}</b-th>
-          <b-th>{{ sums.asp }}</b-th>
-          <b-th>{{ sums.ord }}</b-th>
-          <b-th>{{ sums.in1 }}</b-th>
-          <b-th>{{ sums.all }}</b-th>
+          <b-th><div class="ml-3">{{ sums.spo }}</div></b-th>
+          <b-th><div class="ml-3">{{ sums.bak }}</div></b-th>
+          <b-th><div class="ml-3">{{ sums.spec }}</div></b-th>
+          <b-th><div class="ml-3">{{ sums.mag }}</div></b-th>
+          <b-th><div class="ml-3">{{ sums.asp }}</div></b-th>
+          <b-th><div class="ml-3">{{ sums.ord }}</div></b-th>
+          <b-th><div class="ml-3">{{ sums.in1 }}</div></b-th>
+          <b-th><div class="">{{ sums.all }}</div></b-th>
         </b-tr>
 
 

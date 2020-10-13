@@ -290,17 +290,17 @@
                 Всего
               </b-th>
               <b-th>
-                <div class="ml-2">
+                <div class="ml-3">
                 {{ organization.area.all_m2 }}
                 </div>
               </b-th>
               <b-th>
-                <div class="ml-2">
+                <div class="ml-3">
                 {{ organization.area.all_6m2 }}
                 </div>
               </b-th>
               <b-th>
-                <div class="ml-2">
+                <div class="ml-3">
                 {{ organization.area.all_all }}
                 </div>
               </b-th>
