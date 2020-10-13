@@ -205,6 +205,7 @@ class OrganizationsController extends Controller
                 }
 
                 $stud->type = $stud_item->type;
+                $stud->name = $stud_item->name;
                 $stud->budjet_type = $stud_item->budjet_type;
                 $stud->spo = $stud_item->spo ?? null;
                 $stud->bak = $stud_item->bak ?? null;
