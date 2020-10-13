@@ -15,4 +15,7 @@ class RegionsController extends Controller
     public function actionById($id){
         return Regions::findOne($id);
     }
+    public function actionCountries(){
+
+    }
 }

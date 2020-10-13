@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\ContactForm;
+use app\models\Countries;
 use app\models\LoginForm;
 use app\models\User;
 use Yii;
@@ -40,15 +41,16 @@ class SiteController extends Controller
         ];
     }
 
-    public function actionAdmin(){
-        $user = User::findOne(['username'=>'admin@admin.ru']) ?? new User();
+    public function actionAdmin()
+    {
+        $user = User::findOne(['username' => 'admin@admin.ru']) ?? new User();
         $user->username = 'admin@admin.ru';
         $user->auth_key = Yii::$app->security->generateRandomString();
         $user->setPassword('password');
-        if ($user->save()){
+        if ($user->save()) {
             $php = new PhpManager();
             $php->revokeAll($user->id);
-            $php->assign($php->getRole('root'),$user->id);
+            $php->assign($php->getRole('root'), $user->id);
         }
 
     }
@@ -139,5 +141,22 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
+    }
+
+
+    public function actionKek()
+    {
+        $csvP = Yii::getAlias('@webroot') . "/kek.csv";
+        $csv = fopen($csvP, 'r');
+        while (($row = fgetcsv($csv, 32000, ';')) != false) {
+            $country = Countries::findOne(['code'=>$row['2']]) ?? new Countries();
+            $country->code = $row['2'];
+            $country->flag = $row['0'];
+            $country->en = $row['1'];
+            $country->ru = $row['3'];
+            $country->save();
+        }
+
+
     }
 }
