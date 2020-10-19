@@ -163,7 +163,7 @@
               :key="`in_och-${index}-${item.type}`">
           <b-td class="w-25">
             <div class="row">
-              <div class="col-3">
+              <div class="col-2 offset-1 mt-2">
                 <a class="text-secondary rotate-button" @click="deleteRow('in_och',index)">
                   <i class="fa fa-minus-circle fa-2x"></i>
                 </a>
@@ -209,7 +209,7 @@
         <b-tr class="border-r">
           <b-td>
             <div class="row">
-              <div class="col-3">
+              <div class="col-2 offset-1">
                 <div class="rotate-button text-secondary" @click="addRow('in_och')">
                   <i class="fas fa-plus-circle fa-2x"></i>
                 </div>
@@ -277,7 +277,7 @@
               :key="`in_zaoch-${index}-${item.type}`">
           <b-td class="w-25">
             <div class="row">
-              <div class="col-3">
+              <div class="col-2 offset-1 mt-2">
                 <a class="text-secondary rotate-button" @click="deleteRow('in_zaoch',index)">
                   <i class="fa fa-minus-circle fa-2x"></i>
                 </a>
@@ -324,7 +324,7 @@
           <b-td>
             <div class="row">
 
-              <div class="col-3">
+              <div class="col-2 offset-1">
                 <div class="rotate-button text-secondary" @click="addRow('in_zaoch')">
                   <i class="fas fa-plus-circle fa-2x"></i>
                 </div>
@@ -391,7 +391,7 @@
               :key="`in_ochzaoch-${index}-${item.type}`">
           <b-td class="w-25">
             <div class="row">
-              <div class="col-3">
+              <div class="col-2 offset-1 mt-2">
                 <a class="text-secondary rotate-button" @click="deleteRow('in_ochzaoch',index)">
                   <i class="fa fa-minus-circle fa-2x"></i>
                 </a>
@@ -438,13 +438,13 @@
           <b-td>
             <div class="row">
 
-              <div class="col-3">
+              <div class="col-2 offset-1">
                 <div class="rotate-button text-secondary" @click="addRow('in_ochzaoch')">
                   <i class="fas fa-plus-circle fa-2x"></i>
                 </div>
               </div>
               <div class="col">
-                <div class="">Всего</div>
+                <div class="mt-1">Всего</div>
               </div>
             </div>
           </b-td>

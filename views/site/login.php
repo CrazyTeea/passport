@@ -11,7 +11,7 @@ use yii\bootstrap4\Html;
 $this->title = 'Вход';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-login container">
+<div class="site-login container off">
 
     <p>Заполните поля для входа:</p>
 
@@ -29,12 +29,12 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= $form->field($model, 'password')->passwordInput() ?>
 
     <?= $form->field($model, 'rememberMe')->checkbox([
-        'template' => "<div class=\"col-offset-1 col-3\">{input} {label}</div>\n<div class=\"col-8\">{error}</div>",
+        'template' => "<div class=\"offset-1 col-3\">{input} {label}</div>\n<div class=\"col-8\">{error}</div>",
     ]) ?>
 
     <div class="form-group">
         <div class="col-lg-offset-1 col-lg-11">
-            <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+            <?= Html::submitButton('Логин', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
         </div>
     </div>
 
