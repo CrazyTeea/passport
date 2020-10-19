@@ -11,10 +11,15 @@ import objectTariff from './components/pages/object/objectTariff';
 import objectMoney from './components/pages/object/objectMoney';
 import uploadPage from './components/pages/docs/uploadPage';
 import manual from './components/pages/passport/manual';
+import orgList from './components/pages/admin/orgList';
 
 Vue.use(VueRouter);
 
 const routes = [
+    {
+      path: '/admin/main',
+      component: orgList
+    },
     {
         path: '/main',
         component: userIndex,
