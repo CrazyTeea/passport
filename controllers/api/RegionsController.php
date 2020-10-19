@@ -10,13 +10,18 @@ use yii\rest\Controller;
 
 class RegionsController extends Controller
 {
-    public function actionAll(){
+    public function actionAll()
+    {
         return Regions::find()->all();
     }
-    public function actionById($id){
+
+    public function actionById($id)
+    {
         return Regions::findOne($id);
     }
-    public function actionCountries(){
+
+    public function actionCountries()
+    {
         return Countries::find()->all();
     }
 }

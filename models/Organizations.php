@@ -22,6 +22,7 @@ class Organizations extends \yii\db\ActiveRecord
 {
     public $reg;
     public $foun;
+
     /**
      * {@inheritdoc}
      */
@@ -82,20 +83,28 @@ class Organizations extends \yii\db\ActiveRecord
         return $this->hasOne(Regions::className(), ['id' => 'id_region']);
     }
 
-    public function getUsersInfo(){
-        return $this->hasMany(UsersInfo::class,['id_org'=>'id']);
+    public function getUsersInfo()
+    {
+        return $this->hasMany(UsersInfo::class, ['id_org' => 'id']);
     }
 
-    public function getInfo(){
-        return $this->hasMany(OrgInfo::class,['id_org'=>'id']);
+    public function getInfo()
+    {
+        return $this->hasMany(OrgInfo::class, ['id_org' => 'id']);
     }
-    public function getArea(){
-        return $this->hasOne(OrgArea::class,['id_org'=>'id']);
+
+    public function getArea()
+    {
+        return $this->hasOne(OrgArea::class, ['id_org' => 'id']);
     }
-    public function getLiving(){
-        return $this->hasOne(OrgLiving::class,['id_org'=>'id']);
+
+    public function getLiving()
+    {
+        return $this->hasOne(OrgLiving::class, ['id_org' => 'id']);
     }
-    public function getLivingStudents(){
-        return $this->hasMany(OrgLivingStudents::class,['id_org'=>'id']);
+
+    public function getLivingStudents()
+    {
+        return $this->hasMany(OrgLivingStudents::class, ['id_org' => 'id']);
     }
 }

@@ -717,9 +717,7 @@
 </template>
 
 <script>
-import {
-  BButton, BFormInput, BFormSelect, BInputGroup, BInputGroupText, BTooltip,
-} from 'bootstrap-vue';
+import {BButton, BFormInput, BFormSelect, BInputGroup, BInputGroupText, BTooltip,} from 'bootstrap-vue';
 import Axios from 'axios';
 import Decimal from 'decimal.js';
 import scrollButton from '../../organisms/scrollButton';
@@ -748,62 +746,62 @@ export default {
     currentObject: {
       handler() {
         this.money.obsh = new Decimal(this.currentObject.money.money_prozh_bez_dop).plus(
-          new Decimal(this.currentObject.money.money_prozh_dop).plus(
-            new Decimal(this.currentObject.money.money_aren).plus(
-              new Decimal(this.currentObject.money.money_cel_sred),
+            new Decimal(this.currentObject.money.money_prozh_dop).plus(
+                new Decimal(this.currentObject.money.money_aren).plus(
+                    new Decimal(this.currentObject.money.money_cel_sred),
+                ),
             ),
-          ),
         ).toFixed(3);
         this.money.rask = new Decimal(this.currentObject.money.voda).plus(
-          new Decimal(this.currentObject.money.tep).plus(
-            new Decimal(this.currentObject.money.gaz).plus(
-              new Decimal(this.currentObject.money.elect),
+            new Decimal(this.currentObject.money.tep).plus(
+                new Decimal(this.currentObject.money.gaz).plus(
+                    new Decimal(this.currentObject.money.elect),
+                ),
             ),
-          ),
         ).toFixed(3);
 
         this.money.rasb = new Decimal(this.currentObject.money.ohrana).plus(
-          new Decimal(this.currentObject.money.anti_ter).plus(
-            new Decimal(this.currentObject.money.inie_rash_ohrana),
-          ),
+            new Decimal(this.currentObject.money.anti_ter).plus(
+                new Decimal(this.currentObject.money.inie_rash_ohrana),
+            ),
         ).toFixed(3);
         this.money.rasn = new Decimal(this.currentObject.money.nalog_imush).plus(
-          new Decimal(this.currentObject.money.zem_nalog),
+            new Decimal(this.currentObject.money.zem_nalog),
         ).toFixed(3);
 
         this.money.rass = new Decimal(this.currentObject.money.uborka_ter).plus(
-          new Decimal(this.currentObject.money.uborka_pom).plus(
-            new Decimal(this.currentObject.money.tech_obs).plus(
-              new Decimal(this.currentObject.money.derivation).plus(
-                new Decimal(this.currentObject.money.tbo).plus(
-                  new Decimal(this.currentObject.money.gos_prov).plus(
-                    new Decimal(this.currentObject.money.attest).plus(
-                      new Decimal(this.currentObject.money.prot_pozhar).plus(
-                        new Decimal(this.currentObject.money.inie_rash),
-                      ),
+            new Decimal(this.currentObject.money.uborka_pom).plus(
+                new Decimal(this.currentObject.money.tech_obs).plus(
+                    new Decimal(this.currentObject.money.derivation).plus(
+                        new Decimal(this.currentObject.money.tbo).plus(
+                            new Decimal(this.currentObject.money.gos_prov).plus(
+                                new Decimal(this.currentObject.money.attest).plus(
+                                    new Decimal(this.currentObject.money.prot_pozhar).plus(
+                                        new Decimal(this.currentObject.money.inie_rash),
+                                    ),
+                                ),
+                            ),
+                        ),
                     ),
-                  ),
                 ),
-              ),
             ),
-          ),
         ).toFixed(3);
         this.money.obsh_sred = new Decimal(this.money.rask).plus(
-          new Decimal(this.money.rass).plus(
-            new Decimal(this.money.rasb).plus(
-              new Decimal(this.money.rasn).plus(
-                new Decimal(this.currentObject.money.svaz).plus(
-                  new Decimal(this.currentObject.money.kap_rem).plus(
-                    new Decimal(this.currentObject.money.tek_rem).plus(
-                      new Decimal(this.currentObject.money.mygk_inv).plus(
-                        new Decimal(this.currentObject.money.osn_sred),
-                      ),
+            new Decimal(this.money.rass).plus(
+                new Decimal(this.money.rasb).plus(
+                    new Decimal(this.money.rasn).plus(
+                        new Decimal(this.currentObject.money.svaz).plus(
+                            new Decimal(this.currentObject.money.kap_rem).plus(
+                                new Decimal(this.currentObject.money.tek_rem).plus(
+                                    new Decimal(this.currentObject.money.mygk_inv).plus(
+                                        new Decimal(this.currentObject.money.osn_sred),
+                                    ),
+                                ),
+                            ),
+                        ),
                     ),
-                  ),
                 ),
-              ),
             ),
-          ),
         ).toFixed(3);
       },
       deep: true,
@@ -825,7 +823,9 @@ export default {
       await Axios.get(`/api/objects/org/${this.id_org}`).then((res) => {
         this.objects = res.data;
         this.objects.forEach((item) => {
-          if (!item.money) { item.money = {}; }
+          if (!item.money) {
+            item.money = {};
+          }
         });
       });
     },

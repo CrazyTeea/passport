@@ -3,14 +3,14 @@
     В следующий объектах не заполнена информация по площади, вычислиямые поля могут быть не корректны
     <ul>
       <li v-for="(obj,index) in objectsToShow" :key="`obj_${index}`">
-        <a href="/objects-area">{{obj.name}}</a>
+        <a href="/objects-area">{{ obj.name }}</a>
       </li>
     </ul>
   </b-alert>
 </template>
 
 <script>
-import { BAlert } from 'bootstrap-vue';
+import {BAlert} from 'bootstrap-vue';
 
 export default {
   components: {
@@ -25,7 +25,9 @@ export default {
   },
   mounted() {
     this.objectsToShow = this.dirtyObjects.map((item) => {
-      if (!item.area) { return item; }
+      if (!item.area) {
+        return item;
+      }
     });
   },
 };

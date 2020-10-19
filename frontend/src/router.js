@@ -15,57 +15,57 @@ import manual from './components/pages/passport/manual';
 Vue.use(VueRouter);
 
 const routes = [
-  {
-    path: '/main',
-    component: userIndex,
-  },
-  {
-    path: '/org-info',
-    component: orgInfo,
-  },
-  {
-    path: '/area-info',
-    component: areaInfo,
-  },
-  {
-    path: '/living-info',
-    component: livingInfo,
-  },
-  {
-    path: '/living-info-inv',
-    component: livingInfoInv,
-  },
-  {
-    path: '/objects-info',
-    component: object,
-    name: 'object',
-    props: true,
+    {
+        path: '/main',
+        component: userIndex,
+    },
+    {
+        path: '/org-info',
+        component: orgInfo,
+    },
+    {
+        path: '/area-info',
+        component: areaInfo,
+    },
+    {
+        path: '/living-info',
+        component: livingInfo,
+    },
+    {
+        path: '/living-info-inv',
+        component: livingInfoInv,
+    },
+    {
+        path: '/objects-info',
+        component: object,
+        name: 'object',
+        props: true,
 
-  },
-  {
-    path: '/objects-area',
-    component: objectArea,
-  },
-  {
-    path: '/objects-tariff',
-    component: objectTariff,
-  },
-  {
-    path: '/objects-money',
-    component: objectMoney,
-  },
-  {
-    path: '/documents',
-    component: uploadPage,
-  },
-  {
-    path: '/manual',
-    component: manual,
-  },
+    },
+    {
+        path: '/objects-area',
+        component: objectArea,
+    },
+    {
+        path: '/objects-tariff',
+        component: objectTariff,
+    },
+    {
+        path: '/objects-money',
+        component: objectMoney,
+    },
+    {
+        path: '/documents',
+        component: uploadPage,
+    },
+    {
+        path: '/manual',
+        component: manual,
+    },
 
 ];
 
 export default new VueRouter({
-  mode: 'history',
-  routes,
+    mode: 'history',
+    routes,
 });

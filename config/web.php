@@ -2,19 +2,19 @@
 
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
-$router = require __DIR__.'/router.php';
+$router = require __DIR__ . '/router.php';
 
 $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'language' => 'ru-RU',
-    'defaultRoute'=>'site/login',
-    'homeUrl'=>'/main',
-    'name'=>'Паспорт жилищного фонда',
+    'defaultRoute' => 'site/login',
+    'homeUrl' => '/main',
+    'name' => 'Паспорт жилищного фонда',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
-        '@npm'   => '@vendor/npm-asset',
+        '@npm' => '@vendor/npm-asset',
         '@mdm/admin' => '@app/widgets/yii2-admin',
     ],
     'modules' => [

@@ -10,7 +10,7 @@ $config = [
     'controllerNamespace' => 'app\commands',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
-        '@npm'   => '@vendor/npm-asset',
+        '@npm' => '@vendor/npm-asset',
         '@mdm/admin' => '@app/widgets/yii2-admin',
         '@tests' => '@app/tests',
     ],

@@ -84,7 +84,8 @@
                           <label class="mt-4 font-weight-bold" :for="`user_info_${index}_position`">Должность</label>
                           <b-form-input :disabled="blockSave" :id="`user_info_${index}_position`"
                                         v-model="user_info.position"/>
-                          <label class="mt-4 font-weight-bold" :for="`user_info_${index}_phone`">Мобильный телефон</label>
+                          <label class="mt-4 font-weight-bold" :for="`user_info_${index}_phone`">Мобильный
+                            телефон</label>
                           <b-form-input :disabled="blockSave" :id="`user_info_${index}_phone`"
                                         v-model="user_info.phone"/>
                           <label class="mt-4 font-weight-bold" :for="`user_info_${index}_email`">email</label>
@@ -97,7 +98,8 @@
                       </b-card>
                     </div>
                   </transition-group>
-                  <div v-if="users_info.length < 2" class="col-6" style="margin-left: -10px; min-width: 51% !important;">
+                  <div v-if="users_info.length < 2" class="col-6"
+                       style="margin-left: -10px; min-width: 51% !important;">
                     <b-card no-body v-if="!blockSave" class="contact-card">
                       <b-card-body class="justify-content-center align-items-center d-flex" @click="addUserInfo">
                         <i class="fa fa-plus fa-10x "></i>
@@ -156,7 +158,7 @@ export default {
       user: {},
       cont_dan: false,
       componentReady: false,
-      id_org:0,
+      id_org: 0,
       organization: {
         region: {
           region: '',
@@ -209,14 +211,16 @@ export default {
       }
     },
     async deleteUserInfo(index) {
-      const { id } = this.users_info[index];
+      const {id} = this.users_info[index];
       if (id) {
         await Axios.post(`/organization/users-info/${id}/delete`, {}, {
           headers: {
             'X-CSRF-Token': this.csrf,
           },
         }).then((res) => {
-          if (res.data.success) { this.users_info.splice(index, 1); }
+          if (res.data.success) {
+            this.users_info.splice(index, 1);
+          }
         });
       } else this.users_info.splice(index, 1);
     },
@@ -227,7 +231,7 @@ export default {
     },
     async getOrg() {
       await Axios.get(`/api/organization/by-id/${this.user.id_org}`).then((res) => {
-        this.organization = { ...res.data, ...res.data.organization };
+        this.organization = {...res.data, ...res.data.organization};
       });
     },
     async getUserInfo() {

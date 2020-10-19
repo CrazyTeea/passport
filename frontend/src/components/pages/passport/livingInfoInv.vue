@@ -16,7 +16,7 @@
         <div class="row">
           <div class="col">
             <label class="font-weight-bold">Проживающие из числа обучающихся с ограниченными возможностями
-            здоровья:</label>
+              здоровья:</label>
             {{ living.cnt_inv }} Человек
           </div>
         </div>

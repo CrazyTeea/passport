@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-table-simple class="mb-0" small borderless >
+    <b-table-simple class="mb-0" small borderless>
       <b-thead>
         <b-tr>
           <b-th class="vert-text">{{ title }}</b-th>
@@ -45,12 +45,14 @@
             <b-form-input :disabled="blockSave" @change="cntRow(item,'rf',index)" min="0" type="number"
                           v-model="item.in"/>
           </b-td>
-          <b-th><div class="mt-2">{{ item.all }}</div></b-th>
+          <b-th>
+            <div class="mt-2">{{ item.all }}</div>
+          </b-th>
         </b-tr>
       </b-tbody>
     </b-table-simple>
 
-    <b-table-simple v-if="isInvalid" class="mb-0" small borderless >
+    <b-table-simple v-if="isInvalid" class="mb-0" small borderless>
       <b-thead>
         <b-tr>
           <b-th class="vert-text"></b-th>
@@ -65,7 +67,7 @@
         </b-tr>
       </b-thead>
       <b-tbody>
-        <b-tr  v-for="(item,index) in items.in" :key="`in-${index}-${item.type}`">
+        <b-tr v-for="(item,index) in items.in" :key="`in-${index}-${item.type}`">
           <b-td class="w-25">{{ item.label }}</b-td>
           <b-td>
             <b-form-input :disabled="blockSave" @change="cntRow(item,'in',index)" min="0" type="number"
@@ -95,23 +97,43 @@
             <b-form-input :disabled="blockSave" @change="cntRow(item,'in',index)" min="0" type="number"
                           v-model="item.in"/>
           </b-td>
-          <b-th><div class="mt-2">{{ item.all }}</div></b-th>
+          <b-th>
+            <div class="mt-2">{{ item.all }}</div>
+          </b-th>
         </b-tr>
         <b-tr>
-          <b-th><div class="mt-2">Всего</div></b-th>
-          <b-th><div class="ml-3">{{ sums.spo }}</div></b-th>
-          <b-th><div class="ml-3">{{ sums.bak }}</div></b-th>
-          <b-th><div class="ml-3">{{ sums.spec }}</div></b-th>
-          <b-th><div class="ml-3">{{ sums.mag }}</div></b-th>
-          <b-th><div class="ml-3">{{ sums.asp }}</div></b-th>
-          <b-th><div class="ml-3">{{ sums.ord }}</div></b-th>
-          <b-th><div class="ml-3">{{ sums.in1 }}</div></b-th>
-          <b-th><div class="">{{ sums.all }}</div></b-th>
+          <b-th>
+            <div class="mt-2">Всего</div>
+          </b-th>
+          <b-th>
+            <div class="ml-3">{{ sums.spo }}</div>
+          </b-th>
+          <b-th>
+            <div class="ml-3">{{ sums.bak }}</div>
+          </b-th>
+          <b-th>
+            <div class="ml-3">{{ sums.spec }}</div>
+          </b-th>
+          <b-th>
+            <div class="ml-3">{{ sums.mag }}</div>
+          </b-th>
+          <b-th>
+            <div class="ml-3">{{ sums.asp }}</div>
+          </b-th>
+          <b-th>
+            <div class="ml-3">{{ sums.ord }}</div>
+          </b-th>
+          <b-th>
+            <div class="ml-3">{{ sums.in1 }}</div>
+          </b-th>
+          <b-th>
+            <div class="">{{ sums.all }}</div>
+          </b-th>
         </b-tr>
       </b-tbody>
     </b-table-simple>
 
-    <b-table-simple v-if="!isInvalid" class="mb-0" small borderless >
+    <b-table-simple v-if="!isInvalid" class="mb-0" small borderless>
       <b-thead>
         <b-tr>
           <b-th class="vert-text"></b-th>
@@ -137,17 +159,18 @@
           <b-td></b-td>
           <b-td></b-td>
         </b-tr>
-        <b-tr  v-for="(item,index) in items.in_och"
+        <b-tr v-for="(item,index) in items.in_och"
               :key="`in_och-${index}-${item.type}`">
           <b-td class="w-25">
             <div class="row">
-              <div class="col-3">
+              <div class="col-2 offset-1 mt-2">
                 <a class="text-secondary rotate-button" @click="deleteRow('in_och',index)">
                   <i class="fa fa-minus-circle fa-2x"></i>
                 </a>
               </div>
               <div class="col">
-                <s-select :disabled="blockSave" :model-val="item.name" @on-item-selected="item.name = $event.code" @on-item-reset="item.name = null" />
+                <s-select :disabled="blockSave" :model-val="item.name" @on-item-selected="item.name = $event.code"
+                          @on-item-reset="item.name = null"/>
               </div>
             </div>
           </b-td>
@@ -179,32 +202,52 @@
             <b-form-input :disabled="blockSave" @change="cntRow(item,'in_och',index)" min="0" type="number"
                           v-model="item.in"/>
           </b-td>
-          <b-th><div class="mt-2">{{ item.all }}</div></b-th>
+          <b-th>
+            <div class="mt-2">{{ item.all }}</div>
+          </b-th>
         </b-tr>
         <b-tr class="border-r">
           <b-td>
             <div class="row">
-              <div class="col-3">
+              <div class="col-2 offset-1">
                 <div class="rotate-button text-secondary" @click="addRow('in_och')">
                   <i class="fas fa-plus-circle fa-2x"></i>
                 </div>
               </div>
-              <div class="col"><div class="mt-1">Всего</div></div>
+              <div class="col">
+                <div class="mt-1">Всего</div>
+              </div>
             </div>
           </b-td>
-          <b-td><div class="ml-3">{{ sums.in_och.spo }}</div></b-td>
-          <b-td><div class="ml-3">{{ sums.in_och.bak }}</div></b-td>
-          <b-td><div class="ml-3">{{ sums.in_och.spec }}</div></b-td>
-          <b-td><div class="ml-3">{{ sums.in_och.mag }}</div></b-td>
-          <b-td><div class="ml-3">{{ sums.in_och.asp }}</div></b-td>
-          <b-td><div class="ml-3">{{ sums.in_och.ord }}</div></b-td>
-          <b-td><div class="ml-3">{{ sums.in_och.in }}</div></b-td>
-          <b-th><div class="">{{ sums.in_och.all }}</div></b-th>
+          <b-td>
+            <div class="ml-3">{{ sums.in_och.spo }}</div>
+          </b-td>
+          <b-td>
+            <div class="ml-3">{{ sums.in_och.bak }}</div>
+          </b-td>
+          <b-td>
+            <div class="ml-3">{{ sums.in_och.spec }}</div>
+          </b-td>
+          <b-td>
+            <div class="ml-3">{{ sums.in_och.mag }}</div>
+          </b-td>
+          <b-td>
+            <div class="ml-3">{{ sums.in_och.asp }}</div>
+          </b-td>
+          <b-td>
+            <div class="ml-3">{{ sums.in_och.ord }}</div>
+          </b-td>
+          <b-td>
+            <div class="ml-3">{{ sums.in_och.in }}</div>
+          </b-td>
+          <b-th>
+            <div class="">{{ sums.in_och.all }}</div>
+          </b-th>
         </b-tr>
       </b-tbody>
     </b-table-simple>
 
-    <b-table-simple v-if="!isInvalid" class="mb-0" small borderless >
+    <b-table-simple v-if="!isInvalid" class="mb-0" small borderless>
       <b-thead>
         <b-tr>
           <b-th class="vert-text"></b-th>
@@ -230,17 +273,18 @@
           <b-td></b-td>
           <b-td></b-td>
         </b-tr>
-        <b-tr  v-for="(item,index) in items.in_zaoch"
+        <b-tr v-for="(item,index) in items.in_zaoch"
               :key="`in_zaoch-${index}-${item.type}`">
           <b-td class="w-25">
             <div class="row">
-              <div class="col-3">
+              <div class="col-2 offset-1 mt-2">
                 <a class="text-secondary rotate-button" @click="deleteRow('in_zaoch',index)">
                   <i class="fa fa-minus-circle fa-2x"></i>
                 </a>
               </div>
               <div class="col">
-                <s-select :disabled="blockSave" :model-val="item.name" @on-item-selected="item.name = $event.code" @on-item-reset="item.name = null" />
+                <s-select :disabled="blockSave" :model-val="item.name" @on-item-selected="item.name = $event.code"
+                          @on-item-reset="item.name = null"/>
               </div>
             </div>
           </b-td>
@@ -272,32 +316,52 @@
             <b-form-input :disabled="blockSave" @change="cntRow(item,'in_zaoch',index)" min="0" type="number"
                           v-model="item.in"/>
           </b-td>
-          <b-th><div class="mt-2">{{ item.all }}</div></b-th>
+          <b-th>
+            <div class="mt-2">{{ item.all }}</div>
+          </b-th>
         </b-tr>
         <b-tr class="border-r">
           <b-td>
             <div class="row">
 
-              <div class="col-3">
+              <div class="col-2 offset-1">
                 <div class="rotate-button text-secondary" @click="addRow('in_zaoch')">
                   <i class="fas fa-plus-circle fa-2x"></i>
                 </div>
               </div>
-              <div class="col"><div class="mt-1">Всего</div></div>
+              <div class="col">
+                <div class="mt-1">Всего</div>
+              </div>
             </div>
           </b-td>
-          <b-td><div class="ml-3">{{ sums.in_zaoch.spo }}</div></b-td>
-          <b-td><div class="ml-3">{{ sums.in_zaoch.bak }}</div></b-td>
-          <b-td><div class="ml-3">{{ sums.in_zaoch.spec }}</div></b-td>
-          <b-td><div class="ml-3">{{ sums.in_zaoch.mag }}</div></b-td>
-          <b-td><div class="ml-3">{{ sums.in_zaoch.asp }}</div></b-td>
-          <b-td><div class="ml-3">{{ sums.in_zaoch.ord }}</div></b-td>
-          <b-td><div class="ml-3">{{ sums.in_zaoch.in }}</div></b-td>
-          <b-th><div class="">{{ sums.in_zaoch.all }}</div></b-th>
+          <b-td>
+            <div class="ml-3">{{ sums.in_zaoch.spo }}</div>
+          </b-td>
+          <b-td>
+            <div class="ml-3">{{ sums.in_zaoch.bak }}</div>
+          </b-td>
+          <b-td>
+            <div class="ml-3">{{ sums.in_zaoch.spec }}</div>
+          </b-td>
+          <b-td>
+            <div class="ml-3">{{ sums.in_zaoch.mag }}</div>
+          </b-td>
+          <b-td>
+            <div class="ml-3">{{ sums.in_zaoch.asp }}</div>
+          </b-td>
+          <b-td>
+            <div class="ml-3">{{ sums.in_zaoch.ord }}</div>
+          </b-td>
+          <b-td>
+            <div class="ml-3">{{ sums.in_zaoch.in }}</div>
+          </b-td>
+          <b-th>
+            <div class="">{{ sums.in_zaoch.all }}</div>
+          </b-th>
         </b-tr>
       </b-tbody>
     </b-table-simple>
-    <b-table-simple v-if="!isInvalid" small borderless >
+    <b-table-simple v-if="!isInvalid" small borderless>
       <b-thead>
         <b-tr>
           <b-th class="vert-text"></b-th>
@@ -323,17 +387,18 @@
           <b-td></b-td>
           <b-td></b-td>
         </b-tr>
-        <b-tr  v-for="(item,index) in items.in_ochzaoch"
+        <b-tr v-for="(item,index) in items.in_ochzaoch"
               :key="`in_ochzaoch-${index}-${item.type}`">
           <b-td class="w-25">
             <div class="row">
-              <div class="col-3">
+              <div class="col-2 offset-1 mt-2">
                 <a class="text-secondary rotate-button" @click="deleteRow('in_ochzaoch',index)">
                   <i class="fa fa-minus-circle fa-2x"></i>
                 </a>
               </div>
               <div class="col">
-                <s-select :disabled="blockSave" :model-val="item.name" @on-item-selected="item.name = $event.code" @on-item-reset="item.name = null" />
+                <s-select :disabled="blockSave" :model-val="item.name" @on-item-selected="item.name = $event.code"
+                          @on-item-reset="item.name = null"/>
               </div>
             </div>
           </b-td>
@@ -365,40 +430,76 @@
             <b-form-input :disabled="blockSave" @change="cntRow(item,'in_ochzaoch',index)" min="0" type="number"
                           v-model="item.in"/>
           </b-td>
-          <b-th><div class="mt-2">{{ item.all }}</div></b-th>
+          <b-th>
+            <div class="mt-2">{{ item.all }}</div>
+          </b-th>
         </b-tr>
         <b-tr class="border-r">
           <b-td>
             <div class="row">
 
-              <div class="col-3">
+              <div class="col-2 offset-1">
                 <div class="rotate-button text-secondary" @click="addRow('in_ochzaoch')">
                   <i class="fas fa-plus-circle fa-2x"></i>
                 </div>
               </div>
-              <div class="col"><div class="">Всего</div></div>
+              <div class="col">
+                <div class="mt-1">Всего</div>
+              </div>
             </div>
           </b-td>
-          <b-td><div class="ml-3">{{ sums.in_ochzaoch.spo }}</div></b-td>
-          <b-td><div class="ml-3">{{ sums.in_ochzaoch.bak }}</div></b-td>
-          <b-td><div class="ml-3">{{ sums.in_ochzaoch.spec }}</div></b-td>
-          <b-td><div class="ml-3">{{ sums.in_ochzaoch.mag }}</div></b-td>
-          <b-td><div class="ml-3">{{ sums.in_ochzaoch.asp }}</div></b-td>
-          <b-td><div class="ml-3">{{ sums.in_ochzaoch.ord }}</div></b-td>
-          <b-td><div class="ml-3">{{ sums.in_ochzaoch.in }}</div></b-td>
-          <b-th><div class="">{{ sums.in_ochzaoch.all }}</div></b-th>
+          <b-td>
+            <div class="ml-3">{{ sums.in_ochzaoch.spo }}</div>
+          </b-td>
+          <b-td>
+            <div class="ml-3">{{ sums.in_ochzaoch.bak }}</div>
+          </b-td>
+          <b-td>
+            <div class="ml-3">{{ sums.in_ochzaoch.spec }}</div>
+          </b-td>
+          <b-td>
+            <div class="ml-3">{{ sums.in_ochzaoch.mag }}</div>
+          </b-td>
+          <b-td>
+            <div class="ml-3">{{ sums.in_ochzaoch.asp }}</div>
+          </b-td>
+          <b-td>
+            <div class="ml-3">{{ sums.in_ochzaoch.ord }}</div>
+          </b-td>
+          <b-td>
+            <div class="ml-3">{{ sums.in_ochzaoch.in }}</div>
+          </b-td>
+          <b-th>
+            <div class="">{{ sums.in_ochzaoch.all }}</div>
+          </b-th>
 
         </b-tr>
         <b-tr>
           <b-th>Всего</b-th>
-          <b-th><div class="ml-3">{{ sums.spo }}</div></b-th>
-          <b-th><div class="ml-3">{{ sums.bak }}</div></b-th>
-          <b-th><div class="ml-3">{{ sums.spec }}</div></b-th>
-          <b-th><div class="ml-3">{{ sums.mag }}</div></b-th>
-          <b-th><div class="ml-3">{{ sums.asp }}</div></b-th>
-          <b-th><div class="ml-3">{{ sums.ord }}</div></b-th>
-          <b-th><div class="ml-3">{{ sums.in1 }}</div></b-th>
-          <b-th><div class="">{{ sums.all }}</div></b-th>
+          <b-th>
+            <div class="ml-3">{{ sums.spo }}</div>
+          </b-th>
+          <b-th>
+            <div class="ml-3">{{ sums.bak }}</div>
+          </b-th>
+          <b-th>
+            <div class="ml-3">{{ sums.spec }}</div>
+          </b-th>
+          <b-th>
+            <div class="ml-3">{{ sums.mag }}</div>
+          </b-th>
+          <b-th>
+            <div class="ml-3">{{ sums.asp }}</div>
+          </b-th>
+          <b-th>
+            <div class="ml-3">{{ sums.ord }}</div>
+          </b-th>
+          <b-th>
+            <div class="ml-3">{{ sums.in1 }}</div>
+          </b-th>
+          <b-th>
+            <div class="">{{ sums.all }}</div>
+          </b-th>
         </b-tr>
 
 
@@ -574,7 +675,7 @@ export default {
         this.deletedItems.push(this.items[arr][index].id);
       }
       this.items[arr].splice(index, 1);
-      this.cntRow(null,null,null,true);
+      this.cntRow(null, null, null, true);
     },
     checkCanSave(index) {
       if (!this.blockSave && this.canSave && !this.items[index].disabled) {
@@ -605,7 +706,7 @@ export default {
     this.cntRow(null, null, null, true)
   },
   components: {
-    BTableSimple, BTbody, BTr, BTd, BThead, BTh, BFormInput, BButton,'SSelect':Select
+    BTableSimple, BTbody, BTr, BTd, BThead, BTh, BFormInput, BButton, 'SSelect': Select
   },
 };
 </script>

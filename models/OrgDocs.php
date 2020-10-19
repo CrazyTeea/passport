@@ -2,8 +2,6 @@
 
 namespace app\models;
 
-use Yii;
-
 /**
  * This is the model class for table "org_docs".
  *
@@ -28,7 +26,7 @@ class OrgDocs extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_desc', 'id_org','id_file'], 'integer'],
+            [['id_desc', 'id_org', 'id_file'], 'integer'],
         ];
     }
 
@@ -44,10 +42,13 @@ class OrgDocs extends \yii\db\ActiveRecord
         ];
     }
 
-    public function getDescriptor(){
-        return $this->hasOne(DocTypes::className(),['id'=>'id_desc']);
+    public function getDescriptor()
+    {
+        return $this->hasOne(DocTypes::className(), ['id' => 'id_desc']);
     }
-    public function getFile(){
-        return $this->hasOne(Files::className(),['id'=>'id_file']);
+
+    public function getFile()
+    {
+        return $this->hasOne(Files::className(), ['id' => 'id_file']);
     }
 }

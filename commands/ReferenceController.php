@@ -24,7 +24,7 @@ class ReferenceController extends Controller
      * @return string
      * @throws \yii\db\Exception
      */
-    public function actionIndex() : void
+    public function actionIndex(): void
     {
         $transaction = Yii::$app->db->beginTransaction();
 
@@ -39,7 +39,8 @@ class ReferenceController extends Controller
         echo $flag ? "success \n" : "error \n";
     }
 
-    public function actionKek() {
+    public function actionKek()
+    {
         $signer = new Sha256();
         $token = (new Builder())->set('reference', 'all_user')
             ->sign($signer, 'example_key233')
@@ -52,7 +53,7 @@ class ReferenceController extends Controller
         $ias_user = null;
         if ($token->verify($signer, 'example_key233')) {
             $data_reference = $token->getClaims();
-            echo count($data_reference)."\n";
+            echo count($data_reference) . "\n";
         }
     }
 
@@ -104,8 +105,7 @@ class ReferenceController extends Controller
                     $rbac = new PhpManager();
                     $rbac->revokeAll($user->id);
                     $rbac->assign($rbac->getRole($role), $user->id);
-                }
-                else $err++;
+                } else $err++;
 
             }
         }

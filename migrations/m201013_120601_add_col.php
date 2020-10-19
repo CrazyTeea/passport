@@ -12,7 +12,7 @@ class m201013_120601_add_col extends Migration
      */
     public function safeUp()
     {
-        $this->addColumn(\app\models\Countries::tableName(),'flag',$this->text());
+        $this->addColumn(\app\models\Countries::tableName(), 'flag', $this->text());
     }
 
     /**
