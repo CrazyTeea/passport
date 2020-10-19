@@ -41,7 +41,7 @@
             </b-dropdown>
 
           </div>
-          <div class=" col m-auto"><span class="font-weight-bold">Количество объектов: {{objCnt}}</span></div>
+          <div class=" col m-auto"><span class="font-weight-bold">Количество объектов: {{ objCnt }}</span></div>
           <div class=" col m-auto"><span class="font-weight-bold">Выгрузить в excel <i
               class="fas text-success fa-file-excel"></i></span></div>
           <div v-if="saveButton" class=" col mt-2 mb-2">
@@ -59,20 +59,18 @@
       </div>
     </div>
 
-      <b-alert  v-if="!blockSave" show>
-        <div class="text-center">
-          "После внесения данных на странице не забудьте нажать кнопку "Сохранить"
-        </div>
-      </b-alert>
+    <b-alert v-if="!blockSave" show>
+      <div class="text-center">
+        "После внесения данных на странице не забудьте нажать кнопку "Сохранить"
+      </div>
+    </b-alert>
 
   </div>
 
 </template>
 
 <script>
-import {
-  BAlert, BButton, BDropdown, BDropdownItem, BDropdownText,
-} from 'bootstrap-vue';
+import {BAlert, BButton, BDropdown, BDropdownItem, BDropdownText,} from 'bootstrap-vue';
 
 import Axios from 'axios';
 
@@ -129,6 +127,7 @@ export default {
   height: 100%;
   transition: all .6s ease;
 }
+
 .dropdown-menu {
   border: 1px solid #ebeef5;
   box-shadow: 0 5px 25px 0 rgba(0, 0, 0, 0.25);

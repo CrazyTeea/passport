@@ -201,7 +201,7 @@
               </b-td>
               <b-th>
                 <div class="mt-2">
-                {{ organization.area.all_c6m2_bak || 0 }}
+                  {{ organization.area.all_c6m2_bak || 0 }}
                 </div>
               </b-th>
             </b-tr>
@@ -217,7 +217,7 @@
               </b-td>
               <b-th>
                 <div class="mt-2">
-                {{ organization.area.all_c6m2_spec || 0 }}
+                  {{ organization.area.all_c6m2_spec || 0 }}
                 </div>
               </b-th>
             </b-tr>
@@ -233,7 +233,7 @@
               </b-td>
               <b-th>
                 <div class="mt-2">
-                {{ organization.area.all_c6m2_mag || 0 }}
+                  {{ organization.area.all_c6m2_mag || 0 }}
                 </div>
               </b-th>
             </b-tr>
@@ -249,7 +249,7 @@
               </b-td>
               <b-th>
                 <div class="mt-2">
-                {{ organization.area.all_c6m2_asp || 0 }}
+                  {{ organization.area.all_c6m2_asp || 0 }}
                 </div>
               </b-th>
             </b-tr>
@@ -265,7 +265,7 @@
               </b-td>
               <b-th>
                 <div class="mt-2">
-                {{ organization.area.all_c6m2_ord || 0 }}
+                  {{ organization.area.all_c6m2_ord || 0 }}
                 </div>
               </b-th>
             </b-tr>
@@ -281,7 +281,7 @@
               </b-td>
               <b-th>
                 <div class="mt-2">
-                {{ organization.area.all_c6m2_in || 0 }}
+                  {{ organization.area.all_c6m2_in || 0 }}
                 </div>
               </b-th>
             </b-tr>
@@ -291,17 +291,17 @@
               </b-th>
               <b-th>
                 <div class="ml-3">
-                {{ organization.area.all_m2 }}
+                  {{ organization.area.all_m2 }}
                 </div>
               </b-th>
               <b-th>
                 <div class="ml-3">
-                {{ organization.area.all_6m2 }}
+                  {{ organization.area.all_6m2 }}
                 </div>
               </b-th>
               <b-th>
                 <div class="ml-3">
-                {{ organization.area.all_all }}
+                  {{ organization.area.all_all }}
                 </div>
               </b-th>
             </b-tr>
@@ -425,18 +425,7 @@
 
 <script>
 import Axios from 'axios';
-import {
-  BAlert,
-  BFormInput,
-  BInputGroup,
-  BTableSimple,
-  BTbody,
-  BTd,
-  BTh,
-  BThead,
-  BTooltip,
-  BTr,
-} from 'bootstrap-vue';
+import {BAlert, BFormInput, BInputGroup, BTableSimple, BTbody, BTd, BTh, BThead, BTooltip, BTr,} from 'bootstrap-vue';
 import NavBar from '../../organisms/NavBar';
 import scrollButton from '../../organisms/scrollButton';
 

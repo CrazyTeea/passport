@@ -6,19 +6,28 @@ use yii\web\Controller;
 
 class PassportController extends Controller
 {
-    public function actionIndex(){
+    public function actionIndex()
+    {
         return $this->render('index');
     }
-    public function actionOrgInfo(){
+
+    public function actionOrgInfo()
+    {
         return $this->render('orgInfo');
     }
-    public function actionAreaInfo(){
+
+    public function actionAreaInfo()
+    {
         return $this->render('areaInfo');
     }
-    public function actionLivingInfo(){
+
+    public function actionLivingInfo()
+    {
         return $this->render('livingInfo');
     }
-    public function actionLivingInfoInv(){
+
+    public function actionLivingInfoInv()
+    {
         return $this->render('livingInfoInv');
     }
 }

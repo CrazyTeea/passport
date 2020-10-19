@@ -149,7 +149,7 @@ class SiteController extends Controller
         $csvP = Yii::getAlias('@webroot') . "/kek.csv";
         $csv = fopen($csvP, 'r');
         while (($row = fgetcsv($csv, 32000, ';')) != false) {
-            $country = Countries::findOne(['code'=>$row['2']]) ?? new Countries();
+            $country = Countries::findOne(['code' => $row['2']]) ?? new Countries();
             $country->code = $row['2'];
             $country->flag = $row['0'];
             $country->en = $row['1'];

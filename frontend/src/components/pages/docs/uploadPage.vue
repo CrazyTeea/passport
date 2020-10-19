@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav-bar :id_org="id_org" :save-button="false" />
+    <nav-bar :id_org="id_org" :save-button="false"/>
     <div class="container">
 
       <b-modal no-close-on-esc
@@ -33,25 +33,29 @@
             label-for="file-1"
         >
           <b-input-group>
-            <b-form-file :ref="'fileInput' + index" @input="saveFile(docType,index)" v-if="!docType.server_file && !docType.file" browse-text="Прикрепить" placeholder="Файл не выбран" :id="`file-${index}`" v-model="docType.server_file"></b-form-file>
+            <b-form-file :ref="'fileInput' + index" @input="saveFile(docType,index)"
+                         v-if="!docType.server_file && !docType.file" browse-text="Прикрепить"
+                         placeholder="Файл не выбран" :id="`file-${index}`" v-model="docType.server_file"></b-form-file>
           </b-input-group>
           <div v-if="docType.fileName" class="row mt-2">
-            <div class="col-4">{{docType.fileName}}</div>
-            <div class="col-8"><b-progress :value="docType.progress" max="100" variant="info" show-progress animated></b-progress></div>
+            <div class="col-4">{{ docType.fileName }}</div>
+            <div class="col-8">
+              <b-progress :value="docType.progress" max="100" variant="info" show-progress animated></b-progress>
+            </div>
           </div>
-          <transition  name="custom-classes-transition"
-                       enter-active-class="animated zoomIn"
-                       leave-active-class="animated zoomOutDown">
+          <transition name="custom-classes-transition"
+                      enter-active-class="animated zoomIn"
+                      leave-active-class="animated zoomOutDown">
             <div class="d-block" v-if="docType.server_file || docType.file">
               <div class="row">
                 <div class="col d-flex align-items-center justify-content-center">
                   <span v-if="docType.server_file" class="font-weight-bold text-center">
-                    {{docType.server_file.name}}
+                    {{ docType.server_file.name }}
                   </span>
                   <span v-if="docType.file" class="font-weight-bold text-center">
-                    {{docType.file.name}}
+                    {{ docType.file.name }}
                   </span>
-                  <i v-if="docType.delButton"  @click="deleteFile(docType)" class="ml-2 fas fa-trash-alt trash-icon"></i>
+                  <i v-if="docType.delButton" @click="deleteFile(docType)" class="ml-2 fas fa-trash-alt trash-icon"></i>
                 </div>
 
               </div>
@@ -65,11 +69,7 @@
 
 <script>
 import Axios from 'axios';
-import {
-  BButton, BCard, BCardText,
-  BFormFile, BProgress, BModal,
-  BFormGroup, BInputGroup,
-} from 'bootstrap-vue';
+import {BButton, BCard, BCardText, BFormFile, BFormGroup, BInputGroup, BModal, BProgress,} from 'bootstrap-vue';
 import NavBar from '../../organisms/NavBar';
 
 export default {
@@ -114,7 +114,7 @@ export default {
     async getDocTypes() {
       await Axios.get(`/api/get-doc-types/${this.id_org}`).then((res) => {
         this.docTypes = res.data;
-        this.docTypes = this.docTypes.map((item) => ({ ...item, ...{ progress: 0, fileName: null, delButton: true } }));
+        this.docTypes = this.docTypes.map((item) => ({...item, ...{progress: 0, fileName: null, delButton: true}}));
       });
     },
     async deleteFile(item) {
@@ -143,7 +143,9 @@ export default {
           item.server_file = null;
           this.showModal();
           const n = (`fileInput${index}`);
-          if (this.$refs[n].length) { this.$refs[n][0].reset(); } else this.$refs[n].reset();
+          if (this.$refs[n].length) {
+            this.$refs[n][0].reset();
+          } else this.$refs[n].reset();
         }
         if (item.server_file) {
           const data = new FormData();
@@ -186,14 +188,16 @@ export default {
 </script>
 
 <style scoped>
-.shadow{
+.shadow {
   box-shadow: 0 0 10px; /* Параметры тени */
 }
+
 .trash-icon {
   color: red;
   transform: scale(1);
   transition: all .3s ease;
 }
+
 .trash-icon:hover {
   transform: scale(1.3);
   transition: all .3s ease;

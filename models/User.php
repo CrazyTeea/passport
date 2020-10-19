@@ -25,7 +25,6 @@ use yii\web\IdentityInterface;
  * @property string $name
  * @property string $psw
  */
-
 class User extends ActiveRecord implements IdentityInterface
 {
 
@@ -87,7 +86,7 @@ class User extends ActiveRecord implements IdentityInterface
         }
         $expire = Yii::$app->params['user.passwordResetTokenExpire'];
         $parts = explode('_', $token);
-        $timestamp = (int) end($parts);
+        $timestamp = (int)end($parts);
         return $timestamp + $expire >= time();
     }
 
@@ -134,7 +133,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function setPassword($password)
     {
-        $this->password_hash = Yii::$app->security->generatePasswordHash($password,10);
+        $this->password_hash = Yii::$app->security->generatePasswordHash($password, 10);
     }
 
     /**
@@ -182,7 +181,8 @@ class User extends ActiveRecord implements IdentityInterface
         return key($role) ?? 'guest';
     }
 
-    public function actionInfo(){
+    public function actionInfo()
+    {
 
     }
 

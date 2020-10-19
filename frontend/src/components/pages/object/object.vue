@@ -573,7 +573,7 @@ import {
   BModal,
   BTooltip,
 } from 'bootstrap-vue';
-import { Decimal } from 'decimal.js';
+import {Decimal} from 'decimal.js';
 import Axios from 'axios';
 import vSelect from 'vue-select';
 import NavBar from '../../organisms/NavBar';
@@ -652,10 +652,10 @@ export default {
   methods: {
     cntObject() {
       this.cntVal.ob_fin_stroy = new Decimal(this.currentObject.money_faip || 0).plus(
-        new Decimal(this.currentObject.money_bud_sub || 0).plus(new Decimal(this.currentObject.money_vneb || 0)),
+          new Decimal(this.currentObject.money_bud_sub || 0).plus(new Decimal(this.currentObject.money_vneb || 0)),
       );
       this.cntVal.rec_ob_fin_stroy = new Decimal(this.currentObject.rec_money_faip || 0).plus(
-        new Decimal(this.currentObject.rec_money_bud_sub || 0).plus(new Decimal(this.currentObject.rec_money_vneb || 0)),
+          new Decimal(this.currentObject.rec_money_bud_sub || 0).plus(new Decimal(this.currentObject.rec_money_vneb || 0)),
       );
     },
     async getUser() {
@@ -747,11 +747,11 @@ export default {
         const data = new FormData();
         data.append('object', JSON.stringify(this.currentObject));
         await Axios.post((!this.currentObject.id) ? `object/create/${this.id_org}` : `object/update/${this.currentObject.id}`,
-          data, {
-            headers: {
-              'X-CSRF-Token': this.csrf,
-            },
-          }).then((res) => {
+            data, {
+              headers: {
+                'X-CSRF-Token': this.csrf,
+              },
+            }).then((res) => {
           if (res.data.success) {
             this.getObject();
           }

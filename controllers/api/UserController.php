@@ -10,7 +10,8 @@ use yii\rest\Controller;
 
 class UserController extends Controller
 {
-    public function actionGetCurrent(){
+    public function actionGetCurrent()
+    {
         return User::findOne(Yii::$app->user->id);
     }
 }

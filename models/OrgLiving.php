@@ -42,7 +42,7 @@ class OrgLiving extends \yii\db\ActiveRecord
     {
         return [
             [['id_org'], 'required'],
-            [['id_org', 'cnt_stud', 'cnt_stud_obuch', 'cnt_stug_step', 'prozh_is_person', 'rab_p', 'rab_s', 'nauch_p', 'nauch_s', 'prof_p', 'prof_s', 'in_p','in_s', 'inie_pr'], 'integer'],
+            [['id_org', 'cnt_stud', 'cnt_stud_obuch', 'cnt_stug_step', 'prozh_is_person', 'rab_p', 'rab_s', 'nauch_p', 'nauch_s', 'prof_p', 'prof_s', 'in_p', 'in_s', 'inie_pr'], 'integer'],
             [['id_org'], 'exist', 'skipOnError' => true, 'targetClass' => Organizations::className(), 'targetAttribute' => ['id_org' => 'id']],
         ];
     }

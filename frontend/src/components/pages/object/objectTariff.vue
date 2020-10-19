@@ -48,8 +48,8 @@
                 </b-td>
               </b-tr>
               <b-tr>
-                <b-td >Для обучающиеся по договорам об оказании платных обр. услуг</b-td>
-                <b-td  >
+                <b-td>Для обучающиеся по договорам об оказании платных обр. услуг</b-td>
+                <b-td>
                   <b-form-input type="number" v-model="currentObject.tariff.u_t_p" :disabled="blockSave"/>
                 </b-td>
                 <b-td>
@@ -95,7 +95,7 @@
               <b-tr>
                 <b-td>Для иных нанимателей</b-td>
                 <b-td>
-                  <b-form-input  type="number" v-model="currentObject.tariff.u_t_in" :disabled="blockSave"/>
+                  <b-form-input type="number" v-model="currentObject.tariff.u_t_in" :disabled="blockSave"/>
                 </b-td>
                 <b-td>
                   <b-form-input type="number" v-model="currentObject.tariff.k_u_in" :disabled="blockSave"/>
@@ -119,9 +119,7 @@
 </template>
 
 <script>
-import {
-  BButton, BFormInput, BFormSelect, BTableSimple, BTbody, BTd, BTh, BThead, BTr,
-} from 'bootstrap-vue';
+import {BButton, BFormInput, BFormSelect, BTableSimple, BTbody, BTd, BTh, BThead, BTr,} from 'bootstrap-vue';
 import Axios from 'axios';
 import NavBar from '../../organisms/NavBar';
 import scrollButton from '../../organisms/scrollButton';
@@ -169,7 +167,9 @@ export default {
       await Axios.get(`/api/objects/org/${this.id_org}`).then((res) => {
         this.objects = res.data;
         this.objects.forEach((item) => {
-          if (!item.tariff) { item.tariff = {}; }
+          if (!item.tariff) {
+            item.tariff = {};
+          }
         });
       });
     },

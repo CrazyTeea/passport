@@ -7,16 +7,16 @@
         <h3>Сведения об организации</h3>
         <hr>
         <label class="font-weight-bold">Полное наименование организации"</label>
-          {{ organization.name }}
+        {{ organization.name }}
         <br>
         <label class="font-weight-bold">Сокращенное наименование организации"</label>
-          {{ organization.short_name }}
+        {{ organization.short_name }}
         <br>
         <label class="font-weight-bold">Подчинение федеральному органу исполнительной власти" </label>
-          {{ organization.founder.founder }}
+        {{ organization.founder.founder }}
         <br>
         <label class="font-weight-bold">Регион расположения организации</label>
-          {{ organization.region.region }}
+        {{ organization.region.region }}
 
         <hr>
 
@@ -61,7 +61,7 @@
               </b-td>
               <b-td class="font-weight-bold">
                 <div class="mt-1">
-                {{ organization.info[0].spo_all }}
+                  {{ organization.info[0].spo_all }}
                 </div>
               </b-td>
             </b-tr>
@@ -81,7 +81,7 @@
               </b-td>
               <b-td class="font-weight-bold ">
                 <div class="mt-1">
-                {{ organization.info[0].bak_all }}
+                  {{ organization.info[0].bak_all }}
                 </div>
               </b-td>
             </b-tr>
@@ -101,7 +101,7 @@
               </b-td>
               <b-td class="font-weight-bold">
                 <div class="mt-1">
-                {{ organization.info[0].spec_all }}
+                  {{ organization.info[0].spec_all }}
                 </div>
               </b-td>
             </b-tr>
@@ -121,7 +121,7 @@
               </b-td>
               <b-td class="font-weight-bold">
                 <div class="mt-1">
-                {{ organization.info[0].mag_all }}
+                  {{ organization.info[0].mag_all }}
                 </div>
               </b-td>
             </b-tr>
@@ -141,7 +141,7 @@
               </b-td>
               <b-td class="font-weight-bold">
                 <div class="mt-1">
-                {{ organization.info[0].asp_all }}
+                  {{ organization.info[0].asp_all }}
                 </div>
               </b-td>
             </b-tr>
@@ -161,7 +161,7 @@
               </b-td>
               <b-td class="font-weight-bold">
                 <div class="mt-1">
-                {{ organization.info[0].ord_all }}
+                  {{ organization.info[0].ord_all }}
                 </div>
               </b-td>
             </b-tr>
@@ -190,22 +190,22 @@
               <b-th>Всего</b-th>
               <b-td class="font-weight-bold">
                 <div class="ml-3">
-                {{organization.info[0].s_f_b_all}}
+                  {{ organization.info[0].s_f_b_all }}
                 </div>
               </b-td>
               <b-td class="font-weight-bold">
                 <div class="ml-3">
-                {{ organization.info[0].s_b_s_all }}
+                  {{ organization.info[0].s_b_s_all }}
                 </div>
               </b-td>
               <b-td class="font-weight-bold">
                 <div class="ml-3">
-                {{ organization.info[0].s_m_b_all }}
+                  {{ organization.info[0].s_m_b_all }}
                 </div>
               </b-td>
               <b-td class="font-weight-bold">
                 <div class="ml-3">
-                {{ organization.info[0].s_p_u_all }}
+                  {{ organization.info[0].s_p_u_all }}
                 </div>
               </b-td>
               <b-td class="font-weight-bold">
@@ -250,7 +250,7 @@
               </b-td>
               <b-td class="font-weight-bold">
                 <div class="mt-1">
-                {{ organization.info[1].spo_all }}
+                  {{ organization.info[1].spo_all }}
                 </div>
               </b-td>
             </b-tr>
@@ -270,7 +270,7 @@
               </b-td>
               <b-td class="font-weight-bold">
                 <div class="mt-1">
-                {{ organization.info[1].bak_all }}
+                  {{ organization.info[1].bak_all }}
                 </div>
               </b-td>
             </b-tr>
@@ -290,7 +290,7 @@
               </b-td>
               <b-td class="font-weight-bold">
                 <div class="mt-1">
-                {{ organization.info[1].spec_all }}
+                  {{ organization.info[1].spec_all }}
                 </div>
               </b-td>
             </b-tr>
@@ -310,7 +310,7 @@
               </b-td>
               <b-td class="font-weight-bold">
                 <div class="mt-1">
-                {{ organization.info[1].mag_all }}
+                  {{ organization.info[1].mag_all }}
                 </div>
               </b-td>
             </b-tr>
@@ -330,7 +330,7 @@
               </b-td>
               <b-td class="font-weight-bold">
                 <div class="mt-1">
-                {{ organization.info[1].asp_all }}
+                  {{ organization.info[1].asp_all }}
                 </div>
               </b-td>
             </b-tr>
@@ -350,7 +350,7 @@
               </b-td>
               <b-td class="font-weight-bold">
                 <div class="mt-1">
-                {{ organization.info[1].ord_all }}
+                  {{ organization.info[1].ord_all }}
                 </div>
               </b-td>
             </b-tr>
@@ -370,7 +370,7 @@
               </b-td>
               <b-td class="font-weight-bold">
                 <div class="mt-1">
-                {{ organization.info[1].in_all }}
+                  {{ organization.info[1].in_all }}
                 </div>
               </b-td>
             </b-tr>
@@ -384,23 +384,23 @@
               </b-td>
               <b-td class="ml-2 font-weight-bold">
                 <div class="ml-3">
-                {{ organization.info[1].s_b_s_all }}
+                  {{ organization.info[1].s_b_s_all }}
                 </div>
               </b-td>
               <b-td class="ml-2 font-weight-bold">
                 <div class="ml-3">
-                {{ organization.info[1].s_m_b_all }}
+                  {{ organization.info[1].s_m_b_all }}
                 </div>
               </b-td>
               <b-td class="font-weight-bold">
                 <div class="ml-3">
-                {{ organization.info[1].s_p_u_all }}
+                  {{ organization.info[1].s_p_u_all }}
                 </div>
               </b-td>
               <b-td class="font-weight-bold">
-              <!--  <div class="mt-1">
-                {{ organization.info[1].all }}
-                </div>-->
+                <!--  <div class="mt-1">
+                  {{ organization.info[1].all }}
+                  </div>-->
               </b-td>
             </b-tr>
           </b-tbody>
@@ -414,9 +414,7 @@
 </template>
 
 <script>
-import {
-  BFormInput, BTableSimple, BTbody, BTd, BTh, BThead, BTr,
-} from 'bootstrap-vue';
+import {BFormInput, BTableSimple, BTbody, BTd, BTh, BThead, BTr,} from 'bootstrap-vue';
 import Axios from 'axios';
 import NavBar from '../../organisms/NavBar';
 import scrollButton from '../../organisms/scrollButton';
@@ -546,7 +544,7 @@ export default {
     async getOrg() {
       await Axios.get(`/api/organization/by-id/${this.id_org}`).then((res) => {
         this.organization = res.data;
-        this.organization = { ...this.organization, ...res.data.organization };
+        this.organization = {...this.organization, ...res.data.organization};
         if (res.data.info) {
           res.data.info.forEach((item) => {
             this.organization.info[parseInt(item.stud_type)] = item;

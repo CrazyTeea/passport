@@ -411,7 +411,7 @@ import {
   BTr,
 } from 'bootstrap-vue';
 import Axios from 'axios';
-import { Decimal } from 'decimal.js';
+import {Decimal} from 'decimal.js';
 import NavBar from '../../organisms/NavBar';
 import ScrollButton from '../../organisms/scrollButton';
 
@@ -449,48 +449,48 @@ export default {
     currentObject: {
       handler() {
         this.objArea.zhil_prig = new Decimal(this.currentObject.area.zan_obuch || 0).plus(
-          new Decimal(this.currentObject.area.zan_inie || 0).plus(
-            new Decimal(this.currentObject.area.svobod || 0).plus(
-              new Decimal(this.currentObject.area.neisp || 0),
+            new Decimal(this.currentObject.area.zan_inie || 0).plus(
+                new Decimal(this.currentObject.area.svobod || 0).plus(
+                    new Decimal(this.currentObject.area.neisp || 0),
+                ),
             ),
-          ),
         );
 
         this.objArea.all_tkr = new Decimal(this.currentObject.area.zhil_tkr || 0).plus(
-          new Decimal(this.currentObject.area.nzhil_tkr || 0),
+            new Decimal(this.currentObject.area.nzhil_tkr || 0),
         );
 
         this.objArea.all_nas = new Decimal(this.currentObject.area.zhil_nas || 0).plus(
-          new Decimal(this.currentObject.area.nzhil_nas || 0),
+            new Decimal(this.currentObject.area.nzhil_nas || 0),
         );
 
         this.objArea.all_np = new Decimal(this.currentObject.area.zhil_np || 0).plus(
-          new Decimal(this.currentObject.area.nzhil_np || 0),
+            new Decimal(this.currentObject.area.nzhil_np || 0),
         );
 
         this.objArea.obsh_ne_prig = this.objArea.all_tkr.plus(this.objArea.all_nas || 0).plus(this.objArea.all_np || 0);
         this.objArea.soc_inf = new Decimal(this.currentObject.area.punkt_pit || 0).plus(
-          new Decimal(this.currentObject.area.pom_dlya_uch || 0).plus(
-            new Decimal(this.currentObject.area.pom_dlya_med || 0).plus(
-              new Decimal(this.currentObject.area.pom_dlya_sport || 0).plus(
-                new Decimal(this.currentObject.area.pom_dlya_kult || 0).plus(
-                  new Decimal(this.currentObject.area.pom_dlya_soc || 0),
+            new Decimal(this.currentObject.area.pom_dlya_uch || 0).plus(
+                new Decimal(this.currentObject.area.pom_dlya_med || 0).plus(
+                    new Decimal(this.currentObject.area.pom_dlya_sport || 0).plus(
+                        new Decimal(this.currentObject.area.pom_dlya_kult || 0).plus(
+                            new Decimal(this.currentObject.area.pom_dlya_soc || 0),
+                        ),
+                    ),
                 ),
-              ),
             ),
-          ),
         );
 
         this.objArea.ne_zhil_v_prig = this.objArea.soc_inf.plus(
-          new Decimal(this.currentObject.area.in_nezh_plosh || 0),
+            new Decimal(this.currentObject.area.in_nezh_plosh || 0),
         );
 
         this.objArea.kol_prig_mest = new Decimal(this.currentObject.area.cnt_mest_zan_obuch || 0).plus(
-          new Decimal(this.currentObject.area.cnt_mest_zan_in_obuch || 0).plus(
-            new Decimal(this.currentObject.area.cnt_svobod_mest || 0).plus(
-              new Decimal(this.currentObject.area.cnt_neisp_mest || 0),
+            new Decimal(this.currentObject.area.cnt_mest_zan_in_obuch || 0).plus(
+                new Decimal(this.currentObject.area.cnt_svobod_mest || 0).plus(
+                    new Decimal(this.currentObject.area.cnt_neisp_mest || 0),
+                ),
             ),
-          ),
         );
 
         this.objArea.obsh_prig = this.objArea.zhil_prig.plus(this.objArea.ne_zhil_v_prig || 0);
@@ -515,7 +515,9 @@ export default {
       await Axios.get(`/api/objects/org/${this.id_org}`).then((res) => {
         this.objects = res.data;
         this.objects.forEach((item) => {
-          if (!item.area) { item.area = {}; }
+          if (!item.area) {
+            item.area = {};
+          }
         });
       });
     },

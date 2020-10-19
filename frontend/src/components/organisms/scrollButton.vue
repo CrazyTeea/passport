@@ -1,6 +1,6 @@
 <template>
   <div v-if="showChevron" class="scroll" @click="click">
-    <div  >
+    <div>
       <div class="chevron"></div>
       <div class="chevron"></div>
       <div class="chevron"></div>
@@ -18,8 +18,7 @@ export default {
       showChevron: false,
     };
   },
-  watch: {
-  },
+  watch: {},
   mounted() {
     const el = document.getElementsByClassName('wrap')[0];
     el.addEventListener('change', this.sh);
@@ -34,7 +33,7 @@ export default {
       }, 500);
     },
     click() {
-      document.getElementsByClassName('custom-navbar')[0].scrollIntoView({ behavior: 'smooth' });
+      document.getElementsByClassName('custom-navbar')[0].scrollIntoView({behavior: 'smooth'});
     },
   },
 };
