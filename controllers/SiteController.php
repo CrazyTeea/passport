@@ -143,6 +143,44 @@ class SiteController extends Controller
         return $this->render('about');
     }
 
+    public function actionOrgs()
+    {
+        echo "Выполняется синхронизация организаций\n";
+        $err = 0;
+        $signer = new Sha256();
+        $key = new Key(self::$jwt_key);
+        $token = (new Builder())->withClaim('reference', 'organization')
+            // ->sign($signer, self::$jwt_key)
+            ->getToken($signer, $key);
+        $response_token = file_get_contents("http://api.xn--80apneeq.xn--p1ai/api.php?option=reference_api&action=get_reference&module=constructor&reference_token=$token");
+        $signer = new Sha256();
+        $token = (new Parser())->parse($response_token);
+        if ($token->verify($signer, self::$jwt_key)) {
+            $data_reference = $token->getClaims();
+            foreach ($data_reference as $key => $data) {
+                $row_org = Organizations::findOne($data->getValue()->id);
+                if (!$row_org) {
+                    $row_org = new Organizations();
+                    $row_org->id = $data->getValue()->id;
+                }
+                $row_org->id_founder = $data->getValue()->subordination;
+                $row_org->full_name = htmlspecialchars_decode($data->getValue()->fullname);
+                $row_org->short_name = htmlspecialchars_decode($data->getValue()->shot_name);
+                $row_org->name = htmlspecialchars_decode($data->getValue()->name);
+                $row_org->id_region = ($data->getValue()->region_id > 86 || !$data->getValue()->region_id) ? 86 : $data->getValue()->region_id;
+                $row_org->system_status = $data->getValue()->system_status;
+
+                if (!$row_org->save()) {
+                    $err++;
+                    print_r($row_org->id_region);
+                }
+
+            }
+        } else return false;
+        return !$err;
+
+    }
+
 
     public function actionKek()
     {
