@@ -1,4 +1,3 @@
-
 <template>
   <div>
     <nav-bar/>
@@ -15,8 +14,8 @@
         </b-card-header>
         <b-collapse role="tabpanel" id="filter" accordion="filter">
           <div class="container">
-            <b-form-group label="Выбранные организации">
-              <b-form-tags v-model="value" no-outer-focus class="mb-2">
+            <b-form-group label-class="font-weight-bold" label="Выбранные организации">
+              <b-form-tags v-model="value" no-outer-focus class="mb-2 border-0">
                 <template v-slot="{ tags, disabled, addTag, removeTag }">
                   <ul v-if="tags.length > 0" class="list-inline d-inline-block mb-2">
                     <li v-for="tag in tags" :key="tag" class="list-inline-item">
@@ -30,50 +29,48 @@
                     </li>
                   </ul>
 
-                  <b-dropdown @hidden="clear" size="sm" variant="outline-secondary" block menu-class="w-100">
-                    <template #button-content>
-                      <b-icon icon="tag-fill"></b-icon>
-                      Выберите
-                    </template>
-                    <b-dropdown-form @submit.stop.prevent="() => {}">
-                      <b-form-group
-                          label-for="tag-search-input"
-                          label="Поиск организации"
-                          label-cols-md="auto"
-                          class="mb-0"
-                          label-size="sm"
-                          :description="searchDesc"
-                          :disabled="disabled"
-                      >
-                        <b-form-input
-                            v-model="search"
-                            id="tag-search-input"
-                            type="search"
-                            size="sm"
-                            autocomplete="off"
-                        ></b-form-input>
-                      </b-form-group>
-                    </b-dropdown-form>
-                    <b-dropdown-divider></b-dropdown-divider>
-                    <transition-group name="staggered-fade"
-                                      v-bind:css="false"
-                                      v-on:before-enter="beforeEnter"
-                                      v-on:enter="enter"
-                                      v-on:leave="leave"
-                    >
-                      <b-dropdown-item-button
-                          v-for="option in availableOptions"
-                          :key="option.value"
-                          @click="onOptionClick({ option:option.text, addTag })"
-                      >
-                        {{ option.text }}
-                      </b-dropdown-item-button>
-                    </transition-group>
 
-                    <b-dropdown-text v-if="availableOptions.length === 0">
-                      Для выбора организации введите ее название
-                    </b-dropdown-text>
-                  </b-dropdown>
+                  <b-form-group
+                      label-for="tag-search-input"
+                      label="Поиск организации"
+                      label-cols-md="auto"
+                      class="mb-0"
+                      label-size="sm"
+                      :description="searchDesc"
+                      :disabled="disabled"
+                  >
+                    <b-form-input
+                        v-model="search"
+                        id="tag-search-input"
+                        type="search"
+                        size="sm"
+                        autocomplete="off"
+                    ></b-form-input>
+                  </b-form-group>
+
+
+                  <transition-group name="staggered-fade"
+                                    v-bind:css="false"
+                                    v-on:before-enter="beforeEnter"
+                                    v-on:enter="enter"
+                                    v-on:leave="leave"
+                  >
+                    <div
+
+                        class="item"
+                        v-for="(option,index) in availableOptions"
+                        :key="option.value"
+                        :data-index="index"
+                        @click="onOptionClick({ option:option.text, addTag })"
+                    >
+                      {{ option.text }}
+                    </div>
+                  </transition-group>
+
+                  <div v-if="availableOptions.length === 0">
+                    Для выбора организации введите ее название
+                  </div>
+
                 </template>
               </b-form-tags>
             </b-form-group>
@@ -94,11 +91,6 @@ import {
   BCard,
   BCardHeader,
   BCollapse,
-  BDropdown,
-  BDropdownDivider,
-  BDropdownForm,
-  BDropdownItemButton,
-  BDropdownText,
   BFormGroup,
   BFormInput,
   BFormSelect,
@@ -117,10 +109,10 @@ export default {
     NavBar,
     BCard, BFormTag,
     BCardHeader,
-    BCollapse, BDropdownForm,
-    BFormGroup, BIcon, BDropdownDivider,
-    BFormSelect, BDropdown, BDropdownItemButton,
-    BFormInput, BFormTags, BDropdownText,
+    BCollapse,
+    BFormGroup, BIcon,
+    BFormSelect,
+    BFormInput, BFormTags,
   },
   asyncComputed: {
     availableOptions: {
@@ -178,24 +170,23 @@ export default {
   methods: {
     beforeEnter: function (el) {
       el.style.opacity = 0
-      el.style.height = 0
     },
     enter: function (el, done) {
-      let delay = el.dataset.index * 150
+      let delay = el.dataset.index * 5
       setTimeout(function () {
         Velocity(
             el,
-            {opacity: 1, height: '1.6em'},
+            {opacity: 1},
             {complete: done}
         )
       }, delay)
     },
     leave: function (el, done) {
-      let delay = el.dataset.index * 150
+      let delay = el.dataset.index * 2;
       setTimeout(function () {
         Velocity(
             el,
-            {opacity: 0, height: 0},
+            {opacity: 0,},
             {complete: done}
         )
       }, delay)
@@ -215,5 +206,12 @@ export default {
 </script>
 
 <style scoped>
+.item{
+  cursor: pointer;
+}
+.item:hover{
+  background: rgba(23,0,154,0.2);
+  cursor: pointer;
+}
 
 </style>
