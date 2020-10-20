@@ -1,3 +1,4 @@
+
 <template>
   <div>
     <nav-bar/>
@@ -54,13 +55,21 @@
                       </b-form-group>
                     </b-dropdown-form>
                     <b-dropdown-divider></b-dropdown-divider>
-                    <b-dropdown-item-button
-                        v-for="option in availableOptions"
-                        :key="option.value"
-                        @click="onOptionClick({ option:option.text, addTag })"
+                    <transition-group name="staggered-fade"
+                                      v-bind:css="false"
+                                      v-on:before-enter="beforeEnter"
+                                      v-on:enter="enter"
+                                      v-on:leave="leave"
                     >
-                      {{ option.text }}
-                    </b-dropdown-item-button>
+                      <b-dropdown-item-button
+                          v-for="option in availableOptions"
+                          :key="option.value"
+                          @click="onOptionClick({ option:option.text, addTag })"
+                      >
+                        {{ option.text }}
+                      </b-dropdown-item-button>
+                    </transition-group>
+
                     <b-dropdown-text v-if="availableOptions.length === 0">
                       Для выбора организации введите ее название
                     </b-dropdown-text>
@@ -115,9 +124,9 @@ export default {
   },
   asyncComputed: {
     availableOptions: {
-      lazy:true,
+      lazy: true,
       get() {
-        if (this.criteria.length) {
+        if (this.criteria.length >= 3) {
           return Axios.get('/api/organizations/all', {
             params: {
               name: this.criteria
@@ -131,7 +140,7 @@ export default {
         }
         return []
       },
-      default:[]
+      default: []
     }
 
   },
@@ -167,6 +176,30 @@ export default {
   }
   ,
   methods: {
+    beforeEnter: function (el) {
+      el.style.opacity = 0
+      el.style.height = 0
+    },
+    enter: function (el, done) {
+      let delay = el.dataset.index * 150
+      setTimeout(function () {
+        Velocity(
+            el,
+            {opacity: 1, height: '1.6em'},
+            {complete: done}
+        )
+      }, delay)
+    },
+    leave: function (el, done) {
+      let delay = el.dataset.index * 150
+      setTimeout(function () {
+        Velocity(
+            el,
+            {opacity: 0, height: 0},
+            {complete: done}
+        )
+      }, delay)
+    },
     clear() {
       this.search = '';
       this.orgList = [];
