@@ -57,4 +57,10 @@ return [
     '/app/manual/index' => [
         'type' => 2,
     ],
+    '/app/admin/index' => [
+        'type' => 2,
+    ],
+    '/app/admin/*' => [
+        'type' => 2,
+    ],
 ];

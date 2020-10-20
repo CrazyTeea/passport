@@ -17,7 +17,10 @@ const api = [
 ];
 
 const app = [
-    'admin/main'=>'app/admin',
+    'admin/statistic'=>'app/admin',
+    'admin/data'=>'app/admin/data',
+
+
     'main' => 'app/passport',
     'org-info' => 'app/passport/org-info',
     'area-info' => 'app/passport/area-info',

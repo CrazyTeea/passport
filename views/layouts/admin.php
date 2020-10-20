@@ -7,7 +7,6 @@
 use app\assets\AppAsset;
 use app\widgets\Alert;
 use app\widgets\NavBar;
-use mdm\admin\components\MenuHelper;
 use yii\bootstrap4\Breadcrumbs;
 use yii\bootstrap4\Html;
 use yii\bootstrap4\Nav;
@@ -24,6 +23,7 @@ AppAsset::register($this);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <?php $this->head() ?>
 </head>
 <body>
@@ -39,12 +39,12 @@ AppAsset::register($this);
             'class' => 'navbar-expand-lg navbar-dark bg-dark',
         ],
     ]);
-
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav ml-auto'],
-        'items' => array_merge( [['label' => 'Инструкция', 'url' => ['/manual']]],MenuHelper::getAssignedMenu(Yii::$app->user->id))
-
-
+        'items' => [
+            Yii::$app->user->can('root') ? (['label' => 'Адммин панель', 'url' => ['/admin']]) : (''),
+            ['label' => 'Инструкция', 'url' => ['/manual']]
+        ]
     ]);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav '],
@@ -66,13 +66,13 @@ AppAsset::register($this);
     NavBar::end();
     ?>
 
-    <div id="wrap" class="container-fluid">
-        <div class="container">
-            <?= Breadcrumbs::widget([
-                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-            ]) ?>
-            <?= Alert::widget() ?>
-        </div>
+    <div id="wrap" class="container">
+
+        <?= Breadcrumbs::widget([
+            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+        ]) ?>
+        <?= Alert::widget() ?>
+
         <?= $content ?>
     </div>
 </div>

@@ -34,6 +34,12 @@ class OrganizationsController extends Controller
         return ['organization' => $org, 'info' => $info, 'area' => $area, 'living' => $living, 'region' => $region, 'founder' => $founder, 'livingStudents' => $livingStudents];
     }
 
+
+    public function actionAll(){
+        $name = Yii::$app->request->get('name');
+        return Organizations::find()->where(['system_status'=>1])->andWhere(['like','name',$name])->all();
+    }
+
     public function actionObjCount($id)
     {
         return Objects::find()->where(['id_org' => $id, 'system_status' => 1])->count();

@@ -22,7 +22,12 @@ if (!empty($extraColumns)) {
 }
 $columns[] = [
     'class' => 'yii\grid\ActionColumn',
-    'template' => '{view}'
+    'template' => '{view}',
+    'buttons'=>[
+            'view'=>function($url){
+                return Html::a('<i class="far fa-eye"></i>',$url);
+            }
+    ]
 ];
 ?>
 <div class="assignment-index">
