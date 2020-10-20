@@ -5,7 +5,12 @@ namespace app\controllers;
 use app\models\ContactForm;
 use app\models\Countries;
 use app\models\LoginForm;
+use app\models\Organizations;
 use app\models\User;
+use Lcobucci\JWT\Builder;
+use Lcobucci\JWT\Parser;
+use Lcobucci\JWT\Signer\Hmac\Sha256;
+use Lcobucci\JWT\Signer\Key;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -148,14 +153,14 @@ class SiteController extends Controller
         echo "Выполняется синхронизация организаций\n";
         $err = 0;
         $signer = new Sha256();
-        $key = new Key(self::$jwt_key);
+        $key = new Key('example_key233');
         $token = (new Builder())->withClaim('reference', 'organization')
             // ->sign($signer, self::$jwt_key)
             ->getToken($signer, $key);
         $response_token = file_get_contents("http://api.xn--80apneeq.xn--p1ai/api.php?option=reference_api&action=get_reference&module=constructor&reference_token=$token");
         $signer = new Sha256();
         $token = (new Parser())->parse($response_token);
-        if ($token->verify($signer, self::$jwt_key)) {
+        if ($token->verify($signer, 'example_key233')) {
             $data_reference = $token->getClaims();
             foreach ($data_reference as $key => $data) {
                 $row_org = Organizations::findOne($data->getValue()->id);
