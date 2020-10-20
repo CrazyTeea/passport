@@ -17,7 +17,7 @@ Vue.use(VueRouter);
 
 const routes = [
     {
-      path: '/admin/main',
+      path: '/admin/statistic',
       component: orgList
     },
     {

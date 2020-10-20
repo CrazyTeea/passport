@@ -53,13 +53,9 @@ class Menu extends \yii\db\ActiveRecord
     {
         return [
             [['name'], 'required'],
-            [['parent_name'], 'in',
-                'range' => static::find()->select(['name'])->column(),
-                'message' => 'Menu "{value}" not found.'],
+            [['parent_name'], 'safe'],
             [['parent', 'route', 'data', 'order'], 'default'],
-            [['parent'], 'filterParent', 'when' => function () {
-                return !$this->isNewRecord;
-            }],
+            [['parent'], 'safe'],
             [['order'], 'integer'],
             [['route'], 'string']
         ];

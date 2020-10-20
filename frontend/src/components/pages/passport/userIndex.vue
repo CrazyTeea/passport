@@ -55,7 +55,7 @@
             </div>
           </div>
 
-          <b-card style="margin-top: 10px;" no-body class="mb-1">
+          <b-card no-body class="mt-2 mb-1">
             <b-card-header header-tag="header" class="p-1" role="tab">
               <label class="text-left mt-2 ml-2 font-weight-bold btn-block" v-b-toggle.news>Новости</label>
             </b-card-header>
@@ -65,7 +65,7 @@
               </b-card-body>
             </b-collapse>
           </b-card>
-          <b-card style="margin-top: 10px;" no-body class="mb-1">
+          <b-card no-body class="mt-2 mb-1">
             <b-card-header header-tag="header" class="p-1" role="tab">
               <label class="text-left ml-2 mt-2 font-weight-bold btn-block" v-b-toggle.contact_info>Контактные данные
                 заполняющих мониторинг сотрудников</label>

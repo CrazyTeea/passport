@@ -37,10 +37,18 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'route',
             'order',
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+
+                'buttons' => [
+                    'view' => function ($url) {
+                        return Html::a('<i class="far fa-eye"></i>', $url);
+                    }
+
+                ],
+            ],
         ],
     ]);
     ?>
-<?php Pjax::end(); ?>
+    <?php Pjax::end(); ?>
 
 </div>

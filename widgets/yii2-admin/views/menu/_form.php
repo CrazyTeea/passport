@@ -10,12 +10,12 @@ use yii\helpers\Json;
 /* @var $model mdm\admin\models\Menu */
 /* @var $form yii\widgets\ActiveForm */
 AutocompleteAsset::register($this);
-$opts = Json::htmlEncode([
+/*$opts = Json::htmlEncode([
         'menus' => Menu::getMenuSource(),
         'routes' => Menu::getSavedRoutes(),
     ]);
 $this->registerJs("var _opts = $opts;");
-$this->registerJs($this->render('_script.js'));
+$this->registerJs($this->render('_script.js'));*/
 ?>
 
 <div class="menu-form">

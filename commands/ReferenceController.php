@@ -139,6 +139,7 @@ class ReferenceController extends Controller
                 $row_org->short_name = htmlspecialchars_decode($data->getValue()->shot_name);
                 $row_org->name = htmlspecialchars_decode($data->getValue()->name);
                 $row_org->id_region = ($data->getValue()->region_id > 86 || !$data->getValue()->region_id) ? 86 : $data->getValue()->region_id;
+                $row_org->system_status = $data->getValue()->system_status;
 
                 if (!$row_org->save()) {
                     $err++;
