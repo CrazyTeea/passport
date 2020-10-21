@@ -3,8 +3,9 @@ import App from './App.vue';
 import router from './router';
 import AsyncComputed from "vue-async-computed";
 
-Array.prototype.findByValue = function (value) {
-    //
+Array.prototype.deleteByValue = function (value,attr = null) {
+    let index = attr ? this.findIndex(item=>item[attr]===value) : this.findIndex(item=>item===value);
+    this.splice(index,1);
 };
 
 String.prototype.toNumber = function () {

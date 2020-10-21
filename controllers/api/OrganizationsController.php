@@ -15,6 +15,8 @@ use app\models\OrgLivingStudents;
 use app\models\Regions;
 use app\models\UsersInfo;
 use Yii;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Json;
 use yii\rest\Controller;
 
 class OrganizationsController extends Controller
@@ -34,10 +36,47 @@ class OrganizationsController extends Controller
         return ['organization' => $org, 'info' => $info, 'area' => $area, 'living' => $living, 'region' => $region, 'founder' => $founder, 'livingStudents' => $livingStudents];
     }
 
+    public function actionFounders()
+    {
+        return Founders::find()->all();
+    }
+    public function actionRegions()
+    {
+        return Regions::find()->all();
+    }
 
-    public function actionAll(){
+    private function filter($get){
+        dd($get);
+    }
+
+    public function actionOrgFilter(){
+        $filter = Yii::$app->request->get();
+        $cnt =  Organizations::find()->select(['id','id_founder','id_region'])->andFilterWhere([
+            'id_founder'=>$filter['id_founder'] ?? null,
+            'id'=> $filter['id'] ?? null,
+            'id_region'=>$filter['id_region'] ?? null,
+        ])->count();
+        $arr = Organizations::find()->joinWith(['founder'])->andFilterWhere([
+            'id_founder'=>$filter['id_founder'] ?? null,
+            'organizations.id'=> $filter['id'] ?? null,
+            'id_region'=>$filter['id_region'] ?? null,
+        ])->offset(($filter['offset']-1)*$filter['limit'])->limit($filter['limit'])->all();
+        return array_merge(array_map(function ($item){
+            return [
+                'id'=>$item->id,
+                'name'=>$item->name,
+                'foiv'=>$item->founder->founder,
+                'region'=>$item->region->region,
+            ];
+        },$arr),['cnt'=>$cnt]);
+
+    }
+
+
+    public function actionAll()
+    {
         $name = Yii::$app->request->get('name');
-        return Organizations::find()->where(['system_status'=>1])->andWhere(['like','name',$name])->all();
+        return Organizations::find()->where(['system_status' => 1])->andWhere(['like', 'name', $name])->all();
     }
 
     public function actionObjCount($id)
