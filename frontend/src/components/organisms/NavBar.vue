@@ -9,7 +9,7 @@
               <template v-slot:button-content>
                 <i class="fas fa-align-justify"></i>
               </template>
-              <b-dropdown-item href="/main">Главная</b-dropdown-item>
+              <b-dropdown-item v-can:user,root href="/main">Главная</b-dropdown-item>
               <b-dropdown-text>
                 <i>
                   Данные об организации
@@ -31,20 +31,22 @@
               </b-dropdown-item>
               <b-dropdown-item href="/objects-money">Сведения о поступлениях и расходах</b-dropdown-item>
               <b-dropdown-item href="/objects-tariff">Сведения о тарифах</b-dropdown-item>
-              <b-dropdown-text>
+              <b-dropdown-text v-can:user,root>
                 <i>
                   Документы
                 </i>
               </b-dropdown-text>
-              <b-dropdown-item href="/documents">Загрузить документы</b-dropdown-item>
+              <b-dropdown-item v-can:user,root href="/documents">Загрузить документы</b-dropdown-item>
 
             </b-dropdown>
 
           </div>
           <div class=" col m-auto"><span class="font-weight-bold">Количество объектов: {{ objCnt }}</span></div>
-          <div class=" col m-auto"><span class="font-weight-bold">Выгрузить в excel <i
-              class="fas text-success fa-file-excel"></i></span></div>
-          <div v-if="saveButton" class=" col mt-2 mb-2">
+          <div class=" col m-auto"><span class="font-weight-bold">Выгрузить в excel
+            <i class="fas text-success fa-file-excel"></i>
+          </span>
+          </div>
+          <div v-can:user,root v-if="saveButton" class=" col mt-2 mb-2">
 
             <transition
                 mode="out-in"
@@ -59,7 +61,7 @@
       </div>
     </div>
 
-    <b-alert v-if="!blockSave" show>
+    <b-alert v-can:user v-if="!blockSave" show>
       <div class="text-center">
         "После внесения данных на странице не забудьте нажать кнопку "Сохранить"
       </div>

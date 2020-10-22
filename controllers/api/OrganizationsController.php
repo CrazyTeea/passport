@@ -15,8 +15,6 @@ use app\models\OrgLivingStudents;
 use app\models\Regions;
 use app\models\UsersInfo;
 use Yii;
-use yii\helpers\ArrayHelper;
-use yii\helpers\Json;
 use yii\rest\Controller;
 
 class OrganizationsController extends Controller
@@ -40,35 +38,46 @@ class OrganizationsController extends Controller
     {
         return Founders::find()->all();
     }
+
     public function actionRegions()
     {
         return Regions::find()->all();
     }
 
-    private function filter($get){
+    private function filter($get)
+    {
         dd($get);
     }
 
-    public function actionOrgFilter(){
+    public function actionOrgFilter()
+    {
         $filter = Yii::$app->request->get();
-        $cnt =  Organizations::find()->select(['id','id_founder','id_region'])->andFilterWhere([
-            'id_founder'=>$filter['id_founder'] ?? null,
-            'id'=> $filter['id'] ?? null,
-            'id_region'=>$filter['id_region'] ?? null,
-        ])->count();
-        $arr = Organizations::find()->joinWith(['founder'])->andFilterWhere([
-            'id_founder'=>$filter['id_founder'] ?? null,
-            'organizations.id'=> $filter['id'] ?? null,
-            'id_region'=>$filter['id_region'] ?? null,
-        ])->offset(($filter['offset']-1)*$filter['limit'])->limit($filter['limit'])->all();
-        return array_merge(array_map(function ($item){
+        $cnt = Organizations::find()->select(['id', 'id_founder', 'id_region'])
+            ->andFilterWhere([
+                'id_founder' => $filter['id_founder'] ?? null,
+                'id' => $filter['id'] ?? null,
+                'id_region' => $filter['id_region'] ?? null,
+            ])->count();
+        $arr = Organizations::find()
+            ->andFilterWhere([
+                'organizations.id_founder' => $filter['id_founder'] ?? null,
+                'organizations.id' => $filter['id'] ?? null,
+                'organizations.id_region' => $filter['id_region'] ?? null,
+            ])
+            ->offset(($filter['offset'] - 1) * $filter['limit'])
+            ->limit($filter['limit'])
+            ->groupBy(['organizations.id'])
+            ->all();
+
+        return array_merge(array_map(function ($item) {
             return [
-                'id'=>$item->id,
-                'name'=>$item->name,
-                'foiv'=>$item->founder->founder,
-                'region'=>$item->region->region,
+                'id' => $item->id,
+                'name' => $item->name,
+                'foiv' => $item->founder->founder,
+                'region' => $item->region->region,
+                'obj_cnt' => Objects::find()->select(['id_org'])->where(['id_org' => $item->id])->count(),
             ];
-        },$arr),['cnt'=>$cnt]);
+        }, $arr), ['cnt' => $cnt]);
 
     }
 

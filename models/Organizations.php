@@ -73,6 +73,11 @@ class Organizations extends \yii\db\ActiveRecord
         return $this->hasOne(Founders::className(), ['id' => 'id_founder']);
     }
 
+    public function getObjs()
+    {
+        return $this->hasMany(Objects::class,['id_org'=>'id']);
+    }
+
     /**
      * Gets query for [[Region]].
      *
