@@ -1,5 +1,5 @@
 <template>
-  <div class="page-obj">
+  <div v-if="ready" class="page-obj">
     <nav-bar :id_org="id_org" v-on:save-page="savePage" v-on:block-save="disablePage = !disablePage"/>
     <transition enter-active-class="animated fadeInUp">
       <div v-if="componentReady" class="container">
@@ -557,6 +557,7 @@
     <scroll-button/>
 
   </div>
+  <loading v-else/>
 
 </template>
 
@@ -578,9 +579,11 @@ import Axios from 'axios';
 import vSelect from 'vue-select';
 import NavBar from '../../organisms/NavBar';
 import scrollButton from '../../organisms/scrollButton';
+import Loading from "../../organisms/loading";
 
 export default {
   components: {
+    Loading,
     NavBar,
     BFormInput,
     BFormSelect,
@@ -607,6 +610,7 @@ export default {
   },
   data() {
     return {
+      ready:false,
       csrf: document.getElementsByName('csrf-token')[0].content,
       objName: '',
       componentReady: false,
@@ -648,6 +652,9 @@ export default {
     await this.getObject();
     this.modal_show = this.modalShow;
     this.componentReady = true;
+    setTimeout(()=>{
+      this.ready = true;
+    },500)
   },
   methods: {
     cntObject() {

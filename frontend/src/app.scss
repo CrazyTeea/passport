@@ -8,3 +8,7 @@ $fa-font-path: "webfonts";
 @import "webfonts/fontawesome.scss";
 @import "webfonts/solid.scss";
 @import "webfonts/regular.scss";
+
+*:focus{
+  outline: none !important;
+}

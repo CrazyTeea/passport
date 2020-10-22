@@ -12,4 +12,8 @@ class AdminController extends Controller
     {
         return $this->render('index');
     }
+    public function actionData()
+    {
+        return $this->render('data');
+    }
 }

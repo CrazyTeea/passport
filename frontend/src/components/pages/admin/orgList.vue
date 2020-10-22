@@ -1,7 +1,6 @@
 <template>
   <div v-if="ready">
-    <nav-bar/>
-    <div class="container">
+    <div class="container mt-2">
       <h3>Статистика по организациям</h3>
       <hr class="mt-3">
 
@@ -9,14 +8,14 @@
         <b-card no-body>
           <b-card-header class="p-1" role="tab">
             <label v-b-toggle.filter class="d-block ml-2 font-weight-bold">
-              <span class="mb-2">Фильтр</span>
+              <span class="mb-2 border-0">Фильтр</span>
               <i class="fas mt-2 fa-filter"></i>
             </label>
           </b-card-header>
           <b-collapse role="tabpanel" id="filter" accordion="filter">
             <div class="container">
               <b-form-group class="mt-2" label-class="font-weight-bold" label="Название организаций">
-                <b-form-tags v-model="value" no-outer-focus class=" p-0 border-0">
+                <b-form-tags v-model="value" no-outer-focus class="p-0">
                   <template v-slot="{ tags, disabled, addTag, removeTag }">
                     <ul v-if="tags.length > 0" class="list-inline d-inline-block mb-2">
                       <li v-for="tag in tags" :key="tag" class="list-inline-item">
@@ -30,13 +29,13 @@
                       </li>
                     </ul>
 
-                      <b-form-input
-                          v-model="search"
-                          id="tag-search-input"
-                          type="search"
-                          autocomplete="off"
-                          placeholder="Начинайте вводить название"
-                      ></b-form-input>
+                    <b-form-input
+                        v-model="search"
+                        id="tag-search-input"
+                        type="search"
+                        autocomplete="off"
+                        placeholder="Начинайте вводить название"
+                    ></b-form-input>
 
                     <transition-group name="staggered-fade"
                                       v-bind:css="false"
@@ -54,9 +53,9 @@
                         {{ option.text }}
                       </div>
                     </transition-group>
-                   <!-- <div v-if="!availableOptions.length">
-                      Для выбора организации введите ее название
-                    </div>-->
+                    <!-- <div v-if="!availableOptions.length">
+                       Для выбора организации введите ее название
+                     </div>-->
                   </template>
                 </b-form-tags>
               </b-form-group>
@@ -96,9 +95,10 @@
         </b-card>
 
 
-        <b-table-simple class="mt-2" >
+        <b-table-simple class="mt-2">
           <b-thead>
             <b-tr class="border-bottom">
+              <b-td>#</b-td>
               <b-td>Id</b-td>
               <b-td>Название организации</b-td>
               <b-td>Регион</b-td>
@@ -109,6 +109,7 @@
           </b-thead>
           <b-tbody>
             <b-tr v-for="(item,index) in orgList" :key="`tr-${index}`">
+              <b-td>{{ (Number(index) + ((filter.offset - 1) * filter.limit) + 1) || ''  }}</b-td>
               <b-td>{{ item.id }}</b-td>
               <b-td>{{ item.name }}</b-td>
               <b-td>{{ item.region }}</b-td>
@@ -124,15 +125,13 @@
 
     </div>
   </div>
-  <div v-else class="spinner-middle">
-    <b-spinner class="" variant="success" type="grow"
-               label="Spinning"></b-spinner>
-  </div>
+  <loading v-else/>
+
 
 </template>
 
 <script>
-import NavBar from "../../organisms/NavBar";
+
 import Axios from 'axios';
 import {
   BCard,
@@ -145,7 +144,6 @@ import {
   BFormTags,
   BIcon,
   BPagination,
-  BSpinner,
   BTableSimple,
   BTbody,
   BTd,
@@ -154,6 +152,7 @@ import {
   BTr,
   VBToggle
 } from 'bootstrap-vue'
+import Loading from "../../organisms/loading";
 
 export default {
   name: "orgList",
@@ -161,13 +160,14 @@ export default {
     BToggle: VBToggle
   },
   components: {
-    NavBar, BTableSimple,
+    Loading,
+    BTableSimple,
     BCard, BFormTag,
     BCardHeader, BPagination,
     BCollapse, BThead, BTbody,
     BTh, BTd, BTr,
     BFormGroup, BIcon,
-    BFormSelect, BSpinner,
+    BFormSelect,
     BFormInput, BFormTags,
   },
   asyncComputed: {
@@ -217,7 +217,7 @@ export default {
         zap: null,
         kont: null,
         docs: null,
-        limit: 5,
+        limit: 15,
         offset: 1
       },
       cnt: 0,
@@ -309,12 +309,8 @@ export default {
 </script>
 
 <style scoped>
-.spinner-middle{
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
+
+
 .item {
   cursor: pointer;
 }

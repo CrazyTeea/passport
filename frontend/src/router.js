@@ -12,10 +12,15 @@ import objectMoney from './components/pages/object/objectMoney';
 import uploadPage from './components/pages/docs/uploadPage';
 import manual from './components/pages/passport/manual';
 import orgList from './components/pages/admin/orgList';
+import adminData from './components/pages/admin/adminData';
 
 Vue.use(VueRouter);
 
 const routes = [
+    {
+      path: '/admin/data',
+      component: adminData
+    },
     {
       path: '/admin/statistic',
       component: orgList
