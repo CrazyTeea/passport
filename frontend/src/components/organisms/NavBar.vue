@@ -9,16 +9,16 @@
               <template v-slot:button-content>
                 <i class="fas fa-align-justify"></i>
               </template>
-              <b-dropdown-item v-can:user,root href="/main">Главная</b-dropdown-item>
+              <b-dropdown-item :href="isAdmin ? `/admin/data/${id_org}` : '/main'">Главная</b-dropdown-item>
               <b-dropdown-text>
                 <i>
                   Данные об организации
                 </i>
               </b-dropdown-text>
-              <b-dropdown-item href="/org-info">Сведения об организации</b-dropdown-item>
-              <b-dropdown-item href="/area-info">Сведения о колличесве мест и площади</b-dropdown-item>
-              <b-dropdown-item href="/living-info">Сведения о проживающих</b-dropdown-item>
-              <b-dropdown-item href="/living-info-inv">Сведения о проживающих лицах <br> с ограниченными возможностями
+              <b-dropdown-item :href="isAdmin ? `/admin/org-info/${id_org}` : '/org-info'">Сведения об организации</b-dropdown-item>
+              <b-dropdown-item :href="isAdmin ? `/admin/area-info/${id_org}` : '/area-info'">Сведения о колличесве мест и площади</b-dropdown-item>
+              <b-dropdown-item :href="isAdmin ? `/admin/living-info/${id_org}` : '/living-info'">Сведения о проживающих</b-dropdown-item>
+              <b-dropdown-item :href="isAdmin ? `/admin/living-info-inv/${id_org}` : '/living-info-inv'">Сведения о проживающих лицах <br> с ограниченными возможностями
               </b-dropdown-item>
               <b-dropdown-text>
 
@@ -26,17 +26,17 @@
                   Данные о жилом объекте
                 </i>
               </b-dropdown-text>
-              <b-dropdown-item href="/objects-info">Сведения о жилом объекте</b-dropdown-item>
-              <b-dropdown-item href="/objects-area">Сведения о площади, проживающих <br> и колличестве мест
+              <b-dropdown-item :href="isAdmin ? `/admin/objects-info/${id_org}` : '/objects-info'">Сведения о жилом объекте</b-dropdown-item>
+              <b-dropdown-item :href="isAdmin ? `/admin/objects-area/${id_org}` : '/objects-area'">Сведения о площади, проживающих <br> и колличестве мест
               </b-dropdown-item>
-              <b-dropdown-item href="/objects-money">Сведения о поступлениях и расходах</b-dropdown-item>
-              <b-dropdown-item href="/objects-tariff">Сведения о тарифах</b-dropdown-item>
-              <b-dropdown-text v-can:user,root>
+              <b-dropdown-item :href="isAdmin ? `/admin/objects-money/${id_org}` : '/objects-money'">Сведения о поступлениях и расходах</b-dropdown-item>
+              <b-dropdown-item :href="isAdmin ? `/admin/objects-tariff/${id_org}` : '/objects-tariff'">Сведения о тарифах</b-dropdown-item>
+              <b-dropdown-text v-can:user>
                 <i>
                   Документы
                 </i>
               </b-dropdown-text>
-              <b-dropdown-item v-can:user,root href="/documents">Загрузить документы</b-dropdown-item>
+              <b-dropdown-item :href="isAdmin ? `/admin/documents/${id_org}` : '/documents'">{{ isAdmin ? 'Документы' : 'Загрузить документы' }}</b-dropdown-item>
 
             </b-dropdown>
 
@@ -46,7 +46,7 @@
             <i class="fas text-success fa-file-excel"></i>
           </span>
           </div>
-          <div v-can:user,root v-if="saveButton" class=" col mt-2 mb-2">
+          <div v-can:user v-if="saveButton" class=" col mt-2 mb-2">
 
             <transition
                 mode="out-in"
@@ -86,6 +86,7 @@ export default {
   },
   props: {
     id_org: null,
+    isAdmin:false,
     saveButton: {
       default: true,
     },

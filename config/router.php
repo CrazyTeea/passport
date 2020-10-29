@@ -18,8 +18,21 @@ const api = [
 
 const app = [
     'admin/statistic'=>'app/admin',
-    'admin/data'=>'app/admin/data',
 
+
+    'admin/data/<id:\d+>'=>'app/passport',
+
+
+    '/admin/org-info/<id:\d+>' => 'app/passport/org-info',
+    '/admin/area-info/<id:\d+>' => 'app/passport/area-info',
+    '/admin/living-info/<id:\d+>' => 'app/passport/living-info',
+    '/admin/living-info-inv/<id:\d+>' => 'app/passport/living-info-inv',
+
+    '/admin/objects-info/<id:\d+>' => 'app/objects/object',
+    '/admin/objects-area/<id:\d+>' => 'app/objects/area',
+    '/admin/objects-tariff/<id:\d+>' => 'app/objects/tariff',
+    '/admin/objects-money/<id:\d+>' => 'app/objects/money',
+    '/admin/documents/<id:\d+>' => 'app/documents',
 
     'main' => 'app/passport',
     'org-info' => 'app/passport/org-info',
@@ -33,6 +46,7 @@ const app = [
     'objects-money' => 'app/objects/money',
 
     'documents' => 'app/documents',
+
     'manual' => 'app/manual',
 
     'organization/users-info/<id:\d+>' => 'app/organizations/users-info',

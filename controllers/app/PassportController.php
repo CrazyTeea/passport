@@ -2,9 +2,7 @@
 
 namespace app\controllers\app;
 
-use yii\web\Controller;
-
-class PassportController extends Controller
+class PassportController extends AppController
 {
     public function actionIndex()
     {
