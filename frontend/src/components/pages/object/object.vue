@@ -1,6 +1,7 @@
 <template>
   <div v-if="ready" class="page-obj">
-    <nav-bar :id_org="id_org" v-on:save-page="savePage" v-on:block-save="disablePage = !disablePage"/>
+    <nav-bar :is-admin="user.isAdmin" :id_org="id_org" v-on:save-page="savePage"
+             v-on:block-save="disablePage = !disablePage"/>
     <transition enter-active-class="animated fadeInUp">
       <div v-if="componentReady" class="container">
         <div class="row">
@@ -574,7 +575,6 @@ import {
   BModal,
   BTooltip,
 } from 'bootstrap-vue';
-import {Decimal} from 'decimal.js';
 import Axios from 'axios';
 import vSelect from 'vue-select';
 import NavBar from '../../organisms/NavBar';
@@ -610,7 +610,7 @@ export default {
   },
   data() {
     return {
-      ready:false,
+      ready: false,
       csrf: document.getElementsByName('csrf-token')[0].content,
       objName: '',
       componentReady: false,
@@ -621,7 +621,7 @@ export default {
         rec_ob_fin_stroy: 0,
       },
       regions: [],
-      id_org: null,
+      id_org: 1,
       user: {},
       modal_show: false,
       disablePage: false,
@@ -648,26 +648,38 @@ export default {
   async mounted() {
     await this.getRegions();
     await this.getUser();
-    this.id_org = this.user.id_org;
+
+    if (this.user.isAdmin)
+      this.id_org = this.$route.fullPath.split('/')[3] || this.user.id_org
+    else this.id_org = this.user.id_org;
+
+    this.disablePage = this.user.isAdmin;
+
+
     await this.getObject();
     this.modal_show = this.modalShow;
     this.componentReady = true;
-    setTimeout(()=>{
+    setTimeout(() => {
       this.ready = true;
-    },500)
+    }, 500)
   },
   methods: {
     cntObject() {
-      this.cntVal.ob_fin_stroy = new Decimal(this.currentObject.money_faip || 0).plus(
-          new Decimal(this.currentObject.money_bud_sub || 0).plus(new Decimal(this.currentObject.money_vneb || 0)),
-      );
-      this.cntVal.rec_ob_fin_stroy = new Decimal(this.currentObject.rec_money_faip || 0).plus(
-          new Decimal(this.currentObject.rec_money_bud_sub || 0).plus(new Decimal(this.currentObject.rec_money_vneb || 0)),
-      );
+      let toNum = num => typeof num === 'string' ? num.toNumber() : (!num ? 0 : num);
+      this.cntVal.ob_fin_stroy =
+          toNum(this.currentObject.money_faip) +
+          toNum(this.currentObject.money_bud_sub) +
+          toNum(this.currentObject.money_vneb);
+
+      this.cntVal.rec_ob_fin_stroy =
+          toNum(this.currentObject.rec_money_faip) +
+          toNum(this.currentObject.rec_money_bud_sub) +
+          toNum(this.currentObject.rec_money_vneb);
     },
     async getUser() {
       await Axios.get('/api/user/current').then((res) => {
         this.user = res.data;
+        this.user.isAdmin = !!res.data.roles.root || !!res.data.roles.admin
       });
     },
     async getRegions() {
@@ -686,21 +698,6 @@ export default {
     async getObject() {
       await Axios.get(`/api/objects/org/${this.id_org}`).then((res) => {
         this.objects = res.data;
-        this.objects.forEach((item) => {
-          Object.keys(item).forEach((key) => {
-            if (typeof item[key] === 'string') {
-              if (isNaN(+item[key])) {
-                try {
-                  item[key] = (new Decimal(item[key])).toNumber();
-                } catch {
-                  console.log('kek');
-                }
-              } else {
-                item[key] = +item[key];
-              }
-            }
-          });
-        });
       });
     },
     addObject() {

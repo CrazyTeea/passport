@@ -38,7 +38,6 @@
     "bootstrap": "^4.5.3",
     "bootstrap-vue": "^2.18.1",
     "csshake": "^1.5.3",
-    "decimal.js": "^10.2.1",
     "jquery": "^3.5.1",
     "v-select2-component": "^0.4.3",
     "vue": "^2.6.12",

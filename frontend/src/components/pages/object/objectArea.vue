@@ -1,6 +1,7 @@
 <template>
   <div>
-    <nav-bar :id_org="id_org" v-on:save-page="saveObject" v-on:block-save="blockPage = !blockPage"/>
+    <nav-bar :is-admin="user.isAdmin" :id_org="id_org" v-on:save-page="saveObject"
+             v-on:block-save="blockPage = !blockPage"/>
     <transition enter-active-class="animated fadeInUp">
       <div v-if="componentReady" class="container">
         <div class="row mt-2">
@@ -411,7 +412,6 @@ import {
   BTr,
 } from 'bootstrap-vue';
 import Axios from 'axios';
-import {Decimal} from 'decimal.js';
 import NavBar from '../../organisms/NavBar';
 import ScrollButton from '../../organisms/scrollButton';
 
@@ -435,7 +435,12 @@ export default {
   },
   async mounted() {
     await this.getUser();
-    this.id_org = this.user.id_org;
+
+    if (this.user.isAdmin)
+      this.id_org = this.$route.fullPath.split('/')[3] || this.user.id_org
+    else this.id_org = this.user.id_org;
+
+    this.blockPage = this.user.isAdmin;
     await this.getObject();
     this.componentReady = true;
   },
@@ -448,56 +453,59 @@ export default {
     },
     currentObject: {
       handler() {
-        this.objArea.zhil_prig = new Decimal(this.currentObject.area.zan_obuch || 0).plus(
-            new Decimal(this.currentObject.area.zan_inie || 0).plus(
-                new Decimal(this.currentObject.area.svobod || 0).plus(
-                    new Decimal(this.currentObject.area.neisp || 0),
-                ),
-            ),
-        );
 
-        this.objArea.all_tkr = new Decimal(this.currentObject.area.zhil_tkr || 0).plus(
-            new Decimal(this.currentObject.area.nzhil_tkr || 0),
-        );
+        let toNum = num => typeof num === 'string' ? num.toNumber() : (!num ? 0 : num);
 
-        this.objArea.all_nas = new Decimal(this.currentObject.area.zhil_nas || 0).plus(
-            new Decimal(this.currentObject.area.nzhil_nas || 0),
-        );
+        this.objArea.zhil_prig =
+            toNum(this.currentObject.area.zan_obuch) +
+            toNum(this.currentObject.area.zan_inie) +
+            toNum(this.currentObject.area.svobod) +
+            toNum(this.currentObject.area.neisp);
 
-        this.objArea.all_np = new Decimal(this.currentObject.area.zhil_np || 0).plus(
-            new Decimal(this.currentObject.area.nzhil_np || 0),
-        );
+        this.objArea.all_tkr =
+            toNum(this.currentObject.area.zhil_tkr) +
+            toNum(this.currentObject.area.nzhil_tkr);
 
-        this.objArea.obsh_ne_prig = this.objArea.all_tkr.plus(this.objArea.all_nas || 0).plus(this.objArea.all_np || 0);
-        this.objArea.soc_inf = new Decimal(this.currentObject.area.punkt_pit || 0).plus(
-            new Decimal(this.currentObject.area.pom_dlya_uch || 0).plus(
-                new Decimal(this.currentObject.area.pom_dlya_med || 0).plus(
-                    new Decimal(this.currentObject.area.pom_dlya_sport || 0).plus(
-                        new Decimal(this.currentObject.area.pom_dlya_kult || 0).plus(
-                            new Decimal(this.currentObject.area.pom_dlya_soc || 0),
-                        ),
-                    ),
-                ),
-            ),
-        );
+        this.objArea.all_nas =
+            toNum(this.currentObject.area.zhil_nas) +
+            toNum(this.currentObject.area.nzhil_nas);
 
-        this.objArea.ne_zhil_v_prig = this.objArea.soc_inf.plus(
-            new Decimal(this.currentObject.area.in_nezh_plosh || 0),
-        );
+        this.objArea.all_np =
+            toNum(this.currentObject.area.zhil_np) +
+            toNum(this.currentObject.area.nzhil_np);
 
-        this.objArea.kol_prig_mest = new Decimal(this.currentObject.area.cnt_mest_zan_obuch || 0).plus(
-            new Decimal(this.currentObject.area.cnt_mest_zan_in_obuch || 0).plus(
-                new Decimal(this.currentObject.area.cnt_svobod_mest || 0).plus(
-                    new Decimal(this.currentObject.area.cnt_neisp_mest || 0),
-                ),
-            ),
-        );
+        this.objArea.obsh_ne_prig =
+            this.objArea.all_tkr +
+            this.objArea.all_nas +
+            this.objArea.all_np;
 
-        this.objArea.obsh_prig = this.objArea.zhil_prig.plus(this.objArea.ne_zhil_v_prig || 0);
-        this.objArea.cnt_mest = this.objArea.kol_prig_mest.plus(this.currentObject.area.cnt_nepr_isp_mest || 0);
-        this.objArea.cnt_mest_vozm = new Decimal(this.currentObject.area.cnt_mest_vozm_neisp_mest || 0).plus(new Decimal(this.currentObject.area.cnt_mest_vozm_neprig_mest || 0));
-        this.objArea.cnt_mest_pl_na_odn = this.objArea.zhil_prig.dividedBy(new Decimal(this.currentObject.area.cnt_mest_zan_obuch || 0).plus(new Decimal(this.currentObject.area.cnt_mest_zan_in_obuch || 0)));
-        this.objArea.cnt_mest_obsh_na_odn = this.objArea.obsh_prig.dividedBy(new Decimal(this.currentObject.area.cnt_mest_zan_obuch || 0).plus(new Decimal(this.currentObject.area.cnt_mest_zan_in_obuch || 0)));
+        this.objArea.soc_inf =
+            toNum(this.currentObject.area.punkt_pit) +
+            toNum(this.currentObject.area.pom_dlya_uch) +
+            toNum(this.currentObject.area.pom_dlya_med) +
+            toNum(this.currentObject.area.pom_dlya_sport) +
+            toNum(this.currentObject.area.pom_dlya_kult) +
+            toNum(this.currentObject.area.pom_dlya_soc);
+
+        this.objArea.ne_zhil_v_prig =
+            this.objArea.soc_inf +
+            toNum(this.currentObject.area.in_nezh_plosh);
+
+        this.objArea.kol_prig_mest =
+            toNum(this.currentObject.area.cnt_mest_zan_obuch) +
+            toNum(this.currentObject.area.cnt_mest_zan_in_obuch) +
+            toNum(this.currentObject.area.cnt_svobod_mest) +
+            toNum(this.currentObject.area.cnt_neisp_mest);
+
+        this.objArea.obsh_prig = this.objArea.zhil_prig + this.objArea.ne_zhil_v_prig;
+        this.objArea.cnt_mest = this.objArea.kol_prig_mest + toNum(this.currentObject.area.cnt_nepr_isp_mest);
+        this.objArea.cnt_mest_vozm = toNum(this.currentObject.area.cnt_mest_vozm_neisp_mest) + toNum(this.currentObject.area.cnt_mest_vozm_neprig_mest);
+
+        let temp = toNum(this.currentObject.area.cnt_mest_zan_obuch) + toNum(this.currentObject.area.cnt_mest_zan_in_obuch);
+        temp = temp ? temp : 1;
+
+        this.objArea.cnt_mest_pl_na_odn = this.objArea.zhil_prig / temp;
+        this.objArea.cnt_mest_obsh_na_odn = this.objArea.obsh_prig / temp;
       },
       deep: true,
     },
@@ -506,6 +514,7 @@ export default {
     async getUser() {
       await Axios.get('/api/user/current').then((res) => {
         this.user = res.data;
+        this.user.isAdmin = !!res.data.roles.root || !!res.data.roles.admin
       });
     },
     setObject(index) {
