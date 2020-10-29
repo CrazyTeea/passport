@@ -1,7 +1,8 @@
 <template>
 
   <div>
-    <nav-bar :id_org="id_org" v-on:save-page="saveObject" v-on:block-save="blockPage = !blockPage"/>
+    <nav-bar :is-admin="user.isAdmin" :id_org="id_org" v-on:save-page="saveObject"
+             v-on:block-save="blockPage = !blockPage"/>
     <transition enter-active-class="animated fadeInUp">
       <div v-if="componentReady" class="container">
 
@@ -719,7 +720,6 @@
 <script>
 import {BButton, BFormInput, BFormSelect, BInputGroup, BInputGroupText, BTooltip,} from 'bootstrap-vue';
 import Axios from 'axios';
-import Decimal from 'decimal.js';
 import scrollButton from '../../organisms/scrollButton';
 
 import NavBar from '../../organisms/NavBar';
@@ -745,64 +745,48 @@ export default {
     },
     currentObject: {
       handler() {
-        this.money.obsh = new Decimal(this.currentObject.money.money_prozh_bez_dop).plus(
-            new Decimal(this.currentObject.money.money_prozh_dop).plus(
-                new Decimal(this.currentObject.money.money_aren).plus(
-                    new Decimal(this.currentObject.money.money_cel_sred),
-                ),
-            ),
-        ).toFixed(3);
-        this.money.rask = new Decimal(this.currentObject.money.voda).plus(
-            new Decimal(this.currentObject.money.tep).plus(
-                new Decimal(this.currentObject.money.gaz).plus(
-                    new Decimal(this.currentObject.money.elect),
-                ),
-            ),
-        ).toFixed(3);
 
-        this.money.rasb = new Decimal(this.currentObject.money.ohrana).plus(
-            new Decimal(this.currentObject.money.anti_ter).plus(
-                new Decimal(this.currentObject.money.inie_rash_ohrana),
-            ),
-        ).toFixed(3);
-        this.money.rasn = new Decimal(this.currentObject.money.nalog_imush).plus(
-            new Decimal(this.currentObject.money.zem_nalog),
-        ).toFixed(3);
+        let toNum = num => typeof num === 'string' ? num.toNumber() : (!num ? 0 : num);
 
-        this.money.rass = new Decimal(this.currentObject.money.uborka_ter).plus(
-            new Decimal(this.currentObject.money.uborka_pom).plus(
-                new Decimal(this.currentObject.money.tech_obs).plus(
-                    new Decimal(this.currentObject.money.derivation).plus(
-                        new Decimal(this.currentObject.money.tbo).plus(
-                            new Decimal(this.currentObject.money.gos_prov).plus(
-                                new Decimal(this.currentObject.money.attest).plus(
-                                    new Decimal(this.currentObject.money.prot_pozhar).plus(
-                                        new Decimal(this.currentObject.money.inie_rash),
-                                    ),
-                                ),
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-        ).toFixed(3);
-        this.money.obsh_sred = new Decimal(this.money.rask).plus(
-            new Decimal(this.money.rass).plus(
-                new Decimal(this.money.rasb).plus(
-                    new Decimal(this.money.rasn).plus(
-                        new Decimal(this.currentObject.money.svaz).plus(
-                            new Decimal(this.currentObject.money.kap_rem).plus(
-                                new Decimal(this.currentObject.money.tek_rem).plus(
-                                    new Decimal(this.currentObject.money.mygk_inv).plus(
-                                        new Decimal(this.currentObject.money.osn_sred),
-                                    ),
-                                ),
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-        ).toFixed(3);
+        this.money.obsh =
+            toNum(this.currentObject.money.money_prozh_bez_dop) +
+            toNum(this.currentObject.money.money_prozh_dop) +
+            toNum(this.currentObject.money.money_aren) +
+            toNum(this.currentObject.money.money_cel_sred);
+        this.money.rask =
+            toNum(this.currentObject.money.voda) +
+            toNum(this.currentObject.money.tep) +
+            toNum(this.currentObject.money.gaz) +
+            toNum(this.currentObject.money.elect);
+
+        this.money.rasb =
+            toNum(this.currentObject.money.ohrana) +
+            toNum(this.currentObject.money.anti_ter) +
+            toNum(this.currentObject.money.inie_rash_ohrana);
+        this.money.rasn =
+            toNum(this.currentObject.money.nalog_imush) +
+            toNum(this.currentObject.money.zem_nalog);
+
+        this.money.rass =
+            toNum(this.currentObject.money.uborka_ter) +
+            toNum(this.currentObject.money.uborka_pom) +
+            toNum(this.currentObject.money.tech_obs) +
+            toNum(this.currentObject.money.derivation) +
+            toNum(this.currentObject.money.tbo) +
+            toNum(this.currentObject.money.gos_prov) +
+            toNum(this.currentObject.money.attest) +
+            toNum(this.currentObject.money.prot_pozhar) +
+            toNum(this.currentObject.money.inie_rash);
+        this.money.obsh_sred =
+            toNum(this.money.rask) +
+            toNum(this.money.rass) +
+            toNum(this.money.rasb) +
+            toNum(this.money.rasn) +
+            toNum(this.currentObject.money.svaz) +
+            toNum(this.currentObject.money.kap_rem) +
+            toNum(this.currentObject.money.tek_rem) +
+            toNum(this.currentObject.money.mygk_inv) +
+            toNum(this.currentObject.money.osn_sred);
       },
       deep: true,
     },
@@ -814,6 +798,7 @@ export default {
     async getUser() {
       await Axios.get('/api/user/current').then((res) => {
         this.user = res.data;
+        this.user.isAdmin = !!res.data.roles.root || !!res.data.roles.admin
       });
     },
     setObject(index) {
@@ -845,7 +830,11 @@ export default {
   },
   async mounted() {
     await this.getUser();
-    this.id_org = this.user.id_org;
+    if (this.user.isAdmin)
+      this.id_org = this.$route.fullPath.split('/')[3] || this.user.id_org
+    else this.id_org = this.user.id_org;
+
+    this.blockPage = this.user.isAdmin;
     await this.getObject();
     this.componentReady = true;
   },

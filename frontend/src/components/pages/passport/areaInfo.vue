@@ -1,6 +1,7 @@
 <template>
   <div>
-    <nav-bar :id_org="id_org" v-on:save-page="savePage" v-on:block-save="blockSave =!blockSave"/>
+    <nav-bar :is-admin="user.isAdmin" :id_org="id_org" v-on:save-page="savePage"
+             v-on:block-save="blockSave =!blockSave"/>
     <transition enter-active-class="animated fadeInUp">
       <div v-if="componentReady" class="container">
         <div class="row">
@@ -610,6 +611,7 @@ export default {
     async getUser() {
       await Axios.get('/api/user/current').then((res) => {
         this.user = res.data;
+        this.user.isAdmin = !!res.data.roles.root || !!res.data.roles.admin
       });
     },
     async getOrg() {
@@ -639,7 +641,13 @@ export default {
   },
   async mounted() {
     await this.getUser();
-    this.id_org = this.user.id_org;
+    if (this.user.isAdmin)
+      this.id_org = this.$route.fullPath.split('/')[3] || this.user.id_org
+    else this.id_org = this.user.id_org;
+
+    this.blockSave = this.user.isAdmin;
+
+
     await this.getOrg();
     this.componentReady = true;
 

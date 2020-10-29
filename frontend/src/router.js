@@ -48,7 +48,7 @@ const routes = [
     {
         path: '/living-info-inv',
         component: livingInfoInv,
-        alias: '/admin/org-info-inv/:id'
+        alias: '/admin/living-info-inv/:id'
     },
     {
         path: '/objects-info',
@@ -61,17 +61,17 @@ const routes = [
     {
         path: '/objects-area',
         component: objectArea,
-        alias: '/admin/object-area-info/:id'
+        alias: '/admin/objects-area/:id'
     },
     {
         path: '/objects-tariff',
         component: objectTariff,
-        alias: '/admin/object-tariff/:id'
+        alias: '/admin/objects-tariff/:id'
     },
     {
         path: '/objects-money',
         component: objectMoney,
-        alias: '/admin/object-money/:id'
+        alias: '/admin/objects-money/:id'
     },
     {
         path: '/documents',
