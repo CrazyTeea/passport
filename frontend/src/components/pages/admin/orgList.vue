@@ -203,8 +203,7 @@ export default {
       }
       return ''
     }
-  }
-  ,
+  },
   data() {
     return {
       //options: ['Apple', 'Orange', 'Banana', 'Lime', 'Peach', 'Chocolate', 'Strawberry'],
