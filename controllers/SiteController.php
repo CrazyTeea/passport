@@ -14,6 +14,7 @@ use Lcobucci\JWT\Signer\Key;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
+use yii\helpers\Url;
 use yii\rbac\PhpManager;
 use yii\web\Controller;
 use yii\web\Response;
@@ -86,6 +87,12 @@ class SiteController extends Controller
         return $this->render('index');
     }
 
+    private function checkRole()
+    {
+        if (!Yii::$app->user->can('user'))
+            Yii::$app->homeUrl = '/admin/statistic';
+    }
+
     /**
      * Login action.
      *
@@ -94,15 +101,19 @@ class SiteController extends Controller
     public function actionLogin()
     {
         if (!Yii::$app->user->isGuest) {
+            $this->checkRole();
             return $this->goHome();
         }
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            $this->checkRole();
+            if (str_contains(Url::previous(), '/main')) {
+                return $this->redirect(Yii::$app->homeUrl);
+            }
             return $this->goBack();
         }
 
-        $model->password = '';
         return $this->render('login', [
             'model' => $model,
         ]);

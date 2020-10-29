@@ -12,6 +12,8 @@ class UserController extends Controller
 {
     public function actionGetCurrent()
     {
-        return User::findOne(Yii::$app->user->id);
+        $user = User::findOne(Yii::$app->user->id);
+        $user['roles']=Yii::$app->getAuthManager()->getRolesByUser($user->id);
+        return $user;
     }
 }

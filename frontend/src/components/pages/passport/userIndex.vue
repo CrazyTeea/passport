@@ -1,7 +1,7 @@
 <template>
   <div>
 
-    <nav-bar :id_org="id_org" v-on:save-page="savePage" v-on:block-save="blockSave = !blockSave"></nav-bar>
+    <nav-bar :is-admin="user.isAdmin" :id_org="id_org" v-on:save-page="savePage" v-on:block-save="blockSave = !blockSave"></nav-bar>
     <transition enter-active-class="animated fadeInUp">
       <div v-if="componentReady">
         <b-jumbotron v-if="!user.id_org">
@@ -19,7 +19,7 @@
           <div class="row">
             <div class="col-8"><h4>{{ organization.name }}</h4></div>
             <div class="col-4">
-              <b-button href="/org-info" block variant="outline-secondary">Перейти к заполнению</b-button>
+              <b-button v-can:user href="/org-info" block variant="outline-secondary">Перейти к заполнению</b-button>
             </div>
           </div>
           <div style="margin-top: 10px;" class="row">
@@ -176,20 +176,31 @@ export default {
   },
   async mounted() {
     await this.getUser();
-    this.id_org = this.user.id_org;
-    if (this.user.id_org) {
-      await this.getOrg(this.user.id_org);
-      await this.getUserInfo();
-    }
+
+    if (this.user.isAdmin)
+      this.id_org = this.$route.fullPath.split('/')[3] || this.user.id_org
+    else this.id_org = this.user.id_org;
+
+    this.blockSave = this.user.isAdmin
+
+
+    await this.init();
+
     this.componentReady = true;
   },
   methods: {
+
+    async init() {
+      await this.getOrg(this.id_org);
+      await this.getUserInfo();
+    },
+
     async savePage() {
       const data = new FormData();
 
       data.append('users', JSON.stringify(this.users_info));
 
-      await Axios.post(`/organization/users-info/${this.user.id_org}`, data, {
+      await Axios.post(`/organization/users-info/${this.id_org}`, data, {
         headers: {
           'X-CSRF-Token': this.csrf,
         },
@@ -227,15 +238,16 @@ export default {
     async getUser() {
       await Axios.get('/api/user/current').then((res) => {
         this.user = res.data;
+        this.user.isAdmin = !!res.data.roles.root || !!res.data.roles.admin
       });
     },
     async getOrg() {
-      await Axios.get(`/api/organization/by-id/${this.user.id_org}`).then((res) => {
+      await Axios.get(`/api/organization/by-id/${this.id_org}`).then((res) => {
         this.organization = {...res.data, ...res.data.organization};
       });
     },
     async getUserInfo() {
-      await Axios.get(`/api/organization/users/${this.user.id_org}`).then((res) => {
+      await Axios.get(`/api/organization/users/${this.id_org}`).then((res) => {
         this.users_info = [];
         res.data.forEach((item) => {
           this.users_info.push({

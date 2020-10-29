@@ -108,7 +108,7 @@
             </b-tr>
           </b-thead>
           <b-tbody>
-            <b-tr v-for="(item,index) in orgList" :key="`tr-${index}`">
+            <b-tr v-for="(item,index) in orgList" :key="`tr-${index}`" class="my-hover" @click="rowClick(item)">
               <b-td>{{ (Number(index) + ((filter.offset - 1) * filter.limit) + 1) || ''  }}</b-td>
               <b-td>{{ item.id }}</b-td>
               <b-td>{{ item.name }}</b-td>
@@ -248,6 +248,9 @@ export default {
 
   },
   methods: {
+    rowClick(item){
+      window.open(`/admin/data/${item.id}`)
+    },
     async getOrgList() {
       await Axios.get('/api/organizations/org-filter', {
         params: this.filter
@@ -310,6 +313,10 @@ export default {
 
 <style scoped>
 
+.my-hover:hover{
+  cursor: pointer;
+  background: rgba(200,200,0,0.1);
+}
 
 .item {
   cursor: pointer;

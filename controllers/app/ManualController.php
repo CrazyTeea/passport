@@ -6,7 +6,7 @@ namespace app\controllers\app;
 
 use yii\web\Controller;
 
-class ManualController extends Controller
+class ManualController extends AppController
 {
     public function actionIndex()
     {

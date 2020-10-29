@@ -17,7 +17,7 @@ use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\UploadedFile;
 
-class OrganizationsController extends Controller
+class OrganizationsController extends AppController
 {
     public function actionUsersInfo($id)
     {

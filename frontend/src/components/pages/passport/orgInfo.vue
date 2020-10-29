@@ -1,7 +1,7 @@
 <template>
 
   <div id="org-info-page">
-    <nav-bar :id_org="organization.id" v-on:save-page="savePage" v-on:block-save="blockSave = !blockSave"/>
+    <nav-bar :is-admin="user.isAdmin" :id_org="organization.id" v-on:save-page="savePage" v-on:block-save="blockSave = !blockSave"/>
     <transition enter-active-class="animated fadeInUp">
       <div v-if="componentReady && organization" class="container">
         <h3>Сведения об организации</h3>
@@ -444,8 +444,8 @@ export default {
         this.cntInfo(0);
         this.cntInfo(1);
 
-        this.organization.stud_cnt_rus = ~~parseInt(this.organization.info[0].all);
-        this.organization.stud_cnt_foreign = ~~parseInt(this.organization.info[1].all);
+        this.organization.stud_cnt_rus = ~~parseInt(this.organization.info[0]?.all);
+        this.organization.stud_cnt_foreign = ~~parseInt(this.organization.info[1]?.all);
 
         this.organization.stud_cnt = ~~parseInt(this.organization.stud_cnt_rus)
             + ~~parseInt(this.organization.stud_cnt_foreign);
@@ -466,13 +466,23 @@ export default {
   },
   async mounted() {
     await this.getUser();
-    this.id_org = this.user.id_org;
+
+
+    if (this.user.isAdmin)
+      this.id_org = this.$route.fullPath.split('/')[3] || this.user.id_org
+    else this.id_org = this.user.id_org;
+
+    this.blockSave = this.user.isAdmin;
+
+
     await this.getOrg();
     this.componentReady = true;
   },
   methods: {
     cntInfo(index) {
-      this.organization.info[index].spo_all = ~~parseInt(this.organization.info[index].s_f_b_spo)
+
+      if (this.organization.info[index]){
+        this.organization.info[index].spo_all = ~~parseInt(this.organization.info[index].s_f_b_spo)
           + ~~parseInt(this.organization.info[index].s_b_s_spo)
           + ~~parseInt(this.organization.info[index].s_m_b_spo)
           + ~~parseInt(this.organization.info[index].s_p_u_spo);
@@ -535,22 +545,28 @@ export default {
           + ~~parseInt(this.organization.info[index].s_p_u_asp)
           + ~~parseInt(this.organization.info[index].s_p_u_ord)
           + ~~parseInt(this.organization.info[index].s_p_u_in);
+      }
+
+
     },
     async getUser() {
       await Axios.get('/api/user/current').then((res) => {
         this.user = res.data;
+        this.user.isAdmin = !!res.data.roles.root || !!res.data.roles.admin
       });
     },
     async getOrg() {
       await Axios.get(`/api/organization/by-id/${this.id_org}`).then((res) => {
         this.organization = res.data;
         this.organization = {...this.organization, ...res.data.organization};
+        this.organization.info = [{},{}]
         if (res.data.info) {
           res.data.info.forEach((item) => {
             this.organization.info[parseInt(item.stud_type)] = item;
           });
         }
-        this.organization.info = res.data.info || {};
+        console.log(this.organization.info)
+
       });
     },
     async savePage() {

@@ -12,15 +12,15 @@ import objectMoney from './components/pages/object/objectMoney';
 import uploadPage from './components/pages/docs/uploadPage';
 import manual from './components/pages/passport/manual';
 import orgList from './components/pages/admin/orgList';
-import adminData from './components/pages/admin/adminData';
+
 
 Vue.use(VueRouter);
 
 const routes = [
-    {
-      path: '/admin/data',
-      component: adminData
-    },
+    /*{
+      path: '',
+      component: userIndex
+    },*/
     {
       path: '/admin/statistic',
       component: orgList
@@ -28,45 +28,55 @@ const routes = [
     {
         path: '/main',
         component: userIndex,
+        alias: '/admin/data/:id'
     },
     {
         path: '/org-info',
         component: orgInfo,
+        alias: '/admin/org-info/:id'
     },
     {
         path: '/area-info',
         component: areaInfo,
+        alias: '/admin/area-info/:id'
     },
     {
         path: '/living-info',
         component: livingInfo,
+        alias: '/admin/living-info/:id'
     },
     {
         path: '/living-info-inv',
         component: livingInfoInv,
+        alias: '/admin/org-info-inv/:id'
     },
     {
         path: '/objects-info',
         component: object,
         name: 'object',
         props: true,
+        alias: '/admin/objects-info/:id'
 
     },
     {
         path: '/objects-area',
         component: objectArea,
+        alias: '/admin/object-area-info/:id'
     },
     {
         path: '/objects-tariff',
         component: objectTariff,
+        alias: '/admin/object-tariff/:id'
     },
     {
         path: '/objects-money',
         component: objectMoney,
+        alias: '/admin/object-money/:id'
     },
     {
         path: '/documents',
         component: uploadPage,
+        alias: '/admin/documents/:id'
     },
     {
         path: '/manual',

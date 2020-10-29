@@ -5,12 +5,14 @@
 /* @var $content string */
 
 use app\assets\AppAsset;
+use app\models\User;
 use app\widgets\Alert;
 use app\widgets\NavBar;
 use mdm\admin\components\MenuHelper;
 use yii\bootstrap4\Breadcrumbs;
 use yii\bootstrap4\Html;
 use yii\bootstrap4\Nav;
+use yii\helpers\Json;
 
 AppAsset::register($this);
 
@@ -26,6 +28,11 @@ AppAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.3/velocity.min.js"></script>
     <?php $this->head() ?>
+
+    <script>
+        window.Permission = <?= Json::encode(User::getRole(Yii::$app->user->id)) ?>;
+    </script>
+
 </head>
 <body>
 <?php $this->beginBody() ?>

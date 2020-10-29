@@ -12,7 +12,7 @@ use Yii;
 use yii\helpers\Json;
 use yii\web\Controller;
 
-class ObjectsController extends Controller
+class ObjectsController extends AppController
 {
     public function actionObject($id = null)
     {

@@ -27,6 +27,14 @@ use yii\web\IdentityInterface;
  */
 class User extends ActiveRecord implements IdentityInterface
 {
+    public $roles;
+
+    public function fields()
+    {
+        return array_merge(
+            ['roles']
+            , parent::fields());
+    }
 
     /**
      * @inheritdoc
@@ -51,7 +59,7 @@ class User extends ActiveRecord implements IdentityInterface
      * @param string $username
      * @return User
      */
-    public static function findByUsername($username)
+    public static function findByUsername(string $username)
     {
         return static::findOne(['username' => $username]);
     }
@@ -62,7 +70,7 @@ class User extends ActiveRecord implements IdentityInterface
      * @param string $token password reset token
      * @return static|null
      */
-    public static function findByPasswordResetToken($token)
+    public static function findByPasswordResetToken(string $token)
     {
         if (!static::isPasswordResetTokenValid($token)) {
             return null;
@@ -79,7 +87,7 @@ class User extends ActiveRecord implements IdentityInterface
      * @param string $token password reset token
      * @return boolean
      */
-    public static function isPasswordResetTokenValid($token)
+    public static function isPasswordResetTokenValid(string $token)
     {
         if (empty($token)) {
             return false;
