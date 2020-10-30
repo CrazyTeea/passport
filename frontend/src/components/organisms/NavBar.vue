@@ -99,7 +99,7 @@ export default {
   },
   watch: {
     async id_org() {
-      console.log(this.id_org)
+     // console.log(this.id_org)
       await this.getObjCnt();
     },
   },
@@ -108,7 +108,7 @@ export default {
     },
   methods: {
     async getObjCnt() {
-      console.log(this.id_org)
+     // console.log(this.id_org)
       if (this.id_org) {
         await Axios.get(`/api/cnt-objects/org/${this.id_org}`).then((res) => this.objCnt = res.data);
       }

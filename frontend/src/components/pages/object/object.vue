@@ -4,6 +4,10 @@
              v-on:block-save="disablePage = !disablePage"/>
     <transition enter-active-class="animated fadeInUp">
       <div v-if="componentReady" class="container">
+
+
+        <org-select v-can:admin,root v-model="id_org"/>
+
         <div class="row">
           <div class="col-8">
             <h3>
@@ -580,9 +584,11 @@ import vSelect from 'vue-select';
 import NavBar from '../../organisms/NavBar';
 import scrollButton from '../../organisms/scrollButton';
 import Loading from "../../organisms/loading";
+import OrgSelect from "../../organisms/orgSelect";
 
 export default {
   components: {
+    OrgSelect,
     Loading,
     NavBar,
     BFormInput,
@@ -630,6 +636,10 @@ export default {
     };
   },
   watch: {
+    async id_org() {
+      if (this.componentReady)
+        await this.getObject();
+    },
     objects() {
       if (this.objects.length) {
         this.objectsTitle = this.objects.map((item, index) => ({

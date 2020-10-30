@@ -1,10 +1,13 @@
 <template>
   <div>
 
-    <nav-bar :is-admin="user.isAdmin" :id_org="id_org" v-on:save-page="savePage" v-on:block-save="blockSave = !blockSave"></nav-bar>
+    <nav-bar :is-admin="user.isAdmin" :id_org="id_org" v-on:save-page="savePage"
+             v-on:block-save="blockSave = !blockSave"></nav-bar>
     <transition enter-active-class="animated fadeInUp">
       <div v-if="componentReady">
-        <b-jumbotron v-if="!user.id_org">
+
+
+        <b-jumbotron v-if="!user.id_org && !user.isAdmin">
           <template v-slot:header>
             <span class="text text-danger">Ошибка</span>
           </template>
@@ -16,6 +19,10 @@
         </b-jumbotron>
 
         <div class="container mt-2" v-else>
+
+          <org-select v-can:admin,root v-model="id_org"/>
+
+
           <div class="row">
             <div class="col-8"><h4>{{ organization.name }}</h4></div>
             <div class="col-4">
@@ -135,9 +142,11 @@ import {
 } from 'bootstrap-vue';
 import Axios from 'axios';
 import NavBar from '../../organisms/NavBar.vue';
+import OrgSelect from "../../organisms/orgSelect";
 
 export default {
   components: {
+    OrgSelect,
     NavBar,
     BJumbotron,
     BButton,
@@ -153,6 +162,7 @@ export default {
   },
   data() {
     return {
+      test: null,
       csrf: document.getElementsByName('csrf-token')[0].content,
       blockSave: false,
       user: {},
@@ -184,13 +194,19 @@ export default {
     this.blockSave = this.user.isAdmin
 
 
-    await this.init();
+    await this.update();
 
     this.componentReady = true;
   },
+  watch:{
+    async id_org(){
+      if (this.componentReady)
+        await this.update()
+    }
+  },
   methods: {
 
-    async init() {
+    async update() {
       await this.getOrg(this.id_org);
       await this.getUserInfo();
     },

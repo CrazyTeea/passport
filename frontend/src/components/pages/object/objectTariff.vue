@@ -3,6 +3,10 @@
     <nav-bar :is-admin="user.isAdmin" :id_org="id_org" v-on:save-page="saveObject" v-on:block-save="blockSave = !blockSave"/>
     <transition enter-active-class="animated fadeInUp">
       <div v-if="componentReady" class="container">
+
+
+        <org-select v-can:admin,root v-model="id_org"/>
+
         <div class="rov">
           <div class="col-8">
             <h4>Сведения о тарифах установленных для проживания в жилом объекте</h4>
@@ -123,10 +127,12 @@ import {BButton, BFormInput, BFormSelect, BTableSimple, BTbody, BTd, BTh, BThead
 import Axios from 'axios';
 import NavBar from '../../organisms/NavBar';
 import scrollButton from '../../organisms/scrollButton';
+import OrgSelect from "../../organisms/orgSelect";
 
 export default {
   name: 'object_tariff',
   components: {
+    OrgSelect,
     scrollButton,
     NavBar,
     BButton,
@@ -152,6 +158,10 @@ export default {
     this.componentReady = true;
   },
   watch: {
+    async id_org() {
+      if (this.componentReady)
+        await this.getObject();
+    },
     objects() {
       this.objectsTitle = this.objects.map((item, index) => ({
         value: index,

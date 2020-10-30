@@ -1,9 +1,13 @@
 <template>
 
   <div id="org-info-page">
-    <nav-bar :is-admin="user.isAdmin" :id_org="organization.id" v-on:save-page="savePage" v-on:block-save="blockSave = !blockSave"/>
+    <nav-bar :is-admin="user.isAdmin" :id_org="organization.id" v-on:save-page="savePage"
+             v-on:block-save="blockSave = !blockSave"/>
     <transition enter-active-class="animated fadeInUp">
       <div v-if="componentReady && organization" class="container">
+
+        <org-select v-can:admin,root v-model="id_org"/>
+
         <h3>Сведения об организации</h3>
         <hr>
         <label class="font-weight-bold">Полное наименование организации"</label>
@@ -418,6 +422,7 @@ import {BFormInput, BTableSimple, BTbody, BTd, BTh, BThead, BTr,} from 'bootstra
 import Axios from 'axios';
 import NavBar from '../../organisms/NavBar';
 import scrollButton from '../../organisms/scrollButton';
+import OrgSelect from "../../organisms/orgSelect";
 
 export default {
   data() {
@@ -426,6 +431,7 @@ export default {
       blockSave: false,
       user: {},
       students: [],
+      id_org: null,
       students_foreign: [],
       organization: {
         founder: {
@@ -439,6 +445,10 @@ export default {
     };
   },
   watch: {
+    async id_org() {
+      if (this.componentReady)
+        await this.getOrg()
+    },
     organization: {
       handler() {
         this.cntInfo(0);
@@ -454,6 +464,7 @@ export default {
     },
   },
   components: {
+    OrgSelect,
     scrollButton,
     NavBar,
     BFormInput,
@@ -478,73 +489,74 @@ export default {
     await this.getOrg();
     this.componentReady = true;
   },
+
   methods: {
     cntInfo(index) {
 
-      if (this.organization.info[index]){
+      if (this.organization.info[index]) {
         this.organization.info[index].spo_all = ~~parseInt(this.organization.info[index].s_f_b_spo)
-          + ~~parseInt(this.organization.info[index].s_b_s_spo)
-          + ~~parseInt(this.organization.info[index].s_m_b_spo)
-          + ~~parseInt(this.organization.info[index].s_p_u_spo);
-      this.organization.info[index].bak_all = ~~parseInt(this.organization.info[index].s_f_b_bak)
-          + ~~parseInt(this.organization.info[index].s_b_s_bak)
-          + ~~parseInt(this.organization.info[index].s_m_b_bak)
-          + ~~parseInt(this.organization.info[index].s_p_u_bak);
-      this.organization.info[index].spec_all = ~~parseInt(this.organization.info[index].s_f_b_spec)
-          + ~~parseInt(this.organization.info[index].s_b_s_spec)
-          + ~~parseInt(this.organization.info[index].s_m_b_spec)
-          + ~~parseInt(this.organization.info[index].s_p_u_spec);
-      this.organization.info[index].mag_all = ~~parseInt(this.organization.info[index].s_f_b_mag)
-          + ~~parseInt(this.organization.info[index].s_b_s_mag)
-          + ~~parseInt(this.organization.info[index].s_m_b_mag)
-          + ~~parseInt(this.organization.info[index].s_p_u_mag);
-      this.organization.info[index].asp_all = ~~parseInt(this.organization.info[index].s_f_b_asp)
-          + ~~parseInt(this.organization.info[index].s_b_s_asp)
-          + ~~parseInt(this.organization.info[index].s_m_b_asp)
-          + ~~parseInt(this.organization.info[index].s_p_u_asp);
-      this.organization.info[index].ord_all = ~~parseInt(this.organization.info[index].s_f_b_ord)
-          + ~~parseInt(this.organization.info[index].s_b_s_ord)
-          + ~~parseInt(this.organization.info[index].s_m_b_ord)
-          + ~~parseInt(this.organization.info[index].s_p_u_ord);
-      this.organization.info[index].in_all = ~~parseInt(this.organization.info[index].s_f_b_in)
-          + ~~parseInt(this.organization.info[index].s_b_s_in)
-          + ~~parseInt(this.organization.info[index].s_m_b_in)
-          + ~~parseInt(this.organization.info[index].s_p_u_in);
-      this.organization.info[index].all = ~~parseInt(this.organization.info[index].in_all)
-          + ~~parseInt(this.organization.info[index].ord_all)
-          + ~~parseInt(this.organization.info[index].asp_all)
-          + ~~parseInt(this.organization.info[index].mag_all)
-          + ~~parseInt(this.organization.info[index].spec_all)
-          + ~~parseInt(this.organization.info[index].bak_all)
-          + ~~parseInt(this.organization.info[index].spo_all);
-      this.organization.info[index].s_f_b_all = ~~parseInt(this.organization.info[index].s_f_b_spo)
-          + ~~parseInt(this.organization.info[index].s_f_b_bak)
-          + ~~parseInt(this.organization.info[index].s_f_b_spec)
-          + ~~parseInt(this.organization.info[index].s_f_b_mag)
-          + ~~parseInt(this.organization.info[index].s_f_b_asp)
-          + ~~parseInt(this.organization.info[index].s_f_b_ord)
-          + ~~parseInt(this.organization.info[index].s_f_b_in);
-      this.organization.info[index].s_b_s_all = ~~parseInt(this.organization.info[index].s_b_s_spo)
-          + ~~parseInt(this.organization.info[index].s_b_s_bak)
-          + ~~parseInt(this.organization.info[index].s_b_s_spec)
-          + ~~parseInt(this.organization.info[index].s_b_s_mag)
-          + ~~parseInt(this.organization.info[index].s_b_s_asp)
-          + ~~parseInt(this.organization.info[index].s_b_s_ord)
-          + ~~parseInt(this.organization.info[index].s_b_s_in);
-      this.organization.info[index].s_m_b_all = ~~parseInt(this.organization.info[index].s_m_b_spo)
-          + ~~parseInt(this.organization.info[index].s_m_b_bak)
-          + ~~parseInt(this.organization.info[index].s_m_b_spec)
-          + ~~parseInt(this.organization.info[index].s_m_b_mag)
-          + ~~parseInt(this.organization.info[index].s_m_b_asp)
-          + ~~parseInt(this.organization.info[index].s_m_b_ord)
-          + ~~parseInt(this.organization.info[index].s_m_b_in);
-      this.organization.info[index].s_p_u_all = ~~parseInt(this.organization.info[index].s_p_u_spo)
-          + ~~parseInt(this.organization.info[index].s_p_u_bak)
-          + ~~parseInt(this.organization.info[index].s_p_u_spec)
-          + ~~parseInt(this.organization.info[index].s_p_u_mag)
-          + ~~parseInt(this.organization.info[index].s_p_u_asp)
-          + ~~parseInt(this.organization.info[index].s_p_u_ord)
-          + ~~parseInt(this.organization.info[index].s_p_u_in);
+            + ~~parseInt(this.organization.info[index].s_b_s_spo)
+            + ~~parseInt(this.organization.info[index].s_m_b_spo)
+            + ~~parseInt(this.organization.info[index].s_p_u_spo);
+        this.organization.info[index].bak_all = ~~parseInt(this.organization.info[index].s_f_b_bak)
+            + ~~parseInt(this.organization.info[index].s_b_s_bak)
+            + ~~parseInt(this.organization.info[index].s_m_b_bak)
+            + ~~parseInt(this.organization.info[index].s_p_u_bak);
+        this.organization.info[index].spec_all = ~~parseInt(this.organization.info[index].s_f_b_spec)
+            + ~~parseInt(this.organization.info[index].s_b_s_spec)
+            + ~~parseInt(this.organization.info[index].s_m_b_spec)
+            + ~~parseInt(this.organization.info[index].s_p_u_spec);
+        this.organization.info[index].mag_all = ~~parseInt(this.organization.info[index].s_f_b_mag)
+            + ~~parseInt(this.organization.info[index].s_b_s_mag)
+            + ~~parseInt(this.organization.info[index].s_m_b_mag)
+            + ~~parseInt(this.organization.info[index].s_p_u_mag);
+        this.organization.info[index].asp_all = ~~parseInt(this.organization.info[index].s_f_b_asp)
+            + ~~parseInt(this.organization.info[index].s_b_s_asp)
+            + ~~parseInt(this.organization.info[index].s_m_b_asp)
+            + ~~parseInt(this.organization.info[index].s_p_u_asp);
+        this.organization.info[index].ord_all = ~~parseInt(this.organization.info[index].s_f_b_ord)
+            + ~~parseInt(this.organization.info[index].s_b_s_ord)
+            + ~~parseInt(this.organization.info[index].s_m_b_ord)
+            + ~~parseInt(this.organization.info[index].s_p_u_ord);
+        this.organization.info[index].in_all = ~~parseInt(this.organization.info[index].s_f_b_in)
+            + ~~parseInt(this.organization.info[index].s_b_s_in)
+            + ~~parseInt(this.organization.info[index].s_m_b_in)
+            + ~~parseInt(this.organization.info[index].s_p_u_in);
+        this.organization.info[index].all = ~~parseInt(this.organization.info[index].in_all)
+            + ~~parseInt(this.organization.info[index].ord_all)
+            + ~~parseInt(this.organization.info[index].asp_all)
+            + ~~parseInt(this.organization.info[index].mag_all)
+            + ~~parseInt(this.organization.info[index].spec_all)
+            + ~~parseInt(this.organization.info[index].bak_all)
+            + ~~parseInt(this.organization.info[index].spo_all);
+        this.organization.info[index].s_f_b_all = ~~parseInt(this.organization.info[index].s_f_b_spo)
+            + ~~parseInt(this.organization.info[index].s_f_b_bak)
+            + ~~parseInt(this.organization.info[index].s_f_b_spec)
+            + ~~parseInt(this.organization.info[index].s_f_b_mag)
+            + ~~parseInt(this.organization.info[index].s_f_b_asp)
+            + ~~parseInt(this.organization.info[index].s_f_b_ord)
+            + ~~parseInt(this.organization.info[index].s_f_b_in);
+        this.organization.info[index].s_b_s_all = ~~parseInt(this.organization.info[index].s_b_s_spo)
+            + ~~parseInt(this.organization.info[index].s_b_s_bak)
+            + ~~parseInt(this.organization.info[index].s_b_s_spec)
+            + ~~parseInt(this.organization.info[index].s_b_s_mag)
+            + ~~parseInt(this.organization.info[index].s_b_s_asp)
+            + ~~parseInt(this.organization.info[index].s_b_s_ord)
+            + ~~parseInt(this.organization.info[index].s_b_s_in);
+        this.organization.info[index].s_m_b_all = ~~parseInt(this.organization.info[index].s_m_b_spo)
+            + ~~parseInt(this.organization.info[index].s_m_b_bak)
+            + ~~parseInt(this.organization.info[index].s_m_b_spec)
+            + ~~parseInt(this.organization.info[index].s_m_b_mag)
+            + ~~parseInt(this.organization.info[index].s_m_b_asp)
+            + ~~parseInt(this.organization.info[index].s_m_b_ord)
+            + ~~parseInt(this.organization.info[index].s_m_b_in);
+        this.organization.info[index].s_p_u_all = ~~parseInt(this.organization.info[index].s_p_u_spo)
+            + ~~parseInt(this.organization.info[index].s_p_u_bak)
+            + ~~parseInt(this.organization.info[index].s_p_u_spec)
+            + ~~parseInt(this.organization.info[index].s_p_u_mag)
+            + ~~parseInt(this.organization.info[index].s_p_u_asp)
+            + ~~parseInt(this.organization.info[index].s_p_u_ord)
+            + ~~parseInt(this.organization.info[index].s_p_u_in);
       }
 
 
@@ -559,13 +571,13 @@ export default {
       await Axios.get(`/api/organization/by-id/${this.id_org}`).then((res) => {
         this.organization = res.data;
         this.organization = {...this.organization, ...res.data.organization};
-        this.organization.info = [{},{}]
+        this.organization.info = [{}, {}]
         if (res.data.info) {
           res.data.info.forEach((item) => {
             this.organization.info[parseInt(item.stud_type)] = item;
           });
         }
-        console.log(this.organization.info)
+        // console.log(this.organization.info)
 
       });
     },

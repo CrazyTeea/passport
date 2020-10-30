@@ -6,6 +6,9 @@
     <transition enter-active-class="animated fadeInUp">
       <div v-if="componentReady" class="container">
 
+
+        <org-select v-can:admin,root v-model="id_org"/>
+
         <hr>
         <div class="row mt-2">
           <div class="col-8"><h4>
@@ -723,10 +726,12 @@ import Axios from 'axios';
 import scrollButton from '../../organisms/scrollButton';
 
 import NavBar from '../../organisms/NavBar';
+import OrgSelect from "../../organisms/orgSelect";
 
 export default {
   name: 'object_money',
   components: {
+    OrgSelect,
     scrollButton,
     NavBar,
     BFormInput,
@@ -737,6 +742,10 @@ export default {
     BTooltip,
   },
   watch: {
+    async id_org() {
+      if (this.componentReady)
+        await this.getObject();
+    },
     objects() {
       this.objectsTitle = this.objects.map((item, index) => ({
         value: index,

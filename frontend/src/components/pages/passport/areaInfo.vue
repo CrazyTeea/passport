@@ -4,6 +4,10 @@
              v-on:block-save="blockSave =!blockSave"/>
     <transition enter-active-class="animated fadeInUp">
       <div v-if="componentReady" class="container">
+
+
+        <org-select v-can:admin,root v-model="id_org"/>
+
         <div class="row">
           <div class="col-8">
             <h3>Сведения о количестве мест и площади жилищного фонда, используемого в уставной деятельности</h3>
@@ -429,9 +433,11 @@ import Axios from 'axios';
 import {BAlert, BFormInput, BInputGroup, BTableSimple, BTbody, BTd, BTh, BThead, BTooltip, BTr,} from 'bootstrap-vue';
 import NavBar from '../../organisms/NavBar';
 import scrollButton from '../../organisms/scrollButton';
+import OrgSelect from "../../organisms/orgSelect";
 
 export default {
   components: {
+    OrgSelect,
     BAlert,
     scrollButton,
     NavBar,
@@ -479,6 +485,10 @@ export default {
   },
   computed: {},
   watch: {
+    async id_org() {
+      if (this.componentReady)
+        await this.getOrg()
+    },
     area: {
       handler() {
         if (this.componentReady) {

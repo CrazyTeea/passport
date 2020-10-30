@@ -4,6 +4,9 @@
              v-on:block-save="blockPage = !blockPage"/>
     <transition enter-active-class="animated fadeInUp">
       <div v-if="componentReady" class="container">
+
+        <org-select v-can:admin,root v-model="id_org"/>
+
         <div class="row mt-2">
           <div class="col-8"><h4>
             Сведения о площади, проживающих и количестве мест в жилом объекте
@@ -414,10 +417,12 @@ import {
 import Axios from 'axios';
 import NavBar from '../../organisms/NavBar';
 import ScrollButton from '../../organisms/scrollButton';
+import OrgSelect from "../../organisms/orgSelect";
 
 export default {
   name: 'object_area',
   components: {
+    OrgSelect,
     ScrollButton,
     NavBar,
     BTooltip,
@@ -445,6 +450,10 @@ export default {
     this.componentReady = true;
   },
   watch: {
+    async id_org() {
+      if (this.componentReady)
+        await this.getObject();
+    },
     objects() {
       this.objectsTitle = this.objects.map((item, index) => ({
         value: index,
