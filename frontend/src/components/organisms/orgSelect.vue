@@ -89,9 +89,21 @@ export default {
     BFormInput,
     BFormGroup
   },
-  mounted() {
-
-    },
+  async mounted() {
+    let orgs = await Axios.get('/api/organizations/all', {
+            params: {
+              name: this.criteria
+            }
+          }).then(response => response.data.map(item => {
+            return {
+              value: item.id,
+              text: item.name
+            }
+          }));
+    let arr = [];
+    let toNum = num => typeof num === 'string' ? num.toNumber() : (!num ? 0 : num);
+    this.org_name = orgs.find(item=>toNum(item.value) === toNum(this.value)).text;
+  },
   methods: {
     beforeEnter: function (el) {
       el.style.opacity = 0

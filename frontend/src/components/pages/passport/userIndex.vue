@@ -7,7 +7,7 @@
       <div v-if="componentReady">
 
 
-        <b-jumbotron v-if="!user.id_org">
+        <b-jumbotron v-if="!user.id_org && !user.isAdmin">
           <template v-slot:header>
             <span class="text text-danger">Ошибка</span>
           </template>
@@ -20,7 +20,7 @@
 
         <div class="container mt-2" v-else>
 
-          <org-select v-can:admin,root v-model="test"/>
+          <org-select v-can:admin,root v-model="id_org"/>
 
 
           <div class="row">
@@ -194,13 +194,19 @@ export default {
     this.blockSave = this.user.isAdmin
 
 
-    await this.init();
+    await this.update();
 
     this.componentReady = true;
   },
+  watch:{
+    async id_org(){
+      if (this.componentReady)
+        await this.update()
+    }
+  },
   methods: {
 
-    async init() {
+    async update() {
       await this.getOrg(this.id_org);
       await this.getUserInfo();
     },

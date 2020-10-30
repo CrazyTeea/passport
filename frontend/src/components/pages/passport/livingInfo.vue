@@ -3,6 +3,9 @@
     <nav-bar :is-admin="user.isAdmin" :id_org="id_org" v-on:save-page="savePage" v-on:block-save="blockPage = !blockPage"/>
     <transition enter-active-class="animated fadeInUp">
       <div v-if="componentReady" class="container">
+
+        <org-select v-can:admin,root v-model="id_org"/>
+
         <div class="row">
           <div class="col-8">
             <h3>
@@ -216,10 +219,12 @@ import Axios from 'axios';
 import NavBar from '../../organisms/NavBar';
 import livingTable from '../../organisms/livingTable';
 import scrollButton from '../../organisms/scrollButton';
+import OrgSelect from "../../organisms/orgSelect";
 
 export default {
   name: 'livingInfo',
   components: {
+    OrgSelect,
     scrollButton,
     NavBar,
     livingTable,
@@ -292,6 +297,10 @@ export default {
     };
   },
   watch: {
+    async id_org(){
+      if (this.componentReady)
+        await this.getOrg()
+    },
     organization: {
       handler() {
         this.cntLiving();
@@ -411,6 +420,14 @@ export default {
           const bud = [
             'items_b', 'items_s', 'items_m', 'items_p'
           ];
+
+          bud.forEach(item=>{
+            this[item].items.rf = [];
+            this[item].items.in_och= [];
+            this[item].items.in_ochzaoch= [];
+            this[item].items.in_zaoch= [];
+          })
+
           res.data.livingStudents.forEach(item => {
             let type = item.type;
             let budjet_type = item.budjet_type
