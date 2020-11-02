@@ -23,6 +23,9 @@ class OrganizationsController extends AppController
     {
         if ($post = Yii::$app->request->post()) {
             $data = Json::decode($post['users'], false);
+
+            Organizations::Active($id);
+
             foreach ($data as $item) {
                 $info = UsersInfo::findOne($item->id) ?? new UsersInfo();
                 $info->id_org = $id;
@@ -88,6 +91,9 @@ class OrganizationsController extends AppController
 
 
             $org_docs = OrgDocs::findAll(['id_desc' => [1, 2], 'id_org' => $id]);
+
+            Organizations::Active($id);
+
             if (!$org_docs) {
                 $org_doc = new OrgDocs();
                 $org_doc->id_org = $id;
@@ -160,6 +166,9 @@ class OrganizationsController extends AppController
             $post = Json::decode($post['org_area'], false);
             $area = OrgArea::findOne(['id_org' => $id]) ?? new OrgArea();
             $area->id_org = $id;
+
+            Organizations::Active($id);
+
             foreach ($post as $key => $item) {
                 if (!in_array($key, ['all_t_k_r', 'all_n_a_s', 'all_n_p', 'all_c6m2_spo', 'all_c6m2_spec', 'all_c6m2_bak',
                     'all_c6m2_asp', 'all_c6m2_mag', 'all_c6m2_ord', 'all_c6m2_in', 'all_m2', 'all_6m2']))
@@ -177,6 +186,8 @@ class OrganizationsController extends AppController
             $liv = OrgLiving::findOne(['id_org' => $id]) ?? new OrgLiving();
             $keys = [];
             $liv->id_org = $id;
+
+            Organizations::Active($id);
 
             if (isset($post->living)) {
 
