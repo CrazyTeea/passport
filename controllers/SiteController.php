@@ -60,6 +60,40 @@ class SiteController extends Controller
         }
 
     }
+    public function actionFounders()
+    {
+        echo "Выполняется синхронизация фаундеров\n";
+
+        $err = 0;
+        $timestart = time();
+        $signer = new Sha256();
+
+        $token = (new Builder())->set('reference', 'organization_founder')
+            ->sign($signer, self::$jwt_key)
+            ->getToken();
+
+        $response_token = file_get_contents("http://api.xn--80apneeq.xn--p1ai/api.php?option=reference_api&action=get_reference&module=constructor&reference_token=$token");
+
+        $signer = new Sha256();
+        $token = (new Parser())->parse($response_token);
+        if ($token->verify($signer, self::$jwt_key)) {
+
+            $data_reference = $token->getClaims();
+
+            foreach ($data_reference as $key => $data) {
+                $founder = Founders::findOne($data->getValue()->id) ?? new Founders();
+                $founder->id = $data->getValue()->id;
+                $founder->founder = $data->getValue()->name;
+                $founder->system_status = $data->getValue()->system_status;
+                if (!$founder->save()) {
+                    $err++;
+                    print_r($founder->getErrors());
+                }
+            }
+        }
+        return !$err;
+
+    }
 
     /**
      * {@inheritdoc}

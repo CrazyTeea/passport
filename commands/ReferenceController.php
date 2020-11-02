@@ -215,6 +215,7 @@ class ReferenceController extends Controller
                 $founder = Founders::findOne($data->getValue()->id) ?? new Founders();
                 $founder->id = $data->getValue()->id;
                 $founder->founder = $data->getValue()->name;
+                $founder->system_status = $data->getValue()->system_status;
                 if (!$founder->save()) {
                     $err++;
                     print_r($founder->getErrors());

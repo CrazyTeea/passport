@@ -36,7 +36,7 @@ class OrganizationsController extends Controller
 
     public function actionFounders()
     {
-        return Founders::find()->all();
+        return Founders::findAll(['system_status'=>1]);
     }
 
     public function actionRegions()
