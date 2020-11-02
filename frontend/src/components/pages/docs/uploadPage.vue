@@ -21,8 +21,8 @@
           </div>
           <b-button class="mt-3" variant="outline-danger" block @click="hideModal">Я понял(а)</b-button>
         </b-modal>
-
-        <b-card v-for="(docType,index) in docTypes" :key="index"
+        <div v-if="docTypes.length">
+          <b-card v-for="(docType,index) in docTypes" :key="index"
                 border-variant="primary"
                 class="mt-2 shadow rounded"
         >
@@ -67,6 +67,13 @@
             </transition>
           </b-form-group>
         </b-card>
+        </div>
+        <div v-else>
+          <h2 class="text-danger">
+            Файлы не загружены
+          </h2>
+        </div>
+
       </div>
 
     </div>
@@ -100,8 +107,11 @@ export default {
       this.id_org = this.$route.fullPath.split('/')[3] || this.user.id_org
     else this.id_org = this.user.id_org;
 
+    console.log(this.docTypes.length);
 
     await this.getDocTypes();
+
+     console.log(this.docTypes.length);
 
     this.componentReady = true
 

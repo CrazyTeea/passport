@@ -14,6 +14,7 @@ namespace app\models;
  * @property string $created_at
  * @property string $updated_at
  * @property int|null $system_status
+ * @property int $active
  *
  * @property Founders $founder
  * @property Regions $region
@@ -38,7 +39,7 @@ class Organizations extends \yii\db\ActiveRecord
     {
         return [
             [['full_name', 'name', 'short_name'], 'string'],
-            [['id_region', 'id_founder', 'system_status'], 'integer'],
+            [['id_region', 'id_founder', 'system_status', 'active'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
             [['id_founder'], 'exist', 'skipOnError' => true, 'targetClass' => Founders::className(), 'targetAttribute' => ['id_founder' => 'id']],
             [['id_region'], 'exist', 'skipOnError' => true, 'targetClass' => Regions::className(), 'targetAttribute' => ['id_region' => 'id']],
@@ -63,6 +64,18 @@ class Organizations extends \yii\db\ActiveRecord
         ];
     }
 
+
+    public static function Active($id)
+    {
+        if (\Yii::$app->user->can('user')) {
+            $org = Organizations::findOne($id);
+            if (!$org->active) {
+                $org->active = true;
+                $org->save(false);
+            }
+        }
+    }
+
     /**
      * Gets query for [[Founder]].
      *
@@ -75,7 +88,7 @@ class Organizations extends \yii\db\ActiveRecord
 
     public function getObjs()
     {
-        return $this->hasMany(Objects::class,['id_org'=>'id']);
+        return $this->hasMany(Objects::class, ['id_org' => 'id']);
     }
 
     /**
@@ -111,5 +124,10 @@ class Organizations extends \yii\db\ActiveRecord
     public function getLivingStudents()
     {
         return $this->hasMany(OrgLivingStudents::class, ['id_org' => 'id']);
+    }
+
+    public function getOrgDocs()
+    {
+        return $this->hasMany(OrgDocs::class, ['id_org' => 'id']);
     }
 }

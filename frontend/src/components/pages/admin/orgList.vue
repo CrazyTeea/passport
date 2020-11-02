@@ -61,33 +61,71 @@
               </b-form-group>
 
               <b-form-group label-class="font-weight-bold" label="ФОИВ" label-for="id_founder">
-                <b-form-select id="id_founder" :options="founders" v-model.number="filter.id_founder"/>
+                <b-input-group>
+                  <template #append>
+                    <b-input-group-text class="pointer btn-outline-danger">
+                      <i @click="filter.id_founder = null" class=" fas fa-trash"></i>
+                    </b-input-group-text>
+                  </template>
+                  <b-form-select id="id_founder" :options="founders" v-model.number="filter.id_founder"/>
+                </b-input-group>
               </b-form-group>
 
               <b-form-group label-class="font-weight-bold" label="Субъект Российской Федерации" label-for="id_region">
-                <b-form-select id="id_region" :options="regions" v-model.number="filter.id_region"/>
+                <b-input-group>
+                  <template #append>
+                    <b-input-group-text class="pointer btn-outline-danger">
+                      <i @click="filter.id_region = null" class=" fas fa-trash"></i>
+                    </b-input-group-text>
+                  </template>
+                  <b-form-select id="id_region" :options="regions" v-model.number="filter.id_region"/>
+                </b-input-group>
               </b-form-group>
 
               <b-form-group label-class="font-weight-bold" label="Организации приступили к заполнению" label-for="zap">
-                <b-form-select id="zap" :options="[
+                <b-input-group>
+                  <template #append>
+                    <b-input-group-text class="pointer btn-outline-danger">
+                      <i @click="filter.zap = null" class=" fas fa-trash"></i>
+                    </b-input-group-text>
+                  </template>
+                  <b-form-select id="zap" :options="[
                   {value:1,text:'Приступили'},
-                  {value:1,text:'Не приступили'}
+                  {value:0,text:'Не приступили'}
               ]" v-model.number="filter.zap"/>
+                </b-input-group>
               </b-form-group>
 
               <b-form-group label-class="font-weight-bold" label="Организации добавили контактные данные"
                             label-for="kont">
-                <b-form-select id="kont" :options="[
+                <b-input-group>
+                  <template #append>
+                    <b-input-group-text class="pointer btn-outline-danger">
+                      <i @click="filter.kont = null" class=" fas fa-trash"></i>
+                    </b-input-group-text>
+                  </template>
+                  <b-form-select id="kont" :options="[
                   {value:1,text:'Добавили'},
-                  {value:1,text:'Не добавили'}
-              ]" v-model.number="filter.kont"/>
+                  {value:0,text:'Не добавили'}
+              ]" v-model="filter.kont"/>
+                </b-input-group>
               </b-form-group>
 
               <b-form-group label-class="font-weight-bold" label="Организации добавили документы" label-for="docs">
-                <b-form-select id="docs" :options="[
-                  {value:1,text:'Добавили'},
-                  {value:1,text:'Не добавили'}
-              ]" v-model.number="filter.docs"/>
+
+                <b-input-group>
+                  <template #append>
+                    <b-input-group-text class="pointer btn-outline-danger">
+                      <i @click="filter.docs = null" class=" fas fa-trash"></i>
+                    </b-input-group-text>
+                  </template>
+                  <b-form-select id="docs" :options="[
+                      {value:1,text:'Добавили'},
+                       {value:0,text:'Не добавили'}
+                  ]" v-model="filter.docs"/>
+                </b-input-group>
+
+
               </b-form-group>
 
             </div>
@@ -108,7 +146,8 @@
               </b-tr>
             </b-thead>
             <b-tbody>
-              <b-tr v-for="(item,index) in orgList" :key="`tr-${index}`" class="my-hover" @click="rowClick(item)" v-if="item.id">
+              <b-tr v-for="(item,index) in orgList" :key="`tr-${index}`" class="my-hover" @click="rowClick(item)"
+                    v-if="item.id">
                 <b-td>{{ (Number(index) + ((filter.offset - 1) * filter.limit) + 1) || '' }}</b-td>
                 <b-td>{{ item.id }}</b-td>
                 <b-td>{{ item.name }}</b-td>
@@ -146,6 +185,8 @@ import {
   BFormTag,
   BFormTags,
   BIcon,
+  BInputGroup,
+  BInputGroupText,
   BPagination,
   BTableSimple,
   BTbody,
@@ -163,8 +204,8 @@ export default {
     BToggle: VBToggle
   },
   components: {
-    Loading,
-    BTableSimple,
+    Loading, BInputGroup,
+    BTableSimple, BInputGroupText,
     BCard, BFormTag,
     BCardHeader, BPagination,
     BCollapse, BThead, BTbody,
@@ -196,7 +237,7 @@ export default {
 
   },
   computed: {
-    list(){
+    list() {
       return (Array.isArray(this.orgList) && this.orgList.length) || Object.keys(this.orgList).length;
     },
     criteria() {

@@ -52,20 +52,37 @@ class OrganizationsController extends Controller
     public function actionOrgFilter()
     {
         $filter = Yii::$app->request->get();
-        $cnt = Organizations::find()->select(['id', 'id_founder', 'id_region'])
-            ->andFilterWhere([
-                'id_founder' => $filter['id_founder'] ?? null,
-                'id' => $filter['id'] ?? null,
-                'id_region' => $filter['id_region'] ?? null,
-            ])->count();
-        $arr = Organizations::find()
-            ->andFilterWhere([
-                'organizations.id_founder' => $filter['id_founder'] ?? null,
-                'organizations.id' => $filter['id'] ?? null,
-                'organizations.id_region' => $filter['id_region'] ?? null,
-            ])
+
+        $filter_arr = [
+            'organizations.id_founder' => $filter['id_founder'] ?? null,
+            'organizations.id' => $filter['id'] ?? null,
+            'organizations.id_region' => $filter['id_region'] ?? null,
+        ];
+        $cnt = Organizations::find()->select(['organizations.id', 'organizations.id_founder', 'organizations.id_region']);
+        $arr = Organizations::find();
+        if (isset($filter['docs']) and $filter['docs'] == 1) {
+            $cnt = $cnt->joinWith('orgDocs');
+            $arr = $arr->joinWith('orgDocs');
+            $having = ['>', 'count(org_docs.id)', 0];
+        }
+        if (isset($filter['kont']) and $filter['kont'] == 1) {
+            $cnt = $cnt->joinWith('usersInfo',true,'join');
+            $arr = $arr->joinWith('usersInfo',true,'join');
+        }
+
+        if (isset($filter['zap']) and $filter['zap'] == 1) {
+            $filter_arr = array_merge($filter_arr,['active'=>1]);
+        }
+
+
+
+
+        $cnt = $cnt->andFilterWhere($filter_arr)->having($having ?? [])->count();
+
+        $arr = $arr->andFilterWhere($filter_arr)
             ->offset(($filter['offset'] - 1) * $filter['limit'])
             ->limit($filter['limit'])
+            ->having($having ?? [])
             ->groupBy(['organizations.id'])
             ->all();
 
@@ -77,6 +94,7 @@ class OrganizationsController extends Controller
                 'region' => $item->region->region,
                 'r_obj_cnt' => count(Objects::getRealEstateObjects($item->id)),
                 'my_obj_cnt' => Objects::find()->select(['id_org'])->where(['id_org' => $item->id])->count(),
+                'docs' => OrgDocs::find()->where(['id_org' => $item->id])->count('id')
             ];
         }, $arr), ['cnt' => $cnt]);
 

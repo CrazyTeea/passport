@@ -8,6 +8,7 @@ use app\models\Objects;
 use app\models\ObjectsArea;
 use app\models\ObjectsMoney;
 use app\models\ObjectsTariff;
+use app\models\Organizations;
 use Yii;
 use yii\helpers\Json;
 use yii\web\Controller;
@@ -45,6 +46,8 @@ class ObjectsController extends AppController
             $obj = new Objects();
             $obj->id_org = $id_org;
 
+            Organizations::Active($id_org);
+
             foreach ($post as $key => $item) {
                 $obj->$key = $item;
             }
@@ -61,6 +64,8 @@ class ObjectsController extends AppController
             $post = Json::decode($post['object'], false);
 
             $obj = Objects::findOne($id);
+
+            Organizations::Active($obj->id_org);
 
             foreach ($post as $key => $item) {
                 if (!in_array($key, ['id_org', 'area', 'money', 'tariff']))
