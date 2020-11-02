@@ -348,7 +348,7 @@ export default {
     },
     cntLiving() {
       this.living.cnt_stud_obuch = 0;
-      let toNum = num => typeof num === 'string' ? num.toNumber() : num;
+      let toNum = num => typeof num === 'string' ? num.toNumber() : (num || 0);
       Object.keys(this.items_b.items).forEach(i => {
         this.living.cnt_stud_obuch +=
             this.items_b.items[i].reduce((a, b) =>

@@ -75,7 +75,8 @@ class OrganizationsController extends Controller
                 'name' => $item->name,
                 'foiv' => $item->founder->founder,
                 'region' => $item->region->region,
-                'obj_cnt' => Objects::find()->select(['id_org'])->where(['id_org' => $item->id])->count(),
+                'r_obj_cnt' => count(Objects::getRealEstateObjects($item->id)),
+                'my_obj_cnt' => Objects::find()->select(['id_org'])->where(['id_org' => $item->id])->count(),
             ];
         }, $arr), ['cnt' => $cnt]);
 

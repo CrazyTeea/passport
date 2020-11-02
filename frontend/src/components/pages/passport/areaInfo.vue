@@ -502,6 +502,8 @@ export default {
   methods: {
     countArea() {
 
+      let toNum = num => typeof num === 'string' ? num.toNumber() : (num || 0);
+
       const zil = {
         area_zan_obuch: 0,
         area_in_kat_nan: 0,
@@ -512,30 +514,34 @@ export default {
 
       this.organization.objects?.forEach((item) => {
         if (item.area) {
-          zil.area_zan_obuch += item.area.zan_obuch.toNumber();
-          zil.area_in_kat_nan += item.area.zan_inie.toNumber();
-          zil.svobod = item.area.svobod.toNumber();
-          zil.ne_isp = item.area.neisp.toNumber();
+          zil.area_zan_obuch += toNum(item.area.zan_obuch);
+          zil.area_in_kat_nan += toNum(item.area.zan_inie);
+          zil.svobod = toNum(item.area.svobod);
+          zil.ne_isp = toNum(item.area.neisp);
 
-          nezil += (item.area.punkt_pit.toNumber() +
-              item.area.pom_dlya_uch.toNumber() +
-              item.area.pom_dlya_med.toNumber() +
-              item.area.pom_dlya_sport.toNumber() +
-              item.area.pom_dlya_soc.toNumber() +
-              item.area.pom_dlya_kult.toNumber() +
-              item.area.in_nezh_plosh.toNumber()
+          nezil += (
+              toNum(item.area.punkt_pit) +
+              toNum(item.area.pom_dlya_uch) +
+              toNum(item.area.pom_dlya_med) +
+              toNum(item.area.pom_dlya_sport) +
+              toNum(item.area.pom_dlya_soc) +
+              toNum(item.area.pom_dlya_kult) +
+              toNum(item.area.in_nezh_plosh)
           );
         }
       });
 
-      this.organization.area.all_t_k_r = (this.organization.area.area_zhil_t_k_r || '').toNumber() +
-          (this.organization.area.area_ne_zhil_t_k_r || '').toNumber();
+      this.organization.area.all_t_k_r =
+          toNum(this.organization.area.area_zhil_t_k_r) +
+          toNum(this.organization.area.area_ne_zhil_t_k_r);
 
-      this.organization.area.all_n_a_s = (this.organization.area.area_zhil_n_a_s || '').toNumber() +
-          (this.organization.area.area_ne_zhil_n_a_s || '').toNumber();
+      this.organization.area.all_n_a_s =
+          toNum(this.organization.area.area_zhil_n_a_s) +
+          toNum(this.organization.area.area_ne_zhil_n_a_s);
 
-      this.organization.area.all_n_p = (this.organization.area.area_zhil_n_p || '').toNumber() +
-          (this.organization.area.area_ne_zhil_n_p || '').toNumber();
+      this.organization.area.all_n_p =
+          toNum(this.organization.area.area_zhil_n_p) +
+          toNum(this.organization.area.area_ne_zhil_n_p);
 
 
       this.organization.area.area_obsh_ne_prig_dlya_prozh =
@@ -566,30 +572,30 @@ export default {
           this.organization.area.area_prig_prozh;
 
 
-      this.organization.area.all_c6m2_spo = +(this.area.c6m2_spo || 0) + +(this.area.m2_spo || 0);
-      this.organization.area.all_c6m2_spec = +(this.area.c6m2_spec || 0) + +(this.area.m2_spec || 0);
-      this.organization.area.all_c6m2_bak = +(this.area.c6m2_bak || 0) + +(this.area.m2_bak || 0);
-      this.organization.area.all_c6m2_asp = +(this.area.c6m2_asp || 0) + +(this.area.m2_asp || 0);
-      this.organization.area.all_c6m2_mag = +(this.area.c6m2_mag || 0) + +(this.area.m2_mag || 0);
-      this.organization.area.all_c6m2_ord = +(this.area.c6m2_ord || 0) + +(this.area.m2_ord || 0);
-      this.organization.area.all_c6m2_in = +(this.area.c6m2_in || 0) + +(this.area.m2_in || 0);
+      this.organization.area.all_c6m2_spo = toNum(this.area.c6m2_spo) + toNum(this.area.m2_spo);
+      this.organization.area.all_c6m2_spec = toNum(this.area.c6m2_spec) + toNum(this.area.m2_spec);
+      this.organization.area.all_c6m2_bak = toNum(this.area.c6m2_bak) + toNum(this.area.m2_bak);
+      this.organization.area.all_c6m2_asp = toNum(this.area.c6m2_asp) + toNum(this.area.m2_asp);
+      this.organization.area.all_c6m2_mag = toNum(this.area.c6m2_mag) + toNum(this.area.m2_mag);
+      this.organization.area.all_c6m2_ord = toNum(this.area.c6m2_ord) + toNum(this.area.m2_ord);
+      this.organization.area.all_c6m2_in = toNum(this.area.c6m2_in) + toNum(this.area.m2_in);
 
       this.organization.area.all_m2 =
-          +(this.area.m2_spo || 0) +
-          +(this.area.m2_spec || 0) +
-          +(this.area.m2_bak || 0) +
-          +(this.area.m2_asp || 0) +
-          +(this.area.m2_mag || 0) +
-          +(this.area.m2_ord || 0) +
-          +(this.area.m2_in || 0)
+          toNum(this.area.m2_spo) +
+          toNum(this.area.m2_spec) +
+          toNum(this.area.m2_bak) +
+          toNum(this.area.m2_asp) +
+          toNum(this.area.m2_mag) +
+          toNum(this.area.m2_ord) +
+          toNum(this.area.m2_in)
       this.organization.area.all_6m2 =
-          +(this.area.c6m2_spo || 0) +
-          +(this.area.c6m2_spec || 0) +
-          +(this.area.c6m2_bak || 0) +
-          +(this.area.c6m2_asp || 0) +
-          +(this.area.c6m2_mag || 0) +
-          +(this.area.c6m2_ord || 0) +
-          +(this.area.c6m2_in || 0)
+          toNum(this.area.c6m2_spo) +
+          toNum(this.area.c6m2_spec) +
+          toNum(this.area.c6m2_bak) +
+          toNum(this.area.c6m2_asp) +
+          toNum(this.area.c6m2_mag) +
+          toNum(this.area.c6m2_ord) +
+          toNum(this.area.c6m2_in)
       this.temp.area_cnt_mest_zan_obuch = +this.organization.area.all_c6m2_spo +
           +this.organization.area.all_c6m2_spec +
           +this.organization.area.all_c6m2_bak +
@@ -597,14 +603,14 @@ export default {
           +this.organization.area.all_c6m2_mag +
           +this.organization.area.all_c6m2_ord +
           +this.organization.area.all_c6m2_in
-      this.organization.area.area_cnt_mest_zan_obuch = this.organization.objects?.reduce((a, b) => a + +((b.area) ? b.area.cnt_mest_zan_obuch : 0), 0);
-      this.organization.area.area_cnt_mest_zan_in_obuch = this.organization.objects?.reduce((a, b) => a + +(b.area ? b.area.cnt_mest_zan_in_obuch : 0), 0);
-      this.organization.area.area_cnt_svob_mest = this.organization.objects?.reduce((a, b) => a + +(b.area ? b.area.cnt_svobod_mest : 0), 0);
-      this.organization.area.area_cnt_ne_mest = this.organization.objects?.reduce((a, b) => a + +(b.area ? b.area.cnt_neisp_mest : 0), 0);
-      this.organization.area.area_cnt_mest_ne_prig_k_prozh = this.organization.objects?.reduce((a, b) => a + +(b.area ? b.area.cnt_nepr_isp_mest : 0), 0);
-      this.organization.area.area_cnt_mest_invalid = this.organization.objects?.reduce((a, b) => a + +(b.area ? b.area.cnt_mest_inv : 0), 0);
-      this.organization.area.area_cnt_mest_vozm_mest_is_neisp = this.organization.objects?.reduce((a, b) => a + +(b.area ? b.area.cnt_mest_vozm_neisp_mest : 0), 0);
-      this.organization.area.area_cnt_mest_vozm_mest_is_neprig = this.organization.objects?.reduce((a, b) => a + +(b.area ? b.area.cnt_mest_vozm_neprig_mest : 0), 0);
+      this.organization.area.area_cnt_mest_zan_obuch = this.organization.objects?.reduce((a, b) => a + toNum((b.area) ? b.area.cnt_mest_zan_obuch : 0), 0);
+      this.organization.area.area_cnt_mest_zan_in_obuch = this.organization.objects?.reduce((a, b) => a + toNum(b.area ? b.area.cnt_mest_zan_in_obuch : 0), 0);
+      this.organization.area.area_cnt_svob_mest = this.organization.objects?.reduce((a, b) => a + toNum(b.area ? b.area.cnt_svobod_mest : 0), 0);
+      this.organization.area.area_cnt_ne_mest = this.organization.objects?.reduce((a, b) => a + toNum(b.area ? b.area.cnt_neisp_mest : 0), 0);
+      this.organization.area.area_cnt_mest_ne_prig_k_prozh = this.organization.objects?.reduce((a, b) => a + toNum(b.area ? b.area.cnt_nepr_isp_mest : 0), 0);
+      this.organization.area.area_cnt_mest_invalid = this.organization.objects?.reduce((a, b) => a + toNum(b.area ? b.area.cnt_mest_inv : 0), 0);
+      this.organization.area.area_cnt_mest_vozm_mest_is_neisp = this.organization.objects?.reduce((a, b) => a + toNum(b.area ? b.area.cnt_mest_vozm_neisp_mest : 0), 0);
+      this.organization.area.area_cnt_mest_vozm_mest_is_neprig = this.organization.objects?.reduce((a, b) => a + toNum(b.area ? b.area.cnt_mest_vozm_neprig_mest : 0), 0);
 
       this.organization.area.area_cnt_mest_prig_prozh = this.organization.area.area_cnt_mest_zan_obuch +
           this.organization.area.area_cnt_mest_zan_in_obuch +

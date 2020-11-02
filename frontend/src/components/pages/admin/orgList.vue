@@ -94,32 +94,35 @@
           </b-collapse>
         </b-card>
 
+        <div v-if="list">
+          <b-table-simple class="mt-2">
+            <b-thead>
+              <b-tr class="border-bottom">
+                <b-td>№</b-td>
+                <b-td>Id</b-td>
+                <b-td>Название организации</b-td>
+                <b-td>Регион</b-td>
+                <b-td>ФОИВ</b-td>
+                <b-td>Кол-во объектов</b-td>
+                <b-td>Загрузка док-ов</b-td>
+              </b-tr>
+            </b-thead>
+            <b-tbody>
+              <b-tr v-for="(item,index) in orgList" :key="`tr-${index}`" class="my-hover" @click="rowClick(item)" v-if="item.id">
+                <b-td>{{ (Number(index) + ((filter.offset - 1) * filter.limit) + 1) || '' }}</b-td>
+                <b-td>{{ item.id }}</b-td>
+                <b-td>{{ item.name }}</b-td>
+                <b-td>{{ item.region }}</b-td>
+                <b-td>{{ item.foiv }}</b-td>
+                <b-td>{{ item.r_obj_cnt }} / {{ item.my_obj_cnt }}</b-td>
+                <b-td>{{ item.docs }}</b-td>
+              </b-tr>
+            </b-tbody>
+          </b-table-simple>
+          <b-pagination :per-page="filter.limit" :total-rows="cnt" v-model.number="filter.offset"/>
+        </div>
+        <loading v-else/>
 
-        <b-table-simple class="mt-2">
-          <b-thead>
-            <b-tr class="border-bottom">
-              <b-td>#</b-td>
-              <b-td>Id</b-td>
-              <b-td>Название организации</b-td>
-              <b-td>Регион</b-td>
-              <b-td>ФОИВ</b-td>
-              <b-td>Кол-во объектов</b-td>
-              <b-td>Загрузка док-ов</b-td>
-            </b-tr>
-          </b-thead>
-          <b-tbody>
-            <b-tr v-for="(item,index) in orgList" :key="`tr-${index}`" class="my-hover" @click="rowClick(item)">
-              <b-td>{{ (Number(index) + ((filter.offset - 1) * filter.limit) + 1) || ''  }}</b-td>
-              <b-td>{{ item.id }}</b-td>
-              <b-td>{{ item.name }}</b-td>
-              <b-td>{{ item.region }}</b-td>
-              <b-td>{{ item.foiv }}</b-td>
-              <b-td>{{ item.obj_cnt }}</b-td>
-              <b-td>{{ item.docs }}</b-td>
-            </b-tr>
-          </b-tbody>
-        </b-table-simple>
-        <b-pagination :per-page="filter.limit" :total-rows="cnt" v-model.number="filter.offset"/>
       </div>
 
 
@@ -193,6 +196,9 @@ export default {
 
   },
   computed: {
+    list(){
+      return (Array.isArray(this.orgList) && this.orgList.length) || Object.keys(this.orgList).length;
+    },
     criteria() {
       // Compute the search criteria
       return this.search.trim().toLowerCase()
@@ -247,10 +253,11 @@ export default {
 
   },
   methods: {
-    rowClick(item){
+    rowClick(item) {
       window.open(`/admin/data/${item.id}`)
     },
     async getOrgList() {
+      this.orgList = [];
       await Axios.get('/api/organizations/org-filter', {
         params: this.filter
       }).then(response => {
@@ -312,9 +319,9 @@ export default {
 
 <style scoped>
 
-.my-hover:hover{
+.my-hover:hover {
   cursor: pointer;
-  background: rgba(200,200,0,0.1);
+  background: rgba(200, 200, 0, 0.1);
 }
 
 .item {

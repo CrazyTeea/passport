@@ -675,7 +675,7 @@ export default {
   },
   methods: {
     cntObject() {
-      let toNum = num => typeof num === 'string' ? num.toNumber() : (!num ? 0 : num);
+      let toNum = num => typeof num === 'string' ? num.toNumber() : (num || 0);
       this.cntVal.ob_fin_stroy =
           toNum(this.currentObject.money_faip) +
           toNum(this.currentObject.money_bud_sub) +

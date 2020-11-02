@@ -188,7 +188,7 @@ export default {
 
 
       this.living.cnt_inv = 0;
-      let toNum = num => typeof num === 'string' ? num.toNumber() : num;
+      let toNum = num => typeof num === 'string' ? num.toNumber() : (num || 0);
       Object.keys(this.items_b.items).forEach(i => {
 
         this.living.cnt_inv +=

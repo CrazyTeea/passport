@@ -1,7 +1,7 @@
 <template>
   <div>
 
-    <b-form-group class="mt-2" label-class="font-weight-bold" label="Название организаций">
+    <b-form-group class="mt-2" label-class="font-weight-bold" label="Выбранная организация">
 
       <b-form-input
           v-if="!org_name"
@@ -34,6 +34,8 @@
       </transition-group>
 
     </b-form-group>
+
+    <hr class="mt-2">
 
   </div>
 </template>
@@ -101,7 +103,7 @@ export default {
             }
           }));
     let arr = [];
-    let toNum = num => typeof num === 'string' ? num.toNumber() : (!num ? 0 : num);
+    let toNum = num => typeof num === 'string' ? num.toNumber() : (num || 0);
     this.org_name = orgs.find(item=>toNum(item.value) === toNum(this.value)).text;
   },
   methods: {
