@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\ContactForm;
 use app\models\Countries;
+use app\models\Founders;
 use app\models\LoginForm;
 use app\models\Organizations;
 use app\models\User;
@@ -69,14 +70,14 @@ class SiteController extends Controller
         $signer = new Sha256();
 
         $token = (new Builder())->set('reference', 'organization_founder')
-            ->sign($signer, self::$jwt_key)
+            ->sign($signer, 'example_key233')
             ->getToken();
 
         $response_token = file_get_contents("http://api.xn--80apneeq.xn--p1ai/api.php?option=reference_api&action=get_reference&module=constructor&reference_token=$token");
 
         $signer = new Sha256();
         $token = (new Parser())->parse($response_token);
-        if ($token->verify($signer, self::$jwt_key)) {
+        if ($token->verify($signer, 'example_key233')) {
 
             $data_reference = $token->getClaims();
 
