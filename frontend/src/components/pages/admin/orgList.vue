@@ -63,7 +63,7 @@
               <b-form-group label-class="font-weight-bold" label="ФОИВ" label-for="id_founder">
                 <b-input-group>
                   <template #append>
-                    <b-input-group-text class="pointer btn-outline-danger">
+                    <b-input-group-text @click="filter.id_founder = null" class="pointer btn-outline-danger">
                       <i @click="filter.id_founder = null" class=" fas fa-trash"></i>
                     </b-input-group-text>
                   </template>
@@ -74,8 +74,8 @@
               <b-form-group label-class="font-weight-bold" label="Субъект Российской Федерации" label-for="id_region">
                 <b-input-group>
                   <template #append>
-                    <b-input-group-text class="pointer btn-outline-danger">
-                      <i @click="filter.id_region = null" class=" fas fa-trash"></i>
+                    <b-input-group-text @click="filter.id_region = null" class="pointer btn-outline-danger">
+                      <i class=" fas fa-trash"></i>
                     </b-input-group-text>
                   </template>
                   <b-form-select id="id_region" :options="regions" v-model.number="filter.id_region"/>
@@ -85,8 +85,8 @@
               <b-form-group label-class="font-weight-bold" label="Организации приступили к заполнению" label-for="zap">
                 <b-input-group>
                   <template #append>
-                    <b-input-group-text class="pointer btn-outline-danger">
-                      <i @click="filter.zap = null" class=" fas fa-trash"></i>
+                    <b-input-group-text @click="filter.zap = null" class="pointer btn-outline-danger">
+                      <i class=" fas fa-trash"></i>
                     </b-input-group-text>
                   </template>
                   <b-form-select id="zap" :options="[
@@ -100,8 +100,8 @@
                             label-for="kont">
                 <b-input-group>
                   <template #append>
-                    <b-input-group-text class="pointer btn-outline-danger">
-                      <i @click="filter.kont = null" class=" fas fa-trash"></i>
+                    <b-input-group-text @click="filter.kont = null" class="pointer btn-outline-danger">
+                      <i  class=" fas fa-trash"></i>
                     </b-input-group-text>
                   </template>
                   <b-form-select id="kont" :options="[
@@ -115,8 +115,8 @@
 
                 <b-input-group>
                   <template #append>
-                    <b-input-group-text class="pointer btn-outline-danger">
-                      <i @click="filter.docs = null" class=" fas fa-trash"></i>
+                    <b-input-group-text @click="filter.docs = null" class="pointer btn-outline-danger">
+                      <i  class=" fas fa-trash"></i>
                     </b-input-group-text>
                   </template>
                   <b-form-select id="docs" :options="[

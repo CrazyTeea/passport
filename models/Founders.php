@@ -7,6 +7,7 @@ namespace app\models;
  *
  * @property int $id
  * @property string|null $founder
+ * @property int $system_status
  *
  * @property Organizations[] $organizations
  */
@@ -26,6 +27,7 @@ class Founders extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['system_status'],'integer'],
             [['founder'], 'string'],
         ];
     }
