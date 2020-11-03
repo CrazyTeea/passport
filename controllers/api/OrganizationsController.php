@@ -86,11 +86,10 @@ class OrganizationsController extends Controller
             ->groupBy(['organizations.id'])
             ->all();
 
-        $cnt2 = 0;
-        $arr2 = array_map(function ($item) use (&$cnt2)  {
+
+        $arr2 = array_map(function ($item)  {
             $r_obj_cnt = count(Objects::getRealEstateObjects($item->id));
             $my_obj_cnt = Objects::find()->select(['id_org'])->where(['id_org' => $item->id])->count();
-            $cnt2++;
             if ($r_obj_cnt or $my_obj_cnt)
                 return [
                     'id' => $item->id,
@@ -104,18 +103,16 @@ class OrganizationsController extends Controller
             return null;
         }, $arr);
 
-        $cnt*=1;
+
 
         $arr2 = array_filter($arr2, function ($item){
-
             if (is_null($item)) {
                 return false;
             }
-
             return true;
         });
 
-        return array_merge($arr2, ['cnt' => $cnt,'cnt2'=>$cnt2]);
+        return array_merge($arr2, ['cnt' => $cnt > 255 ? 255 : $cnt]);
 
     }
 
