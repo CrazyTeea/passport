@@ -136,13 +136,13 @@
           <b-table-simple class="mt-2">
             <b-thead>
               <b-tr class="border-bottom">
-                <b-td>№</b-td>
-                <b-td>Id</b-td>
-                <b-td>Название организации</b-td>
-                <b-td>Регион</b-td>
-                <b-td>ФОИВ</b-td>
-                <b-td>Кол-во объектов</b-td>
-                <b-td>Загрузка док-ов</b-td>
+                <b-th>№</b-th>
+                <b-th>Id</b-th>
+                <b-th>Название организации</b-th>
+                <b-th>Регион</b-th>
+                <b-th>ФОИВ</b-th>
+                <b-th>Кол-во объектов</b-th>
+                <b-th>Загрузка док-ов</b-th>
               </b-tr>
             </b-thead>
             <b-tbody>
