@@ -36,7 +36,7 @@ class OrganizationsController extends Controller
 
     public function actionFounders()
     {
-        return Founders::findAll(['system_status'=>1]);
+        return Founders::findAll(['system_status' => 1]);
     }
 
     public function actionRegions()
@@ -66,18 +66,18 @@ class OrganizationsController extends Controller
             $having = ['>', 'count(org_docs.id)', 0];
         }
         if (isset($filter['kont']) and $filter['kont'] == 1) {
-            $cnt = $cnt->joinWith('usersInfo',true,'join');
-            $arr = $arr->joinWith('usersInfo',true,'join');
+            $cnt = $cnt->joinWith('usersInfo', true, 'join');
+            $arr = $arr->joinWith('usersInfo', true, 'join');
         }
 
         if (isset($filter['zap']) and $filter['zap'] == 1) {
-            $filter_arr = array_merge($filter_arr,['active'=>1]);
+            $filter_arr = array_merge($filter_arr, ['active' => 1]);
         }
 
 
-
-
-        $cnt = $cnt->andFilterWhere($filter_arr)->having($having ?? [])->count();
+        $cnt = $cnt->andFilterWhere($filter_arr)
+            ->groupBy(['organizations.id'])
+            ->having($having ?? [])->count();
 
         $arr = $arr->andFilterWhere($filter_arr)
             ->offset(($filter['offset'] - 1) * $filter['limit'])
@@ -86,17 +86,36 @@ class OrganizationsController extends Controller
             ->groupBy(['organizations.id'])
             ->all();
 
-        return array_merge(array_map(function ($item) {
-            return [
-                'id' => $item->id,
-                'name' => $item->name,
-                'foiv' => $item->founder->founder,
-                'region' => $item->region->region,
-                'r_obj_cnt' => count(Objects::getRealEstateObjects($item->id)),
-                'my_obj_cnt' => Objects::find()->select(['id_org'])->where(['id_org' => $item->id])->count(),
-                'docs' => OrgDocs::find()->where(['id_org' => $item->id])->count('id')
-            ];
-        }, $arr), ['cnt' => $cnt]);
+        $cnt2 = 0;
+        $arr2 = array_map(function ($item) use (&$cnt2)  {
+            $r_obj_cnt = count(Objects::getRealEstateObjects($item->id));
+            $my_obj_cnt = Objects::find()->select(['id_org'])->where(['id_org' => $item->id])->count();
+            $cnt2++;
+            if ($r_obj_cnt or $my_obj_cnt)
+                return [
+                    'id' => $item->id,
+                    'name' => $item->name,
+                    'foiv' => $item->founder->founder,
+                    'region' => $item->region->region,
+                    'r_obj_cnt' => $r_obj_cnt,
+                    'my_obj_cnt' => $my_obj_cnt,
+                    'docs' => OrgDocs::find()->where(['id_org' => $item->id])->count('id')
+                ];
+            return null;
+        }, $arr);
+
+        $cnt*=1;
+
+        $arr2 = array_filter($arr2, function ($item){
+
+            if (is_null($item)) {
+                return false;
+            }
+
+            return true;
+        });
+
+        return array_merge($arr2, ['cnt' => $cnt,'cnt2'=>$cnt2]);
 
     }
 
