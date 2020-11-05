@@ -170,7 +170,7 @@
               </b-td>
             </b-tr>
             <b-tr>
-              <b-td>По иным о.п.</b-td>
+              <b-td>По иным п.о</b-td>
               <b-td>
                 <b-form-input type="number" v-model="organization.info[0].s_f_b_in" :disabled="blockSave"/>
               </b-td>
@@ -359,7 +359,7 @@
               </b-td>
             </b-tr>
             <b-tr>
-              <b-td>По иным о.п.</b-td>
+              <b-td>По иным п.о</b-td>
               <b-td>
                 <b-form-input type="number" v-model="organization.info[1].s_f_b_in" :disabled="blockSave"/>
               </b-td>

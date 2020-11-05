@@ -101,7 +101,7 @@
                 <b-input-group>
                   <template #append>
                     <b-input-group-text @click="filter.kont = null" class="pointer btn-outline-danger">
-                      <i  class=" fas fa-trash"></i>
+                      <i class=" fas fa-trash"></i>
                     </b-input-group-text>
                   </template>
                   <b-form-select id="kont" :options="[
@@ -116,7 +116,7 @@
                 <b-input-group>
                   <template #append>
                     <b-input-group-text @click="filter.docs = null" class="pointer btn-outline-danger">
-                      <i  class=" fas fa-trash"></i>
+                      <i class=" fas fa-trash"></i>
                     </b-input-group-text>
                   </template>
                   <b-form-select id="docs" :options="[
@@ -131,6 +131,13 @@
             </div>
           </b-collapse>
         </b-card>
+
+        <div class="mt-2">
+          <export-modal :filter="filter"/>
+
+        </div>
+
+
 
         <div v-if="list">
           <b-table-simple class="mt-2">
@@ -191,12 +198,13 @@ import {
   BTableSimple,
   BTbody,
   BTd,
-  BTh,
+  BTh,BButton,
   BThead,
   BTr,
   VBToggle
 } from 'bootstrap-vue'
 import Loading from "../../organisms/loading";
+import ExportModal from "../../organisms/exportModal";
 
 export default {
   name: "orgList",
@@ -204,6 +212,7 @@ export default {
     BToggle: VBToggle
   },
   components: {
+    ExportModal,
     Loading, BInputGroup,
     BTableSimple, BInputGroupText,
     BCard, BFormTag,
@@ -211,7 +220,7 @@ export default {
     BCollapse, BThead, BTbody,
     BTh, BTd, BTr,
     BFormGroup, BIcon,
-    BFormSelect,
+    BFormSelect, BButton,
     BFormInput, BFormTags,
   },
   asyncComputed: {
@@ -294,6 +303,9 @@ export default {
 
   },
   methods: {
+    showModal(){
+      console.log('ad');
+    },
     rowClick(item) {
       window.open(`/admin/data/${item.id}`)
     },

@@ -31,6 +31,7 @@ return [
             '/admin/role/*',
             '/admin/rule/*',
             '/admin/user/*',
+            '/app/export/*',
         ],
     ],
     'user' => [
@@ -46,6 +47,7 @@ return [
             '/api/objects/*',
             '/app/manual/*',
             '/app/manual/index',
+            '/app/export/*',
         ],
     ],
     '/app/passport/*' => [
@@ -445,6 +447,12 @@ return [
         'type' => 2,
     ],
     '/app/passport/living-info-inv' => [
+        'type' => 2,
+    ],
+    '/app/export/*' => [
+        'type' => 2,
+    ],
+    '/app/export/export-stat' => [
         'type' => 2,
     ],
 ];
