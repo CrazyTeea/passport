@@ -5,6 +5,8 @@ namespace app\controllers\api;
 
 
 use app\models\Countries;
+use app\models\Objects;
+use app\models\Organizations;
 use app\models\Regions;
 use yii\rest\Controller;
 

@@ -4,7 +4,8 @@
     <div class="container">
       <div v-if="componentReady">
 
-        <org-select v-can:admin,root v-model="id_org"/>
+        <org-select link="/api/organizations/all" error-msg="нет доступных организаций по заданным критериаям"
+                    label="Выбранная организация" v-can:admin,root v-model="id_org"/>
         <b-modal no-close-on-esc
                  no-close-on-backdrop
                  centered
