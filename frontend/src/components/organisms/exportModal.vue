@@ -27,7 +27,9 @@ export default {
 
       console.log(window.location.protocol + "://" + window.location.host + '/app/export/export-stat')
 
-      let url = new URL('http://localhost:3000');
+      let url = new URL( window.location.host);
+      url.protocol = window.location.protocol;
+      url.host = window.location.host;
       url.pathname = '/app/export/export-stat'
 
       Object.keys(this.filter).forEach(item => {
