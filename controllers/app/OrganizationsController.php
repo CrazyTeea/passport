@@ -224,7 +224,7 @@ class OrganizationsController extends AppController
                 $stud->mag = $stud_item->mag ?? null;
                 $stud->asp = $stud_item->asp ?? null;
                 $stud->ord = $stud_item->ord ?? null;
-                $stud->in = $stud_item->ipo ?? null;
+                $stud->in = $stud_item->in ?? null;
                 if (!$stud->spec and !$stud->spo and !$stud->bak and !$stud->mag and !$stud->ord and !$stud->in) continue;
                 $living_studs[] = ['success' => $stud->save(), 'errors' => $stud->errors];
 

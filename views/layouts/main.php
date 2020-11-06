@@ -50,7 +50,7 @@ AppAsset::register($this);
 
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav ml-auto'],
-        'items' => array_merge( [['label' => 'Инструкция', 'url' => ['/manual']]],MenuHelper::getAssignedMenu(Yii::$app->user->id))
+        'items' => MenuHelper::getAssignedMenu(Yii::$app->user->id)
 
 
     ]);
