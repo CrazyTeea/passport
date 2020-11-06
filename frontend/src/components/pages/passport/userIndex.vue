@@ -33,7 +33,7 @@
           <div style="margin-top: 10px;" class="row">
             <div class="col-8"><h5>Регион: {{ organization.region.region }}</h5></div>
             <div class="col-4">
-              <b-button block variant="outline-secondary">Инструкция</b-button>
+              <b-button target="_blank" href="/manual.pdf" block variant="outline-secondary">Инструкция</b-button>
             </div>
           </div>
           <div style="margin-top: 10px;" class="row">
