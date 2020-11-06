@@ -1,6 +1,19 @@
 <?php
 
-
+function cntInfo($info){
+    $cnt = 0;
+    if ($info){
+        foreach ($info as $item){
+            foreach ($item as $key => $val) {
+             if ($key == 'id' or $key=='id_org' or $key=='stud_type')
+                 continue;
+             if ($item->$key)
+                $cnt++;
+            }
+        }
+    }
+    return $cnt;
+}
 
 ?>
 
@@ -34,11 +47,11 @@
     <tbody>
     <?php foreach ($orgs as $org): ?>
     <tr>
-        <td><?=$org->id?></td>
-        <td><?=$org->name?></td>
-        <td><?=$org->region->region?></td>
-        <td><?=$org->founder->founder?></td>
-        <td></td>
+        <td><?=htmlspecialchars($org->id)?></td>
+        <td><?=htmlspecialchars($org->name)?></td>
+        <td><?=htmlspecialchars($org->region->region)?></td>
+        <td><?=htmlspecialchars($org->founder->founder)?></td>
+        <td><?=cntInfo($org->info)?></td>
         <td></td>
         <td></td>
         <td></td>

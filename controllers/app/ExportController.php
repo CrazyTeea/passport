@@ -29,6 +29,8 @@ class ExportController extends AppController
         $orgs = Organizations::find()->andFilterWhere($where)->all();
 
         $html = $this->renderPartial('_stat', compact('orgs'));
+        return $html;
+
         $reader = new Html();
         $html = $reader->loadFromString($html);
 
