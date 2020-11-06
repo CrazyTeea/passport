@@ -29,13 +29,21 @@ class ExportController extends AppController
         $orgs = Organizations::find()->andFilterWhere($where)->all();
 
         $html = $this->renderPartial('_stat', compact('orgs'));
-        return $html;
 
         $reader = new Html();
+
         $html = $reader->loadFromString($html);
 
         $writer = IOFactory::createWriter($html, 'Xlsx');
-        $writer->save('write.xlsx');
+
+        $path = Yii::getAlias('@webroot').'/uploads/statistic.xlsx';
+
+        $writer->save($path);
+
+        Yii::$app->response->sendFile($path)->send();
+
+        unlink($path);
+
 
     }
 }
