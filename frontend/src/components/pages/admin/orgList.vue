@@ -60,7 +60,9 @@
                 </b-form-tags>
               </b-form-group>
 
-              <b-form-group label-class="font-weight-bold" label="ФОИВ" label-for="id_founder">
+              <org-select label="Фоив" link="/api/organizations/founders" error-msg="нет такого ФИИВ" v-model="filter.id_founder"/>
+
+              <!--<b-form-group label-class="font-weight-bold" label="ФОИВ" label-for="id_founder">
                 <b-input-group>
                   <template #append>
                     <b-input-group-text @click="filter.id_founder = null" class="pointer btn-outline-danger">
@@ -69,7 +71,7 @@
                   </template>
                   <b-form-select id="id_founder" :options="founders" v-model.number="filter.id_founder"/>
                 </b-input-group>
-              </b-form-group>
+              </b-form-group>-->
 
               <b-form-group label-class="font-weight-bold" label="Субъект Российской Федерации" label-for="id_region">
                 <b-input-group>
@@ -205,6 +207,7 @@ import {
 } from 'bootstrap-vue'
 import Loading from "../../organisms/loading";
 import ExportModal from "../../organisms/exportModal";
+import OrgSelect from "../../organisms/orgSelect";
 
 export default {
   name: "orgList",
@@ -212,6 +215,7 @@ export default {
     BToggle: VBToggle
   },
   components: {
+    OrgSelect,
     ExportModal,
     Loading, BInputGroup,
     BTableSimple, BInputGroupText,
@@ -294,7 +298,7 @@ export default {
     }
   },
   async mounted() {
-    await this.getFounders();
+    //await this.getFounders();
     await this.getRegions()
     await this.getOrgList()
     setTimeout(() => {

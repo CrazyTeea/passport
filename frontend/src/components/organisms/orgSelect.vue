@@ -1,7 +1,7 @@
 <template>
   <div>
 
-    <b-form-group class="mt-2" label-class="font-weight-bold" label="Выбранная организация">
+    <b-form-group class="mt-2" label-class="font-weight-bold" :label="label">
 
       <b-form-input
           v-if="!org_name"
@@ -46,7 +46,7 @@ import {BFormGroup, BFormInput} from 'bootstrap-vue'
 
 export default {
   name: "orgSelect",
-  props: ['value'],
+  props: ['value','label','link','errorMsg'],
   data() {
     return {
       search: '',
@@ -58,14 +58,14 @@ export default {
       lazy: true,
       get() {
         if (this.criteria.length >= 3) {
-          return Axios.get('/api/organizations/all', {
+          return Axios.get(this.link, {
             params: {
               name: this.criteria
             }
           }).then(response => response.data.map(item => {
             return {
               value: item.id,
-              text: item.name
+              text: item.name || item.founder
             }
           }));
         }
@@ -82,7 +82,7 @@ export default {
     },
     searchDesc() {
       if (this.criteria && this.availableOptions.length === 0) {
-        return 'нет доступных организаций по заданным критериаям'
+        return this.errorMsg //'нет доступных организаций по заданным критериаям'
       }
       return ''
     }
@@ -92,19 +92,20 @@ export default {
     BFormGroup
   },
   async mounted() {
-    let orgs = await Axios.get('/api/organizations/all', {
+    let orgs = await Axios.get(this.link, {
             params: {
               name: this.criteria
             }
           }).then(response => response.data.map(item => {
             return {
               value: item.id,
-              text: item.name
+              text: item.name || item.founder
             }
           }));
     let arr = [];
     let toNum = num => typeof num === 'string' ? num.toNumber() : (num || 0);
-    this.org_name = orgs.find(item=>toNum(item.value) === toNum(this.value)).text;
+    let item = orgs.find(item=>toNum(item.value) === toNum(this.value))
+    this.org_name = (item) ? item.text : null;
   },
   methods: {
     beforeEnter: function (el) {

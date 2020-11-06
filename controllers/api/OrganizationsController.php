@@ -36,7 +36,8 @@ class OrganizationsController extends Controller
 
     public function actionFounders()
     {
-        return Founders::findAll(['system_status' => 1]);
+        $name = Yii::$app->request->get('name');
+        return Founders::find()->where(['system_status' => 1])->andWhere(['like', 'founder', $name])->all();
     }
 
     public function actionRegions()

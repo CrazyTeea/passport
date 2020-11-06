@@ -6,7 +6,8 @@
       <div v-if="componentReady" class="container">
 
 
-        <org-select v-can:admin,root v-model="id_org"/>
+        <org-select link="/api/organizations/all" error-msg="нет доступных организаций по заданным критериаям"
+                    label="Выбранная организация" v-can:admin,root v-model="id_org"/>
 
         <div class="row">
           <div class="col-8">
