@@ -10,33 +10,34 @@
 </template>
 
 <script>
-import {BButton,BModal} from 'bootstrap-vue'
+import {BButton, BModal} from 'bootstrap-vue'
+
 export default {
   name: "exportModal",
-  props:['filter'],
-  components:{
+  props: ['filter'],
+  components: {
     BButton,
     BModal
   },
-  methods:{
-    showModal(id){
+  methods: {
+    showModal(id) {
       this.$refs[id].show();
     },
-    export_stat(){
+    export_stat() {
 
-      console.log(window.location.protocol +"://"+ window.location.host +'/app/export/export-stat')
+      console.log(window.location.protocol + "://" + window.location.host + '/app/export/export-stat')
 
       let url = new URL('http://localhost:3000');
       url.pathname = '/app/export/export-stat'
 
-      Object.keys(this.filter).forEach(item=>{
+      Object.keys(this.filter).forEach(item => {
         if (this.filter[item])
-          url.searchParams.set(item,this.filter[item]);
+          url.searchParams.set(item, this.filter[item]);
       })
 
       console.log(url)
 
-     let win = window.open(url.href);
+      let win = window.open(url.href);
       win.focus()
 
     }
