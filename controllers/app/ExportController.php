@@ -56,7 +56,11 @@ class ExportController extends AppController
 
         $html = $reader->loadFromString($html);
 
+        $html->getActiveSheet()->getDefaultRowDimension()->setRowHeight(15);
+        $html->getActiveSheet()->getDefaultColumnDimension()->setWidth(12);
+
         $writer = IOFactory::createWriter($html, 'Xlsx');
+
 
         $path = Yii::getAlias('@webroot') . '/uploads/statistic.xlsx';
 
