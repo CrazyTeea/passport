@@ -40,11 +40,11 @@ class ExportController extends AppController
             $having = ['>', 'count(org_docs.id)', 0];
         }
 
-        $orgs = $orgs->andFilterWhere($where)->having($having ?? []);
+        $orgs = $orgs->andFilterWhere($where)->having($having ?? [])->groupBy('organizations.id');
         $orgs_id = (clone $orgs)->select(['organizations.id'])->column();
+
         $orgs = $orgs->all();
 
-        dd($orgs);
 
 
         $r_objs = \app\models\Objects::getRealEstateObjects($orgs_id);
