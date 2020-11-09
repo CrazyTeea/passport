@@ -25,7 +25,7 @@ export default {
     },
     export_stat() {
 
-      let url = new URL( window.location.host);
+      let url = new URL('http://127.0.0.1');
       url.protocol = window.location.protocol;
       url.host = window.location.host;
       url.pathname = '/app/export/export-stat'
