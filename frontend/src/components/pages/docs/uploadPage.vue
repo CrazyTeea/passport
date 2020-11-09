@@ -68,6 +68,12 @@
             </transition>
           </b-form-group>
         </b-card>
+          <b-form-checkbox @input="setOrgVal" size="lg" class="mt-5" v-model="organization.data_complete" >
+            <div class="text-danger">
+              Внесение данных завершено
+            </div>
+
+          </b-form-checkbox>
         </div>
         <div v-else>
           <h2 class="text-danger">
@@ -83,7 +89,8 @@
 
 <script>
 import Axios from 'axios';
-import {BButton, BCard, BCardText, BFormFile, BFormGroup, BInputGroup, BModal, BProgress,} from 'bootstrap-vue';
+import {BButton, BCard, BCardText, BFormFile,BFormCheckbox,
+  BFormGroup, BInputGroup, BModal, BProgress,} from 'bootstrap-vue';
 import NavBar from '../../organisms/NavBar';
 import OrgSelect from "../../organisms/orgSelect";
 
@@ -92,7 +99,7 @@ export default {
   components: {
     OrgSelect,
     NavBar,
-    BCard,
+    BCard,BFormCheckbox,
     BProgress,
     BCardText,
     BButton,
@@ -108,19 +115,20 @@ export default {
       this.id_org = this.$route.fullPath.split('/')[3] || this.user.id_org
     else this.id_org = this.user.id_org;
 
-    console.log(this.docTypes.length);
-
+    await this.getOrganization();
     await this.getDocTypes();
 
-     console.log(this.docTypes.length);
+
 
     this.componentReady = true
 
   },
   watch: {
     async id_org() {
-      if (this.componentReady)
+      if (this.componentReady) {
+        await this.getOrganization();
         await this.getDocTypes();
+      }
     },
     docTypes: {
       handler() {
@@ -165,6 +173,23 @@ export default {
       }
 
       item.server_file = null;
+    },
+    async getOrganization(){
+      await Axios.get(`/api/organization/by-id/${this.id_org}`).then((res) => {
+        this.organization = res.data.organization;
+        this.organization.data_complete = this.organization.data_complete ===1
+      });
+    },
+    async setOrgVal(){
+      let data = new FormData();
+      console.log(this.organization.data_complete)
+      data.append('value',(this.organization.data_complete ? 1: 0).toString());
+      data.append('attr','data_complete');
+      await Axios.post(`/organization/set-val/${this.id_org}`,data,{
+        headers: {
+              'X-CSRF-Token': this.csrf,
+            },
+      }).then(res=>{console.log(res.data)})
     },
     async saveFile(item, index) {
       if (item.server_file) {
@@ -213,6 +238,7 @@ export default {
       docTypes: [],
       user: {},
       id_org: null,
+      organization: null,
       componentReady: false
     };
   },

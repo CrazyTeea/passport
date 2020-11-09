@@ -14,7 +14,7 @@ use app\models\OrgLivingStudents;
 use app\models\UsersInfo;
 use Yii;
 use yii\helpers\Json;
-use yii\web\Controller;
+use yii\web\NotFoundHttpException;
 use yii\web\UploadedFile;
 
 class OrganizationsController extends AppController
@@ -233,5 +233,21 @@ class OrganizationsController extends AppController
 
         }
         return Json::encode($ret ?? 'не верный пост');
+    }
+
+    /**
+     * @param $id
+     * @throws NotFoundHttpException
+     */
+    public function actionSetOrgValue($id)
+    {
+        $org = Organizations::findOne($id);
+        if (!$org)
+            throw new NotFoundHttpException("Организация не найдена");
+        $value = Yii::$app->request->post('value');
+        $attr = Yii::$app->request->post('attr');
+        $org->$attr = $value;
+        return Json::encode(['success' => $org->save(), 'errors' => $org->getErrors(),$value]);
+
     }
 }

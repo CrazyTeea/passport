@@ -1,9 +1,11 @@
 <?php
 
-function cntObj($org)
-{
 
-}
+
+/**
+ * @var \app\models\Organizations[] $orgs
+ * @var \app\models\Objects[] $r_objs
+ */
 
 function cntLiving($items, $inos = false, $inv = false)
 {
@@ -86,7 +88,6 @@ function cnt($info)
 
         <td>Суммарное количество прикреплённых файлов</td>
         <td>Внесение данных завершено</td>
-        <td>Комментарии по заполненным общежитиям</td>
     </tr>
     </thead>
     <tbody>
@@ -117,8 +118,7 @@ function cnt($info)
                 <td><?= $cnt_objs ?></td>
                 <td><?= $cnt_r_objs ? round($cnt_objs * 100 / $cnt_r_objs) : 0 ?>%</td>
                 <td><?= count($org->orgDocs) ?></td>
-                <td>NET</td>
-                <td>AZAZAZAAZAZAZAZA!</td>
+                <td><?= $org->data_complete ? 'Да' : 'Нет' ?></td>
             </tr>
         <?php endif; ?>
     <?php endforeach; ?>
