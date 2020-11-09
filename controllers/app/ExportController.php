@@ -44,6 +44,7 @@ class ExportController extends AppController
         $orgs_id = (clone $orgs)->select(['organizations.id'])->column();
         $orgs = $orgs->all();
 
+
         $r_objs = \app\models\Objects::getRealEstateObjects($orgs_id);
 
 
