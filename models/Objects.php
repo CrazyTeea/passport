@@ -146,17 +146,27 @@ class Objects extends \yii\db\ActiveRecord
         return $this->hasOne(ObjectsTariff::class, ['id_object' => 'id']);
     }
 
-    public static function getRealEstateObjects(int $id_org, int $idEgrnAssignment = 1): array
+    /**
+     * @param int | array $id_org
+     * @param int $idEgrnAssignment
+     * @return array
+     * @throws \yii\base\InvalidConfigException
+     * @throws \yii\httpclient\Exception
+     */
+    public static function getRealEstateObjects($id_org, int $idEgrnAssignment = 1): array
     {
+        $id_org = is_array($id_org) ? 'id_orgs:['.implode(',',$id_org).']' : 'id_org:'.$id_org;
+
         $client = new Client();
         $response = $client->createRequest()
             ->setUrl('https://xn--b1adcgjb2abq4al4j.xn--80apneeq.xn--p1ai/api/graph?access-token=23498jfskduespq0')
             ->setMethod('POST')
             ->setData(['query' => "{
-            realEstates(id_org:{$id_org},id_egrn_assignment:{$idEgrnAssignment}){              
+            realEstates({$id_org},id_egrn_assignment:{$idEgrnAssignment}){              
                 cadastral_number
                 egrn_id_region
                 id
+                id_org
                 object_name
                 objectEgrnAddress   
                 registration_right_number     
@@ -164,6 +174,7 @@ class Objects extends \yii\db\ActiveRecord
                 id_right_type
             }
         }"])->send();
+
 
         return $response->getData()['data']['realEstates'];
     }

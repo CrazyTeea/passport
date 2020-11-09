@@ -8,6 +8,7 @@ use app\models\Organizations;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Reader\Html;
 use Yii;
+use function Matrix\diagonal;
 
 class ExportController extends AppController
 {
@@ -15,7 +16,7 @@ class ExportController extends AppController
     {
         $get = Yii::$app->request->get();
 
-        $where = [];
+        $where = ['system_status'=>1];
 
         if (isset($get['id']) and $get['id'])
             $where['organizations.id'] = array_map(function ($item) {
@@ -28,7 +29,12 @@ class ExportController extends AppController
 
         $orgs = Organizations::find()->andFilterWhere($where)->all();
 
-        $html = $this->renderPartial('_stat', compact('orgs'));
+        $orgs_id = Organizations::find()->select(['id'])->column();
+
+        $r_objs = \app\models\Objects::getRealEstateObjects($orgs_id);
+
+
+        $html = $this->renderPartial('_stat', compact('orgs','r_objs'));
 
         $reader = new Html();
 

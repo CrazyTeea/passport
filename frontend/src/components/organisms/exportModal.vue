@@ -25,8 +25,6 @@ export default {
     },
     export_stat() {
 
-      console.log(window.location.protocol + "://" + window.location.host + '/app/export/export-stat')
-
       let url = new URL( window.location.host);
       url.protocol = window.location.protocol;
       url.host = window.location.host;
