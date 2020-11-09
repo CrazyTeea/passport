@@ -2,16 +2,10 @@
 
 function cntObj($org)
 {
-    $cnt = 0;
-    if (is_array($org->objs))
-    {
-
-    }
-    return $cnt;
 
 }
 
-function cntLiving($items,$inos = false,$inv = false)
+function cntLiving($items, $inos = false, $inv = false)
 {
     $cnt = 0;
 
@@ -21,10 +15,10 @@ function cntLiving($items,$inos = false,$inv = false)
                 $key == 'id_org' or
                 $key == 'id_living' or
                 $key == 'budjet_type' or
-                $key == 'invalid' or $key =='type')
+                $key == 'invalid' or $key == 'type')
                 continue;
             if ($item->$key)
-                if (!$inos and !$inv and !$item->invalid and in_array($item->type,['rf_och','rf_zaoch','rf_ochzaoch']))
+                if (!$inos and !$inv and !$item->invalid and in_array($item->type, ['rf_och', 'rf_zaoch', 'rf_ochzaoch']))
                     $cnt++;
                 else if ($inos and !$inv and !$item->invalid)
                     $cnt++;
@@ -97,25 +91,36 @@ function cnt($info)
     </thead>
     <tbody>
     <?php foreach ($orgs as $org): ?>
-        <tr>
-            <td><?= htmlspecialchars($org->id) ?></td>
-            <td><?= htmlspecialchars($org->name) ?></td>
-            <td><?= htmlspecialchars($org->region->region) ?></td>
-            <td><?= htmlspecialchars($org->founder->founder) ?></td>
-            <td><?= $cnt = cnt($org->info) + cnt($org->area) ?></td>
-            <td><?= round($cnt * 100 / 72) ?>%</td>
-            <td><?= \app\models\OrgLivingStudents::find()->where(['id_org' => $org->id])->andWhere(['is not', 'name', null])->groupBy('name')->count() ?></td>
-            <td><?= $cnt = cntLiving($org->livingStudents)?></td>
-            <td><?= round($cnt * 100 / 84) ?>%</td>
-            <td><?= $cnt = cntLiving($org->livingStudents,true,true)?></td>
-            <td><?= round($cnt * 100 / 168) ?>%</td>
-            <td><?= $cntA = count(\app\models\Objects::getRealEstateObjects($org->id)) ?></td>
-            <td><?= $cnt = count($org->objs)?></td>
-            <td><?= $cntA ? round($cnt * 100/ $cntA ) : 0?>%</td>
-            <td><?= count($org->orgDocs)?></td>
-            <td>NET</td>
-            <td>AZAZAZAAZAZAZAZA!</td>
-        </tr>
+        <?php
+        $cnt_r_objs = array_reduce($r_objs, function ($a, $b) use ($org) {
+            if ($b['id_org'] == $org->id)
+                $a++;
+            $a += 0;
+            return $a;
+        }, 0);
+        $cnt_objs = count($org->objs);
+
+        if ($cnt_objs or $cnt_r_objs):?>
+            <tr>
+                <td><?= htmlspecialchars($org->id) ?></td>
+                <td><?= htmlspecialchars($org->name) ?></td>
+                <td><?= htmlspecialchars($org->region->region) ?></td>
+                <td><?= htmlspecialchars($org->founder->founder) ?></td>
+                <td><?= $cnt = cnt($org->info) + cnt($org->area) ?></td>
+                <td><?= round($cnt * 100 / 72) ?>%</td>
+                <td><?= \app\models\OrgLivingStudents::find()->where(['id_org' => $org->id])->andWhere(['is not', 'name', null])->groupBy('name')->count() ?></td>
+                <td><?= $cnt = cntLiving($org->livingStudents) ?></td>
+                <td><?= round($cnt * 100 / 84) ?>%</td>
+                <td><?= $cnt = cntLiving($org->livingStudents, true, true) ?></td>
+                <td><?= round($cnt * 100 / 168) ?>%</td>
+                <td><?= $cnt_r_objs ?></td>
+                <td><?= $cnt_objs ?></td>
+                <td><?= $cnt_r_objs ? round($cnt_objs * 100 / $cnt_r_objs) : 0 ?>%</td>
+                <td><?= count($org->orgDocs) ?></td>
+                <td>NET</td>
+                <td>AZAZAZAAZAZAZAZA!</td>
+            </tr>
+        <?php endif; ?>
     <?php endforeach; ?>
     </tbody>
 </table>
