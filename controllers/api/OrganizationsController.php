@@ -55,6 +55,7 @@ class OrganizationsController extends Controller
         $filter = Yii::$app->request->get();
 
         $filter_arr = [
+            'organizations.system_status' => 1,
             'organizations.id_founder' => $filter['id_founder'] ?? null,
             'organizations.id' => $filter['id'] ?? null,
             'organizations.id_region' => $filter['id_region'] ?? null,
@@ -84,12 +85,20 @@ class OrganizationsController extends Controller
             ->offset(($filter['offset'] - 1) * $filter['limit'])
             ->limit($filter['limit'])
             ->having($having ?? [])
-            ->groupBy(['organizations.id'])
-            ->all();
+            ->groupBy(['organizations.id']);
+
+        $r_objs = Objects::getRealEstateObjects((clone $arr)->select('organizations.id')->column());
+
+        $arr = $arr->all();
 
 
-        $arr2 = array_map(function ($item)  {
-            $r_obj_cnt = count(Objects::getRealEstateObjects($item->id));
+        $arr2 = array_map(function ($item) use ($r_objs) {
+            $r_obj_cnt = array_reduce($r_objs, function ($a, $b) use ($item) {
+                if ($b['id_org'] == $item->id)
+                    $a++;
+                $a += 0;
+                return $a;
+            }, 0);;
             $my_obj_cnt = Objects::find()->select(['id_org'])->where(['id_org' => $item->id])->count();
             if ($r_obj_cnt or $my_obj_cnt)
                 return [
@@ -105,8 +114,7 @@ class OrganizationsController extends Controller
         }, $arr);
 
 
-
-        $arr2 = array_filter($arr2, function ($item){
+        $arr2 = array_filter($arr2, function ($item) {
             if (is_null($item)) {
                 return false;
             }
