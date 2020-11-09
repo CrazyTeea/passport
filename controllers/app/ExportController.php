@@ -56,8 +56,8 @@ class ExportController extends AppController
 
         $html = $reader->loadFromString($html);
 
-        $html->getActiveSheet()->getDefaultRowDimension()->setRowHeight(15);
-        $html->getActiveSheet()->getDefaultColumnDimension()->setWidth(12);
+        //$html->getActiveSheet()->getDefaultRowDimension()->setRowHeight(200);
+        $html->getActiveSheet()->getDefaultColumnDimension()->setWidth(100);
 
         $writer = IOFactory::createWriter($html, 'Xlsx');
 
