@@ -59,7 +59,7 @@
                     <span v-if="docType.file" class="font-weight-bold text-center">
                     {{ docType.file.name }}
                   </span>
-                    <i v-if="docType.delButton" @click="deleteFile(docType)"
+                    <i v-if="docType.delButton && canChange()" @click="deleteFile(docType)"
                        class="ml-2 fas fa-trash-alt trash-icon"></i>
                   </div>
 
@@ -68,7 +68,7 @@
             </transition>
           </b-form-group>
         </b-card>
-          <b-form-checkbox @input="setOrgVal" size="lg" class="mt-5" v-model="organization.data_complete" >
+          <b-form-checkbox :disabled="!canChange()" @input="setOrgVal" size="lg" class="mt-5" v-model="organization.data_complete" >
             <div class="text-danger">
               Внесение данных завершено
             </div>
@@ -138,6 +138,10 @@ export default {
     },
   },
   methods: {
+    canChange(){
+      //console.log(window.Permission === 'user' || window.Permission === 'root')
+      return window.Permission === 'user' | window.Permission === 'root'
+    },
     showModal() {
       this.$refs['error-modal'].show();
     },
