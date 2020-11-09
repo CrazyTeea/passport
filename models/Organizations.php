@@ -15,6 +15,7 @@ namespace app\models;
  * @property string $updated_at
  * @property int|null $system_status
  * @property int $active
+ * @property boolean $data_complete
  *
  * @property Founders $founder
  * @property Regions $region
@@ -40,7 +41,7 @@ class Organizations extends \yii\db\ActiveRecord
         return [
             [['full_name', 'name', 'short_name'], 'string'],
             [['id_region', 'id_founder', 'system_status', 'active'], 'integer'],
-            [['created_at', 'updated_at'], 'safe'],
+            [['created_at', 'updated_at','data_complete'], 'safe'],
             [['id_founder'], 'exist', 'skipOnError' => true, 'targetClass' => Founders::className(), 'targetAttribute' => ['id_founder' => 'id']],
             [['id_region'], 'exist', 'skipOnError' => true, 'targetClass' => Regions::className(), 'targetAttribute' => ['id_region' => 'id']],
         ];
