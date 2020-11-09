@@ -117,9 +117,6 @@ export default {
 
     await this.getOrganization();
     await this.getDocTypes();
-
-
-
     this.componentReady = true
 
   },
