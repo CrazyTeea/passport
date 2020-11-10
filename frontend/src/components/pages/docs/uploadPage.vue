@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="">
     <nav-bar :is-admin="user.isAdmin" :id_org="id_org" :save-button="false"/>
     <div class="container">
       <div v-if="componentReady">

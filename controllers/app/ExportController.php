@@ -46,7 +46,6 @@ class ExportController extends AppController
         $orgs = $orgs->all();
 
 
-
         $r_objs = \app\models\Objects::getRealEstateObjects($orgs_id);
 
 

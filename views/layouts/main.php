@@ -38,8 +38,8 @@ AppAsset::register($this);
 <?php $this->beginBody() ?>
 
 <div class="wrap">
-    <?php
-    NavBar::begin([
+    <div class="header">
+        <?php NavBar::begin([
         'brandLabel' => Yii::$app->name,
         'brandUrl' => 'https://xn--80apneeq.xn--p1ai/',
         'brandImage' => '/img/light-logo.svg',
@@ -73,6 +73,8 @@ AppAsset::register($this);
     ]);
     NavBar::end();
     ?>
+    </div>
+
 
     <div id="wrap" class="container-fluid">
         <div class="container">
