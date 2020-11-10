@@ -1,5 +1,6 @@
 <template>
-  <div class="animate-height">
+  <div>
+    <div class="animate-height">
     <div class="custom-navbar">
       <div class="container">
         <div class="row justify-content-center">
@@ -69,6 +70,10 @@
 
   </div>
 
+  <div style="margin-top: 12vh" v-can:user></div>
+  </div>
+
+
 </template>
 
 <script>
@@ -132,8 +137,9 @@ export default {
 
 <style lang="scss">
 .animate-height {
-  height: 100%;
+  //height: 100%;
   transition: all .6s ease;
+  z-index: 056576995769567965;
 }
 
 .dropdown-menu {
@@ -147,8 +153,8 @@ export default {
   &:not(.show) {
     padding: 0;
     border-width: 0;
-    border-color: transparent;
-    box-shadow: none;
+    //border-color: transparent;
+    //box-shadow: none;
 
     transition: padding 1.3s ease, border-width 1.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
   }
@@ -177,7 +183,7 @@ export default {
       height: 0;
       border-style: solid;
       border-width: 0 5px 5px 5px;
-      border-color: transparent transparent #fff transparent;
+     // border-color: transparent transparent #fff transparent;
       z-index: 99999999;
     }
   }
@@ -194,14 +200,15 @@ export default {
       height: 0;
       border-style: solid;
       border-width: 5px 5px 0 5px;
-      border-color: #fff transparent transparent transparent;
+      //border-color: #fff transparent transparent transparent;
       z-index: 99999999;
     }
   }
 }
 
 .custom-navbar {
-  background: rgba(0, 0, 0, .1);
+  background-color: white;
+  //background: rgba(0, 0, 0, .1);
 
 }
 

@@ -9,11 +9,35 @@ $fa-font-path: "webfonts";
 @import "webfonts/solid.scss";
 @import "webfonts/regular.scss";
 
-*:focus{
+
+.header {
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+  top: 0;
+}
+
+
+  .animate-height {
+    position: fixed;
+    width: 100%;
+    //z-index: 9999;
+    top: 0;
+    margin-top: 4vh;
+  }
+
+  #wrap {
+    margin-top: 7vh;
+   // z-index: -1;
+  }
+
+
+
+*:focus {
   outline: none !important;
 }
 
-.pointer{
+.pointer {
   cursor: pointer;
 }
 
