@@ -70,7 +70,7 @@
 
   </div>
 
-  <div style="margin-top: 12vh" v-can:user></div>
+  <div style="margin-top: 10px" v-can:user></div>
   </div>
 
 
