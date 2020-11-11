@@ -8,9 +8,13 @@ use app\models\Organizations;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Reader\Html;
 use Yii;
+use yii\helpers\Json;
 
 class ExportController extends AppController
 {
+    public function actionExportData($id_org = null){
+        return Json::encode(Yii::$app->request->get());
+    }
     public function actionExportStat()
     {
         $get = Yii::$app->request->get();
