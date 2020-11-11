@@ -78,7 +78,7 @@
         </div>
       </div>
 
-      <b-alert v-can:user v-if="!blockSave" show>
+      <b-alert class="mb-0" v-can:user v-if="!blockSave" show>
         <div class="text-center">
           "После внесения данных на странице не забудьте нажать кнопку "Сохранить"
         </div>
@@ -86,7 +86,7 @@
 
     </div>
 
-    <div style="margin-top: 10px" v-can:user></div>
+    <div style="margin-top: 180px" v-can:user></div>
   </div>
 
 
