@@ -192,7 +192,7 @@ export default {
 
   &[x-placement^="bottom"] {
     &::before {
-      content: "";
+      //content: "";
       position: absolute;
       right: 11px;
       top: -5px;
@@ -209,7 +209,7 @@ export default {
 
   &[x-placement^="top"] {
     &::after {
-      content: "";
+     // content: "";
       position: absolute;
       right: 11px;
       bottom: -5px;
