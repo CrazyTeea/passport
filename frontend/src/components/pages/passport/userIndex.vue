@@ -96,7 +96,7 @@
                             телефон</label>
                           <b-form-input :disabled="blockSave" :id="`user_info_${index}_phone`"
                                         v-model="user_info.phone"/>
-                          <label class="mt-4 font-weight-bold" :for="`user_info_${index}_email`">email</label>
+                          <label class="mt-4 font-weight-bold" :for="`user_info_${index}_email`">E mail</label>
                           <b-form-input :disabled="blockSave" :id="`user_info_${index}_email`"
                                         v-model="user_info.email"/>
                         </b-card-body>
