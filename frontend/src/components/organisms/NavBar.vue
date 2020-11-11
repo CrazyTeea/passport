@@ -12,7 +12,7 @@
                   <i class="fas fa-align-justify"></i>
                 </template>
                 <b-dropdown-item :href="isAdmin ? `/admin/data/${id_org}` : '/main'">Главная</b-dropdown-item>
-                <b-dropdown-text>
+                <b-dropdown-text class="text-secondary">
                   <i>
                     Данные об организации
                   </i>
@@ -28,7 +28,7 @@
                 <b-dropdown-item :href="isAdmin ? `/admin/living-info-inv/${id_org}` : '/living-info-inv'">Сведения о
                   проживающих лицах <br> с ограниченными возможностями
                 </b-dropdown-item>
-                <b-dropdown-text>
+                <b-dropdown-text  class="text-secondary">
 
                   <i>
                     Данные о жилом объекте
@@ -46,7 +46,7 @@
                 <b-dropdown-item :href="isAdmin ? `/admin/objects-tariff/${id_org}` : '/objects-tariff'">Сведения о
                   тарифах
                 </b-dropdown-item>
-                <b-dropdown-text v-can:user>
+                <b-dropdown-text class="text-secondary">
                   <i>
                     Документы
                   </i>
