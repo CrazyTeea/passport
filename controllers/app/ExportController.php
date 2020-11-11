@@ -8,13 +8,57 @@ use app\models\Organizations;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Reader\Html;
 use Yii;
-use yii\helpers\Json;
 
 class ExportController extends AppController
 {
-    public function actionExportData($id_org = null){
-        return Json::encode(Yii::$app->request->get());
+    /**
+     * @param null $id_org
+     * @throws \yii\base\Exception
+     */
+    public function actionExportData($id_org = null)
+    {
+        $get = Yii::$app->request->get();
+
+        if (strlen($pages = $get['pages']) == 0)
+            throw new \yii\base\Exception("выгрузка без страниц не допустима");
+        $pages = explode(',', $get['pages']);
+
+        $where = [];
+
+        $where = isset($get['id']) ?  ['organizations.id' => explode(',', $get['id'])] : ['organizations.id'=>$id_org];
+
+
+        $orgs = Organizations::find()->where($where);
+
+        $joins = [];
+
+        foreach ($pages as $page) {
+            switch ($page * 1) {
+                case 1:{
+                    $joins[] = 'info';
+                    break;
+                }
+                case 2:{
+                    $joins[] ='area';
+                    break;
+                }
+                case 3:{
+                    $joins[] ='area';
+                    break;
+                }
+                case 4:{}
+                case 5:{}
+                case 6:{}
+                case 7:{}
+                case 8:{}
+                default:{
+                    throw new \yii\base\Exception("Такой страницы не существует");
+                }
+
+            }
+        }
     }
+
     public function actionExportStat()
     {
         $get = Yii::$app->request->get();
