@@ -106,7 +106,7 @@ class OrganizationsController extends Controller
                     'name' => $item->name,
                     'foiv' => $item->founder->founder,
                     'region' => $item->region->region,
-                    'r_obj_cnt' => $r_obj_cnt,
+                    'r_obj_cnt' => $r_obj_cnt + $my_obj_cnt,
                     'my_obj_cnt' => $my_obj_cnt,
                     'docs' => OrgDocs::find()->where(['id_org' => $item->id])->count('id')
                 ];
