@@ -18,19 +18,18 @@ $fa-font-path: "webfonts";
 }
 
 
-  .animate-height {
-    position: fixed;
-    width: 100%;
-    //z-index: 9999;
-    top: 0;
-    margin-top: 55px;
-  }
+.animate-height {
+  position: fixed;
+  width: 100%;
+  //z-index: 9999;
+  top: 0;
+  margin-top: 55px;
+}
 
-  #wrap {
-    margin-top: 95px;
-   // z-index: -1;
-  }
-
+#wrap {
+  margin-top: 95px;
+  // z-index: -1;
+}
 
 
 *:focus {

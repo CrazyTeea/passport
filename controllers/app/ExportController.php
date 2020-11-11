@@ -45,9 +45,7 @@ class ExportController extends AppController
 
         $orgs = $orgs->all();
 
-
         $r_objs = \app\models\Objects::getRealEstateObjects($orgs_id);
-
 
         $html = $this->renderPartial('_stat', compact('orgs', 'r_objs'));
 
@@ -59,7 +57,6 @@ class ExportController extends AppController
         $html->getActiveSheet()->getDefaultColumnDimension()->setWidth(100);
 
         $writer = IOFactory::createWriter($html, 'Xlsx');
-
 
         $path = Yii::getAlias('@webroot') . '/uploads/statistic.xlsx';
 
