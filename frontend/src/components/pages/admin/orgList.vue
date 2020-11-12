@@ -60,7 +60,8 @@
                 </b-form-tags>
               </b-form-group>
 
-              <org-select label="Фоив" link="/api/organizations/founders" error-msg="нет такого ФИИВ" v-model="filter.id_founder"/>
+              <org-select label="Фоив" link="/api/organizations/founders" error-msg="нет такого ФИИВ"
+                          v-model="filter.id_founder"/>
 
               <!--<b-form-group label-class="font-weight-bold" label="ФОИВ" label-for="id_founder">
                 <b-input-group>
@@ -140,7 +141,6 @@
         </div>
 
 
-
         <div v-if="list">
           <b-table-simple class="mt-2">
             <b-thead>
@@ -162,7 +162,12 @@
                 <b-td>{{ item.name }}</b-td>
                 <b-td>{{ item.region }}</b-td>
                 <b-td>{{ item.foiv }}</b-td>
-                <b-td>{{ item.r_obj_cnt }} / {{ item.my_obj_cnt }}</b-td>
+                <b-td :id="`tooltip-target-${index}`">
+                  {{ item.r_obj_cnt }} / {{ item.my_obj_cnt }}
+                  <b-tooltip :target="`tooltip-target-${index}`" triggers="hover">
+                    Всего: {{ item.r_obj_cnt }} Изменено: {{ item.my_obj_cnt }}
+                  </b-tooltip>
+                </b-td>
                 <b-td>{{ item.docs }}</b-td>
               </b-tr>
             </b-tbody>
@@ -185,6 +190,7 @@
 
 import Axios from 'axios';
 import {
+  BButton,
   BCard,
   BCardHeader,
   BCollapse,
@@ -200,7 +206,7 @@ import {
   BTableSimple,
   BTbody,
   BTd,
-  BTh,BButton,
+  BTh,BTooltip,
   BThead,
   BTr,
   VBToggle
@@ -222,7 +228,7 @@ export default {
     BCard, BFormTag,
     BCardHeader, BPagination,
     BCollapse, BThead, BTbody,
-    BTh, BTd, BTr,
+    BTh, BTd, BTr,BTooltip,
     BFormGroup, BIcon,
     BFormSelect, BButton,
     BFormInput, BFormTags,
@@ -307,7 +313,7 @@ export default {
 
   },
   methods: {
-    showModal(){
+    showModal() {
       console.log('ad');
     },
     rowClick(item) {

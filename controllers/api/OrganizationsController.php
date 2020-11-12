@@ -98,7 +98,7 @@ class OrganizationsController extends Controller
                     $a++;
                 $a += 0;
                 return $a;
-            }, 0);;
+            }, 0);
             $my_obj_cnt = Objects::find()->select(['id_org'])->where(['id_org' => $item->id])->count();
             if ($r_obj_cnt or $my_obj_cnt)
                 return [
