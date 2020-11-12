@@ -30,8 +30,11 @@ class OrganizationsController extends Controller
         $living = OrgLiving::findOne(['id_org' => $id]);
         $inv = Yii::$app->request->get('living_st_inv');
         $livingStudents = OrgLivingStudents::findAll(['id_org' => $id, 'invalid' => $inv]);
+        $docs = OrgDocs::findAll(['id_org'=>$id]);
 
-        return ['organization' => $org, 'info' => $info, 'area' => $area, 'living' => $living, 'region' => $region, 'founder' => $founder, 'livingStudents' => $livingStudents];
+        return ['organization' => $org, 'docs'=>$docs,
+            'info' => $info, 'area' => $area, 'living' => $living,
+            'region' => $region, 'founder' => $founder, 'livingStudents' => $livingStudents];
     }
 
     public function actionFounders()

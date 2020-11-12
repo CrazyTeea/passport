@@ -57,7 +57,10 @@
               <!--<div v-if="cont_dan">
                 <i class="fas fa-check text-success fa-2x"></i>
               </div>-->
-              <div>
+              <div v-if="organization.docs.length === 2">
+                <i class="fas fa-check text-success fa-2x"></i>
+              </div>
+              <div v-else>
                 <i class="fas fa-times fa-2x text-danger"></i>
               </div>
             </div>
