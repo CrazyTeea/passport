@@ -7,6 +7,7 @@ namespace app\controllers\app;
 use app\models\Organizations;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Reader\Html;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Yii;
 
 class ExportController extends AppController
@@ -25,38 +26,76 @@ class ExportController extends AppController
 
         $where = [];
 
-        $where = isset($get['id']) ?  ['organizations.id' => explode(',', $get['id'])] : ['organizations.id'=>$id_org];
+        $where = isset($get['id']) ? ['organizations.id' => explode(',', $get['id'])] : ['organizations.id' => $id_org];
 
 
-        $orgs = Organizations::find()->where($where);
+        $orgs = Organizations::find()->where($where)->all();
 
-        $joins = [];
 
-        foreach ($pages as $page) {
-            switch ($page * 1) {
-                case 1:{
-                    $joins[] = 'info';
-                    break;
-                }
-                case 2:{
-                    $joins[] ='area';
-                    break;
-                }
-                case 3:{
-                    $joins[] ='area';
-                    break;
-                }
-                case 4:{}
-                case 5:{}
-                case 6:{}
-                case 7:{}
-                case 8:{}
-                default:{
-                    throw new \yii\base\Exception("Такой страницы не существует");
+        $page_names = [
+            'Сведения об организации',
+            'Сведения о количестве мест и площади жилищного фонда, используемого в уставной деятельности',
+            'Сведения о проживающих в жилищном фонде, используемом в уставной деятельности',
+            'Сведения о проживающих лицах с ограниченными возможностями в жилищном фонде, используемом в уставной деятельности',
+            'Сведения о жилом объекте',
+            'Сведения о площади, проживающих и количестве мест в жилом объекте',
+            'Сведения о поступлениях и расходах на объект',
+            'Сведения о тарифах установленных для проживания в жилом объекте'
+        ];
+        $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+        $spreadsheet = $reader->load('templates/template.xlsx');
+
+        foreach ($orgs as $org_index=> $org) {
+            $cell_pos = $org_index+2;
+            foreach ($pages as $index => $page) {
+                switch ($page) {
+                    case 1:
+                    {
+                        $spreadsheet->setActiveSheetIndex(0);
+                        $sheet = $spreadsheet->getActiveSheet();
+                        $sheet->setCellValue("A${cell_pos}",$org->id);
+
+                        break;
+                    }
+                    /*case 2:
+                    {
+                        break;
+                    }
+                    case 3:
+                    {
+                        break;
+                    }
+                    case 4:
+                    {
+                        break;
+                    }
+                    case 5:
+                    {
+                        break;
+                    }
+                    case 6:
+                    {
+                        break;
+                    }
+                    case 7:
+                    {
+                        break;
+                    }
+                    case 8:
+                    {
+                        break;
+                    }*/
                 }
 
             }
         }
+
+
+
+        $xlsx = new Xlsx($spreadsheet);
+        $xlsx->save('xlsx.xlsx');
+
+
     }
 
     public function actionExportStat()
