@@ -21,7 +21,6 @@
         <div class="row">
           <div class="col-6"><label>Наименование жилого объекта</label></div>
           <div class="col-6">
-            {{objectsTitle}}
             <b-form-select v-model="obj_index" @change="setObject" :options="objectsTitle"/>
           </div>
         </div>
