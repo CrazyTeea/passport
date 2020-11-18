@@ -233,7 +233,7 @@ class ExportController extends AppController
                         $sheet->setCellValue("CV{$cell_pos}", $cnt['zil']['cnt_mest_pl_na_odn']);
                         $sheet->setCellValue("CW{$cell_pos}", $cnt['zil']['cnt_mest_obsh_na_odn']);
 
-
+                        $kek = 0;
                         break;
                     }
                     case 3:
