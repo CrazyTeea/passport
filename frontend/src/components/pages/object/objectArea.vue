@@ -542,6 +542,8 @@ export default {
     },
     async saveObject() {
       const data = new FormData();
+      this.currentObject.area.cnt_mest_pl_na_odn = this.objArea.cnt_mest_pl_na_odn;
+      this.currentObject.area.cnt_mest_obsh_na_odn = this.objArea.cnt_mest_obsh_na_odn;
       data.append('area', JSON.stringify(this.currentObject.area));
       await Axios.post(`/object/set-area/${this.currentObject.id}`, data, {
         headers: {
