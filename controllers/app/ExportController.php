@@ -282,7 +282,7 @@ class ExportController extends AppController
         $xlsx = new Xlsx($spreadsheet);
         $xlsx->save('uploads/xlsx.xlsx');
 
-        Yii::$app->response->sendFile($xlsx)->send();
+        Yii::$app->response->sendFile('uploads/xlsx.xlsx')->send();
 
         unlink('uploads/xlsx.xlsx');
 
