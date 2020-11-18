@@ -18,7 +18,7 @@ use yii\rbac\PhpManager;
 
 class ReferenceController extends Controller
 {
-    static $jwt_key = 'example_key233';
+    static $jwt_key = 'secret';
 
     /**
      * @return string
@@ -43,7 +43,7 @@ class ReferenceController extends Controller
     {
         $signer = new Sha256();
         $token = (new Builder())->set('reference', 'all_user')
-            ->sign($signer, 'example_key233')
+            ->sign($signer, 'secret')
             ->getToken();
 
         $response_token = file_get_contents("http://api.xn--80apneeq.xn--p1ai/api.php?option=reference_api&action=get_reference&module=constructor&reference_token=$token");
@@ -51,7 +51,7 @@ class ReferenceController extends Controller
         $signer = new Sha256();
         $token = (new Parser())->parse($response_token);
         $ias_user = null;
-        if ($token->verify($signer, 'example_key233')) {
+        if ($token->verify($signer, 'secret')) {
             $data_reference = $token->getClaims();
             echo count($data_reference) . "\n";
         }
@@ -63,7 +63,7 @@ class ReferenceController extends Controller
         $err = 0;
         $signer = new Sha256();
         $token = (new Builder())->set('reference', 'all_user')
-            ->sign($signer, 'example_key233')
+            ->sign($signer, 'secret')
             ->getToken();
 
         $response_token = file_get_contents("http://api.xn--80apneeq.xn--p1ai/api.php?option=reference_api&action=get_reference&module=constructor&reference_token=$token");
@@ -71,7 +71,7 @@ class ReferenceController extends Controller
         $signer = new Sha256();
         $token = (new Parser())->parse($response_token);
         $ias_user = null;
-        if ($token->verify($signer, 'example_key233')) {
+        if ($token->verify($signer, 'secret')) {
             $data_reference = $token->getClaims();
 
             foreach ($data_reference as $key => $data) {
