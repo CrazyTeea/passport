@@ -1,9 +1,8 @@
 <?php
 
-
 namespace app\controllers\api;
 
-
+use app\models\DocTypes;
 use app\models\Founders;
 use app\models\Objects;
 use app\models\Organizations;
@@ -19,41 +18,69 @@ use yii\rest\Controller;
 
 class OrganizationsController extends Controller
 {
-    public function actionGetOrg($id)
+    public function actionGetOrg($id): array
     {
         $org = Organizations::findOne($id);
-        if (!$org) return ['organization' => [], 'info' => [], 'area' => [], 'living' => [], 'region' => [], 'founder' => [], 'livingStudents' => []];
+        $full_count_pol = 77;
+        if (!$org) {
+            return [
+                'organization' => [], 'info' => [], 'area' => [], 'living' => [], 'region' => [], 'founder' => [],
+                'livingStudents' => [], 'count_pol' => 0, 'full_count_pol' => $full_count_pol
+            ];
+        }
+
+        $count_pol = $org->count_pol;
+
         $info = OrgInfo::findAll(['id_org' => $id]);
+
         $region = Regions::findOne($org->id_region);
         $founder = Founders::findOne($org->id_founder);
         $area = OrgArea::findOne(['id_org' => $id]);
-        $living = OrgLiving::findOne(['id_org' => $id]);
-        $inv = Yii::$app->request->get('living_st_inv');
-        $livingStudents = OrgLivingStudents::findAll(['id_org' => $id, 'invalid' => $inv]);
-        $docs = OrgDocs::findAll(['id_org'=>$id]);
 
-        return ['organization' => $org, 'docs'=>$docs,
+        $living = OrgLiving::findOne(['id_org' => $id]);
+
+        $inv = Yii::$app->request->get('living_st_inv');
+        if ($livingStudents = OrgLivingStudents::findAll(
+            !is_null($inv)
+                ? ['id_org' => $id, 'invalid' => $inv]
+                : ['id_org' => $id]
+        )) {
+            foreach ($livingStudents as $item) {
+                /**
+                 * Вычитаются ключи с названиями 'budjet_type', 'id', 'id_org', 'invalid', 'id_living', 'name', 'type'
+                 **/
+                foreach ($item as $key => $val) {
+                    if (!in_array($key, ['budjet_type', 'id', 'id_org', 'invalid', 'id_living', 'name', 'type'])) {
+                        $full_count_pol++;
+                    }
+                }
+                //$full_count_pol += (count($item) - 7);
+            }
+        } else {
+            $full_count_pol += 252;
+        }
+
+        $docs = OrgDocs::findAll(['id_org' => $id]);
+
+        return ['organization' => $org, 'docs' => $docs,
             'info' => $info, 'area' => $area, 'living' => $living,
-            'region' => $region, 'founder' => $founder, 'livingStudents' => $livingStudents];
+            'region' => $region, 'founder' => $founder, 'livingStudents' => $livingStudents,
+            'count_pol' => $count_pol, 'full_count_pol' => $full_count_pol];
     }
 
-    public function actionFounders()
+    public function actionFounders(): array
     {
         $name = Yii::$app->request->get('name');
         return Founders::find()->where(['system_status' => 1])->andWhere(['like', 'founder', $name])->all();
     }
 
-    public function actionRegions()
+    public function actionRegions(): array
     {
         return Regions::find()->all();
     }
 
-    private function filter($get)
-    {
-        dd($get);
-    }
 
-    public function actionOrgFilter()
+    public function actionOrgFilter(): array
     {
         $filter = Yii::$app->request->get();
 
@@ -79,7 +106,6 @@ class OrganizationsController extends Controller
             $filter_arr = array_merge($filter_arr, ['active' => 1]);
         }
 
-
         $cnt = $cnt->andFilterWhere($filter_arr)
             ->groupBy(['organizations.id'])
             ->having($having ?? [])->count();
@@ -94,60 +120,76 @@ class OrganizationsController extends Controller
 
         $arr = $arr->all();
 
-
         $arr2 = array_map(function ($item) use ($r_objs) {
             $r_obj_cnt = array_reduce($r_objs, function ($a, $b) use ($item) {
-                if ($b['id_org'] == $item->id)
+                if ($b['id_org'] == $item->id) {
                     $a++;
+                }
                 $a += 0;
                 return $a;
             }, 0);
-            $my_obj_cnt = Objects::find()->select(['id_org'])->where(['id_org' => $item->id])->count();
-            if ($r_obj_cnt or $my_obj_cnt)
-                return [
-                    'id' => $item->id,
-                    'name' => $item->name,
-                    'foiv' => $item->founder->founder,
-                    'region' => $item->region->region,
-                    'r_obj_cnt' => $r_obj_cnt + $my_obj_cnt,
-                    'my_obj_cnt' => $my_obj_cnt,
-                    'docs' => OrgDocs::find()->where(['id_org' => $item->id])->count('id')
-                ];
-            return null;
+            $my_obj_cnt = count($item->objs ?? []);
+
+            return [
+                'id' => $item->id,
+                'name' => $item->name,
+                'foiv' => $item->founder->founder,
+                'region' => $item->region->region,
+                'r_obj_cnt' => ((int)$r_obj_cnt) ? $r_obj_cnt : $my_obj_cnt,
+                //'my_obj_cnt' => $my_obj_cnt,
+                'docs' => OrgDocs::find()->where(['id_org' => $item->id])->andWhere('id_file is not null')->count('id')
+            ];
         }, $arr);
 
-
-        $arr2 = array_filter($arr2, function ($item) {
-            if (is_null($item)) {
-                return false;
-            }
-            return true;
-        });
-
-        return array_merge($arr2, ['cnt' => $cnt > 255 ? 255 : $cnt]);
-
+        return array_merge($arr2, ['cnt' => $cnt]);
     }
 
-
-    public function actionAll()
+    public function actionAll($name = null): array
     {
-        $name = Yii::$app->request->get('name');
-        return Organizations::find()->where(['system_status' => 1])->andWhere(['like', 'name', $name])->all();
+
+        return Organizations::find()->where(['system_status' => 1])
+            ->andWhere(['or',
+                ['like', 'name', $name],
+                ['like', 'full_name', $name],
+                ['like', 'short_name', $name]
+            ])
+            ->limit(10)
+            ->orderBy('name ASC')
+            ->all();
     }
 
     public function actionObjCount($id)
     {
-        return Objects::find()->where(['id_org' => $id, 'system_status' => 1])->count();
+        return Objects::find()
+            ->where(['id_org' => $id, 'system_status' => 1])
+            ->count();
     }
 
-    public function actionUsersInfo($id)
+    public function actionUsersInfo($id): array
     {
         return UsersInfo::find()->where(['id_org' => $id])->asArray()->all();
     }
 
-    public function actionGetDocTypes($id_org)
+    public function actionGetDocTypes($id_org): array
     {
-        return OrgDocs::find()->joinWith(['descriptor', 'file'])->where(['id_org' => $id_org])->asArray()->all();
+        $arr = OrgDocs::find()->joinWith(['descriptor', 'file'])
+            ->where(['id_org' => $id_org])->asArray()->all();
+        if (Yii::$app->user->can('user')) {
+            if (count($arr) < 2) {
+                $arr = array_map(function ($item) use ($arr) {
+                    $i = null;
+                    foreach ($arr as $ke => $it) {
+                        if (isset($it['descriptor']['desc']) and $it['descriptor']['desc'] == $item->desc) {
+                            $i = $ke;
+                        }
+                    }
+                    return $arr[$i] ?? [
+                            'descriptor' => $item,
+                            'file' => null
+                        ];
+                }, DocTypes::find()->all());
+            }
+        }
+        return $arr;
     }
-
 }

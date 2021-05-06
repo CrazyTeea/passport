@@ -48,7 +48,9 @@ class ObjectsTariff extends \yii\db\ActiveRecord
         return [
             [['id_object'], 'required'],
             [['id_object'], 'integer'],
-            [['u_t_b', 'k_u_b', 'p_p_b', 'd_u_b', 'u_t_p', 'k_u_p', 'p_p_p', 'd_u_p', 'u_t_nr', 'k_u_nr', 'p_p_nr', 'd_u_nr', 'u_t_do', 'k_u_do', 'p_p_do', 'd_u_do', 'u_t_in', 'k_u_in', 'p_p_in', 'd_u_in'], 'number'],
+            [['u_t_b', 'k_u_b', 'p_p_b', 'd_u_b', 'u_t_p', 'k_u_p', 'p_p_p', 'd_u_p', 'u_t_nr',
+                'k_u_nr', 'p_p_nr', 'd_u_nr', 'u_t_do', 'k_u_do', 'p_p_do', 'd_u_do', 'u_t_in',
+                'k_u_in', 'p_p_in', 'd_u_in'], 'number'],
             [['id_object'], 'exist', 'skipOnError' => true, 'targetClass' => Objects::className(), 'targetAttribute' => ['id_object' => 'id']],
         ];
     }

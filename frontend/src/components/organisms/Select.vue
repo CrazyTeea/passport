@@ -3,12 +3,12 @@
     <input :disabled="disabled" @click="clicked = true" v-if="Object.keys(selectedItem).length === 0"
            ref="dropdowninput" v-model.trim="inputValue"
            class="dropdown-input" type="text" placeholder="Страна..."/>
-    <div v-else @click="resetSelection" class="dropdown-selected">
+    <div v-else @click="resetSelection" class="dropdown-selected" :key="kek">
       <img :src="selectedItem.flag" class="dropdown-item-flag" alt=""/>
       {{ selectedItem.ru }}
     </div>
     <div @mouseleave="clicked=false" v-show="clicked && apiLoaded" class="dropdown-list">
-      <div @click="selectItem(item)" v-show="itemVisible(item)" v-for="item in itemList" :key="item.code"
+      <div @click="selectItem(item)" v-show="itemVisible(item)" v-for="(item,index) in itemList" :key="item.code"
            class="dropdown-item">
         <img :src="item.flag" class="dropdown-item-flag" alt="item.flag"/>
         {{ item.ru }}
@@ -22,8 +22,9 @@ import Axios from 'axios'
 
 export default {
   props: {
-    modelVal: String,
-    disabled: false
+    value: String,
+    disabled: false,
+    kek:''
   },
   data() {
     return {
@@ -38,8 +39,8 @@ export default {
   async mounted() {
     await this.getList();
 
-    if (this.modelVal) {
-      this.selectedItem = this.itemList.find(item => item.code === this.modelVal) || {}
+    if (this.value) {
+      this.selectedItem = this.itemList.find(item => item.code === this.value) || {}
     }
 
   },
@@ -49,7 +50,7 @@ export default {
         this.clicked = true;
         this.selectedItem = {};
         this.$nextTick(() => this.$refs.dropdowninput.focus());
-        this.$emit('on-item-reset');
+        this.$emit('input',null);
       }
 
     },
@@ -58,7 +59,7 @@ export default {
         this.clicked = false;
         this.selectedItem = theItem;
         this.inputValue = '';
-        this.$emit('on-item-selected', theItem);
+        this.$emit('input', theItem.code);
       }
     },
     itemVisible(item) {
@@ -72,7 +73,6 @@ export default {
       await Axios.get(this.apiFlag).then(response => {
         this.itemList = response.data;
         this.apiLoaded = true;
-        //    console.log(typeof response.data,response.data)
       });
 
 

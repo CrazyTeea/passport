@@ -1,22 +1,24 @@
 <template>
-
   <div>
-    <nav-bar :is-admin="user.isAdmin" :id_org="id_org" v-on:save-page="savePage"
-             v-on:block-save="blockPage = !blockPage"/>
-    <transition enter-active-class="animated fadeInUp">
+    <!--<nav-bar v-on:block-save="blockPage = !blockPage" v-on:save-page="savePage" :id_org="id_org"
+             :is-admin="user.isAdmin"/>-->
+    <v-page>
       <div v-if="componentReady" class="container">
-
         <org-select link="/api/organizations/all" error-msg="нет доступных организаций по заданным критериаям"
-                    label="Выбранная организация" v-can:admin,root v-model="id_org"/>
+                    label="Выбранная организация" v-if="$check(['admin','root'])" v-model="id_org"/>
 
-        <div class="row">
-          <div class="col-8">
-            <h3>
-              Сведения о проживающих лицах с ограниченными возможностями в жилищном фонде, используемом в уставной
-              деятельности
-            </h3>
-          </div>
-        </div>
+        <h3>
+          Шаг 4: Сведения о проживающих лицах с ограниченными возможностями в жилищном фонде, используемом в уставной
+          деятельности
+        </h3>
+
+        <stepper
+            :back-url="user.isAdmin ? `/admin/living-info/${id_org}` : '/living-info'"
+            :to-url="user.isAdmin ? `/admin/org-covid/${id_org}` : '/org-covid'"
+            percent="80"
+            end-button-label="Далее"
+            @save-page="savePage"
+        />
         <hr>
         <div class="row">
           <div class="col">
@@ -46,7 +48,7 @@
                         </span>
             </template>
             <living-table :items="items_s.items"
-                          title="Проживающие из числа обучающихся с ограниченными возможностями здоровья за счёт федерального бюджета"
+                          title="Проживающие из числа обучающихся с ограниченными возможностями здоровья за счёт бюджета субъекта"
                           :is-invalid="true" :block-save="blockPage" v-bind:can-save="items_s.canSave"/>
 
           </b-tab>
@@ -57,7 +59,7 @@
                         </span>
             </template>
             <living-table :items="items_m.items"
-                          title="Проживающие из числа обучающихся с ограниченными возможностями здоровья за счёт федерального бюджета"
+                          title="Проживающие из числа обучающихся с ограниченными возможностями здоровья за счёт местного бюджета"
                           :is-invalid="true" :block-save="blockPage" v-bind:can-save="items_m.canSave"/>
 
           </b-tab>
@@ -69,14 +71,32 @@
                         </span>
             </template>
             <living-table :items="items_p.items"
-                          title="Проживающие из числа обучающихся с ограниченными возможностями здоровья за счёт федерального бюджета"
+                          title="Проживающие из числа обучающихся с ограниченными возможностями по договорам об оказании платных образовательных услуг"
                           :is-invalid="true" :block-save="blockPage" v-bind:can-save="items_p.canSave"/>
 
           </b-tab>
         </b-tabs>
+        <hr>
 
+        <div class="text-center">
+          <button class="btn btn-primary" type="button" @click="setZeros()">Заполнить нулями пустые поля</button>
+          <hr>
+        </div>
+
+        <stepper
+            :back-url="user.isAdmin ? `/admin/living-info/${id_org}` : '/living-info'"
+            :to-url="user.isAdmin ? `/admin/org-covid/${id_org}` : '/org-covid'"
+            percent="80"
+            end-button-label="Далее"
+            @save-page="savePage"
+        />
+
+        <br>
       </div>
-    </transition>
+      <loading v-else/>
+    </v-page>
+
+
     <scroll-button/>
   </div>
 </template>
@@ -84,15 +104,23 @@
 <script>
 import {BFormInput, BInputGroup, BTab, BTabs,} from 'bootstrap-vue';
 import Axios from 'axios';
-import NavBar from '../../organisms/NavBar';
+
 import livingTable from '../../organisms/livingTable';
 import ScrollButton from '../../organisms/scrollButton';
 import OrgSelect from "../../organisms/orgSelect";
+import {mainMixin} from "../../mixins";
+import Loading from "../../organisms/loading";
+import Stepper from "../../organisms/stepper";
+import VPage from "../../organisms/vPage";
 
 export default {
 
   data() {
     return {
+      inputs: [
+        'spo', 'bak',
+        'spec', 'mag', 'asp', 'ord', 'in',
+      ],
       csrf: document.getElementsByName('csrf-token')[0].content,
       componentReady: false,
       blockPage: false,
@@ -247,7 +275,7 @@ export default {
             'items_b', 'items_s', 'items_m', 'items_p'
           ];
 
-          bud.forEach(item=>{
+          bud.forEach(item => {
             this[item].items.rf = [];
             this[item].items.in = [];
           })
@@ -315,26 +343,158 @@ export default {
       });
 
     },
-    async savePage() {
+
+    validate() {
+      for (let i = 0; i < this.inputs.length; i++) {
+        let item = this.inputs[i];
+
+        let items = this.items_b.items.rf;
+
+        for (let j = 0; j < items.length; j++) {
+          if (this.isEmpty(this.items_b.items.rf[j][item]))
+            return false;
+        }
+        items = this.items_s.items.rf;
+
+        for (let j = 0; j < items.length; j++) {
+          if (this.isEmpty(this.items_s.items.rf[j][item]))
+            return false;
+        }
+
+        items = this.items_m.items.rf;
+
+        for (let j = 0; j < items.length; j++) {
+          if (this.isEmpty(this.items_m.items.rf[j][item]))
+            return false;
+        }
+
+        items = this.items_p.items.rf;
+
+        for (let j = 0; j < items.length; j++) {
+          if (this.isEmpty(this.items_p.items.rf[j][item]))
+            return false;
+        }
+
+        items = this.items_b.items.in;
+
+        for (let j = 0; j < items.length; j++) {
+          if (this.isEmpty(this.items_b.items.in[j][item]))
+            return false;
+        }
+        items = this.items_s.items.in;
+
+        for (let j = 0; j < items.length; j++) {
+          if (this.isEmpty(this.items_s.items.in[j][item]))
+            return false;
+        }
+
+        items = this.items_m.items.in;
+
+        for (let j = 0; j < items.length; j++) {
+          if (this.isEmpty(this.items_m.items.in[j][item]))
+            return false;
+        }
+
+        items = this.items_p.items.rf;
+
+        for (let j = 0; j < items.length; j++) {
+          if (this.isEmpty(this.items_p.items.in[j][item]))
+            return false;
+        }
+      }
+      return true;
+
+    },
+
+    async savePage(validate, resolve) {
+
+      if (validate && !this.validate()) {
+        await this.$bvModal.msgBoxOk("Для сохранения необходимо заполнить пустые поля.")
+        resolve(false)
+        return;
+      }
+
       const data = new FormData();
       this.organization = this.organization ?? {};
       this.organization.living_studs = [
-        ...this.items_b.items.rf, this.items_s.items.rf, ...this.items_m.items.rf, ...this.items_p.items.rf,
-        ...this.items_b.items.in, this.items_s.items.in, ...this.items_m.items.in, ...this.items_p.items.in
+        ...this.items_b.items.rf, ...this.items_s.items.rf, ...this.items_m.items.rf, ...this.items_p.items.rf,
+        ...this.items_b.items.in, ...this.items_s.items.in, ...this.items_m.items.in, ...this.items_p.items.in
       ];
+
       this.organization.invalid = 1;
       data.append('org_living', JSON.stringify(this.organization));
       await Axios.post(`/organization/set-org-living/${this.id_org}`, data, {
         headers: {
           'X-CSRF-Token': this.csrf,
         },
-      }).then((res) => {
-        if (res.data.success) this.getOrg();
-      }).finally(() => {
-        this.blockPage = true;
-      });
-    },
+      })
+      resolve(true)
 
+    },
+    async setZeros() {
+
+
+      for (let i = 0; i < this.inputs.length; i++) {
+        let item = this.inputs[i];
+
+        let items = this.items_b.items.rf;
+
+        for (let j = 0; j < items.length; j++) {
+          if (this.isEmpty(this.items_b.items.rf[j][item]))
+            this.items_b.items.rf[j][item] = 0
+        }
+        items = this.items_s.items.rf;
+
+        for (let j = 0; j < items.length; j++) {
+          if (this.isEmpty(this.items_s.items.rf[j][item]))
+            this.items_s.items.rf[j][item] = 0
+        }
+
+        items = this.items_m.items.rf;
+
+        for (let j = 0; j < items.length; j++) {
+          if (this.isEmpty(this.items_m.items.rf[j][item]))
+            this.items_m.items.rf[j][item] = 0
+        }
+
+        items = this.items_p.items.rf;
+
+        for (let j = 0; j < items.length; j++) {
+          if (this.isEmpty(this.items_p.items.rf[j][item]))
+            this.items_p.items.rf[j][item] = 0
+        }
+
+        items = this.items_b.items.in;
+
+        for (let j = 0; j < items.length; j++) {
+          if (this.isEmpty(this.items_b.items.in[j][item]))
+            this.items_b.items.in[j][item] = 0
+        }
+        items = this.items_s.items.in;
+
+        for (let j = 0; j < items.length; j++) {
+          if (this.isEmpty(this.items_s.items.in[j][item]))
+            this.items_s.items.in[j][item] = 0
+        }
+
+        items = this.items_m.items.in;
+
+        for (let j = 0; j < items.length; j++) {
+          if (this.isEmpty(this.items_m.items.in[j][item]))
+            this.items_m.items.in[j][item] = 0
+        }
+
+        items = this.items_p.items.rf;
+
+        for (let j = 0; j < items.length; j++) {
+          if (this.isEmpty(this.items_p.items.in[j][item]))
+            this.items_p.items.in[j][item] = 0
+        }
+      }
+      this.$forceUpdate()
+
+
+    },
   },
   async mounted() {
     await this.getUser();
@@ -342,7 +502,7 @@ export default {
       this.id_org = this.$route.fullPath.split('/')[3] || this.user.id_org
     else this.id_org = this.user.id_org;
 
-    this.blockPage = this.user.isAdmin;
+    ///this.blockPage = this.user.isAdmin;
 
     await this.getOrg();
     // document.addEventListener("pagehide", this.unloadEvent(event));
@@ -350,18 +510,19 @@ export default {
     this.componentReady = true;
   },
   components: {
+    VPage,
+    Stepper,
+    Loading,
     OrgSelect,
     ScrollButton,
-    NavBar,
     livingTable,
     BFormInput,
     BInputGroup,
     BTabs,
     BTab,
   },
+  mixins: [mainMixin]
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped/>

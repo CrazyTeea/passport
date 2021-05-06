@@ -2,53 +2,36 @@
 
 namespace app\models;
 
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
+
 /**
  * This is the model class for table "org_area".
  *
  * @property int $id
  * @property int|null $id_org
- * @property float|null $area_prig_prozh
- * @property float|null $area_zhil_prig_prozh
- * @property float|null $area_zan_obuch
- * @property float|null $area_in_kat_nan
- * @property float|null $svobod
- * @property float|null $ne_isp
- * @property float|null $ne_zhil_plosh_v_prig_dlya_prozh
- * @property float|null $area_obsh_ne_prig_dlya_prozh
- * @property float|null $area_kv_metr_zhil
- * @property float|null $area_kv_metr_obsh
- * @property float|null $area_obj_ne_isp_v_ust_dey
- * @property int|null $area_cnt_mest
- * @property int|null $area_cnt_mest_prig_prozh
- * @property int|null $area_cnt_mest_zan_obuch
- * @property float|null $m2_spo
- * @property float|null $m2_bak
- * @property float|null $m2_spec
- * @property float|null $m2_mag
- * @property float|null $m2_asp
- * @property float|null $m2_ord
- * @property float|null $m2_in
- * @property float|null $c6m2_spo
- * @property float|null $c6m2_bak
- * @property float|null $c6m2_spec
- * @property float|null $c6m2_mag
- * @property float|null $c6m2_asp
- * @property float|null $c6m2_ord
- * @property float|null $c6m2_in
- * @property int|null $area_cnt_mest_zan_in_obuch
- * @property int|null $area_cnt_svob_mest
- * @property int|null $area_cnt_ne_mest
- * @property int|null $area_cnt_mest_ne_prig_k_prozh
- * @property int|null $area_cnt_mest_invalid
+ * @property int|null $m2_spo
+ * @property int|null $m2_bak
+ * @property int|null $m2_spec
+ * @property int|null $m2_mag
+ * @property int|null $m2_asp
+ * @property int|null $m2_ord
+ * @property int|null $m2_in
+ * @property int|null $m2_vis
+ * @property int|null $c6m2_spo
+ * @property int|null $c6m2_bak
+ * @property int|null $c6m2_spec
+ * @property int|null $c6m2_mag
+ * @property int|null $c6m2_asp
+ * @property int|null $c6m2_ord
+ * @property int|null $c6m2_in
+ * @property int|null $c6m2_vis
  * @property int|null $area_cnt_nuzhd_zhil
  * @property int|null $area_cnt_prozh_u_drugih
- * @property int|null $area_cnt_mest_vozm_k_vvodu_v_esk
- * @property int|null $area_cnt_mest_vozm_mest_is_neisp
- * @property int|null $area_cnt_mest_vozm_mest_is_neprig
  *
  * @property Organizations $org
  */
-class OrgArea extends \yii\db\ActiveRecord
+class OrgArea extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -64,15 +47,9 @@ class OrgArea extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_org', 'area_cnt_mest', 'area_cnt_mest_prig_prozh', 'area_cnt_mest_zan_obuch', 'area_cnt_mest_zan_in_obuch',
-                'area_cnt_svob_mest', 'area_cnt_ne_mest', 'area_cnt_mest_ne_prig_k_prozh', 'area_cnt_mest_invalid',
-                'area_cnt_nuzhd_zhil', 'area_cnt_prozh_u_drugih', 'area_cnt_mest_vozm_k_vvodu_v_esk',
-                'area_cnt_mest_vozm_mest_is_neisp', 'area_cnt_mest_vozm_mest_is_neprig'], 'integer'],
-            [['area_prig_prozh', 'area_zhil_prig_prozh', 'area_zan_obuch', 'area_in_kat_nan', 'svobod',
-                'ne_isp', 'ne_zhil_plosh_v_prig_dlya_prozh', 'area_obsh_ne_prig_dlya_prozh',
-                'area_kv_metr_zhil', 'area_kv_metr_obsh', 'area_obj_ne_isp_v_ust_dey', 'm2_spo',
-                'm2_bak', 'm2_spec', 'm2_mag', 'm2_asp', 'm2_ord', 'm2_in', 'c6m2_spo',
-                'c6m2_bak', 'c6m2_spec', 'c6m2_mag', 'c6m2_asp', 'c6m2_ord', 'c6m2_in'], 'number'],
+            [['id_org'], 'integer'],
+            [['m2_spo',  'm2_in',  'c6m2_in',
+                'area_cnt_nuzhd_zhil', 'area_cnt_prozh_u_drugih', 'c6m2_vis', 'm2_vis'], 'number'],
             [['id_org'], 'exist', 'skipOnError' => true, 'targetClass' => Organizations::className(), 'targetAttribute' => ['id_org' => 'id']],
         ];
     }
@@ -85,51 +62,19 @@ class OrgArea extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'id_org' => 'Id Org',
-            'area_prig_prozh' => 'Area Prig Prozh',
-            'area_zhil_prig_prozh' => 'Area Zhil Prig Prozh',
-            'area_zan_obuch' => 'Area Zan Obuch',
-            'area_in_kat_nan' => 'Area In Kat Nan',
-            'svobod' => 'Svobod',
-            'ne_isp' => 'Ne Isp',
-            'ne_zhil_plosh_v_prig_dlya_prozh' => 'Ne Zhil Plosh V Prig Dlya Prozh',
-            'area_obsh_ne_prig_dlya_prozh' => 'Area Obsh Ne Prig Dlya Prozh',
-            'area_kv_metr_zhil' => 'Area Kv Metr Zhil',
-            'area_kv_metr_obsh' => 'Area Kv Metr Obsh',
-            'area_obj_ne_isp_v_ust_dey' => 'Area Obj Ne Isp V Ust Dey',
-            'area_cnt_mest' => 'Area Cnt Mest',
-            'area_cnt_mest_prig_prozh' => 'Area Cnt Mest Prig Prozh',
-            'area_cnt_mest_zan_obuch' => 'Area Cnt Mest Zan Obuch',
             'm2_spo' => 'M2 Spo',
-            'm2_bak' => 'M2 Bak',
-            'm2_spec' => 'M2 Spec',
-            'm2_mag' => 'M2 Mag',
-            'm2_asp' => 'M2 Asp',
-            'm2_ord' => 'M2 Ord',
             'm2_in' => 'M2 In',
-            '6m2_spo' => '6m2 Spo',
-            '6m2_bak' => '6m2 Bak',
-            '6m2_spec' => '6m2 Spec',
-            '6m2_mag' => '6m2 Mag',
-            '6m2_asp' => '6m2 Asp',
-            '6m2_ord' => '6m2 Ord',
-            '6m2_in' => '6m2 In',
-            'area_cnt_mest_zan_in_obuch' => 'Area Cnt Mest Zan In Obuch',
-            'area_cnt_svob_mest' => 'Area Cnt Svob Mest',
-            'area_cnt_ne_mest' => 'Area Cnt Ne Mest',
-            'area_cnt_mest_ne_prig_k_prozh' => 'Area Cnt Mest Ne Prig K Prozh',
-            'area_cnt_mest_invalid' => 'Area Cnt Mest Invalid',
+            'c6m2_spo' => 'C6m2 Spo',
+            'c6m2_in' => 'C6m2 In',
             'area_cnt_nuzhd_zhil' => 'Area Cnt Nuzhd Zhil',
             'area_cnt_prozh_u_drugih' => 'Area Cnt Prozh U Drugih',
-            'area_cnt_mest_vozm_k_vvodu_v_esk' => 'Area Cnt Mest Vozm K Vvodu V Esk',
-            'area_cnt_mest_vozm_mest_is_neisp' => 'Area Cnt Mest Vozm Mest Is Neisp',
-            'area_cnt_mest_vozm_mest_is_neprig' => 'Area Cnt Mest Vozm Mest Is Neprig',
         ];
     }
 
     /**
      * Gets query for [[Org]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getOrg()
     {

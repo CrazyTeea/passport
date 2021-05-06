@@ -9,11 +9,12 @@
           id="tag-search-input"
           type="search"
           autocomplete="off"
-          placeholder="Начинайте вводить название"
+          placeholder=""
       />
       <div v-else class="row">
         <div class="col"><h4 class="text-success">{{ org_name }}</h4></div>
-        <div class="col"><i @click="org_name=null" class="pointer mt-2 float-left text-danger fas fa-trash"></i></div>
+        <div class="col"><i @click="()=>{org_name=null;$emit('input', null)}"
+                            class="pointer mt-2 float-left text-danger fas fa-trash"></i></div>
       </div>
 
       <transition-group name="staggered-fade"
@@ -46,7 +47,7 @@ import {BFormGroup, BFormInput} from 'bootstrap-vue'
 
 export default {
   name: "orgSelect",
-  props: ['value','label','link','errorMsg'],
+  props: ['value', 'label', 'link', 'errorMsg'],
   data() {
     return {
       search: '',
@@ -93,18 +94,18 @@ export default {
   },
   async mounted() {
     let orgs = await Axios.get(this.link, {
-            params: {
-              name: this.criteria
-            }
-          }).then(response => response.data.map(item => {
-            return {
-              value: item.id,
-              text: item.name || item.founder
-            }
-          }));
+      params: {
+        name: this.criteria
+      }
+    }).then(response => response.data.map(item => {
+      return {
+        value: item.id,
+        text: item.name || item.founder
+      }
+    }));
     let arr = [];
     let toNum = num => typeof num === 'string' ? num.toNumber() : (num || 0);
-    let item = orgs.find(item=>toNum(item.value) === toNum(this.value))
+    let item = orgs.find(item => toNum(item.value) === toNum(this.value))
     this.org_name = (item) ? item.text : null;
   },
   methods: {

@@ -163,14 +163,14 @@
               :key="`in_och-${index}-${item.type}`">
           <b-td class="w-25">
             <div class="row">
-              <div class="col-2 offset-1 mt-2">
+              <div v-if="!blockSave" class="col-2 offset-1 mt-2">
                 <a class="text-secondary rotate-button" @click="deleteRow('in_och',index)">
                   <i class="fa fa-minus-circle fa-2x"></i>
                 </a>
               </div>
               <div class="col">
-                <s-select :disabled="blockSave" :model-val="item.name" @on-item-selected="item.name = $event.code"
-                          @on-item-reset="item.name = null"/>
+                <s-select :kek="item.name + index" :key="`s-select-in_och_${item.name}`" :disabled="blockSave" v-model="item.name"
+                />
               </div>
             </div>
           </b-td>
@@ -209,7 +209,7 @@
         <b-tr class="border-r">
           <b-td>
             <div class="row">
-              <div class="col-2 offset-1">
+              <div v-if="!blockSave" class="col-2 offset-1">
                 <div class="rotate-button text-secondary" @click="addRow('in_och')">
                   <i class="fas fa-plus-circle fa-2x"></i>
                 </div>
@@ -277,14 +277,13 @@
               :key="`in_zaoch-${index}-${item.type}`">
           <b-td class="w-25">
             <div class="row">
-              <div class="col-2 offset-1 mt-2">
+              <div v-if="!blockSave" class="col-2 offset-1 mt-2">
                 <a class="text-secondary rotate-button" @click="deleteRow('in_zaoch',index)">
                   <i class="fa fa-minus-circle fa-2x"></i>
                 </a>
               </div>
               <div class="col">
-                <s-select :disabled="blockSave" :model-val="item.name" @on-item-selected="item.name = $event.code"
-                          @on-item-reset="item.name = null"/>
+                <s-select :kek="item.name + index" :key="`s-select-in_zaoch_${item.name}`" :disabled="blockSave" v-model="item.name"/>
               </div>
             </div>
           </b-td>
@@ -324,7 +323,7 @@
           <b-td>
             <div class="row">
 
-              <div class="col-2 offset-1">
+              <div v-if="!blockSave" class="col-2 offset-1">
                 <div class="rotate-button text-secondary" @click="addRow('in_zaoch')">
                   <i class="fas fa-plus-circle fa-2x"></i>
                 </div>
@@ -391,14 +390,14 @@
               :key="`in_ochzaoch-${index}-${item.type}`">
           <b-td class="w-25">
             <div class="row">
-              <div class="col-2 offset-1 mt-2">
+              <div v-if="!blockSave" class="col-2 offset-1 mt-2">
                 <a class="text-secondary rotate-button" @click="deleteRow('in_ochzaoch',index)">
                   <i class="fa fa-minus-circle fa-2x"></i>
                 </a>
               </div>
               <div class="col">
-                <s-select :disabled="blockSave" :model-val="item.name" @on-item-selected="item.name = $event.code"
-                          @on-item-reset="item.name = null"/>
+                <s-select :kek="item.name + index" :key="`s-select-in_ochzaoch_${item.name}`" :disabled="blockSave" v-model="item.name"
+                />
               </div>
             </div>
           </b-td>
@@ -438,7 +437,7 @@
           <b-td>
             <div class="row">
 
-              <div class="col-2 offset-1">
+              <div v-if="!blockSave" class="col-2 offset-1">
                 <div class="rotate-button text-secondary" @click="addRow('in_ochzaoch')">
                   <i class="fas fa-plus-circle fa-2x"></i>
                 </div>
@@ -675,6 +674,10 @@ export default {
         this.deletedItems.push(this.items[arr][index].id);
       }
       this.items[arr].splice(index, 1);
+      if (index) {
+        let kek = this.items[arr][index].name;
+        this.items[arr][index].name = kek;
+      }
       this.cntRow(null, null, null, true);
     },
     checkCanSave(index) {

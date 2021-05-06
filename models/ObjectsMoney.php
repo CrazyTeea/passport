@@ -55,7 +55,10 @@ class ObjectsMoney extends \yii\db\ActiveRecord
     {
         return [
             [['id_object'], 'integer'],
-            [['money_prozh_bez_dop', 'money_prozh_dop', 'money_aren', 'money_cel_sred', 'voda', 'tep', 'gaz', 'elect', 'uborka_ter', 'uborka_pom', 'tech_obs', 'derivation', 'tbo', 'gos_prov', 'attest', 'prot_pozhar', 'inie_rash', 'ohrana', 'anti_ter', 'inie_rash_ohrana', 'nalog_imush', 'zem_nalog', 'svaz', 'kap_rem', 'tek_rem', 'mygk_inv', 'osn_sred', 'opla_trud'], 'number'],
+            [['money_prozh_bez_dop', 'money_prozh_dop', 'money_aren', 'money_cel_sred', 'voda', 'tep',
+                'gaz', 'elect', 'uborka_ter', 'uborka_pom', 'tech_obs', 'derivation', 'tbo', 'gos_prov',
+                'attest', 'prot_pozhar', 'inie_rash', 'ohrana', 'anti_ter', 'inie_rash_ohrana', 'nalog_imush',
+                'zem_nalog', 'svaz', 'kap_rem', 'tek_rem', 'mygk_inv', 'osn_sred', 'opla_trud'], 'number'],
             [['id_object'], 'exist', 'skipOnError' => true, 'targetClass' => Objects::className(), 'targetAttribute' => ['id_object' => 'id']],
         ];
     }

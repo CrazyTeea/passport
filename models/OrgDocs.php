@@ -27,13 +27,14 @@ class OrgDocs extends \yii\db\ActiveRecord
     {
         return [
             [['id_desc', 'id_org', 'id_file'], 'integer'],
+            [['id_desc', 'id_org', 'id_file'], 'required'],
         ];
     }
 
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels()
+    public function attributeLabels(): array
     {
         return [
             'id' => 'ID',
@@ -42,13 +43,13 @@ class OrgDocs extends \yii\db\ActiveRecord
         ];
     }
 
-    public function getDescriptor()
+    public function getDescriptor(): \yii\db\ActiveQuery
     {
-        return $this->hasOne(DocTypes::className(), ['id' => 'id_desc']);
+        return $this->hasOne(DocTypes::class, ['id' => 'id_desc']);
     }
 
-    public function getFile()
+    public function getFile(): \yii\db\ActiveQuery
     {
-        return $this->hasOne(Files::className(), ['id' => 'id_file']);
+        return $this->hasOne(Files::class, ['id' => 'id_file']);
     }
 }

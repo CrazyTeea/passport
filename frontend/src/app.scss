@@ -10,6 +10,11 @@ $fa-font-path: "webfonts";
 @import "webfonts/regular.scss";
 
 
+.col-form-label {
+  padding-bottom: 0.1rem !important;
+}
+
+
 .header {
   position: fixed;
   width: 100%;
@@ -17,7 +22,9 @@ $fa-font-path: "webfonts";
   top: 0;
 }
 
-
+.justify-content-evenly {
+  justify-content: space-evenly;
+}
 .animate-height {
   position: fixed;
   width: 100%;
@@ -40,14 +47,27 @@ $fa-font-path: "webfonts";
   cursor: pointer;
 }
 
-* {
+button, a, input, .alert, .card {
   border-radius: inherit !important;
 }
 
 @font-face {
-    font-family: 'inter';
-    src: url('Inter-VariableFont_slnt,wght.ttf');
+  font-family: 'inter';
+  src: url('Inter-VariableFont_slnt,wght.ttf');
 }
+
 body {
-  font-family: 'Inter',sans-serif;
+  font-family: 'Inter', sans-serif;
+}
+
+#inlineRadio1 {
+  transform: scale(1.3);
+  opacity: 0.9;
+  cursor: pointer;
+}
+
+#inlineRadio2 {
+  transform: scale(1.3);
+  opacity: 0.9;
+  cursor: pointer;
 }

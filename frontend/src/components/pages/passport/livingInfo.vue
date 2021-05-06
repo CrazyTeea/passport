@@ -1,23 +1,34 @@
 <template>
   <div>
-    <nav-bar :is-admin="user.isAdmin" :id_org="id_org" v-on:save-page="savePage" v-on:block-save="blockPage = !blockPage"/>
-    <transition enter-active-class="animated fadeInUp">
+    <!--<nav-bar v-on:block-save="blockPage = !blockPage" v-on:save-page="savePage" :id_org="id_org"
+             :is-admin="user.isAdmin"/>-->
+    <v-page>
       <div v-if="componentReady" class="container">
-
         <org-select link="/api/organizations/all" error-msg="нет доступных организаций по заданным критериаям"
-                    label="Выбранная организация" v-can:admin,root v-model="id_org"/>
+                    label="Выбранная организация" v-if="$check(['admin','root'])" v-model="id_org"/>
 
-        <div class="row">
-          <div class="col-8">
-            <h3>
-              Сведения о проживающих в жилищном фонде, используемом в уставной деятельности
-            </h3>
-          </div>
-        </div>
+        <h3>Шаг 3: Сведения о проживающих в жилищном фонде, используемом в уставной деятельности</h3>
+
+        <stepper
+            :back-url="user.isAdmin ? `/admin/area-info/${this.id_org}` : '/area-info'"
+            :to-url="user.isAdmin ? `/admin/living-info-inv/${this.id_org}` : '/living-info-inv'"
+            percent="60"
+            end-button-label="Далее"
+            @save-page="savePage"
+        />
         <hr>
 
         <div class="row">
           <div class="col">
+            <b-alert
+                v-if="organization.area.area_cnt_mest_zan_obuch + organization.area.area_cnt_mest_zan_in_obuch !== living.cnt_stud"
+                show variant="danger">
+              Количество внесённых вами мест, занятых обучающимися и иными категориями проживающих в объектах,
+              используемых в уставной деятельности, равно
+              <b>{{ organization.area.area_cnt_mest_zan_obuch + organization.area.area_cnt_mest_zan_in_obuch }}</b>.
+              Сумма проживающих должна соответствать количеству занятых мест.
+            </b-alert>
+
             <label class="font-weight-bold">Всего проживающих: </label>
 
             {{ living.cnt_stud }} Человек
@@ -28,6 +39,12 @@
 
         <div class="row ">
           <div class="col">
+            <b-alert v-if="organization.area.area_cnt_mest_zan_obuch !== living.cnt_stud_obuch" show variant="danger">
+              Количество внесённых вами мест, занятых обучающимися в объектах, используемых в уставной деятельности,
+              равно <b>{{ organization.area.area_cnt_mest_zan_obuch }}</b>. Сумма проживающих из числа обучающихся
+              должна соответствать количеству занятых мест обучающимися.
+            </b-alert>
+
             <label class="font-weight-bold">Проживающие из числа обучающихся: </label>
 
             {{ living.cnt_stud_obuch }} Человек
@@ -185,7 +202,10 @@
 
         <div class="row mb-2">
           <div class="col-6">
-            <label for="live_inie_prozh" class="font-weight-bold">Иные проживающие</label>
+            <label for="live_inie_prozh" class="font-weight-bold">
+              Иные проживающие <i class="fas fa-question-circle" id="tooltip-target-1"/>
+              <b-tooltip target="tooltip-target-1" triggers="hover">Не обучающиеся и не персонал и их семьи</b-tooltip>
+            </label>
           </div>
           <div class="col-6">
             <b-input-group append="Человек">
@@ -193,9 +213,26 @@
             </b-input-group>
           </div>
         </div>
+        <hr>
 
+        <div class="text-center">
+          <button class="btn btn-primary" type="button" @click="setZeros()">Заполнить нулями пустые поля</button>
+          <hr>
+        </div>
+
+        <stepper
+            :back-url="user.isAdmin ? `/admin/area-info/${this.id_org}` : '/area-info'"
+            :to-url="user.isAdmin ? `/admin/living-info-inv/${this.id_org}` : '/living-info-inv'"
+            percent="60"
+            end-button-label="Далее"
+            @save-page="savePage"
+        />
+        <br>
       </div>
-    </transition>
+      <loading v-else />
+    </v-page>
+
+
     <scroll-button/>
   </div>
 
@@ -203,6 +240,7 @@
 
 <script>
 import {
+  BAlert,
   BFormInput,
   BInputGroup,
   BInputGroupText,
@@ -217,18 +255,25 @@ import {
   BTr,
 } from 'bootstrap-vue';
 import Axios from 'axios';
-import NavBar from '../../organisms/NavBar';
+
 import livingTable from '../../organisms/livingTable';
 import scrollButton from '../../organisms/scrollButton';
 import OrgSelect from "../../organisms/orgSelect";
+import {mainMixin} from "../../mixins";
+import Loading from "../../organisms/loading";
+import Stepper from "../../organisms/stepper";
+import VPage from "../../organisms/vPage";
 
 export default {
   name: 'livingInfo',
   components: {
+    VPage,
+    Stepper,
+    Loading,
     OrgSelect,
     scrollButton,
-    NavBar,
     livingTable,
+    BAlert,
     BFormInput,
     BInputGroup,
     BTabs,
@@ -248,6 +293,22 @@ export default {
       blockPage: false,
       user: {},
       organization: {},
+      inputs: [
+        'spo', 'bak',
+        'spec', 'mag', 'asp', 'ord', 'in',
+      ],
+      inputs2: [
+        'rab_p',
+        'rab_s',
+        'nauch_p',
+        'nauch_s',
+        'prof_p',
+        'prof_s',
+        'in_p',
+        'in_s',
+        'inie_pr',
+        'cnt_stug_step'
+      ],
       living: {
         cnt_stud_obuch: 0,
         cnt_stud: 0,
@@ -298,7 +359,7 @@ export default {
     };
   },
   watch: {
-    async id_org(){
+    async id_org() {
       if (this.componentReady)
         await this.getOrg()
     },
@@ -334,7 +395,6 @@ export default {
     },
   },
   methods: {
-
     getLabel(type) {
       let arr =
           {
@@ -408,25 +468,28 @@ export default {
       });
     },
     async getOrg() {
-      await Axios.get(`/api/organization/by-id/${this.id_org}`, {
-        params: {
-          living_st_inv: 0,
-        },
-      }).then((res) => {
+      let toNum = num => typeof num === 'string' ? num.toNumber() : (num || 0);
+
+      await Axios.get(`/api/organization/by-id/${this.id_org}`, {params: {living_st_inv: 0}}).then((res) => {
         this.organization = res.data;
 
         if (this.organization) {
+          if (this.organization.objects) {
+            this.organization.area.area_cnt_mest_zan_obuch = this.organization.objects.reduce((a, b) => a + toNum((b.area) ? b.area.cnt_mest_zan_obuch : 0), 0);
+            this.organization.area.area_cnt_mest_zan_obuch = this.organization.area.area_cnt_mest_zan_obuch ?? 0;
+            this.organization.area.area_cnt_mest_zan_in_obuch = this.organization.objects.reduce((a, b) => a + toNum(b.area ? b.area.cnt_mest_zan_in_obuch : 0), 0);
+          }
 
           this.organization.living = res.data.living ?? {};
           const bud = [
             'items_b', 'items_s', 'items_m', 'items_p'
           ];
 
-          bud.forEach(item=>{
+          bud.forEach(item => {
             this[item].items.rf = [];
-            this[item].items.in_och= [];
-            this[item].items.in_ochzaoch= [];
-            this[item].items.in_zaoch= [];
+            this[item].items.in_och = [];
+            this[item].items.in_ochzaoch = [];
+            this[item].items.in_zaoch = [];
           })
 
           res.data.livingStudents.forEach(item => {
@@ -487,9 +550,71 @@ export default {
         }
         this.cntLiving();
       });
+      await Axios.get(`/api/objects/org/${this.id_org}`).then((res) => {
+        this.organization.objects = res.data;
 
+        if (this.organization) {
+          if (this.organization.objects) {
+            this.organization.area.area_cnt_mest_zan_obuch = this.organization.objects.reduce((a, b) => a + toNum((b.area) ? b.area.cnt_mest_zan_obuch : 0), 0);
+            this.organization.area.area_cnt_mest_zan_obuch = this.organization.area.area_cnt_mest_zan_obuch ?? 0;
+            this.organization.area.area_cnt_mest_zan_in_obuch = this.organization.objects.reduce((a, b) => a + toNum(b.area ? b.area.cnt_mest_zan_in_obuch : 0), 0);
+          }
+        }
+      });
     },
-    async savePage() {
+
+    validate() {
+
+      for (let i = 0; i < this.inputs.length; i++) {
+        let item = this.inputs[i];
+
+        //let this.items_b.items.rf
+
+        let items = this.items_b.items.rf;
+
+        for (let j = 0; j < items.length; j++) {
+          if (this.isEmpty(this.items_b.items.rf[j][item]))
+            return false;
+        }
+        items = this.items_s.items.rf;
+
+        for (let j = 0; j < items.length; j++) {
+          if (this.isEmpty(this.items_s.items.rf[j][item]))
+            return false;
+        }
+
+        items = this.items_m.items.rf;
+
+        for (let j = 0; j < items.length; j++) {
+          if (this.isEmpty(this.items_m.items.rf[j][item]))
+            return false;
+        }
+
+        items = this.items_p.items.rf;
+
+        for (let j = 0; j < items.length; j++) {
+          if (this.isEmpty(this.items_p.items.rf[j][item]))
+            return false;
+        }
+
+
+      }
+      for (let i = 0; i < this.inputs2.length; i++) {
+        let item = this.inputs2[i];
+        if (this.isEmpty(this.organization.living[item]))
+          return false;
+      }
+      return true;
+    },
+
+    async savePage(validate,resolve) {
+
+      if (validate && !this.validate()) {
+        await this.$bvModal.msgBoxOk("Для сохранения необходимо заполнить пустые поля.")
+        resolve(false)
+        return;
+      }
+
       const data = new FormData();
       this.organization.living_studs = [
         ...this.items_b.items.rf, ...this.items_b.items.in_och, ...this.items_b.items.in_ochzaoch, ...this.items_b.items.in_zaoch,
@@ -508,12 +633,43 @@ export default {
         headers: {
           'X-CSRF-Token': this.csrf,
         },
-      }).then((res) => {
-        if (res.data.success) this.getOrg();
-      }).finally(() => {
-        this.blockPage = true;
-      });
-    }
+      })
+
+      resolve(true)
+
+    },
+    async setZeros() {
+      for (let i = 0; i < this.inputs.length; i++) {
+        let item = this.inputs[i];
+
+        let items = this.items_b.items.rf;
+        for (let j = 0; j < items.length; j++) {
+          if (this.isEmpty(this.items_b.items.rf[j][item]))
+            this.items_b.items.rf[j][item] = 0
+        }
+        items = this.items_s.items.rf;
+        for (let j = 0; j < items.length; j++) {
+          if (this.isEmpty(this.items_s.items.rf[j][item]))
+            this.items_s.items.rf[j][item] = 0
+        }
+        items = this.items_m.items.rf;
+        for (let j = 0; j < items.length; j++) {
+          if (this.isEmpty(this.items_m.items.rf[j][item]))
+            this.items_m.items.rf[j][item] = 0
+        }
+        items = this.items_p.items.rf;
+        for (let j = 0; j < items.length; j++) {
+          if (this.isEmpty(this.items_p.items.rf[j][item]))
+            this.items_p.items.rf[j][item] = 0
+        }
+      }
+      for (let i = 0; i < this.inputs2.length; i++) {
+        let item = this.inputs2[i];
+        if (this.isEmpty(this.organization.living[item]))
+          this.organization.living[item] = 0;
+      }
+      this.$forceUpdate()
+    },
   },
   async mounted() {
     await this.getUser();
@@ -521,13 +677,12 @@ export default {
       this.id_org = this.$route.fullPath.split('/')[3] || this.user.id_org
     else this.id_org = this.user.id_org;
 
-    this.blockPage = this.user.isAdmin;
+    //this.blockPage = this.user.isAdmin;
 
     await this.getOrg();
     this.componentReady = true;
-
-
   },
+  mixins: [mainMixin]
 };
 </script>
 

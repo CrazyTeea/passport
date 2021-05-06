@@ -23,7 +23,11 @@ stages:
 
 composer_install:
   only:
-    - master
+    refs:
+      - master
+    changes:
+      - composer.json
+      - composer.lock
   stage: deploy_composer
   script:
     - scp -P $PORT composer.{json,lock} $DEST_SERVER:$DEST_PATH
@@ -38,7 +42,7 @@ deploy_files:
   script:
     - EXCLUDE={'.git*','rsync.log','vendor/','rbac/assignments.php','runtime/',
     - EXCLUDE+='web/uploads/','web/assets/','.env','commands/private/',
-    - EXCLUDE+='frontend/node_modules/','web/vue','web/fonts','frontend/.env'}
+    - EXCLUDE+='frontend/node_modules/','web/vue','web/fonts','web/images','frontend/.env'}
     - '[ -f rsync.log ]&& rm rsync.log'
     - echo $EXCLUDE
     - >
@@ -48,7 +52,10 @@ deploy_files:
 
 run_migrate:
   only:
-    - master
+    refs:
+      - master
+    changes:
+      - migrations/**/*
   stage: deploy_migrate
   script:
     - >

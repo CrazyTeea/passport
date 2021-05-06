@@ -7,8 +7,8 @@
 
 namespace app\commands;
 
+use app\models\Objects;
 use yii\console\Controller;
-use yii\console\ExitCode;
 
 /**
  * This command echoes the first argument that you have entered.
@@ -20,15 +20,21 @@ use yii\console\ExitCode;
  */
 class HelloController extends Controller
 {
-    /**
-     * This command echoes what you have entered as the message.
-     * @param string $message the message to be echoed.
-     * @return int Exit code
-     */
-    public function actionIndex($message = 'hello world')
+    public function actionIndex()
     {
-        echo $message . "\n";
-
-        return ExitCode::OK;
+        Objects::updateAll([
+            'date_start_reconstruct' => null,
+            'date_end_reconstruct' => null,
+            'rec_money_faip' => null,
+            'rec_money_bud_sub' => null,
+            'rec_money_vneb' => null
+        ], ['reconstruct' => 0]);
+        Objects::updateAll([
+            'date_start_reconstruct' => null,
+            'date_end_reconstruct' => null,
+            'rec_money_faip' => null,
+            'rec_money_bud_sub' => null,
+            'rec_money_vneb' => null
+        ], ['is', 'reconstruct', null]);
     }
 }

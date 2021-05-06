@@ -18,16 +18,15 @@ class m200706_085431_change_org_table extends Migration
             'stud_cnt_inos'=>$this->integer()->defaultValue(0),
         */
 
-        
 
-        $this->addColumn('organizations','stud_cnt',$this->integer()->defaultValue(0));
-        $this->addColumn('organizations','stud_cnt_rus',$this->integer()->defaultValue(0));
-        $this->addColumn('organizations','stud_cnt_inos',$this->integer()->defaultValue(0));
+        $this->addColumn('organizations', 'stud_cnt', $this->integer()->defaultValue(0));
+        $this->addColumn('organizations', 'stud_cnt_rus', $this->integer()->defaultValue(0));
+        $this->addColumn('organizations', 'stud_cnt_inos', $this->integer()->defaultValue(0));
 
 
-        $this->dropColumn('org_info','stud_cnt');
+        /*$this->dropColumn('org_info','stud_cnt');
         $this->dropColumn('org_info','stud_cnt_rus');
-        $this->dropColumn('org_info','stud_cnt_inos');
+        $this->dropColumn('org_info','stud_cnt_inos');*/
     }
 
     /**

@@ -17,8 +17,9 @@ class Files extends \yii\db\ActiveRecord
     public function deleteFile($id_org, $desc)
     {
         $path = Yii::getAlias('@webroot') . "/uploads/orgs/$id_org/$desc/$this->name";
-        if (file_exists($path))
+        if (file_exists($path)) {
             unlink($path);
+        }
         $this->delete();
     }
 
@@ -28,8 +29,9 @@ class Files extends \yii\db\ActiveRecord
         $this->save();
 
         $path = Yii::getAlias('@webroot') . "/uploads/orgs/$id_org/$desc";
-        if (!file_exists($path))
+        if (!file_exists($path)) {
             FileHelper::createDirectory($path);
+        }
         $path .= "/$this->name";
         $file->saveAs($path);
 
