@@ -8,6 +8,8 @@ nbproject
 .buildpath
 .project
 .settings
+.php_cs.cache
+.phpunit.result.cache
 
 # windows thumbnail cache
 Thumbs.db
@@ -39,3 +41,4 @@ tests/_support/_generated
 /web/vue
 /web/uploads
 /web/fonts
+/web/images

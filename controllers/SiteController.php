@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\ChangePasswordForm;
 use app\models\ContactForm;
 use app\models\Countries;
 use app\models\Founders;
@@ -48,53 +49,6 @@ class SiteController extends Controller
         ];
     }
 
-    public function actionAdmin()
-    {
-        $user = User::findOne(['username' => 'admin@admin.ru']) ?? new User();
-        $user->username = 'admin@admin.ru';
-        $user->auth_key = Yii::$app->security->generateRandomString();
-        $user->setPassword('password');
-        if ($user->save()) {
-            $php = new PhpManager();
-            $php->revokeAll($user->id);
-            $php->assign($php->getRole('root'), $user->id);
-        }
-
-    }
-    public function actionFounders()
-    {
-        echo "Выполняется синхронизация фаундеров\n";
-
-        $err = 0;
-        $timestart = time();
-        $signer = new Sha256();
-
-        $token = (new Builder())->set('reference', 'organization_founder')
-            ->sign($signer, 'secret')
-            ->getToken();
-
-        $response_token = file_get_contents("http://api.xn--80apneeq.xn--p1ai/api.php?option=reference_api&action=get_reference&module=constructor&reference_token=$token");
-
-        $signer = new Sha256();
-        $token = (new Parser())->parse($response_token);
-        if ($token->verify($signer, 'secret')) {
-
-            $data_reference = $token->getClaims();
-
-            foreach ($data_reference as $key => $data) {
-                $founder = Founders::findOne($data->getValue()->id) ?? new Founders();
-                $founder->id = $data->getValue()->id;
-                $founder->founder = $data->getValue()->name;
-                $founder->system_status = $data->getValue()->system_status;
-                if (!$founder->save()) {
-                    $err++;
-                    print_r($founder->getErrors());
-                }
-            }
-        }
-        return !$err;
-
-    }
 
     /**
      * {@inheritdoc}
@@ -124,8 +78,9 @@ class SiteController extends Controller
 
     private function checkRole()
     {
-        if (!Yii::$app->user->can('user'))
+        if (!Yii::$app->user->can('user')) {
             Yii::$app->homeUrl = '/admin/statistic';
+        }
     }
 
     /**
@@ -167,24 +122,6 @@ class SiteController extends Controller
     }
 
     /**
-     * Displays contact page.
-     *
-     * @return Response|string
-     */
-    public function actionContact()
-    {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('contactFormSubmitted');
-
-            return $this->refresh();
-        }
-        return $this->render('contact', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
      * Displays about page.
      *
      * @return string
@@ -194,58 +131,14 @@ class SiteController extends Controller
         return $this->render('about');
     }
 
-    public function actionOrgs()
+    public function actionChangePassword(): string
     {
-        echo "Выполняется синхронизация организаций\n";
-        $err = 0;
-        $signer = new Sha256();
-        $key = new Key('secret');
-        $token = (new Builder())->withClaim('reference', 'organization')
-            // ->sign($signer, self::$jwt_key)
-            ->getToken($signer, $key);
-        $response_token = file_get_contents("http://api.xn--80apneeq.xn--p1ai/api.php?option=reference_api&action=get_reference&module=constructor&reference_token=$token");
-        $signer = new Sha256();
-        $token = (new Parser())->parse($response_token);
-        if ($token->verify($signer, 'secret')) {
-            $data_reference = $token->getClaims();
-            foreach ($data_reference as $key => $data) {
-                $row_org = Organizations::findOne($data->getValue()->id);
-                if (!$row_org) {
-                    $row_org = new Organizations();
-                    $row_org->id = $data->getValue()->id;
-                }
-                $row_org->id_founder = $data->getValue()->subordination;
-                $row_org->full_name = htmlspecialchars_decode($data->getValue()->fullname);
-                $row_org->short_name = htmlspecialchars_decode($data->getValue()->shot_name);
-                $row_org->name = htmlspecialchars_decode($data->getValue()->name);
-                $row_org->id_region = ($data->getValue()->region_id > 86 || !$data->getValue()->region_id) ? 86 : $data->getValue()->region_id;
-                $row_org->system_status = $data->getValue()->system_status;
-
-                if (!$row_org->save()) {
-                    $err++;
-                    print_r($row_org->id_region);
-                }
-
-            }
-        } else return false;
-        return !$err;
-
-    }
-
-
-    public function actionKek()
-    {
-        $csvP = Yii::getAlias('@webroot') . "/kek.csv";
-        $csv = fopen($csvP, 'r');
-        while (($row = fgetcsv($csv, 32000, ';')) != false) {
-            $country = Countries::findOne(['code' => $row['2']]) ?? new Countries();
-            $country->code = $row['2'];
-            $country->flag = $row['0'];
-            $country->en = $row['1'];
-            $country->ru = $row['3'];
-            $country->save();
+        $model = new ChangePasswordForm();
+        $success = -1;
+        if ($model->load(Yii::$app->request->post())) {
+            $success = $model->change_password();
         }
-
-
+        return $this->render('change_password', compact('model', 'success'));
     }
+
 }

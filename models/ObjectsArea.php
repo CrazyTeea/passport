@@ -54,8 +54,12 @@ class ObjectsArea extends \yii\db\ActiveRecord
     {
         return [
             [['id_object'], 'required'],
-            [['id_object', 'cnt_mest_zan_obuch', 'cnt_mest_zan_in_obuch', 'cnt_svobod_mest', 'cnt_neisp_mest', 'cnt_nepr_isp_mest', 'cnt_mest_inv', 'cnt_mest_vozm_neisp_mest', 'cnt_mest_vozm_neprig_mest'], 'integer'],
-            [['zan_obuch', 'zan_inie', 'svobod', 'neisp', 'punkt_pit', 'pom_dlya_uch', 'pom_dlya_med', 'pom_dlya_sport', 'pom_dlya_soc', 'in_nezh_plosh', 'zhil_tkr', 'zhil_nas', 'zhil_np', 'nzhil_tkr', 'nzhil_nas', 'nzhil_np', 'aren', 'pbp'], 'number'],
+            [['id_object', 'cnt_mest_zan_obuch', 'cnt_mest_zan_in_obuch',
+                'cnt_svobod_mest', 'cnt_neisp_mest', 'cnt_nepr_isp_mest',
+                'cnt_mest_inv', 'cnt_mest_vozm_neisp_mest', 'cnt_mest_vozm_neprig_mest'], 'integer'],
+            [['zan_obuch', 'zan_inie', 'svobod', 'neisp', 'punkt_pit', 'pom_dlya_uch',
+                'pom_dlya_med', 'pom_dlya_sport', 'pom_dlya_soc', 'in_nezh_plosh', 'zhil_tkr',
+                'zhil_nas', 'zhil_np', 'nzhil_tkr', 'nzhil_nas', 'nzhil_np', 'aren', 'pbp'], 'number'],
             [['id_object'], 'exist', 'skipOnError' => true, 'targetClass' => Objects::className(), 'targetAttribute' => ['id_object' => 'id']],
         ];
     }

@@ -14,7 +14,7 @@
           </b-card-header>
           <b-collapse role="tabpanel" id="filter" accordion="filter">
             <div class="container">
-              <b-form-group class="mt-2" label-class="font-weight-bold" label="Название организаций">
+              <b-form-group class="mt-2 labe" label-class="font-weight-bold" label="Название организаций">
                 <b-form-tags v-model="value" no-outer-focus class="p-0">
                   <template v-slot="{ tags, disabled, addTag, removeTag }">
                     <ul v-if="tags.length > 0" class="list-inline d-inline-block mb-2">
@@ -34,7 +34,7 @@
                         id="tag-search-input"
                         type="search"
                         autocomplete="off"
-                        placeholder="Начинайте вводить название"
+                        placeholder=""
                     ></b-form-input>
 
                     <transition-group name="staggered-fade"
@@ -53,26 +53,13 @@
                         {{ option.text }}
                       </div>
                     </transition-group>
-                    <!-- <div v-if="!availableOptions.length">
-                       Для выбора организации введите ее название
-                     </div>-->
+
                   </template>
                 </b-form-tags>
               </b-form-group>
 
-              <org-select label="Фоив" link="/api/organizations/founders" error-msg="нет такого ФИИВ"
+              <org-select label="ФОИВ" link="/api/organizations/founders" error-msg="нет такого ФОИВ"
                           v-model="filter.id_founder"/>
-
-              <!--<b-form-group label-class="font-weight-bold" label="ФОИВ" label-for="id_founder">
-                <b-input-group>
-                  <template #append>
-                    <b-input-group-text @click="filter.id_founder = null" class="pointer btn-outline-danger">
-                      <i @click="filter.id_founder = null" class=" fas fa-trash"></i>
-                    </b-input-group-text>
-                  </template>
-                  <b-form-select id="id_founder" :options="founders" v-model.number="filter.id_founder"/>
-                </b-input-group>
-              </b-form-group>-->
 
               <b-form-group label-class="font-weight-bold" label="Субъект Российской Федерации" label-for="id_region">
                 <b-input-group>
@@ -136,7 +123,7 @@
         </b-card>
 
         <div class="mt-2">
-          <export-modal :filter="filter"/>
+          <export-modal :filter="filter" :is-nav="false"/>
 
         </div>
 
@@ -145,7 +132,6 @@
           <b-table-simple class="mt-2">
             <b-thead>
               <b-tr class="border-bottom">
-                <b-th>№</b-th>
                 <b-th>Id</b-th>
                 <b-th>Название организации</b-th>
                 <b-th>Регион</b-th>
@@ -155,17 +141,16 @@
               </b-tr>
             </b-thead>
             <b-tbody>
-              <b-tr v-for="(item,index) in orgList" :key="`tr-${index}`" class="my-hover" @click="rowClick(item)"
+              <b-tr v-for="(item,index2) in orgList" :key="`tr-${index2}`" class="my-hover" @click="rowClick(item)"
                     v-if="item.id">
-                <b-td>{{ (Number(index) + ((filter.offset - 1) * filter.limit) + 1) || '' }}</b-td>
                 <b-td>{{ item.id }}</b-td>
                 <b-td>{{ item.name }}</b-td>
                 <b-td>{{ item.region }}</b-td>
                 <b-td>{{ item.foiv }}</b-td>
-                <b-td :id="`tooltip-target-${index}`">
-                  {{ item.r_obj_cnt }} / {{ item.my_obj_cnt }}
-                  <b-tooltip :target="`tooltip-target-${index}`" triggers="hover">
-                    Всего: {{ item.r_obj_cnt }} Изменено: {{ item.my_obj_cnt }}
+                <b-td :id="`tooltip-target-${index2}`">
+                  {{ item.r_obj_cnt }}<!-- / {{ item.my_obj_cnt }}-->
+                  <b-tooltip :target="`tooltip-target-${index2}`" triggers="hover">
+                    Всего: {{ item.r_obj_cnt }}<!-- Изменено: {{ item.my_obj_cnt }}-->
                   </b-tooltip>
                 </b-td>
                 <b-td>{{ item.docs }}</b-td>
@@ -206,7 +191,7 @@ import {
   BTableSimple,
   BTbody,
   BTd,
-  BTh,BTooltip,
+  BTh, BTooltip,
   BThead,
   BTr,
   VBToggle
@@ -228,7 +213,7 @@ export default {
     BCard, BFormTag,
     BCardHeader, BPagination,
     BCollapse, BThead, BTbody,
-    BTh, BTd, BTr,BTooltip,
+    BTh, BTd, BTr, BTooltip,
     BFormGroup, BIcon,
     BFormSelect, BButton,
     BFormInput, BFormTags,
@@ -237,7 +222,7 @@ export default {
     availableOptions: {
       lazy: true,
       get() {
-        if (this.criteria.length >= 3) {
+        if (this.criteria.length >= 1) {
           return Axios.get('/api/organizations/all', {
             params: {
               name: this.criteria
@@ -263,24 +248,26 @@ export default {
       // Compute the search criteria
       return this.search.trim().toLowerCase()
     },
-    searchDesc() {
+    /*searchDesc() {
       if (this.criteria && this.availableOptions.length === 0) {
         return 'нет доступных организаций по заданным критериаям'
       }
       return ''
-    }
+    }*/
   },
   data() {
     return {
       //options: ['Apple', 'Orange', 'Banana', 'Lime', 'Peach', 'Chocolate', 'Strawberry'],
       search: '',
       value: [],
+      old_cnt: 0,
       filter: {
         id: [],
         id_founder: null,
         id_region: null,
         zap: null,
         kont: null,
+        crnt_cnt: 0,
         docs: null,
         limit: 15,
         offset: 1
@@ -313,9 +300,10 @@ export default {
 
   },
   methods: {
-    showModal() {
-      console.log('ad');
+    inc(val) {
+      return this.old_cnt += val;
     },
+
     rowClick(item) {
       window.open(`/admin/data/${item.id}`)
     },
@@ -325,6 +313,7 @@ export default {
         params: this.filter
       }).then(response => {
         this.orgList = response.data;
+        this.filter.crnt_cnt = Object.keys(response.data).length - 1
         this.cnt = response.data.cnt;
       });
     },

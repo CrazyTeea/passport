@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<psalm
+        autoloader="vendor/autoload.php"
+        errorLevel="7"
+        resolveFromConfigFile="true"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="https://getpsalm.org/schema/config"
+        xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+>
+    <projectFiles>
+        <file name="helpers.php" />
+        <file name="requirements.php" />
+        <directory name="assets" />
+        <directory name="commands" />
+        <directory name="config" />
+        <directory name="controllers" />
+        <directory name="helpers" />
+        <directory name="jobs" />
+        <directory name="migrations" />
+        <directory name="models" />
+        <directory name="rbac" />
+        <directory name="web" />
+        <directory name="widgets" />
+        <directory name="mail" />
+        <directory name="views" />
+        <ignoreFiles>
+            <directory name="vendor" />
+        </ignoreFiles>
+    </projectFiles>
+</psalm>

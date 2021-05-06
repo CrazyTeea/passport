@@ -19,7 +19,7 @@ use yii\web\UploadedFile;
 
 class OrganizationsController extends AppController
 {
-    public function actionUsersInfo($id)
+    public function actionUsersInfo($id): string
     {
         if ($post = Yii::$app->request->post()) {
             $data = Json::decode($post['users'], false);
@@ -35,132 +35,123 @@ class OrganizationsController extends AppController
                 $info->phone = $item->phone;
                 $ret[] = [$item->email => ['success' => $info->save(), 'errors' => $info->getErrors()]];
             }
-            return Json::encode($ret ?? []);
         }
+        return Json::encode($ret ?? []);
     }
 
-    public function actionDeleteUsersInfo($id)
+    public function actionDeleteUsersInfo($id): string
     {
         return Json::encode(['success' => UsersInfo::deleteAll(['id' => $id]) > 0]);
     }
 
-    public function actionSetFiles($id_org)
+    public function actionSetFiles($id_org): string
     {
-        if ($post = Yii::$app->request->post()) {
-            $desc = $post['desc'];
-            $id_desc = DocTypes::findOne(['desc' => $desc])->id ?? null;
-            if (!$id_desc) return Json::encode(['success' => false, 'error' => ['type' => 0, 'message' => 'Дескриптор не найден в системе. Обратитесть в тех. поддержку']]);
-
-            $client_file = UploadedFile::getInstanceByName($desc);
-
-            if (!$client_file) return Json::encode(['success' => false, 'error' => ['type' => 1, 'message' => 'Не удалось загрузить файл. Проверьте размер файла и его расширение']]);
-
-            $file = OrgDocs::find()->joinWith(['descriptor'])->where(['id_org' => $id_org, 'desc' => $desc])->one() ?? new OrgDocs();
-            if ($file->isNewRecord) {
-                $file->id_org = $id_org;
-                $file->id_desc = DocTypes::findOne(['desc' => $desc])->id;
-            } elseif ($files = Files::findOne($file->id_file)) $files->deleteFile($id_org, $desc);
-            $file->id_file = (new Files())->upload($client_file, $id_org, $desc);
-            // $post = Json::decode($post,false);
-            return Json::encode(['success' => $file->save(), 'error' => ['type' => 2, 'errors' => $file->getErrors()]]);
+        $post = Yii::$app->request->post();
+        if (!$post) {
+            return Json::encode(['success' => false, 'error' => ['type' => 2, 'errors' => []]]);
         }
+        $desc = $post['desc'];
+        $id_desc = DocTypes::findOne(['desc' => $desc])->id ?? null;
+        if (!$id_desc) {
+            return Json::encode(['success' => false, 'error' => ['type' => 0, 'message' => 'Дескриптор не найден в системе. Обратитесть в тех. поддержку']]);
+        }
+
+        $client_file = UploadedFile::getInstanceByName($desc);
+
+        if (!$client_file) {
+            return Json::encode(['success' => false, 'error' => ['type' => 1, 'message' => 'Не удалось загрузить файл. Проверьте размер файла и его расширение']]);
+        }
+
+        $file = OrgDocs::find()->joinWith(['descriptor'])->where(['id_org' => $id_org, 'desc' => $desc])->one() ?? new OrgDocs();
+        if ($file->isNewRecord) {
+            $file->id_org = $id_org;
+            $file->id_desc = DocTypes::findOne(['desc' => $desc])->id;
+        } elseif ($files = Files::findOne($file->id_file)) {
+            $files->deleteFile($id_org, $desc);
+        }
+        $file->id_file = (new Files())->upload($client_file, $id_org, $desc);
+        // $post = Json::decode($post,false);
+        return Json::encode(['success' => $file->save(), 'error' => ['type' => 2, 'errors' => $file->getErrors()]]);
     }
 
     public function actionDelFile($id_org)
     {
-        if ($post = Yii::$app->request->post()) {
-            $desc = $post['desc'];
-
-            $file = OrgDocs::find()->joinWith(['descriptor'])->where(['id_org' => $id_org, 'desc' => $desc])->one();
-
-            if ($file->file) {
-                $file->file->deleteFile($id_org, $desc);
-            }
+        $post = Yii::$app->request->post();
+        if (!$post) {
+            return Json::encode('не верный пост');
         }
+        $desc = $post['desc'];
+
+        $file = OrgDocs::find()->joinWith(['descriptor', 'file'])->where(['id_org' => $id_org, 'desc' => $desc])->one();
+
+        if ($file->file) {
+            $file->file->deleteFile($id_org, $desc);
+            $file->delete();
+        }
+        return Json::encode(['success' => true]);
     }
 
-    public function actionSetOrgInfo($id)
+    public function actionSetOrgInfo($id): string
     {
-        if ($post = Yii::$app->request->post()) {
-            $post = Json::decode($post['org'], false);
-            $org = Organizations::findOne($id);
-            $org->stud_cnt = $post->organization->stud_cnt;
-            $org->stud_cnt_inos = $post->organization->stud_cnt_inos;
-            $org->stud_cnt_rus = $post->organization->stud_cnt_rus;
-            $org_save = $org->save();
-
-
-            $org_docs = OrgDocs::findAll(['id_desc' => [1, 2], 'id_org' => $id]);
-
-            Organizations::Active($id);
-
-            if (!$org_docs) {
-                $org_doc = new OrgDocs();
-                $org_doc->id_org = $id;
-                $org_doc->id_desc = 1;
-                $org_doc->save();
-
-                $org_doc = new OrgDocs();
-                $org_doc->id_org = $id;
-                $org_doc->id_desc = 2;
-                $org_doc->save();
-            }
-
-
-            $info_save = [];
-            foreach ($post->info as $key => $info) {
-                $inf = OrgInfo::findOne([$info->id]) ?? new OrgInfo();
-
-                $inf->id_org = $info->id_org;
-
-
-                $inf->stud_type = $info->stud_type;
-
-
-                $inf->s_f_b_spo = $info->s_f_b_spo;
-                $inf->s_b_s_spo = $info->s_b_s_spo;
-                $inf->s_m_b_spo = $info->s_m_b_spo;
-                $inf->s_p_u_spo = $info->s_p_u_spo;
-
-                $inf->s_f_b_bak = $info->s_f_b_bak;
-                $inf->s_b_s_bak = $info->s_b_s_bak;
-                $inf->s_m_b_bak = $info->s_m_b_bak;
-                $inf->s_p_u_bak = $info->s_p_u_bak;
-
-                $inf->s_f_b_spec = $info->s_f_b_spec;
-                $inf->s_b_s_spec = $info->s_b_s_spec;
-                $inf->s_m_b_spec = $info->s_m_b_spec;
-                $inf->s_p_u_spec = $info->s_p_u_spec;
-
-                $inf->s_f_b_mag = $info->s_f_b_mag;
-                $inf->s_b_s_mag = $info->s_b_s_mag;
-                $inf->s_m_b_mag = $info->s_m_b_mag;
-                $inf->s_p_u_mag = $info->s_p_u_mag;
-
-                $inf->s_f_b_asp = $info->s_f_b_asp;
-                $inf->s_b_s_asp = $info->s_b_s_asp;
-                $inf->s_m_b_asp = $info->s_m_b_asp;
-                $inf->s_p_u_asp = $info->s_p_u_asp;
-
-                $inf->s_f_b_ord = $info->s_f_b_ord;
-                $inf->s_b_s_ord = $info->s_b_s_ord;
-                $inf->s_m_b_ord = $info->s_m_b_ord;
-                $inf->s_p_u_ord = $info->s_p_u_ord;
-
-                $inf->s_f_b_in = $info->s_f_b_in;
-                $inf->s_b_s_in = $info->s_b_s_in;
-                $inf->s_m_b_in = $info->s_m_b_in;
-                $inf->s_p_u_in = $info->s_p_u_in;
-
-
-                $info_save[$inf->stud_type] = ['success' => $inf->save(), 'errors' => $inf->getErrors()];
-            }
-            $ret = ['org' => ['success' => $org_save, 'errors' => $org->getErrors()], 'info' => $info_save];
+        $post = Yii::$app->request->post();
+        if (!$post) {
+            return Json::encode('не верный пост');
         }
-        return Json::encode($ret ?? 'не верный пост');
+        $post = Json::decode($post['org'], false);
+        $org = Organizations::findOne($id);
+        $org->stud_cnt = $post->organization->stud_cnt;
+        $org->stud_cnt_inos = $post->organization->stud_cnt_inos;
+        $org->stud_cnt_rus = $post->organization->stud_cnt_rus;
+        $org_save = $org->save();
+
+        Organizations::Active($id);
+
+        $org_docs = OrgDocs::findAll(['id_desc' => [1, 2], 'id_org' => $id]);
+        if (!$org_docs) {
+            $org_doc = new OrgDocs();
+            $org_doc->id_org = $id;
+            $org_doc->id_desc = 1;
+            $org_doc->save();
+
+            $org_doc = new OrgDocs();
+            $org_doc->id_org = $id;
+            $org_doc->id_desc = 2;
+            $org_doc->save();
+        }
+
+        $info_save = [];
+        foreach ($post->info as $info) {
+            $inf = OrgInfo::findOne($info->id ?? null) ?? new OrgInfo();
+
+            $inf->id_org = $id;
+
+            $inf->stud_type = $info->stud_type;
+
+            foreach ($info as $key => $value) {
+                if (in_array(
+                    $key,
+                    [
+                        'spo_all', 'bak_all', 'spec_all',
+                        'mag_all', 'asp_all', 'ord_all',
+                        'in_all', 'all', 's_f_b_all',
+                        's_b_s_all', 's_m_b_all', 's_p_u_all',
+                        'id', 'id_org', 'stud_type']
+                )) {
+                    continue;
+                }
+                $inf->$key = $value;
+            }
+
+            $info_save[$inf->stud_type] = ['success' => $inf->save(), 'errors' => $inf->getErrors()];
+        }
+        $ret = ['org' => ['success' => $org_save, 'errors' => $org->getErrors()], 'info' => $info_save];
+
+        $org->countingNumberFields();
+        Organizations::UpdateTime($id);
+        return Json::encode($ret);
     }
 
-    public function actionSetOrgArea($id)
+    public function actionSetOrgArea($id): string
     {
         if ($post = Yii::$app->request->post()) {
             $post = Json::decode($post['org_area'], false);
@@ -169,45 +160,50 @@ class OrganizationsController extends AppController
 
             Organizations::Active($id);
 
-            foreach ($post as $key => $item) {
-                if (!in_array($key, ['all_t_k_r', 'all_n_a_s', 'all_n_p', 'all_c6m2_spo', 'all_c6m2_spec', 'all_c6m2_bak',
-                    'all_c6m2_asp', 'all_c6m2_mag', 'all_c6m2_ord', 'all_c6m2_in', 'all_m2', 'all_6m2']))
-                    $area->$key = $item;
+            foreach ($post as $key => $column) {
+                if (in_array($key, ['id', 'id_org', 'area_cnt_mest'])) {
+                    continue;
+                }
+                $area->$key = $post->$key;
             }
+
             $ret = ['org_area' => ['success' => $area->save(), 'errors' => $area->getErrors()]];
+
+            Organizations::findOne($id)->countingNumberFields();
+            Organizations::UpdateTime($id);
         }
         return Json::encode($ret ?? 'не верный пост');
     }
 
-    public function actionSetOrgLiving($id)
+    public function actionSetOrgLiving($id): string
     {
         if ($post = Yii::$app->request->post()) {
             $post = Json::decode($post['org_living'], false);
             $liv = OrgLiving::findOne(['id_org' => $id]) ?? new OrgLiving();
-            $keys = [];
+
             $liv->id_org = $id;
 
             Organizations::Active($id);
 
             if (isset($post->living)) {
-
                 foreach ($post->living as $key => $item) {
                     $liv->$key = $item;
                 }
             }
 
-            $ret = ['org_living' => ['success' => $liv->save(), 'errors' => $liv->getErrors()]];
             $living_studs = [];
 
             $del = Json::decode(Yii::$app->request->post('toDelete')) ?? null;
 
-            if ($del)
+            if ($del) {
                 OrgLivingStudents::deleteAll(['id' => $del]);
+            }
 
             foreach ($post->living_studs as $item) {
-
                 $stud_item = Json::decode(Json::encode($item), false);
-                if (isset($stud_item->label) and $stud_item->label == 'Всего' or !isset($stud_item->type)) continue;
+                if (isset($stud_item->label) and $stud_item->label == 'Всего' or !isset($stud_item->type)) {
+                    continue;
+                }
                 $stud = isset($stud_item->id) ? OrgLivingStudents::findOne($stud_item->id) : new OrgLivingStudents();
                 if ($stud->isNewRecord) {
                     $stud->invalid = $post->invalid;
@@ -225,29 +221,66 @@ class OrganizationsController extends AppController
                 $stud->asp = $stud_item->asp ?? null;
                 $stud->ord = $stud_item->ord ?? null;
                 $stud->in = $stud_item->in ?? null;
-                if (!$stud->spec and !$stud->spo and !$stud->bak and !$stud->mag and !$stud->ord and !$stud->in) continue;
-                $living_studs[] = ['success' => $stud->save(), 'errors' => $stud->errors];
-
+                if (is_null($stud->spec) and
+                    is_null($stud->spo) and
+                    is_null($stud->asp) and
+                    is_null($stud->bak) and
+                    is_null($stud->mag) and
+                    is_null($stud->ord) and
+                    is_null($stud->in)) {
+                    continue;
+                }
+                $living_studs[] = [
+                    'success' =>
+                        $stud->save(),
+                    'errors' =>
+                        $stud->errors];
             }
-            $ret = ['org_living' => ['success' => $liv->save(), 'errors' => $liv->getErrors()], 'living_studs' => $living_studs];
+            $ret = [
+                'org_living' =>
+                    ['success' =>
+                        $liv->save(),
+                        'errors' =>
+                            $liv->getErrors()
+                    ],
+                'living_studs' => $living_studs];
 
+            Organizations::findOne($id)->countingNumberFields();
+            Organizations::UpdateTime($id);
         }
         return Json::encode($ret ?? 'не верный пост');
     }
 
-    /**
-     * @param $id
-     * @throws NotFoundHttpException
-     */
-    public function actionSetOrgValue($id)
+    public function actionSetOrgValue($id): string
     {
         $org = Organizations::findOne($id);
-        if (!$org)
+        if (!$org) {
             throw new NotFoundHttpException("Организация не найдена");
+        }
         $value = Yii::$app->request->post('value');
         $attr = Yii::$app->request->post('attr');
         $org->$attr = $value;
-        return Json::encode(['success' => $org->save(), 'errors' => $org->getErrors(),$value]);
+        Organizations::UpdateTime($id);
+        return Json::encode(['success' => $org->save(), 'errors' => $org->getErrors(), $value]);
+    }
 
+    public function actionSetOrgCovid($id): string
+    {
+        $org = Organizations::findOne($id);
+
+        $colls = ['covid_var1','covid_var2','covid_var3','covid_var4','covid_var5'];
+
+        $post = Yii::$app->request->post('organization');
+
+        $data = Json::decode($post, false);
+
+        foreach ($colls as $coll) {
+            $org->$coll = $data->$coll;
+        }
+
+        $org->countingNumberFields();
+        Organizations::UpdateTime($id);
+
+        return Json::encode(['success'=>$org->save(),'errors'=>$org->getErrors()]);
     }
 }

@@ -1,51 +1,56 @@
 <template>
   <div>
-    <nav-bar :is-admin="user.isAdmin" :id_org="id_org" v-on:save-page="saveObject"
-             v-on:block-save="blockPage = !blockPage"/>
-    <transition enter-active-class="animated fadeInUp">
+    <!--<nav-bar :is-admin="user.isAdmin" :id_org="id_org" v-on:save-page="saveObject"
+             v-on:block-save="blockPage = !blockPage"/>-->
+    <v-page>
       <div v-if="componentReady" class="container">
 
         <org-select link="/api/organizations/all" error-msg="нет доступных организаций по заданным критериаям"
-                    label="Выбранная организация" v-can:admin,root v-model="id_org"/>
+                    label="Выбранная организация" v-if="$check(['admin','root'])" v-model="id_org"/>
 
-        <div class="row mt-2">
-          <div class="col-8"><h4>
-            Сведения о площади, проживающих и количестве мест в жилом объекте
-          </h4></div>
-        </div>
-        <div class="row">
-          <div class="col-6"><label>Наименование жилого объекта</label></div>
-          <div class="col-6">
-            <b-form-select @change="setObject" :options="objectsTitle"/>
-          </div>
-        </div>
+        <h3>Шаг 2: Сведения о количестве мест и площади</h3>
 
-        <b-button v-if="!blockPage" :to="{name:'object',params:{modalShow:true}}" variant="outline-secondary">Добавить
-          объект
-        </b-button>
         <div v-if="currentObject">
+
+          <stepper
+              :back-url="user.isAdmin ?
+          `/admin/objects-info/${id_org}/${$route.params.id_object}` :
+          `/objects-info/${$route.params.id_object}`"
+              :to-url="user.isAdmin ?
+          `/admin/objects-money/${id_org}/${$route.params.id_object}` :
+          `/objects-money/${$route.params.id_object}`"
+              percent="40"
+              end-button-label="Далее"
+              @save-page="savePage"
+          />
           <hr>
-          <h4>
-            Площадь
-          </h4>
+
+          <h4>Площадь</h4>
+
+          <div class="row mb-2">
+            <div class="col">
+              <label class="font-weight-bold">Общая площадь: </label>
+              {{ objArea.total_square | toFixed }} м2
+            </div>
+          </div>
 
           <div class="row">
             <div class="col">
-              <label class="font-weight-bold">Общая площадь, пригодная для проживания: </label>
-              {{ objArea.obsh_prig.toFixed(3) }} м2
+              <label class="font-weight-bold">Общая площадь, пригодная для использования: </label>
+              {{ objArea.obsh_prig | toFixed }} м2
             </div>
           </div>
           <div class="row  mt-2">
             <div class="col">
               <label class="ml-1 font-weight-bold">1. Жилая площадь, пригодная для проживания: </label>
-              {{ objArea.zhil_prig.toFixed(3) }} м2
+              {{ objArea.zhil_prig | toFixed }} м2
             </div>
           </div>
           <div class="row  mt-2">
             <div class="col-6"><label class="ml-4" for="object_area_zan_ob1">А. Занятая обучающимися</label></div>
             <div class="col-6">
               <b-input-group append="м2">
-                <b-form-input :disabled="blockPage" type="number" v-model="currentObject.area.zan_obuch"
+                <b-form-input :disabled="blockPage" type="number" step="0.01" v-model="currentObject.area.zan_obuch"
                               id="object_area_zan_ob1"/>
               </b-input-group>
             </div>
@@ -55,7 +60,7 @@
               нанимателей</label></div>
             <div class="col-6">
               <b-input-group append="м2">
-                <b-form-input type="number" :disabled="blockPage" v-model="currentObject.area.zan_inie"
+                <b-form-input type="number" :disabled="blockPage" step="0.01" v-model="currentObject.area.zan_inie"
                               id="object_area_in_kat1"/>
               </b-input-group>
             </div>
@@ -64,7 +69,7 @@
             <div class="col-6"><label class="ml-4" for="object_area_svod1">В. Свободная</label></div>
             <div class="col-6">
               <b-input-group append="м2">
-                <b-form-input type="number" :disabled="blockPage" v-model="currentObject.area.svobod"
+                <b-form-input type="number" :disabled="blockPage" step="0.01" v-model="currentObject.area.svobod"
                               id="object_area_svod1"/>
               </b-input-group>
             </div>
@@ -73,7 +78,7 @@
             <div class="col-6"><label class="ml-4" for="object_area_neisp1">Г. Неиспользуемая</label></div>
             <div class="col-6">
               <b-input-group append="м2">
-                <b-form-input type="number" :disabled="blockPage" v-model="currentObject.area.neisp"
+                <b-form-input type="number" :disabled="blockPage" step="0.01" v-model="currentObject.area.neisp"
                               id="object_area_neisp1"/>
               </b-input-group>
             </div>
@@ -81,14 +86,14 @@
           <div class="row mt-2">
             <div class="col">
               <label class="ml-1 font-weight-bold">2. Нежилая площадь в пригодных для проживания объектах:</label>
-              {{ objArea.ne_zhil_v_prig.toFixed(3) }} м2
+              {{ objArea.ne_zhil_v_prig | toFixed }} м2
             </div>
           </div>
 
           <div class="row mt-2">
             <div class="col">
               <label class="ml-2 font-weight-bold">А. Социальная инфраструктура: </label>
-              {{ objArea.soc_inf.toFixed(3) }} м2
+              {{ objArea.soc_inf | toFixed }} м2
 
             </div>
           </div>
@@ -96,7 +101,7 @@
             <div class="col-6"><label class="ml-4" for="object_area_punkt_pit">Пункты питания</label></div>
             <div class="col-6">
               <b-input-group append="м2">
-                <b-form-input type="number" :disabled="blockPage" v-model="currentObject.area.punkt_pit"
+                <b-form-input type="number" :disabled="blockPage" step="0.01" v-model="currentObject.area.punkt_pit"
                               id="object_area_punkt_pit"/>
               </b-input-group>
             </div>
@@ -106,7 +111,7 @@
               процесса</label></div>
             <div class="col-6">
               <b-input-group append="м2">
-                <b-form-input type="number" :disabled="blockPage" v-model="currentObject.area.pom_dlya_uch"
+                <b-form-input type="number" :disabled="blockPage" step="0.01" v-model="currentObject.area.pom_dlya_uch"
                               id="object_area_zan_ob"/>
               </b-input-group>
             </div>
@@ -116,7 +121,7 @@
               обслуживания</label></div>
             <div class="col-6">
               <b-input-group append="м2">
-                <b-form-input type="number" :disabled="blockPage" v-model="currentObject.area.pom_dlya_med"
+                <b-form-input type="number" :disabled="blockPage" step="0.01" v-model="currentObject.area.pom_dlya_med"
                               id="object_area_in_kat"/>
               </b-input-group>
             </div>
@@ -126,7 +131,8 @@
               занятий</label></div>
             <div class="col-6">
               <b-input-group append="м2">
-                <b-form-input type="number" :disabled="blockPage" v-model="currentObject.area.pom_dlya_sport"
+                <b-form-input type="number" :disabled="blockPage" step="0.01"
+                              v-model="currentObject.area.pom_dlya_sport"
                               id="object_area_svod11"/>
               </b-input-group>
             </div>
@@ -136,7 +142,7 @@
               программ</label></div>
             <div class="col-6">
               <b-input-group append="м2">
-                <b-form-input type="number" :disabled="blockPage" v-model="currentObject.area.pom_dlya_kult"
+                <b-form-input type="number" :disabled="blockPage" step="0.01" v-model="currentObject.area.pom_dlya_kult"
                               id="object_area_neisp2"/>
               </b-input-group>
             </div>
@@ -146,7 +152,7 @@
               инфраструктуры</label></div>
             <div class="col-6">
               <b-input-group append="м2">
-                <b-form-input type="number" :disabled="blockPage" v-model="currentObject.area.pom_dlya_soc"
+                <b-form-input type="number" :disabled="blockPage" step="0.01" v-model="currentObject.area.pom_dlya_soc"
                               id="object_area_ne_plosh_prig_proz23"/>
               </b-input-group>
             </div>
@@ -156,7 +162,7 @@
             </div>
             <div class="col-6">
               <b-input-group append="м2">
-                <b-form-input type="number" :disabled="blockPage" v-model="currentObject.area.in_nezh_plosh"
+                <b-form-input type="number" :disabled="blockPage" step="0.01" v-model="currentObject.area.in_nezh_plosh"
                               id="object_area_ne_plosh_prig_proz2"/>
               </b-input-group>
             </div>
@@ -165,66 +171,82 @@
           <hr>
 
           <div class="row">
-            <div class="col"><label class="font-weight-bold">Общая площадь, непригодная для проживания: </label>
-              {{ objArea.obsh_ne_prig.toFixed(3) }} м2
+            <div class="col"><label class="font-weight-bold">Общая площадь, непригодная для использования: </label>
+              {{ objArea.obsh_ne_prig | toFixed }} м2
 
             </div>
           </div>
           <b-table-simple borderless>
             <b-thead>
               <b-tr>
-                <b-th>Общая площадь, непригодная для проживания</b-th>
+                <b-th>Общая площадь, непригодная для использования</b-th>
                 <b-th>Жилая площадь</b-th>
                 <b-th>Нежилая площадь</b-th>
                 <b-th>Общая площадь</b-th>
               </b-tr>
             </b-thead>
             <b-tbody>
-              <b-tr>
-                <b-td>Требует капитального ремонта</b-td>
-                <b-td>
-                  <b-form-input v-model="currentObject.area.zhil_tkr" :disabled="blockPage" type="number"/>
-                </b-td>
-                <b-td>
-                  <b-form-input v-model="currentObject.area.nzhil_tkr" :disabled="blockPage" type="number"/>
-                </b-td>
-                <b-td>
-                  <div class="font-weight-bold mt-1">
-                    {{ objArea.all_tkr.toFixed(3) }}
-                  </div>
 
-                </b-td>
-              </b-tr>
               <b-tr>
                 <b-td>Находится в аварийном состоянии</b-td>
                 <b-td>
-                  <b-form-input v-model="currentObject.area.zhil_nas" :disabled="blockPage" type="number"/>
+                  <b-form-input v-model="currentObject.area.zhil_nas" step="0.01" :disabled="blockPage" type="number"/>
                 </b-td>
                 <b-td>
-                  <b-form-input v-model="currentObject.area.nzhil_nas" :disabled="blockPage" type="number"/>
+                  <b-form-input v-model="currentObject.area.nzhil_nas" step="0.01" :disabled="blockPage" type="number"/>
                 </b-td>
                 <b-td>
                   <div class="font-weight-bold mt-1">
-                    {{ objArea.all_nas.toFixed(3) }}
+                    {{ objArea.all_nas | toFixed }}
                   </div>
                 </b-td>
               </b-tr>
               <b-tr>
-                <b-td>Непригодна для проживания</b-td>
+                <b-td>Непригодна для использования по иным причинам</b-td>
                 <b-td>
-                  <b-form-input v-model="currentObject.area.zhil_np" :disabled="blockPage" type="number"/>
+                  <b-form-input v-model="currentObject.area.zhil_np" step="0.01" :disabled="blockPage" type="number"/>
                 </b-td>
                 <b-td>
-                  <b-form-input v-model="currentObject.area.nzhil_np" :disabled="blockPage" type="number"/>
+                  <b-form-input v-model="currentObject.area.nzhil_np" step="0.01" :disabled="blockPage" type="number"/>
                 </b-td>
                 <b-td>
                   <div class="font-weight-bold mt-1">
-                    {{ objArea.all_np.toFixed(3) }}
+                    {{ objArea.all_np | toFixed }}
                   </div>
                 </b-td>
               </b-tr>
             </b-tbody>
           </b-table-simple>
+
+          <div class="row">
+            <div class="col-6"><label for="object_area_zhil_tkr">Жилая площадь, требующая капитального ремонта</label>
+            </div>
+            <div class="col-6">
+              <b-input-group append="м2">
+                <b-form-input type="number" :disabled="blockPage" step="0.01" v-model="currentObject.area.zhil_tkr"
+                              id="object_area_zhil_tkr"/>
+              </b-input-group>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6"><label for="object_area_nzhil_tkr">Не жилая площадь, требующая капитального
+              ремонта</label></div>
+            <div class="col-6">
+              <b-input-group append="м2">
+                <b-form-input type="number" :disabled="blockPage" step="0.01" v-model="currentObject.area.nzhil_tkr"
+                              id="object_area_nzhil_tkr"/>
+              </b-input-group>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6"><label>Общая площадь, требующая капитального ремонта</label></div>
+            <div class="col-6">
+              <div class="font-weight-bold mt-1">
+                {{ objArea.all_tkr | toFixed }}
+              </div>
+            </div>
+          </div>
+
 
           <hr>
 
@@ -251,7 +273,7 @@
               <label class="font-weight-bold">Количество квадратных метров жилой площади на одного
                 проживающего: </label>
 
-              {{ objArea.cnt_mest_pl_na_odn.toFixed(3) }} м2
+              {{ objArea.cnt_mest_pl_na_odn | toFixed }} м2
 
             </div>
           </div>
@@ -259,7 +281,7 @@
             <div class="col">
               <label class="font-weight-bold">Количество квадратных метров общей площади на одного
                 проживающего: </label>
-              {{ objArea.cnt_mest_obsh_na_odn.toFixed(3) }} м2
+              {{ objArea.cnt_mest_obsh_na_odn | toFixed }} м2
 
             </div>
           </div>
@@ -392,10 +414,30 @@
               </b-input-group>
             </div>
           </div>
+
+          <stepper
+              :back-url="user.isAdmin ?
+          `/admin/objects-info/${id_org}/${$route.params.id_object}` :
+          `/objects-info/${$route.params.id_object}`"
+              :to-url="user.isAdmin ?
+          `/admin/objects-money/${id_org}/${$route.params.id_object}` :
+          `/objects-money/${$route.params.id_object}`"
+              percent="40"
+              end-button-label="Далее"
+              @save-page="savePage"
+          />
+          <br>
+          <hr>
+          <div class="text-center">
+            <button class="btn btn-primary" type="button" @click="setZeros()">Заполнить нулями пустые поля</button>
+          </div>
+          <hr>
         </div>
 
       </div>
-    </transition>
+      <loading v-else/>
+    </v-page>
+
     <scroll-button/>
   </div>
 </template>
@@ -416,16 +458,22 @@ import {
   BTr,
 } from 'bootstrap-vue';
 import Axios from 'axios';
-import NavBar from '../../organisms/NavBar';
+
 import ScrollButton from '../../organisms/scrollButton';
 import OrgSelect from "../../organisms/orgSelect";
+import {mainMixin} from "../../mixins";
+import Loading from "../../organisms/loading";
+import Stepper from "../../organisms/stepper";
+import VPage from "../../organisms/vPage";
 
 export default {
   name: 'object_area',
   components: {
+    VPage,
+    Stepper,
+    Loading,
     OrgSelect,
     ScrollButton,
-    NavBar,
     BTooltip,
     BButton,
     BFormSelect,
@@ -442,11 +490,10 @@ export default {
   async mounted() {
     await this.getUser();
 
-    if (this.user.isAdmin)
-      this.id_org = this.$route.fullPath.split('/')[3] || this.user.id_org
+    if (this.user.isAdmin) this.id_org = this.$route.fullPath.split('/')[3] || this.user.id_org
     else this.id_org = this.user.id_org;
 
-    this.blockPage = this.user.isAdmin;
+    //this.blockPage = this.user.isAdmin;
     await this.getObject();
     this.componentReady = true;
   },
@@ -458,7 +505,7 @@ export default {
     objects() {
       this.objectsTitle = this.objects.map((item, index) => ({
         value: index,
-        text: item.name,
+        text: `${item.name} [${item.kad_number}]`,
       }));
     },
     currentObject: {
@@ -485,7 +532,7 @@ export default {
             toNum(this.currentObject.area.nzhil_np);
 
         this.objArea.obsh_ne_prig =
-            this.objArea.all_tkr +
+            //this.objArea.all_tkr +
             this.objArea.all_nas +
             this.objArea.all_np;
 
@@ -511,11 +558,26 @@ export default {
         this.objArea.cnt_mest = this.objArea.kol_prig_mest + toNum(this.currentObject.area.cnt_nepr_isp_mest);
         this.objArea.cnt_mest_vozm = toNum(this.currentObject.area.cnt_mest_vozm_neisp_mest) + toNum(this.currentObject.area.cnt_mest_vozm_neprig_mest);
 
-        let temp = toNum(this.currentObject.area.cnt_mest_zan_obuch) + toNum(this.currentObject.area.cnt_mest_zan_in_obuch);
-        temp = temp ? temp : 1;
+        let temp =
+            toNum(this.currentObject.area.cnt_mest_zan_obuch) +
+            toNum(this.currentObject.area.cnt_mest_zan_in_obuch) +
+            toNum(this.currentObject.area.cnt_svobod_mest);
+        temp = temp > 0 ? temp : 1;
 
-        this.objArea.cnt_mest_pl_na_odn = this.objArea.zhil_prig / temp;
-        this.objArea.cnt_mest_obsh_na_odn = this.objArea.obsh_prig / temp;
+        this.objArea.cnt_mest_pl_na_odn =
+            (toNum(this.currentObject.area.zan_obuch) +
+                toNum(this.currentObject.area.zan_inie) +
+                toNum(this.currentObject.area.svobod)
+            ) / temp;
+        this.objArea.cnt_mest_obsh_na_odn = (
+            toNum(this.currentObject.area.zan_obuch) +
+            toNum(this.currentObject.area.zan_inie) +
+            toNum(this.currentObject.area.svobod) +
+            this.objArea.ne_zhil_v_prig
+        ) / temp;
+
+
+        this.objArea.total_square = this.objArea.obsh_prig + this.objArea.obsh_ne_prig;
       },
       deep: true,
     },
@@ -531,16 +593,41 @@ export default {
       this.currentObject = this.objects.find((item, i) => i === index);
     },
     async getObject() {
-      await Axios.get(`/api/objects/org/${this.id_org}`).then((res) => {
-        this.objects = res.data;
-        this.objects.forEach((item) => {
-          if (!item.area) {
-            item.area = {};
-          }
-        });
+      await Axios.get(`/api/objects/org/${this.id_org}/${this.$route.params.id_object}`).then((res) => {
+        this.currentObject = res.data;
+        if (!this.currentObject.area) {
+          this.currentObject.area = {};
+        }
       });
     },
-    async saveObject() {
+    setZeros() {
+      this.inputs.forEach(item => {
+
+        if (this.isEmpty(this.currentObject.area[item]))
+          this.currentObject.area[item] = 0;
+
+      })
+      this.$forceUpdate()
+    },
+
+
+    validate() {
+      for (let i = 0; i < this.inputs.length; i++) {
+        let item = this.inputs[i];
+        if (this.isEmpty(this.currentObject.area[item]))
+          return false;
+      }
+      return true;
+    },
+
+
+    async savePage(validate, resolve) {
+
+      if (validate && !this.validate()) {
+        await this.$bvModal.msgBoxOk("Для сохранения необходимо заполнить пустые поля.");
+        resolve(false);
+        return;
+      }
       const data = new FormData();
       this.currentObject.area.cnt_mest_pl_na_odn = this.objArea.cnt_mest_pl_na_odn;
       this.currentObject.area.cnt_mest_obsh_na_odn = this.objArea.cnt_mest_obsh_na_odn;
@@ -549,11 +636,8 @@ export default {
         headers: {
           'X-CSRF-Token': this.csrf,
         },
-      }).then((res) => {
-        if (res.data.success) this.getObject();
-      }).finally(() => {
-        this.blockPage = true;
       });
+      resolve(true)
     },
   },
   data() {
@@ -576,16 +660,45 @@ export default {
         cnt_mest: 0,
         kol_prig_mest: 0,
         cnt_mest_vozm: 0,
+        total_square: 0,
       },
+      inputs: [
+        'zan_obuch',
+        'zan_inie',
+        'svobod',
+        'neisp',
+        'punkt_pit',
+        'pom_dlya_uch',
+        'pom_dlya_med',
+        'pom_dlya_sport',
+        'pom_dlya_soc',
+        'in_nezh_plosh',
+        'zhil_tkr',
+        'zhil_nas',
+        'zhil_np',
+        'nzhil_tkr',
+        'nzhil_nas',
+        'nzhil_np',
+        'aren',
+        'pbp',
+        'cnt_mest_zan_obuch',
+        'cnt_mest_zan_in_obuch',
+        'cnt_svobod_mest',
+        'cnt_neisp_mest',
+        'cnt_nepr_isp_mest',
+        'cnt_mest_inv',
+        'cnt_mest_vozm_neisp_mest',
+        'cnt_mest_vozm_neprig_mest',
+        'pom_dlya_kult',
+      ],
       id_org: null,
       user: Object,
       objectsTitle: [],
       objects: [],
     };
   },
+  mixins: [mainMixin]
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped/>

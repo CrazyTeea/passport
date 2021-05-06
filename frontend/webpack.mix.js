@@ -1,5 +1,8 @@
-const mix = require('laravel-mix');
+let mix = require('laravel-mix');
+
+require('laravel-mix-eslint');
 require('laravel-mix-polyfill');
+
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -11,25 +14,36 @@ require('laravel-mix-polyfill');
  |
  */
 
-mix.js('src/app.js', '../web/vue/')
-    .polyfill()
-    .sass('src/app.scss', '../web/vue/')
+mix.js('src/app.js', '/').vue({ version: 2 })
+    .sass('src/app.scss', '/')
     .setPublicPath('../web/vue')
+    .eslint({
+        fix: true,
+        extensions: ['js','vue'],
+    })
+    .polyfill({
+        enabled: true,
+        useBuiltIns: "usage",
+        targets: "firefox 50, IE 11"
+    })
     .browserSync(
         {
             proxy: 'http://localhost:8080',
             open: false,
-        },
-    )
+        })
     .sourceMaps(false);
-mix.copy('../web/vue/fonts', '../web/fonts');
 mix.webpackConfig({
     output: {
         publicPath: '/vue/',
-    },
+    }
 });
+
 mix.extract();
+mix.copy('../web/vue/fonts', '../web/fonts');
+mix.copy('../web/vue/images', '../web/images');
+//mix.version();
 mix.disableNotifications();
+//console.log(path.resolve('../web/vue/images'))
 // Full API
 // mix.js(src, output);
 // mix.react(src, output); <-- Identical to mix.js(), but registers React Babel compilation.
@@ -44,11 +58,10 @@ mix.disableNotifications();
 // mix.browserSync('my-site.test');
 // mix.combine(files, destination);
 // mix.babel(files, destination); <-- Identical to mix.combine(), but also includes Babel compilation.
-
+// mix.copy(from, to);
 // mix.copyDirectory(fromDir, toDir);
 // mix.minify(file);
 // mix.sourceMaps(); // Enable sourcemaps
-// mix.version(); // Enable versioning.
 // mix.setPublicPath('path/to/public');
 // mix.setResourceRoot('prefix/for/resource/locators');
 // mix.autoload({}); <-- Will be passed to Webpack's ProvidePlugin.

@@ -1,61 +1,40 @@
 <?php
 
-
+use app\models\Objects;
+use app\models\Organizations;
+use app\models\OrgDocs;
+use app\models\OrgLivingStudents;
+use app\models\UsersInfo;
 
 /**
- * @var \app\models\Organizations[] $orgs
- * @var \app\models\Objects[] $r_objs
+ * @var Organizations[] $orgs
+ * @var Objects[] $r_objs
  */
 
-function cntLiving($items, $inos = false, $inv = false)
-{
-    $cnt = 0;
 
-    foreach ($items as $item) {
-        foreach ($item as $key => $val) {
-            if ($key == 'id' or
-                $key == 'id_org' or
-                $key == 'id_living' or
-                $key == 'budjet_type' or
-                $key == 'invalid' or $key == 'type')
-                continue;
-            if ($item->$key)
-                if (!$inos and !$inv and !$item->invalid and in_array($item->type, ['rf_och', 'rf_zaoch', 'rf_ochzaoch']))
-                    $cnt++;
-                else if ($inos and !$inv and !$item->invalid)
-                    $cnt++;
-                else if ($item->invalid and $inv and $inos)
-                    $cnt++;
-        }
-    }
-    return $cnt;
-}
-
-function cnt($info)
+function cnt($info): int
 {
     $cnt = 0;
     if ($info) {
-        if (is_array($info))
+        if (is_array($info)) {
             foreach ($info as $item) {
                 foreach ($item as $key => $val) {
-
-                    if ($key == 'id' or
-                        $key == 'id_org' or
-                        $key == 'stud_type')
+                    if ($key == 'id' or $key == 'id_org' or $key == 'stud_type') {
                         continue;
-                    if ($item->$key)
+                    }
+                    if ($item->$key) {
                         $cnt++;
+                    }
                 }
             }
-        else {
+        } else {
             foreach ($info as $key => $val) {
-
-                if ($key == 'id' or
-                    $key == 'id_org' or
-                    $key == 'stud_type')
+                if ($key == 'id' or $key == 'id_org' or $key == 'stud_type') {
                     continue;
-                if ($info->$key)
+                }
+                if ($info->$key) {
                     $cnt++;
+                }
             }
         }
     }
@@ -69,58 +48,67 @@ function cnt($info)
     <tr>
         <td>ID организации</td>
         <td>Организация (полное наименование организации)</td>
+        <td>Дата изменения</td>
         <td>Субъект</td>
-        <td>Фоив</td>
-        <td>Количество заполненных полей в части информации об организации</td>
-        <td>% заполненных полей в части информации об организации</td>
-        <td>Количество внесённых стран в информации о проживающих</td>
-        <td>Количество заполненных полей в информации о проживающих за исключением проживающих иностранцев и лиц с
-            органиченными возможностями
-        </td>
-        <td>% заполненных полей в информации о проживающих за исключением проживающих иностранцев и лиц с органиченными
-            возможностями
-        </td>
-        <td>Количество заполненных полей в информации о проживающих с ограниченными возможностями</td>
-        <td>% заполненных полей в информации о проживающих с ограниченными возможностями</td>
-        <td>Общее количество жилых объектов по данным Системы</td>
-        <td>Количество жилых объектов у которых нажата кнопка "сохранить"</td>
-        <td>% жилых объектов у которых нажата кнопка "сохранить"</td>
-
-        <td>Суммарное количество прикреплённых файлов</td>
-        <td>Внесение данных завершено</td>
+        <td>ФОИВ</td>
+        <td>Количество контактных данных</td>
+        <td>Заполнено полей в части информации об организации</td>
+        <td>Внесено стран в информации о проживающих</td>
+        <td>Общее количество жилых объектов</td>
+        <td>Среднее кол-во заполененых полей по объектам</td>
+        <td>Количество прикреплённых файлов</td>
     </tr>
     </thead>
     <tbody>
-    <?php foreach ($orgs as $org): ?>
-        <?php
-        $cnt_r_objs = array_reduce($r_objs, function ($a, $b) use ($org) {
-            if ($b['id_org'] == $org->id)
-                $a++;
-            $a += 0;
-            return $a;
-        }, 0);
-        $cnt_objs = count($org->objs);
 
-        if ($cnt_objs or $cnt_r_objs):?>
-            <tr>
-                <td><?= htmlspecialchars($org->id) ?></td>
-                <td><?= htmlspecialchars($org->name) ?></td>
-                <td><?= htmlspecialchars($org->region->region) ?></td>
-                <td><?= htmlspecialchars($org->founder->founder) ?></td>
-                <td><?= $cnt = cnt($org->info) + cnt($org->area) ?></td>
-                <td><?= round($cnt * 100 / 72) ?>%</td>
-                <td><?= \app\models\OrgLivingStudents::find()->where(['id_org' => $org->id])->andWhere(['is not', 'name', null])->groupBy('name')->count() ?></td>
-                <td><?= $cnt = cntLiving($org->livingStudents) ?></td>
-                <td><?= round($cnt * 100 / 84) ?>%</td>
-                <td><?= $cnt = cntLiving($org->livingStudents, true, true) ?></td>
-                <td><?= round($cnt * 100 / 168) ?>%</td>
-                <td><?= $cnt_r_objs ?></td>
-                <td><?= $cnt_objs ?></td>
-                <td><?= $cnt_r_objs ? round($cnt_objs * 100 / $cnt_r_objs) : 0 ?>%</td>
-                <td><?= count($org->orgDocs) ?></td>
-                <td><?= $org->data_complete ? 'Да' : 'Нет' ?></td>
-            </tr>
-        <?php endif; ?>
+    <?php
+    $objects = Objects::find()->where(['system_status' => 1])->asArray()->all();
+    $keks = [];
+    foreach ($objects as $object) {
+        $keks[$object['id_org']][] = $object;
+    }
+    $objects = $keks;
+    $keys = array_keys($objects);
+    ?>
+
+    <?php foreach ($orgs as $org): ?>
+
+        <?php
+
+        $cnt_r_objs = isset($objects[$org->id]) ? count($objects[$org->id]) : 0;
+
+        $cnt2 = $cnt_r_objs > 0 ? array_reduce($objects[$org->id], function ($a, $b) {
+            return $a + $b['count_pol'];
+        }, 0) : 0;
+
+        $cnt2 = $cnt_r_objs > 0 ? $cnt2 / $cnt_r_objs : 0
+
+
+        ?>
+        <tr>
+            <td><?= htmlspecialchars($org->id) ?></td>
+            <td><?= htmlspecialchars($org->name) ?></td>
+            <td><?= $org->last_updated_at ?></td>
+            <td><?= htmlspecialchars($org->region->region) ?></td>
+            <td><?= htmlspecialchars($org->founder->founder) ?></td>
+            <td><?= UsersInfo::find()
+                    ->where(['id_org' => $org->id])
+                    ->andWhere(['is not', 'name', null])
+                    ->count() ?></td>
+            <td><?= $org->count_pol ?></td>
+            <td><?= OrgLivingStudents::find()
+                    ->where(['id_org' => $org->id])
+                    ->andWhere(['is not', 'name', null])
+                    ->groupBy('name')
+                    ->count() ?></td>
+            <td><?= $cnt_r_objs ?></td>
+            <td><?= $cnt2 ?? 0 ?></td>
+            <td><?= OrgDocs::find()
+                    ->where(['id_org' => $org->id])
+                    ->andWhere(['is not', 'id_file', null])
+                    ->count() ?></td>
+        </tr>
+
     <?php endforeach; ?>
     </tbody>
 </table>

