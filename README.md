@@ -1,14 +1,19 @@
 # backend
 
-## Project setup
+## ставим пакеты композера
 ```
 composer install
 ```
+## подготовка энвиренмента
+```
+тупа переименовываем .env.example в .env
 
-### Compiles and hot-reloads for development
+меняем в нем на свои настройки
+```
+
+## поднимаем дев сервер
 ```
 php yii serve
 ```
 
-dont forget rename .env.example to .env and set up your database
-
+## далее идем читать ридми в папке frontend
