@@ -50,6 +50,13 @@
               </ol>
             </div>
           </div>
+          <b-alert class="d-flex justify-content-start align-items-center" show variant="error">
+            <alert-icon/>
+            <div class="ml-3">
+              Сбор данных завершён.
+              Дальнейшие изменения учитываться не будут.
+            </div>
+          </b-alert>
 
           <b-alert class="d-flex justify-content-start align-items-center" show variant="warning">
             <alert-icon/>
